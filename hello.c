@@ -6,5 +6,7 @@ int main (void)
 	printf("another test\n");
 	printf("print from branch\n");
 
+	printf("commit pela  main");
+
 	return 0;
 }
