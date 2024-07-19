@@ -11,7 +11,7 @@ OBJS_DIR = obj
 INCLUDES = -I includes
 
 # Lista de ficheiros fonte
-SRCS_FILES = main.c # Adiciona aqui todos os ficheiros .c do teu projeto
+SRCS_FILES = main.c # Adicionar aqui todos os ficheiros .c do projeto
 SRCS = $(addprefix $(SRCS_DIR)/, $(SRCS_FILES))
 OBJS = $(addprefix $(OBJS_DIR)/, $(notdir $(SRCS:.c=.o)))
 
@@ -33,7 +33,7 @@ $(OBJS_DIR)/%.o: $(SRCS_DIR)/%.c
 	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
 
 clean:
-	rm -f $(OBJS) && make clean -C $(LIBFT_DIR)
+	rm -rf $(OBJS_DIR) && make clean -C $(LIBFT_DIR)
 
 fclean: clean
 	rm -f $(NAME) && make fclean -C $(LIBFT_DIR)
