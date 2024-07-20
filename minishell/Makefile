@@ -4,7 +4,7 @@ NAME = minishell
 # Compilador e flags
 CC = cc
 CFLAGS = -Wall -Wextra -Werror -g
-
+LDFLAGS = -lreadline -lncurses
 # Diretórios
 SRCS_DIR = src
 OBJS_DIR = obj
@@ -26,7 +26,7 @@ $(LIBFT):
 	make -C $(LIBFT_DIR)
 
 $(NAME): $(OBJS) $(LIBFT)
-	$(CC) $(CFLAGS) $(OBJS) $(LIBFT) -o $@
+	$(CC) $(CFLAGS) $(OBJS) $(LIBFT) -o $@ $(LDFLAGS)
 
 $(OBJS_DIR)/%.o: $(SRCS_DIR)/%.c
 	@mkdir -p $(OBJS_DIR)
