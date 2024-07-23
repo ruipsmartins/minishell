@@ -6,7 +6,7 @@
 /*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 17:28:57 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/07/20 14:02:33 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2024/07/20 14:28:06 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ int main() {
     } else {
         printf("Erro ao ler a linha ou linha vazia.\n");
     }
-
+	clear_history();
+	rl_clear_history();
     return 0;
 }

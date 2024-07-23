@@ -2,9 +2,9 @@
 NAME = minishell
 
 # Compilador e flags
-CC = cc
-CFLAGS = -Wall -Wextra -Werror -g
-LDFLAGS = -lreadline -lncurses
+CC = gcc
+CFLAGS = -Wall -Wextra -Werror #-g -fsanitize=address
+LDFLAGS = -lreadline #-lncurses
 # Diretórios
 SRCS_DIR = src
 OBJS_DIR = obj
