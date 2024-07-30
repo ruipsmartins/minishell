@@ -1,0 +1,7 @@
+{
+	"files.associations": {
+		"*.c": "c",
+		"errno.h": "c",
+		"libft.h": "c"
+	}
+}
