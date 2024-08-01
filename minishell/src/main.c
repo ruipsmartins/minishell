@@ -6,20 +6,11 @@
 /*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 17:28:57 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/07/30 17:16:41 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2024/08/01 10:42:59 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-
-// Função para duplicar uma string
-char *ft_strdup(const char *s) {
-    char *dup = malloc(strlen(s) + 1);
-    if (dup) {
-        strcpy(dup, s);
-    }
-    return dup;
-}
 
 // Função para dividir strings (substitui strtok)
 char *ft_strtok(char *str, const char *delim) {
