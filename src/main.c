@@ -6,77 +6,93 @@
 /*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 17:28:57 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/08/01 10:42:59 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2024/08/27 14:27:11 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-// Função para dividir strings (substitui strtok)
-char *ft_strtok(char *str, const char *delim) {
-    static char *last;
-    if (str) last = str;
-    if (!last) return NULL;
+// Função para dividir strings (melhorias strtok, remove todos os espaços)
+char	*ft_strtok(char *str, const char *delim)
+{
+	static char	*last;
+	char		*start;
 
-    char *start = last;
-    while (*last && !ft_strchr(delim, *last)) {
-        last++;
-    }
-    if (*last) {
-        *last = '\0';
-        last++;
-    } else {
-        last = NULL;
-    }
-    return start;
+	if (str)
+		last = str;
+	if (!last)
+		return (NULL);
+	while (*last && ft_strchr(delim, *last))
+		last++;
+	if (!*last)
+		return (NULL);
+	while (*last && ft_strchr(delim, *last))
+		last++;
+	start = last;
+	while (*last && !ft_strchr(delim, *last))
+		last++;
+	if (*last)
+	{
+		*last = '\0';
+		last++;
+	}
+	else
+		last = NULL;
+	return (start);
 }
 
-char *find_executable(const char *command) {
-    char *path = getenv("PATH");
-    char *dir;
-    char full_path[1024];
+char	*find_executable(const char *command)
+{
+	char	*path = getenv("PATH");
+	char	*dir;
+	char	full_path[1024];
+	char	*path_copy;
 
-    if (!path) return NULL;
-
-    char *path_copy = ft_strdup(path);
-    if (!path_copy) return NULL;
-
-    dir = ft_strtok(path_copy, ":");
-    while (dir) {
-        ft_strlcpy(full_path, dir, 1024);
-        ft_strlcat(full_path, "/", 1024);
-        ft_strlcat(full_path, command, 1024);
-        if (access(full_path, X_OK) == 0) {
-            free(path_copy);
-            return ft_strdup(full_path);
-        }
-        dir = ft_strtok(NULL, ":");
-    }
-
-    free(path_copy);
-    return NULL;
+	if (!path)
+		return (NULL);
+	path_copy = ft_strdup(path);
+	if (!path_copy)
+		return (NULL);
+	dir = ft_strtok(path_copy, ":");
+	while (dir)
+	{
+		ft_strlcpy(full_path, dir, 1024);
+		ft_strlcat(full_path, "/", 1024);
+		ft_strlcat(full_path, command, 1024);
+		if (access(full_path, X_OK) == 0)
+		{
+			free(path_copy);
+			return (ft_strdup(full_path));
+		}
+		dir = ft_strtok(NULL, ":");
+	}
+	free(path_copy);
+	return (NULL);
 }
 
 // Função para dividir a linha de comando em comando e argumentos
-char **parse_command(char *input) {
-    char **args = (char **)malloc(64 * sizeof(char *));
-    if (!args) return NULL;
+char	**parse_command(char *input)
+{
+	char	**args = (char **)malloc(64 * sizeof(char *));
+	char	*arg;
+	int		i;
 
-    char *arg;
-    int i = 0;
-
-    arg = ft_strtok(input, " ");
-    while (arg) {
-        args[i++] = arg;
-        arg = ft_strtok(NULL, " ");
-    }
-    args[i] = NULL;
-
-    return args;
+	if (!args)
+		return (NULL);
+	i = 0;
+	arg = ft_strtok(input, " ");
+	while (arg)
+	{
+		args[i++] = arg;
+		arg = ft_strtok(NULL, " ");
+	}
+	args[i] = NULL;
+	return (args);
 }
 
 // Função para executar o comando
-void execute_command(char *command, char **args) {
+void	execute_command(char *command, char **args)
+{
     pid_t pid;
     int status;
 
@@ -95,7 +111,8 @@ void execute_command(char *command, char **args) {
     }
 }
 
-int main() {
+int	main()
+{
     char *input, *command;
     char **args;
 
