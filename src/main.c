@@ -6,7 +6,7 @@
 /*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 17:28:57 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/08/27 16:57:15 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2024/08/27 17:03:18 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,29 +121,38 @@ int	main(void)
 	char	*input;
 	char	*command;
 	char	**args;
+	char	*executable;
 
-    while ((input = readline("MinisHell> ")) != NULL) {
-        if (*input) {
-            add_history(input);
+	while ((input = readline("MinisHell> ")) != NULL)
+	{
+		if (*input)
+		{
+			add_history(input);
 
-            args = parse_command(input);
-            if (!args) {
-                free(input);
-                continue;
-            }
-            command = args[0];
-
+			args = parse_command(input);
+			if (!args)
+			{
+				free(input);
+				continue ;
+			}
+			command = args[0];
             // Verificar se é um caminho absoluto, relativo ou só o nome do executável
-            if (command[0] == '/' || command[0] == '.') {
+			if (command[0] == '/' || command[0] == '.')
+			{
                 // Caminho absoluto ou relativo
-                if (access(command, X_OK) == 0) {
-                    execute_command(command, args);
-                } else {
-                    write(STDERR_FILENO, "Command not found\n", 18);
-                }
-            } else {
+				if (access(command, X_OK) == 0)
+				{
+					execute_command(command, args);
+				}
+				else
+				{
+					write(STDERR_FILENO, "Command not found\n", 18);
+				}
+			}
+			else
+			{
                 // Procurar no PATH
-                char *executable = find_executable(command);
+				executable = find_executable(command);
 				if (executable)
 				{
 					execute_command(executable, args);
@@ -160,6 +169,6 @@ int	main(void)
 		free(input);
 	}
 
-    rl_clear_history();
-    return 0;
+	rl_clear_history();
+	return (0);
 }
