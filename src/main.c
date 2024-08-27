@@ -6,7 +6,7 @@
 /*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 17:28:57 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/08/27 14:27:11 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2024/08/27 15:54:33 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,10 +73,11 @@ char	*find_executable(const char *command)
 // Função para dividir a linha de comando em comando e argumentos
 char	**parse_command(char *input)
 {
-	char	**args = (char **)malloc(64 * sizeof(char *));
+	char	**args;
 	char	*arg;
 	int		i;
 
+	args = (char **)malloc(64 * sizeof(char *));
 	if (!args)
 		return (NULL);
 	i = 0;

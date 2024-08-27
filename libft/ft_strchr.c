@@ -6,14 +6,14 @@
 /*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/10 14:17:46 by ruidos-s          #+#    #+#             */
-/*   Updated: 2023/10/27 19:39:31 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2024/08/27 15:55:28 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-/* The strchr() function returns a pointer to the 
-	first occurrence of the character c in the string s. */
 #include "libft.h"
 
+/* The strchr() function returns a pointer to the 
+	first occurrence of the character c in the string s. */
 char	*ft_strchr(const char *s, int c)
 {
 	int	i;
