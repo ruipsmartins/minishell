@@ -6,7 +6,7 @@
 /*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 17:28:57 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/08/27 15:54:33 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2024/08/27 16:57:15 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,28 +94,33 @@ char	**parse_command(char *input)
 // Função para executar o comando
 void	execute_command(char *command, char **args)
 {
-    pid_t pid;
-    int status;
+	pid_t	pid;
+	int		status;
 
-    pid = fork();
-    if (pid == 0) {
+	pid = fork();
+	if (pid == 0)
+	{
         // Processo filho
-        if (execve(command, args, NULL) == -1) {
-            write(STDERR_FILENO, "execve error\n", 13);
-        }
-        exit(EXIT_FAILURE);
-    } else if (pid < 0) {
-        write(STDERR_FILENO, "fork error\n", 11);
-    } else {
+		if (execve(command, args, NULL) == -1)
+			write(STDERR_FILENO, "execve error\n", 13);
+		exit(EXIT_FAILURE);
+	}
+	else if (pid < 0)
+	{
+		write(STDERR_FILENO, "fork error\n", 11);
+	}
+	else
+	{
         // Processo pai
-        waitpid(pid, &status, 0);
-    }
+		waitpid(pid, &status, 0);
+	}
 }
 
-int	main()
+int	main(void)
 {
-    char *input, *command;
-    char **args;
+	char	*input;
+	char	*command;
+	char	**args;
 
     while ((input = readline("MinisHell> ")) != NULL) {
         if (*input) {
@@ -139,18 +144,21 @@ int	main()
             } else {
                 // Procurar no PATH
                 char *executable = find_executable(command);
-                if (executable) {
-                    execute_command(executable, args);
-                    free(executable);
-                } else {
-                    write(STDERR_FILENO, "Command not found in PATH\n", 26);
-                }
-            }
+				if (executable)
+				{
+					execute_command(executable, args);
+					free(executable);
+				}
+				else
+				{
+					write(STDERR_FILENO, "Command not found in PATH\n", 26);
+				}
+			}
 
-            free(args);
-        }
-        free(input);
-    }
+			free(args);
+		}
+		free(input);
+	}
 
     rl_clear_history();
     return 0;
