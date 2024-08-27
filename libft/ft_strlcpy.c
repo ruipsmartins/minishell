@@ -6,9 +6,11 @@
 /*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/07 12:37:23 by ruidos-s          #+#    #+#             */
-/*   Updated: 2023/10/27 11:49:56 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2024/08/27 15:59:06 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "libft.h"
 
 /* The strlcpy() and strlcat() functions copy and concatenate strings 
 respectively.  They are designed to be safer, more consistent,
@@ -21,9 +23,6 @@ Note that a byte for the NUL should be included in size.
 Also note that strlcpy() and strlcat() only operate on true “C” strings.
 This means that for strlcpy() src must be NUL-terminated
 and for strlcat() both src and dst must be NUL-terminated */
-
-#include "libft.h"
-
 size_t	ft_strlcpy(char *dest, const char *src, size_t size)
 {
 	size_t	i;
