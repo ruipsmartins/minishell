@@ -3,3 +3,5 @@ Minishell is a simplified version of a Unix shell implemented in C. It aims to r
 
 
 test
+
+teste rui
