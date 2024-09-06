@@ -3,7 +3,7 @@ NAME = minishell
 
 # Compilador e flags
 CC = cc
-CFLAGS = -Wall -Wextra -Werror #-g -fsanitize=address
+CFLAGS = -Wall -Wextra -Werror -g #-fsanitize=address
 LDFLAGS = -lreadline #-lncurses
 # Diretórios
 SRCS_DIR = src

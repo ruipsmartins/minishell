@@ -1,0 +1,42 @@
+{
+	// Use IntelliSense to learn about possible attributes.
+	// Hover to view descriptions of existing attributes.
+	// For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+	"version": "0.2.0",
+	"configurations": [
+        {
+            "name": "Debug Minishell",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/minishell",  // O caminho para o executável
+            "args": [],  // Aqui podes passar argumentos de linha de comandos
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ],
+            "preLaunchTask": "build",  // Se quiseres compilar automaticamente antes do debug
+            "miDebuggerPath": "/usr/bin/gdb",  // Caminho para o GDB (normalmente já é este)
+            "logging": {
+                "trace": true,  // Para ver os logs do depurador
+                "traceResponse": true,
+                "engineLogging": true
+            },
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ],
+            "internalConsoleOptions": "openOnSessionStart"
+        }
+    ]
+}
