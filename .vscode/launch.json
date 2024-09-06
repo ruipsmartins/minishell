@@ -15,13 +15,6 @@
             "environment": [],
             "externalConsole": false,
             "MIMode": "gdb",
-            "setupCommands": [
-                {
-                    "description": "Enable pretty-printing for gdb",
-                    "text": "-enable-pretty-printing",
-                    "ignoreFailures": true
-                }
-            ],
             "preLaunchTask": "build",  // Se quiseres compilar automaticamente antes do debug
             "miDebuggerPath": "/usr/bin/gdb",  // Caminho para o GDB (normalmente já é este)
             "logging": {
