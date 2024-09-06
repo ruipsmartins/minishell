@@ -6,7 +6,7 @@
 /*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 17:28:57 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/09/06 11:07:22 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2024/09/06 11:36:28 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	handle_input(char *input, char **env)
 	if (ft_strchr(input, '|'))
 	{
 		commands = split_by_pipe(input);
-		execute_piped_commands(commands);
+		execute_piped_commands(commands, env);
 		i = 0;
 		// Liberação de memória dos comandos
 		while (commands[i])

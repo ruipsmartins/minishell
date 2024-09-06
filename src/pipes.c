@@ -6,13 +6,13 @@
 /*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 11:05:58 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/09/06 11:08:14 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2024/09/06 12:04:29 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void execute_piped_commands(char ***commands)
+void execute_piped_commands(char ***commands, char **env)
 {
 	int		fd[2];
 	pid_t	pid;
@@ -30,14 +30,14 @@ void execute_piped_commands(char ***commands)
 				dup2(fd[1], STDOUT_FILENO); // Saída para o próximo pipe
 			close_fds(fd);
 			//handle_redirections(commands[i]); // Tratar redirecionamentos dentro de cada comando
-			execvp(commands[i][0], commands[i]); // trocar execvp por execve
-			perror("execvp error");
+
+			execute_path(commands[i][0], commands[i], env);
+			//execvp(commands[i][0], commands[i]);
+			perror("execve error");
 			exit(EXIT_FAILURE);
 		}
 		else if (pid < 0)
-		{
 			perror("fork error");
-		}
 		else
 		{
 			wait(NULL);
@@ -50,10 +50,11 @@ void execute_piped_commands(char ***commands)
 
 char	***split_by_pipe(char *input)
 {
-	char **pipe_segments = malloc(64 * sizeof(char *));
-	char ***commands = malloc(64 * sizeof(char **));
-	char *segment;
-	int i = 0;
+	char	**pipe_segments = malloc(64 * sizeof(char *));
+	char	***commands = malloc(64 * sizeof(char **));
+	char	*segment;
+	int		i = 0;
+	int		j = 0;
 
 	segment = ft_strtok(input, "|");
 	while (segment)
@@ -62,9 +63,11 @@ char	***split_by_pipe(char *input)
 		segment = ft_strtok(NULL, "|");
 	}
 	pipe_segments[i] = NULL;
-	for (int j = 0; pipe_segments[j]; j++)
+
+	while (pipe_segments[j])
 	{
 		commands[j] = parse_command(pipe_segments[j]);
+		j++;
 	}
 	commands[i] = NULL;
 	free(pipe_segments);
