@@ -11,7 +11,7 @@ OBJS_DIR = obj
 INCLUDES = -I includes
 
 # Lista de ficheiros fonte
-SRCS_FILES = main.c # Adicionar aqui todos os ficheiros .c do projeto
+SRCS_FILES = main.c utils.c# Adicionar aqui todos os ficheiros .c do projeto
 SRCS = $(addprefix $(SRCS_DIR)/, $(SRCS_FILES))
 OBJS = $(addprefix $(OBJS_DIR)/, $(notdir $(SRCS:.c=.o)))
 

@@ -6,40 +6,12 @@
 /*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 17:28:57 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/08/27 17:03:18 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2024/09/06 06:53:39 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-// Função para dividir strings (melhorias strtok, remove todos os espaços)
-char	*ft_strtok(char *str, const char *delim)
-{
-	static char	*last;
-	char		*start;
-
-	if (str)
-		last = str;
-	if (!last)
-		return (NULL);
-	while (*last && ft_strchr(delim, *last))
-		last++;
-	if (!*last)
-		return (NULL);
-	while (*last && ft_strchr(delim, *last))
-		last++;
-	start = last;
-	while (*last && !ft_strchr(delim, *last))
-		last++;
-	if (*last)
-	{
-		*last = '\0';
-		last++;
-	}
-	else
-		last = NULL;
-	return (start);
-}
 
 char	*find_executable(const char *command)
 {
@@ -92,7 +64,7 @@ char	**parse_command(char *input)
 }
 
 // Função para executar o comando
-void	execute_command(char *command, char **args)
+void	execute_command(char *command, char **args, char **env)
 {
 	pid_t	pid;
 	int		status;
@@ -101,7 +73,7 @@ void	execute_command(char *command, char **args)
 	if (pid == 0)
 	{
         // Processo filho
-		if (execve(command, args, NULL) == -1)
+		if (execve(command, args, env) == -1)
 			write(STDERR_FILENO, "execve error\n", 13);
 		exit(EXIT_FAILURE);
 	}
@@ -116,14 +88,16 @@ void	execute_command(char *command, char **args)
 	}
 }
 
-int	main(void)
+int	main(int ac, char **av, char **env)
 {
 	char	*input;
 	char	*command;
 	char	**args;
 	char	*executable;
 
-	while ((input = readline("MinisHell> ")) != NULL)
+	(void) ac;
+	(void) av;
+	while ((input = readline("Minishell: ")) != NULL)
 	{
 		if (*input)
 		{
@@ -142,7 +116,7 @@ int	main(void)
                 // Caminho absoluto ou relativo
 				if (access(command, X_OK) == 0)
 				{
-					execute_command(command, args);
+					execute_command(command, args, env);
 				}
 				else
 				{
@@ -155,7 +129,7 @@ int	main(void)
 				executable = find_executable(command);
 				if (executable)
 				{
-					execute_command(executable, args);
+					execute_command(executable, args, env);
 					free(executable);
 				}
 				else
