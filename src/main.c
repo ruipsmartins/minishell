@@ -6,89 +6,55 @@
 /*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 17:28:57 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/09/06 06:53:39 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2024/09/06 09:02:16 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-
-char	*find_executable(const char *command)
+char	*get_command_input(void)
 {
-	char	*path = getenv("PATH");
-	char	*dir;
-	char	full_path[1024];
-	char	*path_copy;
+	char	*input;
 
-	if (!path)
-		return (NULL);
-	path_copy = ft_strdup(path);
-	if (!path_copy)
-		return (NULL);
-	dir = ft_strtok(path_copy, ":");
-	while (dir)
-	{
-		ft_strlcpy(full_path, dir, 1024);
-		ft_strlcat(full_path, "/", 1024);
-		ft_strlcat(full_path, command, 1024);
-		if (access(full_path, X_OK) == 0)
-		{
-			free(path_copy);
-			return (ft_strdup(full_path));
-		}
-		dir = ft_strtok(NULL, ":");
-	}
-	free(path_copy);
-	return (NULL);
+	input = readline("Minishell: ");
+	if (input && *input)
+		add_history(input);
+	return (input);
 }
 
-// Função para dividir a linha de comando em comando e argumentos
-char	**parse_command(char *input)
+
+void	handle_command(char *input, char **env)
 {
 	char	**args;
-	char	*arg;
-	int		i;
+	char	*command;
 
-	args = (char **)malloc(64 * sizeof(char *));
+	args = parse_command(input);
 	if (!args)
-		return (NULL);
-	i = 0;
-	arg = ft_strtok(input, " ");
-	while (arg)
-	{
-		args[i++] = arg;
-		arg = ft_strtok(NULL, " ");
-	}
-	args[i] = NULL;
-	return (args);
-}
-
-// Função para executar o comando
-void	execute_command(char *command, char **args, char **env)
-{
-	pid_t	pid;
-	int		status;
-
-	pid = fork();
-	if (pid == 0)
-	{
-        // Processo filho
-		if (execve(command, args, env) == -1)
-			write(STDERR_FILENO, "execve error\n", 13);
-		exit(EXIT_FAILURE);
-	}
-	else if (pid < 0)
-	{
-		write(STDERR_FILENO, "fork error\n", 11);
-	}
-	else
-	{
-        // Processo pai
-		waitpid(pid, &status, 0);
-	}
+		return ;
+	command = args[0];
+	execute_path(command, args, env);
+	free(args);
 }
 
 int	main(int ac, char **av, char **env)
+{
+	char	*input;
+
+	(void)ac;
+	(void)av;
+	input = get_command_input();
+	while (input != NULL)
+	{
+		if (*input)
+			handle_command(input, env);
+		free(input);
+		input = get_command_input();
+	}
+	rl_clear_history();
+	return (0);
+}
+
+/* int	main(int ac, char **av, char **env)
 {
 	char	*input;
 	char	*command;
@@ -146,3 +112,4 @@ int	main(int ac, char **av, char **env)
 	rl_clear_history();
 	return (0);
 }
+ */
