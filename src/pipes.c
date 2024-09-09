@@ -6,7 +6,7 @@
 /*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 11:05:58 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/09/09 10:04:18 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2024/09/09 14:13:45 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void execute_piped_commands(char ***commands, char **env)
 			if (commands[i + 1])
 				dup2(fd[1], STDOUT_FILENO); // Saída para o próximo pipe
 			close_fds(fd);
-			//handle_redirections(commands[i]); // Tratar redirecionamentos dentro de cada comando
+			handle_redirections(commands[i]); // Tratar redirecionamentos dentro de cada comando
 			execute_path(commands[i][0], commands[i], env);
 			//perror("execve error");
 			exit(EXIT_FAILURE);

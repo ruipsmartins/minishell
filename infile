@@ -1,0 +1,11 @@
+total 60
+drwxrwxr-x 2 rui rui  4096 set  6 12:11 includes
+-rw-r--r-- 1 rui rui     0 set  9 15:15 infile
+drwxrwxr-x 2 rui rui  4096 set  9 15:11 libft
+-rw-rw-r-- 1 rui rui  1085 jul 12 12:03 LICENSE
+-rw-rw-r-- 1 rui rui  1181 set  9 14:12 Makefile
+-rwxrwxr-x 1 rui rui 30736 set  9 15:11 minishell
+drwxrwxr-x 2 rui rui  4096 set  9 15:11 obj
+-rw-r--r-- 1 rui rui     0 set  9 15:15 outfile
+-rw-rw-r-- 1 rui rui   345 ago 30 12:13 README.md
+drwxrwxr-x 2 rui rui  4096 set  9 14:11 src

@@ -6,7 +6,7 @@
 /*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 08:59:57 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/09/09 11:16:17 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2024/09/09 15:11:48 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,8 @@ void	execute_command(char *command, char **args, char **env)
 	else if (pid == 0)
 	{
         // Processo filho
+		handle_redirections(args);
+
 		if (execve(command, args, env) == -1)
 			write(STDERR_FILENO, "execve error\n", 13);
 		exit(EXIT_FAILURE);

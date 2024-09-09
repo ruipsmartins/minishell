@@ -6,7 +6,7 @@
 /*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 17:34:50 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/09/06 11:33:34 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2024/09/09 14:13:40 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,10 @@ void	execute_path(char *command, char **args, char **env);
 //pipes
 void	execute_piped_commands(char ***commands, char **env);
 char	***split_by_pipe(char *input);
+
+//redirections
+void	handle_redirections(char **args);
+
 
 
 #endif
