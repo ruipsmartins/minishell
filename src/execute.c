@@ -6,10 +6,9 @@
 /*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 08:59:57 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/09/06 09:33:35 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2024/09/09 11:16:17 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "../includes/minishell.h"
 
@@ -28,9 +27,10 @@ char	*find_executable(const char *command)
 	dir = ft_strtok(path_copy, ":");
 	while (dir)
 	{
-		ft_strlcpy(full_path, dir, 1024);
-		ft_strlcat(full_path, "/", 1024);
-		ft_strlcat(full_path, command, 1024);
+		ft_strlcpy(full_path, dir, ft_strlen(dir) + 1);
+		ft_strlcat(full_path, "/", ft_strlen(full_path) + 2);
+		ft_strlcat(full_path, command,
+			ft_strlen(full_path) + ft_strlen(command) + 1);
 		if (access(full_path, X_OK) == 0)
 		{
 			free(path_copy);
@@ -49,16 +49,14 @@ void	execute_command(char *command, char **args, char **env)
 	int		status;
 
 	pid = fork();
-	if (pid == 0)
+	if (pid < 0)
+		write(STDERR_FILENO, "fork error\n", 11);
+	else if (pid == 0)
 	{
         // Processo filho
 		if (execve(command, args, env) == -1)
 			write(STDERR_FILENO, "execve error\n", 13);
 		exit(EXIT_FAILURE);
-	}
-	else if (pid < 0)
-	{
-		write(STDERR_FILENO, "fork error\n", 11);
 	}
 	else
 	{
@@ -77,7 +75,7 @@ void	execute_path(char *command, char **args, char **env)
 		if (access(command, X_OK) == 0)
 			execute_command(command, args, env);
 		else
-			write(STDERR_FILENO, "Command not found\n", 18);
+			ft_printf("%s: No such file or directory\n", command);
 	}
 	else
 	{
@@ -88,6 +86,6 @@ void	execute_path(char *command, char **args, char **env)
 			free(executable);
 		}
 		else
-			write(STDERR_FILENO, "Command not found in PATH\n", 26);
+			ft_printf("%s: Command not found\n", command);
 	}
 }
