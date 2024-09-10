@@ -6,7 +6,7 @@
 /*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 17:34:50 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/09/09 14:13:40 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2024/09/10 10:45:40 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ char	**parse_command(char *input);
 void	execute_command(char *command, char **args, char **env);
 char	*get_command_input(void);
 void	execute_path(char *command, char **args, char **env);
+void	handle_input(char *input, char **env);
 
 //pipes
 void	execute_piped_commands(char ***commands, char **env);
