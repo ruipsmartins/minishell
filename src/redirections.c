@@ -6,7 +6,7 @@
 /*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 14:11:52 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/09/09 14:13:32 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2024/09/17 10:44:50 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	handle_redirections(char **args)
 			in_file = open(args[i + 1], O_RDONLY);
 			if (in_file == -1)
 			{
-				perror("Failed to open input file");
+				perror("Failed to open input file!");
 				exit(EXIT_FAILURE);
 			}
 			dup2(in_file, STDIN_FILENO);
