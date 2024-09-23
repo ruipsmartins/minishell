@@ -1,15 +1,15 @@
 total 80
-drwxrwxr-x  8 rui rui  4096 set 23 10:04 .
-drwxr-x--- 38 rui rui  4096 set 23 10:04 ..
-drwxrwxr-x  8 rui rui  4096 set 23 09:42 .git
+drwxrwxr-x  8 rui rui  4096 set 23 16:46 .
+drwxr-x--- 38 rui rui  4096 set 23 16:48 ..
+drwxrwxr-x  8 rui rui  4096 set 23 16:46 .git
 drwxrwxr-x  2 rui rui  4096 set 17 10:59 includes
-----------  1 rui rui   614 set 20 07:14 infile
-drwxrwxr-x  2 rui rui  4096 set 23 10:04 libft
+-rwxrwxr-x  1 rui rui   614 set 23 10:08 infile
+drwxrwxr-x  2 rui rui  4096 set 23 16:46 libft
 -rw-rw-r--  1 rui rui  1085 jul 12 12:03 LICENSE
 -rw-rw-r--  1 rui rui  1181 set 17 10:59 Makefile
--rwxrwxr-x  1 rui rui 30888 set 23 10:04 minishell
-drwxrwxr-x  2 rui rui  4096 set 23 10:04 obj
--rw-r--r--  1 rui rui     0 set 23 10:05 outfile
+-rwxrwxr-x  1 rui rui 31128 set 23 16:46 minishell
+drwxrwxr-x  2 rui rui  4096 set 23 16:46 obj
+-rw-rw-r--  1 rui rui     0 set 23 16:48 outfile
 -rw-rw-r--  1 rui rui   345 set 17 10:59 README.md
-drwxrwxr-x  2 rui rui  4096 set 20 07:27 src
+drwxrwxr-x  2 rui rui  4096 set 23 10:08 src
 drwxrwxr-x  2 rui rui  4096 set 17 10:59 .vscode

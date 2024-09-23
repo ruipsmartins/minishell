@@ -6,7 +6,7 @@
 /*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 17:34:50 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/09/10 10:45:40 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2024/09/23 16:42:13 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,13 @@
 # include <stdio.h>
 # include <readline/readline.h>
 # include <readline/history.h>
+
+typedef struct s_commands
+{
+    char    *input;       // A linha de input original
+    char    **args;       // Lista de argumentos
+    char    ***commands;  // Lista de comandos no caso de pipes
+}   t_commands;
 
 char	*readline (const char *prompt);
 char	*ft_strtok(char *str, const char *delim);

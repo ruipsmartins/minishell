@@ -6,7 +6,7 @@
 /*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 08:59:52 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/09/20 08:29:44 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2024/09/23 16:45:46 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,39 +35,52 @@ char	**parse_command(char *input)
 }
 void	handle_input(char *input, char **env)
 {
-	char	**args;
+	t_commands cmd;
 	char	*command;
-	char	***commands;
 	int		i;
+
+	// Guardar a linha de input original
+	cmd.input = strdup(input);
 
 	if (ft_strchr(input, '|'))
 	{
-		commands = split_by_pipe(input);
-		execute_piped_commands(commands, env);
-		i = 0;		
+		// Se houver pipes, dividimos o input em comandos
+		cmd.commands = split_by_pipe(input);
+		execute_piped_commands(cmd.commands, env);
+
 		// Liberação de memória dos comandos
-		while (commands[i])
+		i = 0;
+		while (cmd.commands[i])
 		{
-			free(commands[i]);
+			free(cmd.commands[i]);
 			i++;
 		}
-		free(commands);
+		free(cmd.commands);
 	}
 	else
 	{
-		args = parse_command(input);
-		if (!args)
-			return ;
+		// Se não houver pipes, apenas guardamos os argumentos
+		cmd.args = parse_command(input);
+		if (!cmd.args)
+			return;
+
+		// Verificar redirecionamentos
 		int x = 0;
 		if (ft_strchr(input, '<') || ft_strchr(input, '>'))
 		{
-			handle_redirections(args);
-			x=1;
+			handle_redirections(cmd.args);
+			x = 1;
 		}
-		command = args[x];
-		execute_path(command, args, env);
-		free(args);
-	}
-}
 
+		// O comando será o primeiro argumento
+		command = cmd.args[x];
+		execute_path(command, cmd.args, env);
+
+		// Liberação de memória dos argumentos
+		free(cmd.args);
+	}
+
+	// Liberação de memória do input original guardado na estrutura
+	free(cmd.input);
+}
 
