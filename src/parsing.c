@@ -6,7 +6,7 @@
 /*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 08:59:52 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/09/23 16:45:46 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2024/09/23 17:00:47 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,11 +36,10 @@ char	**parse_command(char *input)
 void	handle_input(char *input, char **env)
 {
 	t_commands cmd;
-	char	*command;
 	int		i;
 
 	// Guardar a linha de input original
-	cmd.input = strdup(input);
+	cmd.input = ft_strdup(input);
 
 	if (ft_strchr(input, '|'))
 	{
@@ -71,15 +70,11 @@ void	handle_input(char *input, char **env)
 			handle_redirections(cmd.args);
 			x = 1;
 		}
-
 		// O comando será o primeiro argumento
-		command = cmd.args[x];
-		execute_path(command, cmd.args, env);
-
+		execute_path(cmd.args[x], cmd.args, env);
 		// Liberação de memória dos argumentos
 		free(cmd.args);
 	}
-
 	// Liberação de memória do input original guardado na estrutura
 	free(cmd.input);
 }
