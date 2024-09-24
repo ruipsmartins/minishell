@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: addicted <addicted@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 08:59:52 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/09/24 12:47:04 by addicted         ###   ########.fr       */
+/*   Updated: 2024/09/24 12:59:55 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ char *ft_strdup(const char *s)
 // 	ft_memcpy(new_ptr, ptr, size);
 // 	return (new_ptr);
 // }
-
+//
 // Define o que sao tokens
 int is_token(const char *str)
 {
