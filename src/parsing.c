@@ -6,7 +6,7 @@
 /*   By: addicted <addicted@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 08:59:52 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/09/24 12:47:04 by addicted         ###   ########.fr       */
+/*   Updated: 2024/09/24 13:06:07 by addicted         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,6 +157,8 @@ int main()
 {
 	char input[] = "ls -la | grep world > output.txt";
 	char *env[] = {NULL}; // Dummy environment
+
+	//linha para ver se sei fazer
 	handle_input(input, env);
 	return 0;
 }
