@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: addicted <addicted@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 17:34:50 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/09/10 10:45:40 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2024/09/24 11:27:43 by addicted         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,19 @@
 # include <stdio.h>
 # include <readline/readline.h>
 # include <readline/history.h>
+
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 64
+#  endif
+
+typedef struct s_lexer
+{
+    char *word;
+    char *token;
+    int i;
+    struct s_lexer *next;
+    struct s_lexer *prev;
+} t_lexer;
 
 char	*readline (const char *prompt);
 char	*ft_strtok(char *str, const char *delim);
