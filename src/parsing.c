@@ -6,11 +6,12 @@
 /*   By: addicted <addicted@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 08:59:52 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/09/24 13:06:07 by addicted         ###   ########.fr       */
+/*   Updated: 2024/09/25 13:04:08 by addicted         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
 
 char *ft_strtok(char *str, const char *delim)
 {
@@ -69,7 +70,7 @@ char *ft_strdup(const char *s)
 // 	ft_memcpy(new_ptr, ptr, size);
 // 	return (new_ptr);
 // }
-
+//
 // Define o que sao tokens
 int is_token(const char *str)
 {
@@ -82,6 +83,87 @@ int is_token(const char *str)
 		i++;
 	}
 	return 0;
+}
+
+t_command *parse_lexer(t_lexer *lexer)
+{
+	t_command *cmd_list = NULL;
+	t_command *current_cmd = NULL;
+	t_lexer *current = lexer;
+	int arg_count = 0;
+
+	while (current != NULL)
+	{
+		if (current->token && strcmp(current->token, "|") == 0)
+		{
+			// Handle pipe: criar novo comando
+			current_cmd->next = (t_command *)ft_calloc(1, sizeof(t_command));
+			current_cmd = current_cmd->next;
+			arg_count = 0;
+		}
+		else if (current->token && strcmp(current->token, ">") == 0)
+		{
+			// Handle output redirection
+			current = current->next;
+			if (current && current->word)
+				current_cmd->output_file = ft_strdup(current->word);
+		}
+		else if (current->token && strcmp(current->token, "<") == 0)
+		{
+			// Handle input redirection
+			current = current->next;
+			if (current && current->word)
+				current_cmd->input_file = ft_strdup(current->word);
+		}
+		else
+		{
+			// Handle command arguments
+			if (arg_count == 0)
+			{
+				// Crear primeiro commando
+				if (cmd_list == NULL)
+				{
+					cmd_list = (t_command *)ft_calloc(1, sizeof(t_command));
+					current_cmd = cmd_list;
+				}
+				else if (current_cmd == NULL)
+				{
+					current_cmd = (t_command *)ft_calloc(1, sizeof(t_command));
+				}
+			}
+			current_cmd->args = (char **)realloc(current_cmd->args, sizeof(char *) * (arg_count + 2));
+			current_cmd->args[arg_count] = ft_strdup(current->word);
+			current_cmd->args[arg_count + 1] = NULL;
+			arg_count++;
+		}
+		current = current->next;
+	}
+
+	return cmd_list;
+}
+
+void free_command_list(t_command *cmd_list)
+{
+	int i;
+	t_command *current;
+	t_command *next;
+	
+	current = cmd_list;
+	while (current != NULL)
+	{
+		next = current->next;
+		if (current->args)
+		{
+			i = 0;
+			while (current->args[i] != NULL)
+				free(current->args[i++]);
+			free(current->args);
+		}
+		free(current->input_file);
+		free(current->output_file);
+		free(current);
+		current = next;
+	}
 }
 void handle_input(char *input, char **env)
 {
@@ -131,17 +213,29 @@ void handle_input(char *input, char **env)
 		token = ft_strtok(NULL, " ");
 	}
 
-	// imprimir a lista para ver se esta a funcionar
-	current = lexer;
-	while (current != NULL)
+	//Parsing do Lexer
+	t_command *cmd_list = parse_lexer(lexer);
+
+	// Imprimir os comandos do parsing
+	t_command *cmd_current = cmd_list;
+	while (cmd_current != NULL)
 	{
-		//printf("index = %d\n", current->i);
-		if (current->word)
-			printf("Word: %s\n", current->word);
-		if (current->token)
-			printf("Token: %s\n", current->token);
-		current = current->next;
+		printf("Command:\n");
+		if (cmd_current->args)
+		{
+			int i = 0;
+			while(cmd_current->args[i] != NULL)
+				printf("  Arg: %s\n", cmd_current->args[i++]);
+		}
+		if (cmd_current->input_file)
+			printf("  Input: %s\n", cmd_current->input_file);
+		if (cmd_current->output_file)
+			printf("  Output: %s\n", cmd_current->output_file);
+		cmd_current = cmd_current->next;
 	}
+
+	//Free da lista dos comandos
+	free_command_list(cmd_list);
 	current = lexer;
 	while (current != NULL)
 	{
@@ -155,79 +249,10 @@ void handle_input(char *input, char **env)
 
 int main()
 {
-	char input[] = "ls -la | grep world > output.txt";
+	char input[] = "ls -la | grep world > output.txt | pwd ";
 	char *env[] = {NULL}; // Dummy environment
 
 	//linha para ver se sei fazer
 	handle_input(input, env);
 	return 0;
 }
-
-	// void	handle_input(char *input, char **env)
-	// {
-	// 	char	**args;
-	// 	char	*command;
-	// 	char	***commands;
-	// 	int		i;
-
-	// 	if (ft_strchr(input, '|'))
-	// 	{
-	// 		commands = split_by_pipe(input);
-	// 		execute_piped_commands(commands, env);
-	// 		i = 0;
-	// 		// Liberação de memória dos comandos
-	// 		while (commands[i])
-	// 		{
-	// 			free(commands[i]);
-	// 			i++;
-	// 		}
-	// 		free(commands);
-	// 	}
-	// 	else
-	// 	{
-	// 		args = parse_command(input);
-	// 		if (!args)
-	// 			return ;
-	// 		command = args[0];
-	// 		execute_path(command, args, env);
-	// 		free(args);
-	// 	}
-	// }
-
-	// Função para dividir a linha de comando em comando e argumentos
-// 	char **parse_command(char *input)
-// {
-// 	char	**args;
-// 	char	*arg;
-// 	int		buf_size = BUFFER_SIZE;
-// 	int		i;
-// 	void *ft_realloc(void *ptr, size_t size)
-// 	{
-// 		void *new_ptr;
-
-// 		if (ptr == NULL)
-// 			return (malloc(size));
-// 		if (!size)
-// 			return (ptr);
-// 		new_ptr = malloc(size);
-// 		ft_memcpy(new_ptr, ptr, size);
-// 		return (new_ptr);
-// 	}
-// 	args = (char **)malloc(buf_size * sizeof(char *));
-// 	if (!args)
-// 		return (NULL);
-// 	i = 0;
-// 	arg = ft_strtok(input, " ");
-// 	while (arg)
-// 	{
-// 		if(i = buf_size)
-// 		{
-// 			buf_size += BUFFER_SIZE;
-// 			args = ft_realloc()
-// 		}
-// 		args[i++] = arg;
-// 		arg = ft_strtok(NULL, " ");
-// 	}
-// 	args[i] = NULL;
-// 	return (args);
-// }

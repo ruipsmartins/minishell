@@ -6,7 +6,7 @@
 /*   By: addicted <addicted@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 17:34:50 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/09/24 12:48:19 by addicted         ###   ########.fr       */
+/*   Updated: 2024/09/25 12:13:04 by addicted         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 # include <readline/history.h>
 
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 64
+#  define BUFFER_SIZE 64;
 #  endif
 
 typedef struct s_lexer
@@ -32,6 +32,14 @@ typedef struct s_lexer
     struct s_lexer *next;
     struct s_lexer *prev;
 } t_lexer;
+
+typedef struct s_command
+{
+	char **args;
+	char *input_file;
+	char *output_file;
+	struct s_command *next;
+} t_command;
 
 char	*readline (const char *prompt);
 char	*ft_strtok(char *str, const char *delim);
