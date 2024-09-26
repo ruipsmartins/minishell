@@ -3,7 +3,7 @@ NAME = minishell
 
 # Compilador e flags
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -g #-fsanitize=address
+CFLAGS = #-Wall -Wextra -Werror -g #-fsanitize=address
 LDFLAGS = -lreadline #-lncurses
 # Diretórios
 SRCS_DIR = src
@@ -11,7 +11,7 @@ OBJS_DIR = obj
 INCLUDES = -I includes
 
 # Lista de ficheiros fonte
-SRCS_FILES = main.c utils.c execute.c parsing.c pipes.c redirections.c # Adicionar aqui todos os ficheiros .c do projeto
+SRCS_FILES = main.c utils.c execute.c parsing.c  # pipes.c redirections.c Adicionar aqui todos os ficheiros .c do projeto
 SRCS = $(addprefix $(SRCS_DIR)/, $(SRCS_FILES))
 OBJS = $(addprefix $(OBJS_DIR)/, $(notdir $(SRCS:.c=.o)))
 
@@ -36,7 +36,7 @@ clean:
 	rm -rf $(OBJS_DIR) && make clean -C $(LIBFT_DIR)
 
 fclean: clean
-	rm -f $(NAME) && make fclean -C $(LIBFT_DIR)
+	rm -f $(NAME) && make fclean -C $(LIBFT_DIR) 
 
 re: fclean all
 

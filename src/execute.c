@@ -6,7 +6,7 @@
 /*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 08:59:57 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/09/09 15:11:48 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2024/09/26 15:58:27 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,7 @@ void	execute_command(char *command, char **args, char **env)
 	else if (pid == 0)
 	{
         // Processo filho
-		handle_redirections(args);
-
+		//handle_redirections(args);
 		if (execve(command, args, env) == -1)
 			write(STDERR_FILENO, "execve error\n", 13);
 		exit(EXIT_FAILURE);
@@ -68,7 +67,7 @@ void	execute_command(char *command, char **args, char **env)
 }
 
 // Verificar se é um caminho absoluto, relativo ou só o nome do executável
-void	execute_path(char *command, char **args, char **env)
+void	execute(char *command, char **args, char **env)
 {
 	char	*executable;
 

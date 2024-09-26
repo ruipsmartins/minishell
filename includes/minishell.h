@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: addicted <addicted@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 17:34:50 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/09/25 12:13:04 by addicted         ###   ########.fr       */
+/*   Updated: 2024/09/26 15:58:27 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ char	*find_executable(const char *command);
 char	**parse_command(char *input);
 void	execute_command(char *command, char **args, char **env);
 char	*get_command_input(void);
-void	execute_path(char *command, char **args, char **env);
+void	execute(char *command, char **args, char **env);
 void	handle_input(char *input, char **env);
 
 //pipes

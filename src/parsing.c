@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: addicted <addicted@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 08:59:52 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/09/26 12:03:31 by addicted         ###   ########.fr       */
+/*   Updated: 2024/09/26 15:58:27 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
 
-char *ft_strtok(char *str, const char *delim)
+/* char *ft_strtok(char *str, const char *delim)
 {
 	static char *last;
 	char *start;
@@ -39,7 +39,7 @@ char *ft_strtok(char *str, const char *delim)
 	else
 		last = NULL;
 	return (start);
-}
+} */
 
 void *ft_calloc(size_t count, size_t size)
 {
@@ -49,14 +49,14 @@ void *ft_calloc(size_t count, size_t size)
 	return ptr;
 }
 
-char *ft_strdup(const char *s)
+/* char *ft_strdup(const char *s)
 {
 	char *d = malloc(strlen(s) + 1); // +1 for the null-terminator
 	if (d == NULL)
 		return NULL; // No memory
 	strcpy(d, s);	 // Copy the string
 	return d;		 // Return the new string
-}
+} */
 
 // void *ft_realloc(void *ptr, size_t size)
 // {
@@ -217,7 +217,7 @@ void handle_input(char *input, char **env)
 	t_command *cmd_list = lexer_to_command(lexer);
 
 	// Imprimir os comandos do parsing
-	t_command *cmd_current = cmd_list;
+	/* t_command *cmd_current = cmd_list;
 	while (cmd_current != NULL)
 	{
 		printf("\nCommand:");
@@ -232,7 +232,11 @@ void handle_input(char *input, char **env)
 		if (cmd_current->output_file)
 			printf("  Output: %s\n", cmd_current->output_file);
 		cmd_current = cmd_current->next;
-	}
+	} */
+
+	
+	execute(cmd_list->args[0], cmd_list->args, env);
+	
 
 	//Free da lista dos comandos
 	free_command_list(cmd_list);
@@ -247,7 +251,7 @@ void handle_input(char *input, char **env)
 	}
 }
 
-int main()
+/* int main()
 {
 	char input[] = "ls -la | grep world > output.txt | pwd";
 	char *env[] = {NULL}; // Dummy environment
@@ -256,4 +260,4 @@ int main()
 	//linha para ver se sei fazer
 	handle_input(input, env);
 	return 0;
-}
+} */
