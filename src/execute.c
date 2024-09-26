@@ -6,7 +6,7 @@
 /*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 08:59:57 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/09/26 15:58:27 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2024/09/26 17:37:27 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,27 +66,51 @@ void	execute_command(char *command, char **args, char **env)
 	}
 }
 
-// Verificar se é um caminho absoluto, relativo ou só o nome do executável
-void	execute(char *command, char **args, char **env)
+
+void	execute(t_command *cmd, char **env)
 {
 	char	*executable;
+	int		original_stdin = -1;
+	int		original_stdout = -1;
 
-	if (command[0] == '/' || command[0] == '.')
+	// Chamar a função handle_redirects
+	if (handle_redirects(cmd, &original_stdin, &original_stdout) == -1)
 	{
-		if (access(command, X_OK) == 0)
-			execute_command(command, args, env);
+		return;
+	}
+
+	// Verifica se o comando é um caminho absoluto ou relativo
+	if (cmd->args[0][0] == '/' || cmd->args[0][0] == '.')
+	{
+		if (access(cmd->args[0], X_OK) == 0)
+			execute_command(cmd->args[0], cmd->args, env);
 		else
-			ft_printf("%s: No such file or directory\n", command);
+			ft_printf("%s: No such file or directory\n", cmd->args[0]);
 	}
 	else
 	{
-		executable = find_executable(command);
+		// Tenta encontrar o executável no PATH
+		executable = find_executable(cmd->args[0]);
 		if (executable)
 		{
-			execute_command(executable, args, env);
+			execute_command(executable, cmd->args, env);
 			free(executable);
 		}
 		else
-			ft_printf("%s: Command not found\n", command);
+			ft_printf("%s: Command not found\n", cmd->args[0]);
+	}
+
+	// Restaurar o stdin original, se foi redirecionado
+	if (original_stdin != -1)
+	{
+		dup2(original_stdin, STDIN_FILENO);
+		close(original_stdin);
+	}
+
+	// Restaurar o stdout original, se foi redirecionado
+	if (original_stdout != -1)
+	{
+		dup2(original_stdout, STDOUT_FILENO);
+		close(original_stdout);
 	}
 }

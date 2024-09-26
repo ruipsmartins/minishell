@@ -6,7 +6,7 @@
 /*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 08:59:52 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/09/26 15:58:27 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2024/09/26 17:05:02 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -235,7 +235,7 @@ void handle_input(char *input, char **env)
 	} */
 
 	
-	execute(cmd_list->args[0], cmd_list->args, env);
+	execute(cmd_list, env);
 	
 
 	//Free da lista dos comandos

@@ -1,11 +1,16 @@
-total 52
-drwxr-xr-x 2 ruidos-s 2023_lisboa    25 Sep 10 09:47 includes
--rw-r--r-- 1 ruidos-s 2023_lisboa     0 Sep 10 10:49 infile
-drwxr-xr-x 2 ruidos-s 2023_lisboa  4096 Sep 10 10:45 libft
--rw-r--r-- 1 ruidos-s 2023_lisboa  1085 Aug 21 12:52 LICENSE
--rw-r--r-- 1 ruidos-s 2023_lisboa  1181 Sep 10 09:47 Makefile
--rwxr-xr-x 1 ruidos-s 2023_lisboa 27408 Sep 10 10:45 minishell
-drwxr-xr-x 2 ruidos-s 2023_lisboa   106 Sep 10 10:45 obj
--rw-r--r-- 1 ruidos-s 2023_lisboa   723 Sep 10 10:07 outfile
--rw-r--r-- 1 ruidos-s 2023_lisboa   345 Aug 29 15:29 README.md
-drwxr-xr-x 2 ruidos-s 2023_lisboa   106 Sep 10 09:47 src
+total 76
+drwxrwxr-x  8 rui rui  4096 set 26 17:25 .
+drwxr-x--- 21 rui rui  4096 set 26 17:26 ..
+drwxrwxr-x  8 rui rui  4096 set 26 17:00 .git
+-rw-rw-r--  1 rui rui     7 set 26 16:28 .gitignore
+drwxrwxr-x  2 rui rui  4096 set 26 17:00 includes
+-rwxrwxr-x  1 rui rui     0 set 26 17:26 infile
+drwxrwxr-x  2 rui rui  4096 set 26 17:25 libft
+-rw-rw-r--  1 rui rui  1085 set 26 11:12 LICENSE
+-rw-rw-r--  1 rui rui  1184 set 26 17:22 Makefile
+-rwxrwxr-x  1 rui rui 22392 set 26 17:25 minishell
+drwxrwxr-x  2 rui rui  4096 set 26 17:25 obj
+-rw-rw-r--  1 rui rui     3 set 26 17:26 outfile
+-rw-rw-r--  1 rui rui   345 set 26 11:12 README.md
+drwxrwxr-x  2 rui rui  4096 set 26 16:07 src
+drwxrwxr-x  2 rui rui  4096 set 26 12:36 .vscode
