@@ -6,7 +6,7 @@
 /*   By: addicted <addicted@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 08:59:52 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/09/25 13:04:08 by addicted         ###   ########.fr       */
+/*   Updated: 2024/09/25 16:23:56 by addicted         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ int is_token(const char *str)
 	return 0;
 }
 
-t_command *parse_lexer(t_lexer *lexer)
+t_command *lexer_to_command(t_lexer *lexer)
 {
 	t_command *cmd_list = NULL;
 	t_command *current_cmd = NULL;
@@ -214,18 +214,18 @@ void handle_input(char *input, char **env)
 	}
 
 	//Parsing do Lexer
-	t_command *cmd_list = parse_lexer(lexer);
+	t_command *cmd_list = lexer_to_command(lexer);
 
 	// Imprimir os comandos do parsing
 	t_command *cmd_current = cmd_list;
 	while (cmd_current != NULL)
 	{
-		printf("Command:\n");
+		printf("\nCommand:");
 		if (cmd_current->args)
 		{
 			int i = 0;
 			while(cmd_current->args[i] != NULL)
-				printf("  Arg: %s\n", cmd_current->args[i++]);
+				printf("%s ", cmd_current->args[i++]);
 		}
 		if (cmd_current->input_file)
 			printf("  Input: %s\n", cmd_current->input_file);
@@ -249,9 +249,10 @@ void handle_input(char *input, char **env)
 
 int main()
 {
-	char input[] = "ls -la | grep world > output.txt | pwd ";
+	char input[] = "ls -la | grep world > output.txt | pwd";
 	char *env[] = {NULL}; // Dummy environment
 
+	printf("input:\n%s\n", input);
 	//linha para ver se sei fazer
 	handle_input(input, env);
 	return 0;
