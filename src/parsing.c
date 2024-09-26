@@ -6,7 +6,7 @@
 /*   By: addicted <addicted@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 08:59:52 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/09/26 11:34:35 by addicted         ###   ########.fr       */
+/*   Updated: 2024/09/26 12:03:31 by addicted         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ int is_token(const char *str)
 	const char *tokens[] = {"|", ">", "<", ">>", "<<", NULL};
 	while (tokens[i] != NULL)
 	{
-		if (strcmp(str, tokens[i]) == 0)
+		if (ft_strncmp(str, tokens[i], 2) == 0) //testar o strncmp com o 2
 			return 1;
 		i++;
 	}
@@ -94,21 +94,21 @@ t_command *lexer_to_command(t_lexer *lexer)
 
 	while (current != NULL)
 	{
-		if (current->token && strcmp(current->token, "|") == 0)
+		if (current->token && ft_strncmp(current->token, "|", 2) == 0)
 		{
 			// Handle pipe: criar novo comando
 			current_cmd->next = (t_command *)ft_calloc(1, sizeof(t_command));
 			current_cmd = current_cmd->next;
 			arg_count = 0;
 		}
-		else if (current->token && strcmp(current->token, ">") == 0)
+		else if (current->token && ft_strncmp(current->token, ">", 2) == 0)
 		{
 			// Handle output redirection
 			current = current->next;
 			if (current && current->word)
 				current_cmd->output_file = ft_strdup(current->word);
 		}
-		else if (current->token && strcmp(current->token, "<") == 0)
+		else if (current->token && ft_strncmp(current->token, "<", 2) == 0)
 		{
 			// Handle input redirection
 			current = current->next;
