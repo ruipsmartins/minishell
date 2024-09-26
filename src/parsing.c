@@ -6,7 +6,7 @@
 /*   By: addicted <addicted@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 08:59:52 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/09/25 16:23:56 by addicted         ###   ########.fr       */
+/*   Updated: 2024/09/26 11:34:35 by addicted         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ char *ft_strdup(const char *s)
 int is_token(const char *str)
 {
 	int i = 0;
-	const char *tokens[] = {"|", ">", "<", "&&", "||", NULL};
+	const char *tokens[] = {"|", ">", "<", ">>", "<<", NULL};
 	while (tokens[i] != NULL)
 	{
 		if (strcmp(str, tokens[i]) == 0)
