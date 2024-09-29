@@ -6,12 +6,82 @@
 /*   By: addicted <addicted@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 08:59:52 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/09/26 12:03:31 by addicted         ###   ########.fr       */
+/*   Updated: 2024/09/29 14:59:11 by addicted         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
+int count_token(const char *str)
+{
+	int i = 0;
+	int k = 0;
+	int token = 0;
+	const char *tokens[] = {"|", ">", "<", "&", NULL};
+	while (str[i])
+	{
+		k = 0;
+		while (tokens[k])
+		{
+			if (str[i] == tokens[k][0])
+			{
+				// printf("i = %d\n", i);
+				// printf("tokens[k] = %s\n", tokens[k]);
+				token++;
+			}
+			k++;
+		}
+		i++;
+	}
+	if (token)
+	{
+		// printf("token found: %d\n", token);
+		return (token);
+	}
+	return 0;
+}
+char *fix_token_space(char *str)
+{
+	int i = 0;
+	int k = 0;
+	int t = 0;
+	int max_len = strlen(str) + count_token(str) + 3;
+	const char *tokens[] = {"|", ">", "<", "&", NULL};
+	char *fixed_str = malloc(max_len);
+	while (str[i] && t < max_len -1) 
+	{
+		k = 0;
+		while (tokens[k])
+		{
+			if (str[i] == tokens[k][0])
+			{
+				fixed_str[t] = ' ';
+				t++;
+				fixed_str[t] = str[i];
+				if (str[i + 1] == tokens[k][0])
+				{
+					i++;
+					t++;
+					fixed_str[t] = str[i];
+				}
+				else if (str[i + 1] != tokens[k][0] && str[i + 1])
+				{
+					t++;
+					fixed_str[t] = ' ';
+				}
+				i++;
+				t++;
+			}
+			k++;
+		}
+		fixed_str[t] = str[i];
+		t++;
+		i++;
+	}
+	fixed_str[t] = '\0';
+	
+	return (fixed_str);
+}
 
 char *ft_strtok(char *str, const char *delim)
 {
@@ -49,8 +119,10 @@ void *ft_calloc(size_t count, size_t size)
 	return ptr;
 }
 
-char *ft_strdup(const char *s)
+char *strdup(const char *s)
 {
+	if (s == NULL)
+		return NULL;
 	char *d = malloc(strlen(s) + 1); // +1 for the null-terminator
 	if (d == NULL)
 		return NULL; // No memory
@@ -72,18 +144,40 @@ char *ft_strdup(const char *s)
 // }
 //
 // Define o que sao tokens
+
 int is_token(const char *str)
 {
 	int i = 0;
 	const char *tokens[] = {"|", ">", "<", ">>", "<<", NULL};
 	while (tokens[i] != NULL)
 	{
-		if (ft_strncmp(str, tokens[i], 2) == 0) //testar o strncmp com o 2
+		if (strncmp(str, tokens[i], 2) == 0) //testar o strncmp com o 2
 			return 1;
 		i++;
 	}
 	return 0;
 }
+// int fix_token(char *str)
+// {
+// 	int i = 0;
+// 	int k = 0;
+// 	const char *tokens[] = {"|", ">", "<", ">>", "<<", NULL};
+// 	while (str[i] != NULL)
+// 	{
+// 		k = 0;
+// 		while(tokens[k])
+// 		{
+// 			if (str[i] == tokens[k])
+// 			{
+// 				str[i] = ' ';
+// 				return(tokens[k] + '0');
+// 			}
+// 			k++;	
+// 		}
+// 		i++;
+// 	}
+// 	return 0;
+// }
 
 t_command *lexer_to_command(t_lexer *lexer)
 {
@@ -94,26 +188,26 @@ t_command *lexer_to_command(t_lexer *lexer)
 
 	while (current != NULL)
 	{
-		if (current->token && ft_strncmp(current->token, "|", 2) == 0)
+		if (current->token && strncmp(current->token, "|", 2) == 0)
 		{
 			// Handle pipe: criar novo comando
 			current_cmd->next = (t_command *)ft_calloc(1, sizeof(t_command));
 			current_cmd = current_cmd->next;
 			arg_count = 0;
 		}
-		else if (current->token && ft_strncmp(current->token, ">", 2) == 0)
+		else if (current->token && strncmp(current->token, ">", 2) == 0)//
 		{
 			// Handle output redirection
 			current = current->next;
 			if (current && current->word)
-				current_cmd->output_file = ft_strdup(current->word);
+				current_cmd->output_file = strdup(current->word);
 		}
-		else if (current->token && ft_strncmp(current->token, "<", 2) == 0)
+		else if (current->token && strncmp(current->token, "<", 2) == 0)//
 		{
 			// Handle input redirection
 			current = current->next;
 			if (current && current->word)
-				current_cmd->input_file = ft_strdup(current->word);
+				current_cmd->input_file = strdup(current->word);
 		}
 		else
 		{
@@ -132,7 +226,7 @@ t_command *lexer_to_command(t_lexer *lexer)
 				}
 			}
 			current_cmd->args = (char **)realloc(current_cmd->args, sizeof(char *) * (arg_count + 2));
-			current_cmd->args[arg_count] = ft_strdup(current->word);
+			current_cmd->args[arg_count] = strdup(current->word);
 			current_cmd->args[arg_count + 1] = NULL;
 			arg_count++;
 		}
@@ -186,12 +280,13 @@ void handle_input(char *input, char **env)
 		// Inicializar node
 		if (is_token(token))
 		{
-			new_node->token = ft_strdup(token);
+
+			new_node->token = strdup(token);
 			new_node->word = NULL;
 		}
 		else
 		{
-			new_node->word = ft_strdup(token);
+			new_node->word = strdup(token);
 			new_node->token = NULL;
 		}
 		new_node->i = i++;
@@ -249,11 +344,16 @@ void handle_input(char *input, char **env)
 
 int main()
 {
-	char input[] = "ls -la | grep world > output.txt | pwd";
+	char *input = "<ls -la|grep worln<d  0123|45 ii9|i|iiiii";
 	char *env[] = {NULL}; // Dummy environment
 
+	printf("strlen: %d\n", (int)strlen(input));
 	printf("input:\n%s\n", input);
+	input = fix_token_space(input);
+	printf("input after:\n%s\n", input);
 	//linha para ver se sei fazer
 	handle_input(input, env);
+	free(input);
+
 	return 0;
 }
