@@ -6,7 +6,7 @@
 /*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 08:59:57 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/09/26 17:37:27 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2024/09/30 17:07:53 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ char	*find_executable(const char *command)
 {
 	char	*path;
 	char	*dir;
-	char	full_path[1024];
+	char	*full_path;
 	char	*path_copy;
 
 	path = getenv("PATH");
@@ -25,8 +25,11 @@ char	*find_executable(const char *command)
 		return (NULL);
 	path_copy = ft_strdup(path);
 	dir = ft_strtok(path_copy, ":");
-	while (dir)
+	while (dir != NULL)
 	{
+		full_path = malloc(ft_strlen(dir) + ft_strlen(command) + 2);
+		if (!full_path)
+			return (NULL);
 		ft_strlcpy(full_path, dir, ft_strlen(dir) + 1);
 		ft_strlcat(full_path, "/", ft_strlen(full_path) + 2);
 		ft_strlcat(full_path, command,
@@ -34,8 +37,9 @@ char	*find_executable(const char *command)
 		if (access(full_path, X_OK) == 0)
 		{
 			free(path_copy);
-			return (ft_strdup(full_path));
+			return (full_path);
 		}
+		free(full_path);
 		dir = ft_strtok(NULL, ":");
 	}
 	free(path_copy);
@@ -56,7 +60,7 @@ void	execute_command(char *command, char **args, char **env)
         // Processo filho
 		//handle_redirections(args);
 		if (execve(command, args, env) == -1)
-			write(STDERR_FILENO, "execve error\n", 13);
+			perror("execve");
 		exit(EXIT_FAILURE);
 	}
 	else
