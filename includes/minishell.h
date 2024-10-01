@@ -6,7 +6,7 @@
 /*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 17:34:50 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/10/01 11:27:14 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2024/10/01 15:33:43 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,10 +49,13 @@ char	**parse_command(char *input);
 void	execute_command(char *command, char **args, char **env);
 char	*get_command_input(void);
 void	execute(t_command *cmd_list, char **env);
+void 	std_reset(int original_stdin, int original_stdout);
 void	handle_input(char *input, char **env);
 
 //pipes
-void	execute_piped_commands(t_command *cmd, char **env);
+void execute_piped_commands(t_command *cmd, char **env);
+void ft_child(int in_fd, t_command *cmd, int fd[2], char **env);
+void handle_fd(int in_fd, t_command *cmd, int fd[2]);
 char	***split_by_pipe(char *input);
 
 //redirections

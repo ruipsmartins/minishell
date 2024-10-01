@@ -6,11 +6,12 @@
 /*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 08:59:57 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/10/01 12:29:08 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2024/10/01 15:45:37 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+#include "minishell.h"
 
 //Função para encontrar executavel no path
 char	*find_executable(const char *command)
@@ -78,7 +79,7 @@ void	execute(t_command *cmd, char **env)
 	int		original_stdout = -1;
 
 
-	if (cmd->next != NULL)
+	if (1)
     {
         execute_piped_commands(cmd, env);
     }
@@ -109,9 +110,14 @@ void	execute(t_command *cmd, char **env)
 			else
 				ft_printf("%s: Command not found\n", cmd->args[0]);
 		}
-		// Restaurar o stdin original, se foi redirecionado
 	}
-	if (original_stdin != -1)
+	// Restaurar o stds se foram alterados
+	std_reset(original_stdin, original_stdout);
+}
+
+void std_reset(int original_stdin, int original_stdout)
+{
+if (original_stdin != -1)
 	{
 		dup2(original_stdin, STDIN_FILENO);
 		close(original_stdin);
