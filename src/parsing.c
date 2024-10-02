@@ -6,7 +6,7 @@
 /*   By: addicted <addicted@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 08:59:52 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/09/29 14:59:11 by addicted         ###   ########.fr       */
+/*   Updated: 2024/10/02 10:52:58 by addicted         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,7 @@ char *ft_strtok(char *str, const char *delim)
 	else
 		last = NULL;
 	return (start);
-}
+} */
 
 void *ft_calloc(size_t count, size_t size)
 {
@@ -128,7 +128,7 @@ char *strdup(const char *s)
 		return NULL; // No memory
 	strcpy(d, s);	 // Copy the string
 	return d;		 // Return the new string
-}
+} */
 
 // void *ft_realloc(void *ptr, size_t size)
 // {
@@ -312,7 +312,7 @@ void handle_input(char *input, char **env)
 	t_command *cmd_list = lexer_to_command(lexer);
 
 	// Imprimir os comandos do parsing
-	t_command *cmd_current = cmd_list;
+	/* t_command *cmd_current = cmd_list;
 	while (cmd_current != NULL)
 	{
 		printf("\nCommand:");
@@ -327,7 +327,11 @@ void handle_input(char *input, char **env)
 		if (cmd_current->output_file)
 			printf("  Output: %s\n", cmd_current->output_file);
 		cmd_current = cmd_current->next;
-	}
+	} */
+
+	
+	execute(cmd_list, env);
+	
 
 	//Free da lista dos comandos
 	free_command_list(cmd_list);
@@ -342,7 +346,7 @@ void handle_input(char *input, char **env)
 	}
 }
 
-int main()
+/* int main()
 {
 	char *input = "<ls -la|grep worln<d  0123|45 ii9|i|iiiii";
 	char *env[] = {NULL}; // Dummy environment
@@ -356,4 +360,4 @@ int main()
 	free(input);
 
 	return 0;
-}
+} */

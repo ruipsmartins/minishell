@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: addicted <addicted@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 17:34:50 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/09/25 12:13:04 by addicted         ###   ########.fr       */
+/*   Updated: 2024/10/01 15:33:43 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,15 +48,18 @@ char	*find_executable(const char *command);
 char	**parse_command(char *input);
 void	execute_command(char *command, char **args, char **env);
 char	*get_command_input(void);
-void	execute_path(char *command, char **args, char **env);
+void	execute(t_command *cmd_list, char **env);
+void 	std_reset(int original_stdin, int original_stdout);
 void	handle_input(char *input, char **env);
 
 //pipes
-void	execute_piped_commands(char ***commands, char **env);
+void execute_piped_commands(t_command *cmd, char **env);
+void ft_child(int in_fd, t_command *cmd, int fd[2], char **env);
+void handle_fd(int in_fd, t_command *cmd, int fd[2]);
 char	***split_by_pipe(char *input);
 
 //redirections
-void	handle_redirections(char **args);
+int handle_redirects(t_command *cmd, int *original_stdin, int *original_stdout);
 
 
 
