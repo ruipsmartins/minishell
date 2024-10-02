@@ -6,7 +6,7 @@
 /*   By: addicted <addicted@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 08:59:52 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/10/02 10:59:30 by addicted         ###   ########.fr       */
+/*   Updated: 2024/10/02 11:56:18 by addicted         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -267,6 +267,7 @@ void handle_input(char *input, char **env)
 	char *token = NULL;
 	int i = 0;
 
+	input = fix_token_space(input);
 	token = ft_strtok(input, " ");
 	while (token != NULL)
 	{
@@ -310,6 +311,7 @@ void handle_input(char *input, char **env)
 
 	//Parsing do Lexer
 	t_command *cmd_list = lexer_to_command(lexer);
+	
 
 	// Imprimir os comandos do parsing
 	/* t_command *cmd_current = cmd_list;
