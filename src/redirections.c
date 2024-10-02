@@ -6,13 +6,31 @@
 /*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 14:11:52 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/09/26 17:48:16 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2024/10/02 17:23:32 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 #include "../includes/minishell.h"
 
+
+// Restaurar o stds se foram alterados
+void std_reset(int original_stdin, int original_stdout)
+{
+if (original_stdin != -1)
+	{
+		dup2(original_stdin, STDIN_FILENO);
+		close(original_stdin);
+		ft_printf(" reset stdin \n");
+	}
+	// Restaurar o stdout original, se foi redirecionado
+	if (original_stdout != -1)
+	{
+		dup2(original_stdout, STDOUT_FILENO);
+		close(original_stdout);
+		ft_printf(" reset stdout \n");
+	}
+}
 
 int handle_redirects(t_command *cmd, int *original_stdin, int *original_stdout)
 {

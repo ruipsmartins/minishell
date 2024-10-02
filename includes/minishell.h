@@ -6,7 +6,7 @@
 /*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 17:34:50 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/10/01 15:33:43 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2024/10/02 17:01:27 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,12 +46,14 @@ char	*ft_strtok(char *str, const char *delim);
 void	close_fds(int *fd);
 char	*find_executable(const char *command);
 char	**parse_command(char *input);
+
+//execute
 void	execute_command(char *command, char **args, char **env);
 char	*get_command_input(void);
 void	execute(t_command *cmd_list, char **env);
 void 	std_reset(int original_stdin, int original_stdout);
 void	handle_input(char *input, char **env);
-
+void	execute_command_or_path(t_command *cmd, char **env);
 //pipes
 void execute_piped_commands(t_command *cmd, char **env);
 void ft_child(int in_fd, t_command *cmd, int fd[2], char **env);

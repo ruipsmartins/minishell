@@ -6,14 +6,13 @@
 /*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 11:05:58 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/10/01 15:41:39 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2024/10/02 17:51:24 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-#include "minishell.h"
 
-
+//Função para lidar com os file descriptors (FDs) no processo filho.
 void handle_fd(int in_fd, t_command * cmd, int  fd[2])
 {
 if (in_fd != 0)
@@ -29,29 +28,22 @@ if (in_fd != 0)
 	close(fd[1]);
 }
 
-// No processo filho
+//Função para executar o comando no processo filho.
 void ft_child(int in_fd, t_command *cmd, int  fd[2], char **env)
 {
-    char *executable;
+	int		original_stdin = -1;
+	int		original_stdout = -1;
 
 	handle_fd(in_fd, cmd, fd);
-	// Encontrar o caminho completo do executável
-	executable = find_executable(cmd->args[0]);
-	if (!executable)
-	{
-		ft_printf("%s: Command not found\n", cmd->args[0]);
+	if (handle_redirects(cmd, &original_stdin, &original_stdout) == -1)
 		exit(EXIT_FAILURE);
-	}
-	// Tratar redirecionamentos se necessário
-	if (handle_redirects(cmd, NULL, NULL) == -1)
-		exit(EXIT_FAILURE);
-	// Executar o comando
-	execute_command(executable, cmd->args, env);
-	//perror("execve error");
-	free(executable);
+	execute_command_or_path(cmd, env);
+	std_reset(original_stdin, original_stdout);
 	exit(EXIT_FAILURE);
 }
 
+
+//Função para executar comandos em sequência, utilizando pipes para a comunicação entre processos.
 void execute_piped_commands(t_command *cmd, char **env)
 {
     int fd[2];
@@ -71,9 +63,8 @@ void execute_piped_commands(t_command *cmd, char **env)
             perror("fork error:");
             exit(EXIT_FAILURE);
         }
-        else
+        else   // No processo pai
         {
-            // No processo pai
             wait(NULL);
             close(fd[1]);
             in_fd = fd[0];
@@ -81,29 +72,3 @@ void execute_piped_commands(t_command *cmd, char **env)
         }
     }
 }
-
-/* char	***split_by_pipe(char *input)
-{
-	char	**pipe_segments = malloc(64 * sizeof(char *));
-	char	***commands = malloc(64 * sizeof(char **));
-	char	*segment;
-	int		i = 0;
-	int		j = 0;
-
-	segment = ft_strtok(input, "|");
-	while (segment)
-	{
-		pipe_segments[i++] = segment;
-		segment = ft_strtok(NULL, "|");
-	}
-	pipe_segments[i] = NULL;
-	while (pipe_segments[j])
-	{
-		commands[j] = parse_command(pipe_segments[j]);
-		j++;
-	}
-	commands[i] = NULL;
-	free(pipe_segments);
-	return (commands);
-}
- */
