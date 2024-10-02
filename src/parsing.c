@@ -6,7 +6,7 @@
 /*   By: addicted <addicted@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 08:59:52 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/10/02 10:52:58 by addicted         ###   ########.fr       */
+/*   Updated: 2024/10/02 10:59:30 by addicted         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ char *fix_token_space(char *str)
 	
 	return (fixed_str);
 }
-
+/*
 char *ft_strtok(char *str, const char *delim)
 {
 	static char *last;
@@ -118,7 +118,7 @@ void *ft_calloc(size_t count, size_t size)
 		memset(ptr, 0, count * size);
 	return ptr;
 }
-
+/*
 char *strdup(const char *s)
 {
 	if (s == NULL)
@@ -313,6 +313,7 @@ void handle_input(char *input, char **env)
 
 	// Imprimir os comandos do parsing
 	/* t_command *cmd_current = cmd_list;
+	if (1)
 	while (cmd_current != NULL)
 	{
 		printf("\nCommand:");
@@ -329,8 +330,7 @@ void handle_input(char *input, char **env)
 		cmd_current = cmd_current->next;
 	} */
 
-	
-	execute(cmd_list, env);
+		execute(cmd_list, env);
 	
 
 	//Free da lista dos comandos
