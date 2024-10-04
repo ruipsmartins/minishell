@@ -6,7 +6,7 @@
 /*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 14:11:52 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/10/02 17:23:32 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2024/10/04 12:45:09 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,13 @@ if (original_stdin != -1)
 	{
 		dup2(original_stdin, STDIN_FILENO);
 		close(original_stdin);
-		ft_printf(" reset stdin \n");
+		//ft_printf(" reset stdin \n");
 	}
-	// Restaurar o stdout original, se foi redirecionado
 	if (original_stdout != -1)
 	{
 		dup2(original_stdout, STDOUT_FILENO);
 		close(original_stdout);
-		ft_printf(" reset stdout \n");
+		//ft_printf(" reset stdout \n");
 	}
 }
 

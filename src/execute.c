@@ -6,7 +6,7 @@
 /*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 08:59:57 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/10/04 09:56:59 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2024/10/04 12:43:20 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ void	execute_command(char *command, char **args, char **env)
 void execute_command_or_path(t_command *cmd, char **env)
 {
     char *executable;
-
+	
     // Verifica se o comando é um caminho absoluto ou relativo
     if (cmd->args[0][0] == '/' || cmd->args[0][0] == '.') {
         if (access(cmd->args[0], X_OK) == 0)
@@ -107,7 +107,27 @@ void execute_command_or_path(t_command *cmd, char **env)
 
 void	execute(t_command *cmd, char **env)
 {
-        execute_piped_commands(cmd, env);
+/* 	 t_command *current = cmd;
+    int i = 0;
+    while (current != NULL)
+    {
+        ft_printf("Comando %d:\n", i);
+        ft_printf("  Args: ");
+        int j = 0;
+        while (current->args[j] != NULL)
+        {
+            ft_printf("%s ", current->args[j]);
+            j++;
+        }
+        ft_printf("\n");
+        ft_printf("  Input File: %s\n", current->input_file);
+        ft_printf("  Output File: %s\n", current->output_file);
+        ft_printf("\n");
+        current = current->next;
+        i++;
+    } */
+	execute_piped_commands(cmd, env);
+		
 }
 
 
