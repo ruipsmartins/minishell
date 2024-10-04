@@ -6,20 +6,38 @@
 /*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 08:59:57 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/10/02 17:46:29 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2024/10/04 09:56:59 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 #include "minishell.h"
 
-//Função para encontrar executavel no path
+// Função para obter o caminho do executável
+char	*get_executable_path(const char *command, const char *dir)
+{
+	char	*full_path;
+	size_t	dir_len;
+	size_t	cmd_len;
+
+	dir_len = ft_strlen(dir);
+	cmd_len = ft_strlen(command);
+	full_path = malloc(dir_len + cmd_len + 2);
+	if (!full_path)
+		return (NULL);
+	ft_strlcpy(full_path, dir, dir_len + 1);
+	ft_strlcat(full_path, "/", dir_len + 2);
+	ft_strlcat(full_path, command, dir_len + cmd_len + 2);
+	return (full_path);
+}
+
+// Função para encontrar o executável no path
 char	*find_executable(const char *command)
 {
 	char	*path;
 	char	*dir;
-	char	*full_path;
 	char	*path_copy;
+	char	*full_path;
 
 	path = getenv("PATH");
 	if (!path)
@@ -28,13 +46,7 @@ char	*find_executable(const char *command)
 	dir = ft_strtok(path_copy, ":");
 	while (dir != NULL)
 	{
-		full_path = malloc(ft_strlen(dir) + ft_strlen(command) + 2);
-		if (!full_path)
-			return (NULL);
-		ft_strlcpy(full_path, dir, ft_strlen(dir) + 1);
-		ft_strlcat(full_path, "/", ft_strlen(full_path) + 2);
-		ft_strlcat(full_path, command,
-			ft_strlen(full_path) + ft_strlen(command) + 1);
+		full_path = get_executable_path(command, dir);
 		if (access(full_path, X_OK) == 0)
 		{
 			free(path_copy);
