@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: addicted <addicted@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 08:59:52 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/10/04 12:39:41 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2024/10/05 09:46:19 by addicted         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ char *fix_token_space(char *str)
 	int i = 0;
 	int k = 0;
 	int t = 0;
-	int max_len = strlen(str) + count_token(str) * 2 + 3; //depois ve aqui se está correto, adicionei o *2 acho que funciona assim
+	int max_len = strlen(str) + (count_token(str) * 2) + 3; //depois ve aqui se está correto, adicionei o *2 acho que funciona assim
 	const char *tokens[] = {"|", ">", "<", "&", NULL};
 	char *fixed_str = malloc(max_len);
 	while (str[i] && t < max_len -1) 
