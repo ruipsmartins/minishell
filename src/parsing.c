@@ -6,7 +6,7 @@
 /*   By: addicted <addicted@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 08:59:52 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/10/05 09:46:19 by addicted         ###   ########.fr       */
+/*   Updated: 2024/10/08 11:20:21 by addicted         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -200,15 +200,30 @@ t_command *lexer_to_command(t_lexer *lexer)
 			// Handle output redirection
 			current = current->next;
 			if (current && current->word)
-				current_cmd->output_file = strdup(current->word);
+			{
+				if(current_cmd == NULL)
+				{
+					current_cmd = (t_command *)ft_calloc(1, sizeof(t_command));
+					cmd_list = current_cmd;
+				}
+				current_cmd->output_file = ft_strdup(current->word);
+				
+			}
 		}
 		else if (current->token && strncmp(current->token, "<", 2) == 0)//
 		{
 			// Handle input redirection
 			current = current->next;
 			if (current && current->word)
-				current_cmd->input_file = strdup(current->word);
-		}
+			{
+					if (current_cmd == NULL)
+					{
+						current_cmd = (t_command *)ft_calloc(1, sizeof(t_command));
+						cmd_list = current_cmd;
+					}
+					current_cmd->input_file = ft_strdup(current->word);
+			}
+			}
 		else
 		{
 			// Handle command arguments
@@ -314,23 +329,23 @@ void handle_input(char *input, char **env)
 	
 
 	// Imprimir os comandos do parsing
-	/* t_command *cmd_current = cmd_list;
-	if (1)
-	while (cmd_current != NULL)
-	{
-		printf("\nCommand:");
-		if (cmd_current->args)
-		{
-			int i = 0;
-			while(cmd_current->args[i] != NULL)
-				printf("%s ", cmd_current->args[i++]);
-		}
-		if (cmd_current->input_file)
-			printf("  Input: %s\n", cmd_current->input_file);
-		if (cmd_current->output_file)
-			printf("  Output: %s\n", cmd_current->output_file);
-		cmd_current = cmd_current->next;
-	} */
+	// t_command *cmd_current = cmd_list;
+	// if (1)
+	// while (cmd_current != NULL)
+	// {
+	// 	printf("\nCommand:");
+	// 	if (cmd_current->args)
+	// 	{
+	// 		int i = 0;
+	// 		while(cmd_current->args[i] != NULL)
+	// 			printf("%s ", cmd_current->args[i++]);
+	// 	}
+	// 	if (cmd_current->input_file)
+	// 		printf("  Input: %s\n", cmd_current->input_file);
+	// 	if (cmd_current->output_file)
+	// 		printf("  Output: %s\n", cmd_current->output_file);
+	// 	cmd_current = cmd_current->next;
+	// }
 
 		execute(cmd_list, env);
 	
