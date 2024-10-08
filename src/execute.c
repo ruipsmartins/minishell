@@ -6,7 +6,7 @@
 /*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 08:59:57 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/10/04 12:43:20 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2024/10/08 15:19:59 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,39 +70,38 @@ void	execute_command(char *command, char **args, char **env)
 		write(STDERR_FILENO, "fork error\n", 11);
 	else if (pid == 0)
 	{
-        // Processo filho
-		//handle_redirections(args);
 		if (execve(command, args, env) == -1)
 			perror("execve");
 		exit(EXIT_FAILURE);
 	}
 	else
 	{
-        // Processo pai
 		waitpid(pid, &status, 0);
 	}
 }
 
-
-void execute_command_or_path(t_command *cmd, char **env)
+void	execute_command_or_path(t_command *cmd, char **env)
 {
-    char *executable;
-	
-    // Verifica se o comando é um caminho absoluto ou relativo
-    if (cmd->args[0][0] == '/' || cmd->args[0][0] == '.') {
-        if (access(cmd->args[0], X_OK) == 0)
-            execute_command(cmd->args[0], cmd->args, env);
-        else
-            ft_printf("%s: No such file or directory\n", cmd->args[0]);
-    } else {
-        // Tenta encontrar o executável no PATH
-        executable = find_executable(cmd->args[0]);
-        if (executable) {
-            execute_command(executable, cmd->args, env);
-            free(executable);
-        } else
-            ft_printf("%s: Command not found\n", cmd->args[0]);
-    }
+	char	*executable;
+
+	if (cmd->args[0][0] == '/' || cmd->args[0][0] == '.')
+	{
+		if (access(cmd->args[0], X_OK) == 0)
+			execute_command(cmd->args[0], cmd->args, env);
+		else
+			ft_printf("%s: No such file or directory\n", cmd->args[0]);
+	}
+	else
+	{
+		executable = find_executable(cmd->args[0]);
+		if (executable)
+		{
+			execute_command(executable, cmd->args, env);
+			free(executable);
+		}
+		else
+			ft_printf("%s: Command not found\n", cmd->args[0]);
+	}
 }
 
 void	execute(t_command *cmd, char **env)
@@ -127,7 +126,4 @@ void	execute(t_command *cmd, char **env)
         i++;
     } */
 	execute_piped_commands(cmd, env);
-		
 }
-
-

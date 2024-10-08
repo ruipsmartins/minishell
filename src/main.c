@@ -6,7 +6,7 @@
 /*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 17:28:57 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/09/19 10:33:17 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2024/10/08 15:20:10 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ char	*get_command_input(void)
 		add_history(input);
 	return (input);
 }
-
 
 int	main(int ac, char **av, char **env)
 {
