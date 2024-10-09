@@ -6,7 +6,7 @@
 /*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 14:11:52 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/10/08 15:23:36 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2024/10/09 15:58:17 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,30 +27,35 @@ void	std_reset(int original_stdin, int original_stdout)
 	}
 }
 
-int handle_redirects(t_command *cmd, int *original_stdin, int *original_stdout)
+int	handle_input_redirect(t_command *cmd, int *original_stdin)
 {
-	int out_file;
+	int	in_file;
 
-	// Redirecionamento de input, se houver
 	if (cmd->input_file && *cmd->input_file)
 	{
-		int in_file = open(cmd->input_file, O_RDONLY);
+		in_file = open(cmd->input_file, O_RDONLY);
 		if (in_file == -1)
 		{
 			ft_printf("%s: Failed to open input file\n", cmd->input_file);
 			return (-1);
 		}
-		*original_stdin = dup(STDIN_FILENO);  // Salva o stdin original
+		*original_stdin = dup(STDIN_FILENO);
 		if (*original_stdin == -1)
 		{
 			ft_printf("Failed to duplicate stdin\n");
 			close(in_file);
 			return (-1);
 		}
-		dup2(in_file, STDIN_FILENO);          // Redireciona input para o ficheiro
+		dup2(in_file, STDIN_FILENO);
 		close(in_file);
 	}
-	// Redirecionamento de output, se houver
+	return (0);
+}
+
+int	handle_output_redirect(t_command *cmd, int *original_stdout)
+{
+	int	out_file;
+
 	if (cmd->output_file && *cmd->output_file)
 	{
 		out_file = open(cmd->output_file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
@@ -59,15 +64,24 @@ int handle_redirects(t_command *cmd, int *original_stdin, int *original_stdout)
 			ft_printf("%s: Failed to open output file\n", cmd->output_file);
 			return (-1);
 		}
-		*original_stdout = dup(STDOUT_FILENO);	//Guarda o stdout original
+		*original_stdout = dup(STDOUT_FILENO);
 		if (*original_stdout == -1)
 		{
 			ft_printf("Failed to duplicate stdout\n");
 			close(out_file);
 			return (-1);
 		}
-		dup2(out_file, STDOUT_FILENO);	// Redireciona output para o ficheiro
+		dup2(out_file, STDOUT_FILENO);
 		close(out_file);
 	}
+	return (0);
+}
+
+int	handle_redirects(t_command *cmd, t_data data)
+{
+	if (handle_input_redirect(cmd, &data.original_stdin) == -1)
+		return (-1);
+	if (handle_output_redirect(cmd, &data.original_stdout) == -1)
+		return (-1);
 	return (0);
 }

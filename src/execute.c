@@ -6,7 +6,7 @@
 /*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 08:59:57 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/10/08 15:19:59 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2024/10/09 15:20:11 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,8 +104,6 @@ void	execute_command_or_path(t_command *cmd, char **env)
 	}
 }
 
-void	execute(t_command *cmd, char **env)
-{
 /* 	 t_command *current = cmd;
     int i = 0;
     while (current != NULL)
@@ -125,5 +123,13 @@ void	execute(t_command *cmd, char **env)
         current = current->next;
         i++;
     } */
-	execute_piped_commands(cmd, env);
+void	execute(t_command *cmd, char **env)
+{
+	t_data	data;
+
+	data.cmd = cmd;
+	data.env = env;
+	data.original_stdin = -1;
+	data.original_stdout = -1;
+	execute_piped_commands(cmd, data);
 }
