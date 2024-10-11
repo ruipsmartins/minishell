@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: addicted <addicted@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 08:59:52 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/10/11 14:45:21 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2024/10/11 18:39:16 by addicted         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,137 +14,23 @@
 
 int count_token(const char *str)
 {
-	int i = 0;
-	int k = 0;
-	int token = 0;
-	const char *tokens[] = {"|", ">", "<", "&", NULL};
+	int i;
+	int count;
+
+	i = 0;
+	count = 0;
 	while (str[i])
 	{
-		k = 0;
-		while (tokens[k])
-		{
-			if (str[i] == tokens[k][0])
-			{
-				// printf("i = %d\n", i);
-				// printf("tokens[k] = %s\n", tokens[k]);
-				token++;
-			}
-			k++;
-		}
+		if (check_if_token(str[i]))
+			count++;
 		i++;
 	}
-	if (token)
-	{
-		// printf("token found: %d\n", token);
-		return (token);
-	}
-	return 0;
+	if (count)
+		return (count);
+	return (0);
 }
-char *fix_token_space(char *str)
-{
-	int i = 0;
-	int k = 0;
-	int t = 0;
-	int max_len = strlen(str) + (count_token(str) * 2) + 3; //depois ve aqui se está correto, adicionei o *2 acho que funciona assim
-	const char *tokens[] = {"|", ">", "<", "&", NULL};
-	char *fixed_str = malloc(max_len);
-	while (str[i] && t < max_len -1) 
-	{
-		k = 0;
-		while (tokens[k])
-		{
-			if (str[i] == tokens[k][0])
-			{
-				fixed_str[t] = ' ';
-				t++;
-				fixed_str[t] = str[i];
-				if (str[i + 1] == tokens[k][0])
-				{
-					i++;
-					t++;
-					fixed_str[t] = str[i];
-				}
-				else if (str[i + 1] != tokens[k][0] && str[i + 1])
-				{
-					t++;
-					fixed_str[t] = ' ';
-				}
-				i++;
-				t++;
-			}
-			k++;
-		}
-		fixed_str[t] = str[i];
-		t++;
-		i++;
-	}
-	fixed_str[t] = '\0';
-	
-	return (fixed_str);
-}
-/*
-char *ft_strtok(char *str, const char *delim)
-{
-	static char *last;
-	char *start;
 
-	if (str)
-		last = str;
-	if (!last)
-		return (NULL);
-	while (*last && strchr(delim, *last))
-		last++;
-	if (!*last)
-		return (NULL);
-	while (*last && strchr(delim, *last))
-		last++;
-	start = last;
-	while (*last && !strchr(delim, *last))
-		last++;
-	if (*last)
-	{
-		*last = '\0';
-		last++;
-	}
-	else
-		last = NULL;
-	return (start);
-} */
-
-void *ft_calloc(size_t count, size_t size)
-{
-	void *ptr = malloc(count * size);
-	if (ptr)
-		memset(ptr, 0, count * size);
-	return ptr;
-}
-/*
-char *strdup(const char *s)
-{
-	if (s == NULL)
-		return NULL;
-	char *d = malloc(strlen(s) + 1); // +1 for the null-terminator
-	if (d == NULL)
-		return NULL; // No memory
-	strcpy(d, s);	 // Copy the string
-	return d;		 // Return the new string
-} */
-
-// void *ft_realloc(void *ptr, size_t size)
-// {
-// 	void *new_ptr;
-
-// 	if (ptr == NULL)
-// 		return (malloc(size));
-// 	if (!size)
-// 		return (ptr);
-// 	new_ptr = malloc(size);
-// 	ft_memcpy(new_ptr, ptr, size);
-// 	return (new_ptr);
-// }
-//
 // Define o que sao tokens
-
 int is_token(const char *str)
 {
 	int i = 0;
@@ -157,27 +43,6 @@ int is_token(const char *str)
 	}
 	return 0;
 }
-// int fix_token(char *str)
-// {
-// 	int i = 0;
-// 	int k = 0;
-// 	const char *tokens[] = {"|", ">", "<", ">>", "<<", NULL};
-// 	while (str[i] != NULL)
-// 	{
-// 		k = 0;
-// 		while(tokens[k])
-// 		{
-// 			if (str[i] == tokens[k])
-// 			{
-// 				str[i] = ' ';
-// 				return(tokens[k] + '0');
-// 			}
-// 			k++;	
-// 		}
-// 		i++;
-// 	}
-// 	return 0;
-// }
 
 t_command *lexer_to_command(t_lexer *lexer)
 {
@@ -223,7 +88,7 @@ t_command *lexer_to_command(t_lexer *lexer)
 					}
 					current_cmd->input_file = ft_strdup(current->word);
 			}
-			}
+		}
 		else
 		{
 			// Handle command arguments
