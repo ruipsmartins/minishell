@@ -6,11 +6,11 @@
 /*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 16:59:41 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/09/06 09:21:38 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2024/10/11 14:49:15 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "../../includes/minishell.h"
 
 // Função para dividir strings (melhorias strtok, remove todos os espaços)
 char	*ft_strtok(char *str, const char *delim)
