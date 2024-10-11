@@ -10,10 +10,17 @@ SRCS_DIR = src
 OBJS_DIR = obj
 INCLUDES = -I includes
 
-# Lista de ficheiros fonte
-SRCS_FILES = main.c utils.c execute.c parsing.c redirections.c pipes.c #  Adicionar aqui todos os ficheiros .c do projeto
+# Lista de ficheiros fonte com subpastas
+SRCS_FILES = \
+	main.c \
+	utils/utils.c \
+	execute/execute.c \
+	parsing/parsing.c  \
+	redirections/redirections.c \
+	pipes/pipes.c
+
 SRCS = $(addprefix $(SRCS_DIR)/, $(SRCS_FILES))
-OBJS = $(addprefix $(OBJS_DIR)/, $(notdir $(SRCS:.c=.o)))
+OBJS = $(SRCS:$(SRCS_DIR)/%.c=$(OBJS_DIR)/%.o)
 
 # Libft
 LIBFT_DIR = libft
@@ -28,8 +35,9 @@ $(LIBFT):
 $(NAME): $(OBJS) $(LIBFT)
 	$(CC) $(CFLAGS) $(OBJS) $(LIBFT) -o $@ $(LDFLAGS)
 
+# Compilar os ficheiros fonte com subpastas
 $(OBJS_DIR)/%.o: $(SRCS_DIR)/%.c
-	@mkdir -p $(OBJS_DIR)
+	@mkdir -p $(dir $@)   #Cria a subpasta correspondente em obj
 	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
 
 clean:
@@ -51,4 +59,3 @@ valgrind:
 
 # Evita que make limpe ficheiros desnecessariamente
 .PHONY: all clean fclean re git valgrind
-
