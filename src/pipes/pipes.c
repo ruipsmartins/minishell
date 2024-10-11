@@ -6,11 +6,11 @@
 /*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 11:05:58 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/10/09 15:54:07 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2024/10/11 14:45:03 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "../../includes/minishell.h"
 
 // Função para lidar com os file descriptors (FDs) no processo filho.
 void	handle_fd(int in_fd, t_command *cmd, int fd[2])
