@@ -6,7 +6,7 @@
 /*   By: addicted <addicted@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 17:34:50 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/10/11 18:06:18 by addicted         ###   ########.fr       */
+/*   Updated: 2024/10/12 10:50:43 by addicted         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,4 +81,5 @@ int						handle_output_redirect(t_command *cmd,
 int						check_if_token(char c);
 int						count_token(const char *str);
 char					*fix_token_space(char *str);
+t_command				*lexer_to_command(t_lexer *lexer);
 #endif

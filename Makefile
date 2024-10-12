@@ -15,7 +15,7 @@ SRCS_FILES = \
 	main.c \
 	utils/utils.c \
 	execute/execute.c \
-	parsing/parsing.c parsing/fix_token_space.c \
+	parsing/parsing.c parsing/fix_token_space.c parsing/lexer_to_command.c\
 	redirections/redirections.c \
 	pipes/pipes.c
 

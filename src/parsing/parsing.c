@@ -6,7 +6,7 @@
 /*   By: addicted <addicted@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 08:59:52 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/10/11 18:39:16 by addicted         ###   ########.fr       */
+/*   Updated: 2024/10/12 10:49:51 by addicted         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,78 +42,6 @@ int is_token(const char *str)
 		i++;
 	}
 	return 0;
-}
-
-t_command *lexer_to_command(t_lexer *lexer)
-{
-	t_command *cmd_list = NULL;
-	t_command *current_cmd = NULL;
-	t_lexer *current = lexer;
-	int arg_count = 0;
-
-	while (current != NULL)
-	{
-		if (current->token && strncmp(current->token, "|", 2) == 0)
-		{
-			// Handle pipe: criar novo comando
-			current_cmd->next = (t_command *)ft_calloc(1, sizeof(t_command));
-			current_cmd = current_cmd->next;
-			arg_count = 0;
-		}
-		else if (current->token && strncmp(current->token, ">", 2) == 0)//
-		{
-			// Handle output redirection
-			current = current->next;
-			if (current && current->word)
-			{
-				if(current_cmd == NULL)
-				{
-					current_cmd = (t_command *)ft_calloc(1, sizeof(t_command));
-					cmd_list = current_cmd;
-				}
-				current_cmd->output_file = ft_strdup(current->word);
-				
-			}
-		}
-		else if (current->token && strncmp(current->token, "<", 2) == 0)//
-		{
-			// Handle input redirection
-			current = current->next;
-			if (current && current->word)
-			{
-					if (current_cmd == NULL)
-					{
-						current_cmd = (t_command *)ft_calloc(1, sizeof(t_command));
-						cmd_list = current_cmd;
-					}
-					current_cmd->input_file = ft_strdup(current->word);
-			}
-		}
-		else
-		{
-			// Handle command arguments
-			if (arg_count == 0)
-			{
-				// Crear primeiro commando
-				if (cmd_list == NULL)
-				{
-					cmd_list = (t_command *)ft_calloc(1, sizeof(t_command));
-					current_cmd = cmd_list;
-				}
-				else if (current_cmd == NULL)
-				{
-					current_cmd = (t_command *)ft_calloc(1, sizeof(t_command));
-				}
-			}
-			current_cmd->args = (char **)realloc(current_cmd->args, sizeof(char *) * (arg_count + 2));
-			current_cmd->args[arg_count] = strdup(current->word);
-			current_cmd->args[arg_count + 1] = NULL;
-			arg_count++;
-		}
-		current = current->next;
-	}
-
-	return cmd_list;
 }
 
 void free_command_list(t_command *cmd_list)
