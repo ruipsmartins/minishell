@@ -6,7 +6,7 @@
 /*   By: addicted <addicted@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/12 10:50:11 by addicted          #+#    #+#             */
-/*   Updated: 2024/10/12 10:56:00 by addicted         ###   ########.fr       */
+/*   Updated: 2024/10/15 19:13:31 by addicted         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,37 @@ void handle_pipe_token(t_command **current_cmd, int *arg_count)
 	*arg_count = 0;
 }
 
+t_lexer *handle_append(t_lexer *current, t_command **current_cmd, t_command **cmd_list)
+{
+	current = current->next;
+	if (current && current->word)
+	{
+		if (*current_cmd == NULL)
+		{
+			*current_cmd = (t_command *)ft_calloc(1, sizeof(t_command));
+			*cmd_list = *current_cmd;
+		}
+		(*current_cmd)->append = true;
+		(*current_cmd)->output_file = ft_strdup(current->word);
+	}
+	return (current);
+}
+t_lexer *handle_heredoc(t_lexer *current, t_command **current_cmd, t_command **cmd_list)
+{
+	current = current->next;
+	if (current && current->word)
+	{
+		if (*current_cmd == NULL)
+		{
+			*current_cmd = (t_command *)ft_calloc(1, sizeof(t_command));
+			*cmd_list = *current_cmd;
+		}
+		(*current_cmd)->heredoc = true;
+		(*current_cmd)->heredoc_last_wd = ft_strdup(current->word);// guardar a ultima palavra do heredoc
+	}
+	return current;
+}
+
 t_lexer	*handle_output_redirection(t_lexer *current, t_command **current_cmd, t_command **cmd_list)
 {
 	current = current->next;
@@ -29,6 +60,7 @@ t_lexer	*handle_output_redirection(t_lexer *current, t_command **current_cmd, t_
 			*current_cmd = (t_command *)ft_calloc(1, sizeof(t_command));
 			*cmd_list = *current_cmd;
 		}
+		(*current_cmd)->append = false;
 		(*current_cmd)->output_file = ft_strdup(current->word);
 	}
 	return (current);
@@ -76,21 +108,17 @@ t_command *lexer_to_command(t_lexer *lexer)
 	while (current != NULL)
 	{
 		if (current->token && strncmp(current->token, "|", 2) == 0)
-		{
 			handle_pipe_token(&current_cmd, &arg_count);
-		}
+		else if (current->token && strncmp(current->token, ">>", 3) == 0) //
+			current =  handle_append(current, &current_cmd, &cmd_list);
 		else if (current->token && strncmp(current->token, ">", 2) == 0) //
-		{
 			current = handle_output_redirection(current, &current_cmd, &cmd_list);
-		}
+		else if (current->token && strncmp(current->token, "<<", 3) == 0) //
+			current = handle_heredoc(current, &current_cmd, &cmd_list);
 		else if (current->token && strncmp(current->token, "<", 2) == 0) //
-		{
 			current = handle_input_redirection(current, &current_cmd, &cmd_list);
-		}
 		else
-		{
 			handle_argument(current, &current_cmd, &cmd_list, &arg_count);
-		}
 		current = current->next;
 	}
 	return cmd_list;
