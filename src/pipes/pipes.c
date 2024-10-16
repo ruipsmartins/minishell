@@ -6,7 +6,7 @@
 /*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 11:05:58 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/10/16 16:16:23 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2024/10/16 21:28:37 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,9 @@ void	handle_fd(int in_fd, t_command *cmd, int fd[2])
 // Função para executar o comando no processo filho.
 void	ft_child(int in_fd, t_command *cmd, int fd[2], t_data data)
 {
-	handle_fd(in_fd, cmd, fd);
 	if (handle_redirects(cmd, data) == -1)
 		exit(EXIT_FAILURE);
+	handle_fd(in_fd, cmd, fd);
 	execute_command_or_path(cmd, data);
 	std_reset(data.original_stdin, data.original_stdout);
 	exit(EXIT_FAILURE);
