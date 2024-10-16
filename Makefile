@@ -16,7 +16,7 @@ SRCS_FILES = \
 	utils/utils.c \
 	execute/execute.c \
 	parsing/parsing.c parsing/fix_token_space.c parsing/lexer_to_command.c\
-	redirections/redirections.c \
+	redirections/redirections.c redirections/heredoc.c \
 	pipes/pipes.c
 
 SRCS = $(addprefix $(SRCS_DIR)/, $(SRCS_FILES))

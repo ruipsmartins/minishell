@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: addicted <addicted@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 17:34:50 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/10/15 19:11:32 by addicted         ###   ########.fr       */
+/*   Updated: 2024/10/16 14:23:00 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ typedef struct s_command
 	char				*output_file;
 	bool				append; // >> para saber se é append ou não
 	bool				heredoc; // << para saber se é heredoc ou não
-	char				*heredoc_last_wd; // << para saber qual a ultima palavra do heredoc
+	char				*delimiter; // << para saber qual a ultima palavra do heredoc
 	struct s_command	*next;
 }						t_command;
 
@@ -79,6 +79,7 @@ int						handle_input_redirect(t_command *cmd,
 							int *original_stdin);
 int						handle_output_redirect(t_command *cmd,
 							int *original_stdout);
+int						execute_heredoc(t_command *cmd);
 
 // parsing
 int						check_if_token(char c);

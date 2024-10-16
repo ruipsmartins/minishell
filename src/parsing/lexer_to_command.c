@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_to_command.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: addicted <addicted@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/12 10:50:11 by addicted          #+#    #+#             */
-/*   Updated: 2024/10/15 19:13:31 by addicted         ###   ########.fr       */
+/*   Updated: 2024/10/16 14:10:15 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ t_lexer *handle_heredoc(t_lexer *current, t_command **current_cmd, t_command **c
 			*cmd_list = *current_cmd;
 		}
 		(*current_cmd)->heredoc = true;
-		(*current_cmd)->heredoc_last_wd = ft_strdup(current->word);// guardar a ultima palavra do heredoc
+		(*current_cmd)->delimiter = ft_strdup(current->word);// guardar a ultima palavra do heredoc
 	}
 	return current;
 }
