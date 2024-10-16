@@ -6,7 +6,7 @@
 /*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 16:59:41 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/10/16 17:11:17 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2024/10/16 17:34:11 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,14 +48,16 @@ char	*ft_strtok(char *str, const char *delim)
 	close(fd[1]);
 } */
 
-void print_command_error(char *command, int error_type)
+void	print_command_error(char *command, int error_type)
 {
-    if (error_type == 1) {  // "command not found"
-        write(STDERR_FILENO, command, ft_strlen(command));
-        write(STDERR_FILENO, ": Command not found\n", 20); // Mensagem de erro
-    } 
-    else if (error_type == 2) {  // "no such file or directory"
-        write(STDERR_FILENO, command, ft_strlen(command));
-        write(STDERR_FILENO, ": No such file or directory\n", 29); // Mensagem de erro
-    }
+	if (error_type == 1)
+	{
+		write(STDERR_FILENO, command, ft_strlen(command));
+		write(STDERR_FILENO, ": Command not found\n", 20);
+	}
+	else if (error_type == 2)
+	{
+		write(STDERR_FILENO, command, ft_strlen(command));
+		write(STDERR_FILENO, ": No such file or directory\n", 29);
+	}
 }

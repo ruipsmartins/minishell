@@ -6,7 +6,7 @@
 /*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 14:11:52 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/10/16 16:10:57 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2024/10/16 18:11:25 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,20 +30,20 @@ void	std_reset(int original_stdin, int original_stdout)
 int	handle_input_redirect(t_command *cmd, int *original_stdin)
 {
 	int	in_file;
+	int	heredoc_fd;
 
-	//ft_printf("heredoc: %d\n", cmd->heredoc);
-	if (cmd->heredoc == true)  // Adiciona uma condição para verificar o heredoc
+	if (cmd->heredoc == true)
 	{
 		*original_stdin = dup(STDIN_FILENO);
 		if (*original_stdin == -1)
 			return (-1);
-		int heredoc_fd = execute_heredoc(cmd);
+		heredoc_fd = execute_heredoc(cmd);
 		if (heredoc_fd == -1)
 			return (-1);
-		dup2(heredoc_fd, STDIN_FILENO);  // Redireciona o input do heredoc para o stdin
+		dup2(heredoc_fd, STDIN_FILENO);
 		close(heredoc_fd);
 	}
-	if (cmd->input_file && *cmd->input_file)
+	else if (cmd->input_file && *cmd->input_file)
 	{
 		in_file = open(cmd->input_file, O_RDONLY);
 		if (in_file == -1)
@@ -71,9 +71,11 @@ int	handle_output_redirect(t_command *cmd, int *original_stdout)
 	if (cmd->output_file && *cmd->output_file)
 	{
 		if (cmd->append == true)
-			out_file = open(cmd->output_file, O_WRONLY | O_CREAT | O_APPEND, 0644);
+			out_file = open(cmd->output_file, O_WRONLY | O_CREAT | O_APPEND,
+					0644);
 		else
-			out_file = open(cmd->output_file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+			out_file = open(cmd->output_file, O_WRONLY | O_CREAT | O_TRUNC,
+					0644);
 		if (out_file == -1)
 		{
 			ft_printf("%s: Failed to open output file\n", cmd->output_file);
