@@ -6,7 +6,7 @@
 /*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 08:59:57 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/10/11 14:44:24 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2024/10/16 17:11:57 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,27 +80,27 @@ void	execute_command(char *command, char **args, char **env)
 	}
 }
 
-void	execute_command_or_path(t_command *cmd, char **env)
+void	execute_command_or_path(t_command *cmd, t_data data)
 {
 	char	*executable;
 
 	if (cmd->args[0][0] == '/' || cmd->args[0][0] == '.')
 	{
 		if (access(cmd->args[0], X_OK) == 0)
-			execute_command(cmd->args[0], cmd->args, env);
+			execute_command(cmd->args[0], cmd->args, data.env);
 		else
-			ft_printf("%s: No such file or directory\n", cmd->args[0]);
+			print_command_error(cmd->args[0], 2);
 	}
 	else
 	{
 		executable = find_executable(cmd->args[0]);
 		if (executable)
 		{
-			execute_command(executable, cmd->args, env);
+			execute_command(executable, cmd->args, data.env);
 			free(executable);
 		}
 		else
-			ft_printf("%s: Command not found\n", cmd->args[0]);
+			print_command_error(cmd->args[0], 1);
 	}
 }
 
