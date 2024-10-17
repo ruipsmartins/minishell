@@ -6,7 +6,7 @@
 /*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 17:34:50 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/10/17 16:19:00 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2024/10/17 18:08:40 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,5 +92,7 @@ t_command				*lexer_to_command(t_lexer *lexer);
 //builtins
 bool					builtin_checker(t_command *cmd);
 void					exit_command(void);
+void					pwd_command(void);
+void					cd_command(t_command cmd);
 
 #endif

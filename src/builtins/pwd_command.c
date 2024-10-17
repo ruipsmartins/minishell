@@ -1,28 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtin_checker.c                                  :+:      :+:    :+:   */
+/*   pwd_command.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/17 15:17:35 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/10/17 18:09:08 by ruidos-s         ###   ########.fr       */
+/*   Created: 2024/10/17 17:21:15 by ruidos-s          #+#    #+#             */
+/*   Updated: 2024/10/17 17:42:10 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-bool	builtin_checker(t_command *cmd)
+void	pwd_command(void)
 {
+	char *buffer;
 
-	if (ft_strncmp(cmd->args[0], "exit", 5) == 0)
-		exit_command();
-	else if (ft_strncmp(cmd->args[0], "pwd", 4) == 0)
-		pwd_command();
-	else if (ft_strncmp(cmd->args[0], "cd", 4) == 0)
-		cd_command(*cmd);
-	else
-		return false;
+	buffer = getcwd(NULL, 0);
+	if (!buffer)
+	{
+		perror("getcwd:");
+		return ;
+	}
 
-	return true;
+	ft_printf("%s\n", buffer);
+	free(buffer);
 }

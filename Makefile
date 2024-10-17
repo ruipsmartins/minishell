@@ -18,7 +18,7 @@ SRCS_FILES = \
 	parsing/parsing.c parsing/fix_token_space.c parsing/lexer_to_command.c\
 	redirections/redirections.c redirections/heredoc.c \
 	pipes/pipes.c \
-	builtins/builtin_checker.c builtins/exit.c
+	builtins/builtin_checker.c builtins/exit_command.c builtins/pwd_command.c builtins/cd_command.c
 
 SRCS = $(addprefix $(SRCS_DIR)/, $(SRCS_FILES))
 OBJS = $(SRCS:$(SRCS_DIR)/%.c=$(OBJS_DIR)/%.o)
@@ -56,7 +56,7 @@ git:
 	git status
 
 valgrind:
-	valgrind --show-leak-kinds=all --leak-check=full --track-fds=yes --trace-children=yes ./minishell
+	valgrind --suppressions=readline.supp --leak-check=full --show-leak-kinds=all ./minishell
 
 # Evita que make limpe ficheiros desnecessariamente
 .PHONY: all clean fclean re git valgrind
