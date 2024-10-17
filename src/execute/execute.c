@@ -6,7 +6,7 @@
 /*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 08:59:57 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/10/16 17:11:57 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2024/10/17 16:15:23 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,27 +80,30 @@ void	execute_command(char *command, char **args, char **env)
 	}
 }
 
-void	execute_command_or_path(t_command *cmd, t_data data)
+void	execute_command_or_path(t_command *cmd, t_data *data)
 {
 	char	*executable;
 
-	if (cmd->args[0][0] == '/' || cmd->args[0][0] == '.')
+	if (builtin_checker(cmd) == false)
 	{
-		if (access(cmd->args[0], X_OK) == 0)
-			execute_command(cmd->args[0], cmd->args, data.env);
-		else
-			print_command_error(cmd->args[0], 2);
-	}
-	else
-	{
-		executable = find_executable(cmd->args[0]);
-		if (executable)
+		if (cmd->args[0][0] == '/' || cmd->args[0][0] == '.')
 		{
-			execute_command(executable, cmd->args, data.env);
-			free(executable);
+			if (access(cmd->args[0], X_OK) == 0)
+				execute_command(cmd->args[0], cmd->args, data->env);
+			else
+				print_command_error(cmd->args[0], 2);
 		}
 		else
-			print_command_error(cmd->args[0], 1);
+		{
+			executable = find_executable(cmd->args[0]);
+			if (executable)
+			{
+				execute_command(executable, cmd->args, data->env);
+				free(executable);
+			}
+			else
+				print_command_error(cmd->args[0], 1);
+		}
 	}
 }
 
@@ -131,5 +134,5 @@ void	execute(t_command *cmd, char **env)
 	data.env = env;
 	data.original_stdin = -1;
 	data.original_stdout = -1;
-	execute_piped_commands(cmd, data);
+	execute_piped_commands(cmd, &data);
 }

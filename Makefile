@@ -17,7 +17,8 @@ SRCS_FILES = \
 	execute/execute.c \
 	parsing/parsing.c parsing/fix_token_space.c parsing/lexer_to_command.c\
 	redirections/redirections.c redirections/heredoc.c \
-	pipes/pipes.c
+	pipes/pipes.c \
+	builtins/builtin_checker.c builtins/exit.c
 
 SRCS = $(addprefix $(SRCS_DIR)/, $(SRCS_FILES))
 OBJS = $(SRCS:$(SRCS_DIR)/%.c=$(OBJS_DIR)/%.o)

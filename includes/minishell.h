@@ -6,7 +6,7 @@
 /*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 17:34:50 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/10/16 17:05:53 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2024/10/17 16:19:00 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,30 +62,35 @@ char					**parse_command(char *input);
 void					execute(t_command *cmd_list, char **env);
 void					execute_command(char *command, char **args, char **env);
 char					*get_command_input(void);
-void					std_reset(int original_stdin, int original_stdout);
 void					handle_input(char *input, char **env);
-void					execute_command_or_path(t_command *cmd, t_data data);
+void					execute_command_or_path(t_command *cmd, t_data *data);
 void					print_command_error(char *command, int error_type);
 
 
 // pipes
-void					execute_piped_commands(t_command *cmd, t_data data);
+void					execute_piped_commands(t_command *cmd, t_data *data);
 void					ft_child(int in_fd, t_command *cmd, int fd[2],
-							t_data data);
+							t_data *data);
 void					handle_fd(int in_fd, t_command *cmd, int fd[2]);
 char					***split_by_pipe(char *input);
 
 // redirections
-int						handle_redirects(t_command *cmd, t_data data);
+int						handle_redirects(t_command *cmd, t_data *data);
 int						handle_input_redirect(t_command *cmd,
 							int *original_stdin);
 int						handle_output_redirect(t_command *cmd,
 							int *original_stdout);
 int						execute_heredoc(t_command *cmd);
+void					std_reset(int *original_stdin, int *original_stdout);
 
 // parsing
 int						check_if_token(char c);
 int						count_token(const char *str);
 char					*fix_token_space(char *str);
 t_command				*lexer_to_command(t_lexer *lexer);
+
+//builtins
+bool					builtin_checker(t_command *cmd);
+void					exit_command(void);
+
 #endif

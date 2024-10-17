@@ -6,24 +6,24 @@
 /*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 14:11:52 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/10/16 18:11:25 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2024/10/17 16:37:34 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
 // Restaurar o stds se foram alterados
-void	std_reset(int original_stdin, int original_stdout)
+void	std_reset(int *original_stdin, int *original_stdout)
 {
-	if (original_stdin != -1)
+	if (*original_stdin != -1)
 	{
-		dup2(original_stdin, STDIN_FILENO);
-		close(original_stdin);
+		dup2(*original_stdin, STDIN_FILENO);
+		close(*original_stdin);
 	}
-	if (original_stdout != -1)
+	if (*original_stdout != -1)
 	{
-		dup2(original_stdout, STDOUT_FILENO);
-		close(original_stdout);
+		dup2(*original_stdout, STDOUT_FILENO);
+		close(*original_stdout);
 	}
 }
 
@@ -94,11 +94,11 @@ int	handle_output_redirect(t_command *cmd, int *original_stdout)
 	return (0);
 }
 
-int	handle_redirects(t_command *cmd, t_data data)
+int	handle_redirects(t_command *cmd, t_data *data)
 {
-	if (handle_input_redirect(cmd, &data.original_stdin) == -1)
+	if (handle_input_redirect(cmd, &data->original_stdin) == -1)
 		return (-1);
-	if (handle_output_redirect(cmd, &data.original_stdout) == -1)
+	if (handle_output_redirect(cmd, &data->original_stdout) == -1)
 		return (-1);
 	return (0);
 }
