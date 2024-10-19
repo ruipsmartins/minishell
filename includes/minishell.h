@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: addicted <addicted@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 17:34:50 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/10/17 18:08:40 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2024/10/19 10:46:14 by addicted         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,18 @@ typedef struct s_command
 	char				*delimiter; // << para saber qual a ultima palavra do heredoc
 	struct s_command	*next;
 }						t_command;
+
+typedef struct s_envvar
+{
+	char				*name;
+	char				*value;
+	struct s_envvar		*next;
+}						t_envvar;
+
+typedef struct s_envvar_list
+{
+	t_envvar			*head;
+}						t_envvar_list;
 
 typedef struct s_data
 {

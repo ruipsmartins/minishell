@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: addicted <addicted@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 17:28:57 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/10/11 14:45:34 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2024/10/19 12:46:21 by addicted         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,20 @@ char	*get_command_input(void)
 		add_history(input);
 	return (input);
 }
+
+// t_envvar_list	*init_env_list()
+// {
+// 	t_envvar_list	*env_list;
+
+// 	env_list = (t_envvar_list *)ft_calloc(1, sizeof(t_envvar_list));
+// 	if (env_list == NULL)
+// 	{
+// 		perror("malloc");
+// 		exit(EXIT_FAILURE);
+// 	}
+// 	env_list->head = NULL;
+// 	return (env_list);
+// }
 
 int	main(int ac, char **av, char **env)
 {
