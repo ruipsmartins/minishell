@@ -6,7 +6,7 @@
 /*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 08:59:57 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/10/17 16:15:23 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2024/10/21 18:48:27 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ void	execute_command_or_path(t_command *cmd, t_data *data)
 {
 	char	*executable;
 
-	if (builtin_checker(cmd) == false)
+	if (builtin_checker(cmd, data) == false)
 	{
 		if (cmd->args[0][0] == '/' || cmd->args[0][0] == '.')
 		{
@@ -134,5 +134,6 @@ void	execute(t_command *cmd, char **env)
 	data.env = env;
 	data.original_stdin = -1;
 	data.original_stdout = -1;
+	data.close_shell = false;
 	execute_piped_commands(cmd, &data);
 }

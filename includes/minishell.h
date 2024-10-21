@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: addicted <addicted@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 17:34:50 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/10/19 10:46:14 by addicted         ###   ########.fr       */
+/*   Updated: 2024/10/21 18:49:44 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ typedef struct s_data
 	int					original_stdin;
 	int					original_stdout;
 	t_command			*cmd;
+	bool				close_shell;
 }						t_data;
 
 char					*readline(const char *prompt);
@@ -102,8 +103,8 @@ char					*fix_token_space(char *str);
 t_command				*lexer_to_command(t_lexer *lexer);
 
 //builtins
-bool					builtin_checker(t_command *cmd);
-void					exit_command(void);
+bool					builtin_checker(t_command *cmd, t_data *data);
+void					exit_command(t_data *data);
 void					pwd_command(void);
 void					cd_command(t_command cmd);
 
