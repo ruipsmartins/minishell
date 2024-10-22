@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: addicted <addicted@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 08:59:52 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/10/15 16:21:31 by addicted         ###   ########.fr       */
+/*   Updated: 2024/10/22 12:47:19 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ void free_command_list(t_command *cmd_list)
 		current = next;
 	}
 }
-void handle_input(char *input, char **env)
+void handle_input(char *input, t_data *data)
 {
 	t_lexer *lexer = NULL;
 	t_lexer *current = NULL;
@@ -140,7 +140,7 @@ void handle_input(char *input, char **env)
 	// 	cmd_current = cmd_current->next;
 	// }
 
-		execute(cmd_list, env);
+		execute(cmd_list, data);
 	
 
 	//Free da lista dos comandos

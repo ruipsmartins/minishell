@@ -6,7 +6,7 @@
 /*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 17:34:50 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/10/22 12:20:11 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2024/10/22 12:46:54 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ void					close_fds(int *fd);
 char					*find_executable(const char *command);
 
 // parsing
+void					handle_input(char *input, t_data *data);
 char					**parse_command(char *input);
 int						check_if_token(char c);
 int						count_token(const char *str);
@@ -78,10 +79,9 @@ char					*fix_token_space(char *str);
 t_command				*lexer_to_command(t_lexer *lexer);
 
 // execute
-void					execute(t_command *cmd_list, char **env);
+void					execute(t_command *cmd_list, t_data *data);
 void					execute_command(char *command, char **args, char **env);
 char					*get_command_input(void);
-void					handle_input(char *input, char **env);
 void					execute_command_or_path(t_command *cmd, t_data *data);
 void					print_command_error(char *command, int error_type);
 

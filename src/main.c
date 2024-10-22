@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: addicted <addicted@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 17:28:57 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/10/19 12:46:21 by addicted         ###   ########.fr       */
+/*   Updated: 2024/10/22 12:56:07 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,14 +39,21 @@ char	*get_command_input(void)
 int	main(int ac, char **av, char **env)
 {
 	char	*input;
+	t_data	data;
 
+	data.env = env;
+	data.original_stdin = -1;
+	data.original_stdout = -1;
+	data.close_shell = false;
 	(void)ac;
 	(void)av;
 	input = get_command_input();
-	while (input != NULL)
+	while (input != NULL  && !data.close_shell)
 	{
 		if (*input)
-			handle_input(input, env);
+			handle_input(input, &data);
+		if (data.close_shell)
+			break;
 		free(input);
 		input = get_command_input();
 	}
