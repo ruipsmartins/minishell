@@ -23,6 +23,16 @@
                 "engineLogging": true
             },
             "setupCommands": [
+				/* {
+                    "description": "Follow the child process after fork",
+                    "text": "set follow-fork-mode child",  // Seguir o processo filho
+                    "ignoreFailures": true
+                },
+                {
+                    "description": "Don't detach on fork",
+                    "text": "set detach-on-fork off",  // Não desprender o filho
+                    "ignoreFailures": true
+                }, */
                 {
                     "description": "Enable pretty-printing for gdb",
                     "text": "-enable-pretty-printing",
