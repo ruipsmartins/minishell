@@ -6,7 +6,7 @@
 /*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 17:34:50 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/10/21 18:49:44 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2024/10/22 11:25:18 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,8 +82,8 @@ void					print_command_error(char *command, int error_type);
 
 // pipes
 void					execute_piped_commands(t_command *cmd, t_data *data);
-void					ft_child(int in_fd, t_command *cmd, int fd[2],
-							t_data *data);
+int ft_child(int in_fd, t_command *cmd, int fd[2], t_data *data, int exit_pipe[2]);
+
 void					handle_fd(int in_fd, t_command *cmd, int fd[2]);
 char					***split_by_pipe(char *input);
 
