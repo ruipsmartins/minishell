@@ -6,7 +6,7 @@
 /*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 11:05:58 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/10/25 11:23:28 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2024/10/25 12:49:36 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,9 @@ void	execute_piped_commands(t_command *cmd, t_data *data)
 		else
 		{
 			if (ft_parent(&in_fd, fd, data, exit_pipe))
-				break ;       // Sai do loop se 'exit' foi encontrado
+				break ; // Sai do loop se 'exit' foi encontrado
+			if (strcmp(cmd->args[0], "cd") == 0)
+				cd_command(*cmd);
 			cmd = cmd->next; // Avança para o próximo comando
 		}
 	}

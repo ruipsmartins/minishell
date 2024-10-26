@@ -6,7 +6,7 @@
 /*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 17:21:15 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/10/17 17:42:10 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2024/10/26 10:42:19 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,15 @@
 
 void	pwd_command(void)
 {
-	char *buffer;
+	char *cwd;
 
-	buffer = getcwd(NULL, 0);
-	if (!buffer)
+	cwd = getcwd(NULL, 0);
+	if (!cwd)
 	{
 		perror("getcwd:");
 		return ;
 	}
 
-	ft_printf("%s\n", buffer);
-	free(buffer);
+	ft_printf("%s\n", cwd);
+	free(cwd);
 }
