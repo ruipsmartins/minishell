@@ -187,44 +187,44 @@ Thanks to Minishell, I travelled through time and came back to problems people f
 
 | Status  | Command |
 | :------ | :------ |
-| 🟢 | `<empty>`  |
-| 🟢 | `<spaces>` |
-| 🟢 | `../../`   |
-| 🟢 | `$`        |	
+| 🟡 | `<empty>`  |
+| 🟡 | `<spaces>` |
+| 🟡 | `../../`   |
+| 🟡 | `$`        |	
 
 #### SIGNALS
 > Understanding system signals, showcasing the shell's adaptability in various scenarios.
 
 | Status  | Command |
 | :------ | :------ |
-| 🟢 | `Ctrl` + `C`                                |
-| 🟢 | `Ctrl` + `D`                                |
-| 🟢 | `Ctrl` + `\`                                |
-| 🟢 | `write something then press` + `Ctrl` + `C` |
-| 🟢 | `write something then press` + `Ctrl` + `D` |
-| 🟢 | `write something then press` + `Ctrl` + `\` |
-| 🟢 | `cat` + `Ctrl` + `C`                        |
-| 🟢 | `cat` + `Ctrl` + `D`                        |
-| 🟢 | `cat` + `Ctrl` + `\`                        |
-| 🟢 | `sleep 5` + `Ctrl` + `C`                    |
-| 🟢 | `sleep 5` + `Ctrl` + `D`                    |
-| 🟢 | `sleep 5` + `Ctrl` + `\`                    |
+|  | `Ctrl` + `C`                                |
+| 🟡 | `Ctrl` + `D`                                |
+| 🟡 | `Ctrl` + `\`                                |
+| 🟡 | `write something then press` + `Ctrl` + `C` |
+| 🟡 | `write something then press` + `Ctrl` + `D` |
+| 🟡 | `write something then press` + `Ctrl` + `\` |
+| 🟡 | `cat` + `Ctrl` + `C`                        |
+| 🟡 | `cat` + `Ctrl` + `D`                        |
+| 🟡 | `cat` + `Ctrl` + `\`                        |
+| 🟡 | `sleep 5` + `Ctrl` + `C`                    |
+| 🟡 | `sleep 5` + `Ctrl` + `D`                    |
+| 🟡 | `sleep 5` + `Ctrl` + `\`                    |
 	
 #### PATH
 > Managing executable file access by manipulating the system path in Minishell.
 
 | Status  | Command |
 | :------ | :------ |
-| 🟢 | `/bin/echo`        |
-| 🟢 | `/bin/grep`        |
-| 🟢 | `/bin/ls`          |
-| 🟢 | `/bin/ls -la`      |
-| 🟢 | `/bin/cat`         |
-| 🟢 | `/bin/pwd`         |
-| 🟢 | `/bin/cd`          | OK! Path not found in bash nor in our
-| 🟢 | `/bin/export`      | OK! Path not found in bash nor in our
-| 🟢 | `/bin/exit`        | OK! Path not found in bash nor in our
-| 🟢 | `/bin/env`         | IMPORTANT!
+| 🟡 | `/bin/echo`        |
+| 🟡 | `/bin/grep`        |
+| 🟡 | `/bin/ls`          |
+| 🟡 | `/bin/ls -la`      |
+| 🟡 | `/bin/cat`         |
+| 🟡 | `/bin/pwd`         |
+| 🟡 | `/bin/cd`          | OK! Path not found in bash nor in our
+| 🟡 | `/bin/export`      | OK! Path not found in bash nor in our
+| 🟡 | `/bin/exit`        | OK! Path not found in bash nor in our
+| 🟡 | `/bin/env`         | IMPORTANT!
 
 
 #### PWD
@@ -232,9 +232,9 @@ Thanks to Minishell, I travelled through time and came back to problems people f
 
 | Status  | Command |
 | :------ | :------ |
-| 🟢 | `pwd`         |
-| 🟢 | `pwd a`       |
-| 🟢 | `pwd a b c d` |
+| 🟡 | `pwd`         |
+| 🟡 | `pwd a`       |
+| 🟡 | `pwd a b c d` |
 
 
 #### EXPORT, ENV AND UNSET
@@ -242,51 +242,51 @@ Thanks to Minishell, I travelled through time and came back to problems people f
 
 | Status  | Command |
 | :------ | :------ |
-| 🟢 | `ENV`                        	|
-| 🟢 | `eNv`                        	|
-| 🟢 | `env`                        	|
-| 🟢 | ` env`                       	|
-| 🟢 | `env `                       	|
-| 🟢 | `  env  `                    	|
-| 🟢 | `UNSET`                      	|
-| 🟢 | `uNsEt`                      	|
-| 🟢 | `unset`                      	|
-| 🟢 | ` unset`                     	|
-| 🟢 | `unset `                     	|
-| 🟢 | `  unset  `                  	|
-| 🟢 | `unset [variable]`           	|
-| 🟢 | `unset [variable] [variable]`	|
-| 🟢 | `unset [all variables]`      	|
-| 🟢 | `EXPORT`                     	|
-| 🟢 | `eXpOrT`                     	|
-| 🟢 | `export`                     	|
-| 🟢 | ` export`                    	|
-| 🟢 | `export `                    	|
-| 🟢 | `  export  `                 	|
-| 🟢 | `export a=42`                	|
-| 🟢 | `export a = 42`              	|
-| 🟢 | `export a=" 42 "`            	|
-| 🟢 | `export a=' 42 '`            	|
-| 🟢 | `export a` 		    	        |
-| 🟢 | `export a=''`           	    	|                                         
-| 🟢 | `export a='"'`               	|                                   
-| 🟢 | `export a='\'`               	|                                
-| 🟢 | `export a='$'`               	|                                 
-| 🟢 | `export a='\t'`              	|                                    
-| 🟢 | `export a='''` 		 	        | 
-| 🟢 | `export =` 		             	|
-| 🟢 | `export ==`		            	| not a valid identifier
-| 🟢 | `export a=` 		            	| its possbible
-| 🟢 | `export a=42=` 		    		| its possbible - nesse caso como o = eh impresso eh preciso altera-lo (*-1)
-| 🟢 | `export =a=42` 		  	 	 	| not a valid identifier
-| 🟢 | `export a==42` 		  		  	| its possible - nesse caso como o = eh impresso eh preciso altera-lo (*-1)
-| 🟢 | `export "a=42"` 		 		   	| its possbile - value nao esta ficando entre "" na lista export
-| 🟢 | `export _=42` 		 		   	| O _=aaaaaaa n deve fazer nada. Fazer tratamento especial pra evitar aparecer na lista exp
-| 🟢 | `export 42=42`		  		  	|
-| 🟢 | `export a b = 42`	  		  	|
-| 🟢 | `export a= b= 42`	    	    |
-| 🟢 | `export a=42 % b=42 @ c=42`  	|
-| 🟢 | `export A=a B=b C=c D=d E=e` 	|
+| 🟡 | `ENV`                        	|
+| 🟡 | `eNv`                        	|
+| 🟡 | `env`                        	|
+| 🟡 | ` env`                       	|
+| 🟡 | `env `                       	|
+| 🟡 | `  env  `                    	|
+| 🟡 | `UNSET`                      	|
+| 🟡 | `uNsEt`                      	|
+| 🟡 | `unset`                      	|
+| 🟡 | ` unset`                     	|
+| 🟡 | `unset `                     	|
+| 🟡 | `  unset  `                  	|
+| 🟡 | `unset [variable]`           	|
+| 🟡 | `unset [variable] [variable]`	|
+| 🟡 | `unset [all variables]`      	|
+| 🟡 | `EXPORT`                     	|
+| 🟡 | `eXpOrT`                     	|
+| 🟡 | `export`                     	|
+| 🟡 | ` export`                    	|
+| 🟡 | `export `                    	|
+| 🟡 | `  export  `                 	|
+| 🟡 | `export a=42`                	|
+| 🟡 | `export a = 42`              	|
+| 🟡 | `export a=" 42 "`            	|
+| 🟡 | `export a=' 42 '`            	|
+| 🟡 | `export a` 		    	        |
+| 🟡 | `export a=''`           	    	|                                         
+| 🟡 | `export a='"'`               	|                                   
+| 🟡 | `export a='\'`               	|                                
+| 🟡 | `export a='$'`               	|                                 
+| 🟡 | `export a='\t'`              	|                                    
+| 🟡 | `export a='''` 		 	        | 
+| 🟡 | `export =` 		             	|
+| 🟡 | `export ==`		            	| not a valid identifier
+| 🟡 | `export a=` 		            	| its possbible
+| 🟡 | `export a=42=` 		    		| its possbible - nesse caso como o = eh impresso eh preciso altera-lo (*-1)
+| 🟡 | `export =a=42` 		  	 	 	| not a valid identifier
+| 🟡 | `export a==42` 		  		  	| its possible - nesse caso como o = eh impresso eh preciso altera-lo (*-1)
+| 🟡 | `export "a=42"` 		 		   	| its possbile - value nao esta ficando entre "" na lista export
+| 🟡 | `export _=42` 		 		   	| O _=aaaaaaa n deve fazer nada. Fazer tratamento especial pra evitar aparecer na lista exp
+| 🟡 | `export 42=42`		  		  	|
+| 🟡 | `export a b = 42`	  		  	|
+| 🟡 | `export a= b= 42`	    	    |
+| 🟡 | `export a=42 % b=42 @ c=42`  	|
+| 🟡 | `export A=a B=b C=c D=d E=e` 	|
 | 🔵 | `export _=a; echo $_a` 		    |
 
 # all tested in valgrind until here
@@ -296,212 +296,212 @@ Thanks to Minishell, I travelled through time and came back to problems people f
 
 | Status  | Command |
 | :------ | :------ |
-| 🟢 | `EXIT`                      |
-| 🟢 | `eXiT`                      |
-| 🟢 | `exit`                      |
-| 🟢 | `exit `                     |
-| 🟢 | ` exit`                     |
-| 🟢 | `  exit  `                  |
-| 🟢 | `exit test`                 | inverter a ordem das mensagens do stdout e err (verificar se o err ta no stderr)
-| 🟢 | `exit "test"`               | inverter a ordem das mensagens do stdout e err (verificar se o err ta no stderr)
-| 🟢 | `"exit test"`               |
-| 🟢 | `"exit"`                    |
-| 🟢 | `exit1`                     |
-| 🟢 | `exita`                     |
-| 🟢 | `exit exit`                 | inverter a ordem das mensagens do stdout e err (verificar se o err ta no stderr)
-| 🟢 | `exit a`                    | inverter a ordem das mensagens do stdout e err (verificar se o err ta no stderr)
-| 🟢 | `exit abc`                  | inverter a ordem das mensagens do stdout e err (verificar se o err ta no stderr)
-| 🟢 | `exit a b c`                | inverter a ordem das mensagens do stdout e err (verificar se o err ta no stderr) && ajustar mensagem de erro
-| 🟢 | `exit a b c d`              | inverter a ordem das mensagens do stdout e err (verificar se o err ta no stderr) && ajustar mensagem de erro
+| 🟡 | `EXIT`                      |
+| 🟡 | `eXiT`                      |
+| 🟡 | `exit`                      |
+| 🟡 | `exit `                     |
+| 🟡 | ` exit`                     |
+| 🟡 | `  exit  `                  |
+| 🟡 | `exit test`                 | inverter a ordem das mensagens do stdout e err (verificar se o err ta no stderr)
+| 🟡 | `exit "test"`               | inverter a ordem das mensagens do stdout e err (verificar se o err ta no stderr)
+| 🟡 | `"exit test"`               |
+| 🟡 | `"exit"`                    |
+| 🟡 | `exit1`                     |
+| 🟡 | `exita`                     |
+| 🟡 | `exit exit`                 | inverter a ordem das mensagens do stdout e err (verificar se o err ta no stderr)
+| 🟡 | `exit a`                    | inverter a ordem das mensagens do stdout e err (verificar se o err ta no stderr)
+| 🟡 | `exit abc`                  | inverter a ordem das mensagens do stdout e err (verificar se o err ta no stderr)
+| 🟡 | `exit a b c`                | inverter a ordem das mensagens do stdout e err (verificar se o err ta no stderr) && ajustar mensagem de erro
+| 🟡 | `exit a b c d`              | inverter a ordem das mensagens do stdout e err (verificar se o err ta no stderr) && ajustar mensagem de erro
 | 🔵 | `exit #`                    | pensar sobre o parsing do # (not mandatory??)
 | 🔵 | `exit *`                    | wildcard not mandatory?
-| 🟢 | `exit 0`                    |
-| 🟢 | `exit 1`                    |
-| 🟢 | `exit 123`                  |
-| 🟢 | `exit 1234`                 |
-| 🟢 | `exit 1 2 3 4`              | inverter a ordem das mensagens do stdout e err (verificar se o err ta no stderr)
-| 🟢 | `exit +`                    | inverter a ordem das mensagens do stdout e err (verificar se o err ta no stderr) && incluir mensagem de erro
-| 🟢 | `exit -`                    | inverter a ordem das mensagens do stdout e err (verificar se o err ta no stderr) && incluir mensagem de erro
-| 🟢 | `exit +10`                  |
-| 🟢 | `exit -10`                  |
-| 🟢 | `exit +2000`                |
-| 🟢 | `exit -2000`                |
-| 🟢 | `exit +-2000`               | inverter a ordem das mensagens do stdout e err (verificar se o err ta no stderr)
-| 🟢 | `exit -+2000`               | inverter a ordem das mensagens do stdout e err (verificar se o err ta no stderr)
-| 🟢 | `exit ++2000`               | inverter a ordem das mensagens do stdout e err (verificar se o err ta no stderr)
-| 🟢 | `exit --2000`               | inverter a ordem das mensagens do stdout e err (verificar se o err ta no stderr)
-| 🟢 | `exit -2147483649`          |
-| 🟢 | `exit 2147483648`           |
-| 🟢 | `exit 00000000000000000000` |
-| 🟢 | `exit 11111111111111111111` | inverter a ordem das mensagens do stdout e err (verificar se o err ta no stderr)
-| 🟢 | `exit'42'`                  |
-| 🟢 | `exit '\t42'`               | inverter a ordem das mensagens do stdout e err (verificar se o err ta no stderr)
-| 🟢 | `exit '\t\f\r 42'`          | inverter a ordem das mensagens do stdout e err (verificar se o err ta no stderr)
-| 🟢 | `exit '42 '`                |
-| 🟢 | `exit '42\t'`               | inverter a ordem das mensagens do stdout e err (verificar se o err ta no stderr)
-| 🟢 | `exit '42\r'`               | inverter a ordem das mensagens do stdout e err (verificar se o err ta no stderr)
-| 🟢 | `exit '42\t\f\r '`          | inverter a ordem das mensagens do stdout e err (verificar se o err ta no stderr)
-| 🟢 | `exit '42     a'`           | inverter a ordem das mensagens do stdout e err (verificar se o err ta no stderr)
-| 🟢 | `exit '42\t\t\ta'`          | inverter a ordem das mensagens do stdout e err (verificar se o err ta no stderr)
+| 🟡 | `exit 0`                    |
+| 🟡 | `exit 1`                    |
+| 🟡 | `exit 123`                  |
+| 🟡 | `exit 1234`                 |
+| 🟡 | `exit 1 2 3 4`              | inverter a ordem das mensagens do stdout e err (verificar se o err ta no stderr)
+| 🟡 | `exit +`                    | inverter a ordem das mensagens do stdout e err (verificar se o err ta no stderr) && incluir mensagem de erro
+| 🟡 | `exit -`                    | inverter a ordem das mensagens do stdout e err (verificar se o err ta no stderr) && incluir mensagem de erro
+| 🟡 | `exit +10`                  |
+| 🟡 | `exit -10`                  |
+| 🟡 | `exit +2000`                |
+| 🟡 | `exit -2000`                |
+| 🟡 | `exit +-2000`               | inverter a ordem das mensagens do stdout e err (verificar se o err ta no stderr)
+| 🟡 | `exit -+2000`               | inverter a ordem das mensagens do stdout e err (verificar se o err ta no stderr)
+| 🟡 | `exit ++2000`               | inverter a ordem das mensagens do stdout e err (verificar se o err ta no stderr)
+| 🟡 | `exit --2000`               | inverter a ordem das mensagens do stdout e err (verificar se o err ta no stderr)
+| 🟡 | `exit -2147483649`          |
+| 🟡 | `exit 2147483648`           |
+| 🟡 | `exit 00000000000000000000` |
+| 🟡 | `exit 11111111111111111111` | inverter a ordem das mensagens do stdout e err (verificar se o err ta no stderr)
+| 🟡 | `exit'42'`                  |
+| 🟡 | `exit '\t42'`               | inverter a ordem das mensagens do stdout e err (verificar se o err ta no stderr)
+| 🟡 | `exit '\t\f\r 42'`          | inverter a ordem das mensagens do stdout e err (verificar se o err ta no stderr)
+| 🟡 | `exit '42 '`                |
+| 🟡 | `exit '42\t'`               | inverter a ordem das mensagens do stdout e err (verificar se o err ta no stderr)
+| 🟡 | `exit '42\r'`               | inverter a ordem das mensagens do stdout e err (verificar se o err ta no stderr)
+| 🟡 | `exit '42\t\f\r '`          | inverter a ordem das mensagens do stdout e err (verificar se o err ta no stderr)
+| 🟡 | `exit '42     a'`           | inverter a ordem das mensagens do stdout e err (verificar se o err ta no stderr)
+| 🟡 | `exit '42\t\t\ta'`          | inverter a ordem das mensagens do stdout e err (verificar se o err ta no stderr)
 
 #### CD
 > Traversing directories seamlessly using the cd command in Minishell.
 
 | Status  | Command |
 | :------ | :------ |
-| 🟢| `CD`                     |
-| 🟢 | `cd`                    |
-| 🟢 | `cd `                   |
-| 🟢 | ` cd`                   |
-| 🟢 | `  cd  `                |
-| 🟢 | `cd .`                  |
-| 🟢 | `cd ~`                  |
-| 🟢 | `cd no_file`            |
-| 🟢 | `cd1`                   |
-| 🟢 | `cd 0`                  |
-| 🟢 | `cd 1`                  |
-| 🟢 | `cd 123`                |
-| 🟢 | `cd 1 2 3 4`            |
-| 🟢 | `cd cd`                 |
-| 🟢 | `cd a`                  |
-| 🟢 | `cd abc`                |
-| 🟢 | `cd a b c`              |
-| 🟢 | `cd ../../`             |
-| 🟢 | `cd ../../../../../../` |
-| 🟢 | `cd ../../...`          |
-| 🟢 | `cd .../../..`          |
-| 🟢 | `cd .../../...`         |
-| 🟢 | `cd \`                  |
-| 🟢 | `cd /`                  |
-| 🟢 | `cd //`                 | OK! TESTAR NO BASH DA ESCOLA>
-| 🟢 | `cd ///`                |
-| 🟢 | `cd -`                  |
-| 🟢 | `cd $[VAR]`             |
+| 🟡 | `CD`                     |
+| 🟡 | `cd`                    |
+| 🟡 | `cd `                   |
+| 🟡 | ` cd`                   |
+| 🟡 | `  cd  `                |
+| 🟡 | `cd .`                  |
+| 🟡 | `cd ~`                  |
+| 🟡 | `cd no_file`            |
+| 🟡 | `cd1`                   |
+| 🟡 | `cd 0`                  |
+| 🟡 | `cd 1`                  |
+| 🟡 | `cd 123`                |
+| 🟡 | `cd 1 2 3 4`            |
+| 🟡 | `cd cd`                 |
+| 🟡 | `cd a`                  |
+| 🟡 | `cd abc`                |
+| 🟡 | `cd a b c`              |
+| 🟡 | `cd ../../`             |
+| 🟡 | `cd ../../../../../../` |
+| 🟡 | `cd ../../...`          |
+| 🟡 | `cd .../../..`          |
+| 🟡 | `cd .../../...`         |
+| 🟡 | `cd \`                  |
+| 🟡 | `cd /`                  |
+| 🟡 | `cd //`                 | OK! TESTAR NO BASH DA ESCOLA>
+| 🟡 | `cd ///`                |
+| 🟡 | `cd -`                  |
+| 🟡 | `cd $[VAR]`             |
 
 #### ECHO
 > Rendering text and variables in the terminal with the versatile echo command in Minishell.
 
 | Status  | Command |
 | :------ | :------ |
-| 🟢 | `ECHO`                                                               |
-| 🟢 | `echO`                                                               |
-| 🟢 | `ECHo`                                                               |
-| 🟢 | `echo`                                                               |
-| 🟢 | `echo echo`                                                          |
-| 🟢 | `echo `                                                              |
-| 🟢 | ` echo`                                                              |
-| 🟢 | `  echo  `                                                           |
-| 🟢 | `echo .`                                                             |
-| 🟢 | `echo ~`                                                             |
-| 🟢 | `echo echo ~`                                                        |
-| 🟢 | `"echo test"`                                                        |
-| 🟢 | `echo "~"`                                                           |
-| 🟢 | `echo '~'`                                                           |
-| 🟢 | `echo ~123`                                                          |
-| 🟢 | `echo 123~`                                                          |
-| 🟢 | `echo ~/123`                                                         |
-| 🟢 | `echo ~/123/456`                                                     |
-| 🟢 | `echo #`                                                             |
-| 🟢 | `echofile`                                                           |
-| 🟢 | `echo file`                                                          |
-| 🟢 | `echo no_file`                                                       |
-| 🟢 | `echo file test`                                                     |
-| 🟢 | `echo file   test`                                                   |
-| 🟢 | `echo file     test file   test`                                     |
-| 🟢 | `echo a"b"c`                                                         |
-| 🟢 | `echo "a'b'c`                                                        |
-| 🟢 | `echo "test"`                                                        |
-| 🟢 | `echo test`                                                          |
-| 🟢 | `echo 'test'`                                                        |
-| 🟢 | `echo -n`                                                            |
-| 🟢 | `echo -n -n -n -n`                                                   |
-| 🟢 | `echo -nnnnnnnnnnnnnnnnnnnnnnnn`                                     |
-| 🟢 | `echo -n test -n`                                                    |
-| 🟢 | `"echo" "-n"`                                                        |
-| 🟢 | `echo -n test`                                                       |
-| 🟢 | `echo -nn test`                                                      |
-| 🟢 | `echo -n -n -n test`                                                 |
-| 🟢 | `echo "-n" test`                                                     |
-| 🟢 | `echo -n"-n" test`                                                   |
-| 🟢 | `echo "-nnnn" test`                                                  |
-| 🟢 | `echo "-n -n -n"-n test`                                             |
-| 🟢 | `echo "-n '-n'" test `                                               |
-| 🟢 | `echo -n file test`                                                  |
-| 🟢 | `echo -n -n -n file test`                                            |
-| 🟢 | `echo $USER`                                                         |
-| 🟢 | `echo "$USER"`                                                       |
-| 🟢 | `echo "'$USER'"`                                                     | erro aspas simples dentro de duplas
-| 🟢 | `echo " '$USER' "`                                                   | erro aspas simples dentro de duplas
-| 🟢 | `echo text"$USER"`                                                   |
-| 🟢 | `echo text"'$USER'" ' $USER '`                                       | erro aspas simples dentro de duplas
-| 🟢 | `echo "text"   "$USER"    "$USER"`                                   |
-| 🟢 | `echo '              $USER          '`                               |
-| 🟢 | `echo               text "$USER"            "$USER"text`             |
-| 🟢 | `echo ''''''''''$USER''''''''''`                                     |
-| 🟢 | `echo """"""""$USER""""""""`                                         |
-| 🟢 | `echo $USER'$USER'text oui oui     oui  oui $USER oui      $USER ''` |
-| 🟢 | `echo $USER '' $USER $USER '' $USER '' $USER -n $USER`               | bug printando apenas 1 vez
-| 🟢 | `echo ' \' ' \'`                                                     |
+| 🟡 | `ECHO`                                                               |
+| 🟡 | `echO`                                                               |
+| 🟡 | `ECHo`                                                               |
+| 🟡 | `echo`                                                               |
+| 🟡 | `echo echo`                                                          |
+| 🟡 | `echo `                                                              |
+| 🟡 | ` echo`                                                              |
+| 🟡 | `  echo  `                                                           |
+| 🟡 | `echo .`                                                             |
+| 🟡 | `echo ~`                                                             |
+| 🟡 | `echo echo ~`                                                        |
+| 🟡 | `"echo test"`                                                        |
+| 🟡 | `echo "~"`                                                           |
+| 🟡 | `echo '~'`                                                           |
+| 🟡 | `echo ~123`                                                          |
+| 🟡 | `echo 123~`                                                          |
+| 🟡 | `echo ~/123`                                                         |
+| 🟡 | `echo ~/123/456`                                                     |
+| 🟡 | `echo #`                                                             |
+| 🟡 | `echofile`                                                           |
+| 🟡 | `echo file`                                                          |
+| 🟡 | `echo no_file`                                                       |
+| 🟡 | `echo file test`                                                     |
+| 🟡 | `echo file   test`                                                   |
+| 🟡 | `echo file     test file   test`                                     |
+| 🟡 | `echo a"b"c`                                                         |
+| 🟡 | `echo "a'b'c`                                                        |
+| 🟡 | `echo "test"`                                                        |
+| 🟡 | `echo test`                                                          |
+| 🟡 | `echo 'test'`                                                        |
+| 🟡 | `echo -n`                                                            |
+| 🟡 | `echo -n -n -n -n`                                                   |
+| 🟡 | `echo -nnnnnnnnnnnnnnnnnnnnnnnn`                                     |
+| 🟡 | `echo -n test -n`                                                    |
+| 🟡 | `"echo" "-n"`                                                        |
+| 🟡 | `echo -n test`                                                       |
+| 🟡 | `echo -nn test`                                                      |
+| 🟡 | `echo -n -n -n test`                                                 |
+| 🟡 | `echo "-n" test`                                                     |
+| 🟡 | `echo -n"-n" test`                                                   |
+| 🟡 | `echo "-nnnn" test`                                                  |
+| 🟡 | `echo "-n -n -n"-n test`                                             |
+| 🟡 | `echo "-n '-n'" test `                                               |
+| 🟡 | `echo -n file test`                                                  |
+| 🟡 | `echo -n -n -n file test`                                            |
+| 🟡 | `echo $USER`                                                         |
+| 🟡 | `echo "$USER"`                                                       |
+| 🟡 | `echo "'$USER'"`                                                     | erro aspas simples dentro de duplas
+| 🟡 | `echo " '$USER' "`                                                   | erro aspas simples dentro de duplas
+| 🟡 | `echo text"$USER"`                                                   |
+| 🟡 | `echo text"'$USER'" ' $USER '`                                       | erro aspas simples dentro de duplas
+| 🟡 | `echo "text"   "$USER"    "$USER"`                                   |
+| 🟡 | `echo '              $USER          '`                               |
+| 🟡 | `echo               text "$USER"            "$USER"text`             |
+| 🟡 | `echo ''''''''''$USER''''''''''`                                     |
+| 🟡 | `echo """"""""$USER""""""""`                                         |
+| 🟡 | `echo $USER'$USER'text oui oui     oui  oui $USER oui      $USER ''` |
+| 🟡 | `echo $USER '' $USER $USER '' $USER '' $USER -n $USER`               | bug printando apenas 1 vez
+| 🟡 | `echo ' \' ' \'`                                                     |
 | 🔵 | `echo '\" ' " \"\""`                                                 |
 | 🔵 | `echo \\\" \\\" \\\" \\\"\\\"\\\" \\\'\\\'\\\'`                      |
-| 🟢 | `echo "$USER""$USER""$USER"`                                         |
-| 🟢 | `echo text"$USER"test`                                               |
-| 🟢 | `echo '$USER' "$USER" "text \' text"`                                |
-| 🟢 | `echo '$USER'`                                                       |
-| 🟢 | `echo $USER " "`                                                     |
-| 🟢 | `echo "$USER""Users/$USER/file""'$USER'"'$USER'`                     |
-| 🟢 | `echo "$USER$USER$USER"`                                             |
-| 🟢 | `echo '$USER'"$USER"'$USER'`                                         |
-| 🟢 | `echo '"$USER"''$USER'"""$USER"`                                     |
-| 🟢 | `echo " $USER  "'$PWD'`                                              |
-| 🟢 | `echo " $USER  \$ "'$PWD'`                                           |
-| 🟢 | `echo $USER=4`                                                       |
-| 🟢 | `echo $USER=thallard`                                                |
-| 🟢 | `echo $USER`                                                         |
-| 🟢 | `echo $?`                                                            |
-| 🟢 | `echo $USER213`                                                      |
-| 🟢 | `echo $USER$12USER$USER=4$USER12`                                    |
-| 🟢 | `echo $USER $123456789USER $USER123456789`                           |
-| 🟢 | `echo $USER $9999USER $8888USER $7777USER`                           |
-| 🟢 | `echo $USER $USER9999 $USER8888 $USER7777`                           |
-| 🟢 | `echo $USER $USER9999 $USER8888 $USER7777 "$USER"`                   |
-| 🟢 | `echo "$USER=12$USER"`                                               |
-| 🟢 | `echo "$9USER" "'$USER=12$SOMETHING'"`                               |
-| 🟢 | `echo $PWD/file`                                                     |
-| 🟢 | `echo "$PWD/file`                                                    | error unmatched quotes
-| 🟢 | `echo "text" "text$USER" ... "$USER`                                 |
-| 🟢 | `echo $PW`                                                           |
-| 🟢 | `echo "'"'ola'"'"`                                                   |
-| 🟢 | `echo "'"' ola '"'"`                                                 |
+| 🟡 | `echo "$USER""$USER""$USER"`                                         |
+| 🟡 | `echo text"$USER"test`                                               |
+| 🟡 | `echo '$USER' "$USER" "text \' text"`                                |
+| 🟡 | `echo '$USER'`                                                       |
+| 🟡 | `echo $USER " "`                                                     |
+| 🟡 | `echo "$USER""Users/$USER/file""'$USER'"'$USER'`                     |
+| 🟡 | `echo "$USER$USER$USER"`                                             |
+| 🟡 | `echo '$USER'"$USER"'$USER'`                                         |
+| 🟡 | `echo '"$USER"''$USER'"""$USER"`                                     |
+| 🟡 | `echo " $USER  "'$PWD'`                                              |
+| 🟡 | `echo " $USER  \$ "'$PWD'`                                           |
+| 🟡 | `echo $USER=4`                                                       |
+| 🟡 | `echo $USER=thallard`                                                |
+| 🟡 | `echo $USER`                                                         |
+| 🟡 | `echo $?`                                                            |
+| 🟡 | `echo $USER213`                                                      |
+| 🟡 | `echo $USER$12USER$USER=4$USER12`                                    |
+| 🟡 | `echo $USER $123456789USER $USER123456789`                           |
+| 🟡 | `echo $USER $9999USER $8888USER $7777USER`                           |
+| 🟡 | `echo $USER $USER9999 $USER8888 $USER7777`                           |
+| 🟡 | `echo $USER $USER9999 $USER8888 $USER7777 "$USER"`                   |
+| 🟡 | `echo "$USER=12$USER"`                                               |
+| 🟡 | `echo "$9USER" "'$USER=12$SOMETHING'"`                               |
+| 🟡 | `echo $PWD/file`                                                     |
+| 🟡 | `echo "$PWD/file`                                                    | error unmatched quotes
+| 🟡 | `echo "text" "text$USER" ... "$USER`                                 |
+| 🟡 | `echo $PW`                                                           |
+| 🟡 | `echo "'"'ola'"'"`                                                   |
+| 🟡 | `echo "'"' ola '"'"`                                                 |
 
 #### PIPES AND REDIRECTS
 
 Redirecionamento Simples de Entrada e Saída:  
-| 🟢 | cat < input.txt > output.txt  
-| 🟢 | grep 'palavra' < arquivo.txt > resultados.txt  
+| 🟡 | cat < input.txt > output.txt  
+| 🟡 | grep 'palavra' < arquivo.txt > resultados.txt  
   
 Uso de Pipe Simples:  
-| 🟢 | ls | wc -l  
-| 🟢 | cat arquivo.txt | grep 'palavra'  
+| 🟡 | ls | wc -l  
+| 🟡 | cat arquivo.txt | grep 'palavra'  
   
 Combinação de Pipes:  
-| 🟢 | seq 100 | grep "1" | sort -r | uniq | wc -l
-| 🟢 | cat arquivo.txt | grep 'palavra' | sort | uniq  
-| 🟢 | ls -l | grep '^d' | wc -l  
+| 🟡 | seq 100 | grep "1" | sort -r | uniq | wc -l
+| 🟡 | cat arquivo.txt | grep 'palavra' | sort | uniq  
+| 🟡 | ls -l | grep '^d' | wc -l  
   
 Pipes com Redirecionamento de Entrada:  
-| 🟢 | grep 'palavra' < arquivo.txt | sort > resultados_ordenados.txt  
-| 🟢 | cat input.txt | wc -l > line_count.txt  
-| 🟢 | cat < input.txt | wc -l > line_count.txt  
-| 🟢 | grep "bb" < tfile.txt | wc -l
+| 🟡 | grep 'palavra' < arquivo.txt | sort > resultados_ordenados.txt  
+| 🟡 | cat input.txt | wc -l > line_count.txt  
+| 🟡 | cat < input.txt | wc -l > line_count.txt  
+| 🟡 | grep "bb" < tfile.txt | wc -l
 
 Pipes com Redirecionamento de Saída:  
-| 🟢 | ls -l | grep '^d' > diretorios.txt  
-| 🟢 | cat arquivo.txt | head -n 5 > primeiras_linhas.txt  
+| 🟡 | ls -l | grep '^d' > diretorios.txt  
+| 🟡 | cat arquivo.txt | head -n 5 > primeiras_linhas.txt  
   
 Redirecionamento de Erro:  
-|    | grep 'palavra' arquivo_inexistente.txt 2> erro.txt  
-|    | cat arquivo.txt 2> /dev/null  
+| 🟡 | grep 'palavra' arquivo_inexistente.txt 2> erro.txt  
+| 🟡 | cat arquivo.txt 2> /dev/null  
   
 ## NORMINETTE
 > At 42 School, it is expected that almost every project is written following the Norm, which is the coding standard of the school.
