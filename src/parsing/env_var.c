@@ -6,7 +6,7 @@
 /*   By: addicted <addicted@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/19 12:05:41 by addicted          #+#    #+#             */
-/*   Updated: 2024/10/19 12:48:19 by addicted         ###   ########.fr       */
+/*   Updated: 2024/10/26 11:37:25 by addicted         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ char *get_envvar(t_envvar_list *env_list, const char *name)
 	current = env_list->head;
 	while (current != NULL)
 	{
-		if (strcmp(current->name, name) == 0)
+		if (strcmp(current->name, name) == 0)  // strcmp tem de passar para ft_strcmp mas nao esta feito
 			return (current->value);
 		current = current->next;
 	}
@@ -63,6 +63,48 @@ void print_list_envvar(t_envvar_list *env_list)
 	{
 		printf("%s=%s\n", current->name, current->value);
 		current = current->next;
+	}
+}
+
+size_t calculate_final_len(const char *input, t_envvar_list *env_list, int exit_status)
+{
+	size_t len;
+	const char *src;
+	char exit_status_str[13];
+	const char *start;
+	char *var_name;
+	
+	len = 0;
+	src = input;
+	while(*src)
+	{
+		if(*src == '$')
+		{
+			if(*(src + 1) == '?')
+			{
+				printf("not done yet\n");
+				return(0);
+			}
+			else
+			{
+				start = ++src;
+			while(*src && (isalnum(*src) || *src == '_')) // passar para ft_isalnum
+				src++;
+			var_name = strndup(start, src - start); // passar para ft_strndup
+			if (get_envvar(env_list, var_name) == NULL)
+			{
+				printf("%s not found\n", var_name);
+				return (0);
+			}
+			len += strlen(get_envvar(env_list, var_name));
+			free(var_name);
+			}
+		}
+		else
+		{
+			len++;
+			src++;
+		}
 	}
 }
 
@@ -82,41 +124,12 @@ char	*replace_envvar(const char *input, int exit_status, t_envvar_list *env_list
 	src = input;
 	//snprintf(exit_status_str, sizeof(exit_status_str), "%d", exit_status);  //ver isto ainda
 	
-	//calcular o tamanho das variaveis
-	while(*src)
-	{
-		if(*src == '$')
-		{
-			if(*(src + 1) == '?')
-			{
-				printf("AINDA NAO FEITO\n");
-				return (0);
-			}
-			else
-			{
-				start = ++src;
-				while(*src && (isalnum(*src) || *src == '_')) //passar para ft_isalnum
-					src++;
-				var_name = strndup(start, src - start); // passar para ft_strndup
-				value = get_envvar(env_list, var_name);
-				if (value == NULL)
-				{
-					printf("%s nao encontrado\n", var_name);
-					return(NULL);
-				}
-				len += strlen(value);
-				free(var_name);
-			}
-		}
-		else
-		{
-			len++;
-			src++;
-		}
-	}
+	
+	len = calculate_final_len(input, env_list, exit_status);
+	printf("len 2 = %d\n", (int)len);
 
 	//alocar memoria para a string final
-	result = (char *)calloc(len + 1, sizeof(char)); // calloc tem de passar para ft_calloc
+	result = (char *)calloc(len + 2, sizeof(char)); // calloc tem de passar para ft_calloc
 	if (result == NULL)
 	{
 		perror("malloc");
@@ -138,14 +151,15 @@ char	*replace_envvar(const char *input, int exit_status, t_envvar_list *env_list
 			}
 			else
 			{
-				start == ++src;
-				while(*src && (isalnum(*src) || *src == '_')) //passar para ft_isalnum
+				start = ++src;
+				while (*src && (isalnum(*src) || *src == '_')) // passar para ft_isalnum
 					src++;
 				var_name = strndup(start, src - start); // passar para ft_strndup
 				value = get_envvar(env_list, var_name);
+				//printf("var_name: %s...\nstart: %s...\nsrc: %s...\n", var_name, start, src);
 				if (value == NULL)
 				{
-					printf("%s nao encontrado\n", var_name);
+					printf("%snao encontrado\n", var_name);
 					return (NULL);
 				}
 				strcpy(dst, value); //passar para ft_strcpy
@@ -181,7 +195,8 @@ int main()
 	// char *env[] = {NULL}; // Dummy environment
 	t_envvar_list *env_list;
 
-	char *input = "PATH é $PATH e HOME é $HOME e USER é $USER e PWD é $PWD";
+	char *input = "PATH é $PATH e HOME é $HOME e USER é $USER e PWD é $PWD 2";
+	//char *input = "PWD $PWD ";
 
 	env_list = (t_envvar_list *)calloc(1, sizeof(t_envvar_list));
 	if (env_list == NULL)
