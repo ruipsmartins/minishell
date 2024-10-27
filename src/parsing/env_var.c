@@ -6,7 +6,7 @@
 /*   By: addicted <addicted@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/19 12:05:41 by addicted          #+#    #+#             */
-/*   Updated: 2024/10/26 11:37:25 by addicted         ###   ########.fr       */
+/*   Updated: 2024/10/27 10:51:39 by addicted         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,7 @@ size_t calculate_final_len(const char *input, t_envvar_list *env_list, int exit_
 			src++;
 		}
 	}
+	return len;
 }
 
 char	*replace_envvar(const char *input, int exit_status, t_envvar_list *env_list)
@@ -189,14 +190,29 @@ t_envvar_list *init_env_list()
 	return (env_list);
 }
 
+void free_env_list(t_envvar_list *env_list)
+{
+	t_envvar *current;
+	t_envvar *next;
+
+	current = env_list->head;
+	while (current != NULL)
+	{
+		next = current->next;
+		free(current->name);
+		free(current->value);
+		free(current);
+		current = next;
+	}
+	free(env_list);
+}
+
 int main()
 {
-	// char *input = "<ls -la|grep worln<d  0123|45 ii9|i|iiiii";
-	// char *env[] = {NULL}; // Dummy environment
 	t_envvar_list *env_list;
 
-	char *input = "PATH é $PATH e HOME é $HOME e USER é $USER e PWD é $PWD 2";
-	//char *input = "PWD $PWD ";
+	//char *input = "PATH é $PATH e HOME é $HOME e USER é $USER e PWD é $PWD 2";
+	char *input = "PWD $PWD ";
 
 	env_list = (t_envvar_list *)calloc(1, sizeof(t_envvar_list));
 	if (env_list == NULL)
@@ -210,19 +226,13 @@ int main()
 	set_envvar(env_list, "USER", "user");
 	set_envvar(env_list, "PWD", "/home/user");
 
-	//print_list_envvar(env_list);
+	char *output = replace_envvar(input, 0, env_list);
 
 	printf("input : %s\n", input);
-	printf("output: %s\n", replace_envvar(input, 0, env_list));
+	printf("output: %s\n", output);
 
-	
-	// printf("strlen: %d\n", (int)strlen(input));
-	// printf("input:\n%s\n", input);
-	// input = fix_token_space(input);
-	// printf("input after:\n%s\n", input);
-	// linha para ver se sei fazer
-	// handle_input(input, env);
-	// free(input);
+	free_env_list(env_list);
+	free(output);
 
 	return 0;
 }
