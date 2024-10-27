@@ -6,7 +6,7 @@
 /*   By: addicted <addicted@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/19 12:05:41 by addicted          #+#    #+#             */
-/*   Updated: 2024/10/27 10:51:39 by addicted         ###   ########.fr       */
+/*   Updated: 2024/10/27 12:22:46 by addicted         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,10 +70,10 @@ size_t calculate_final_len(const char *input, t_envvar_list *env_list, int exit_
 {
 	size_t len;
 	const char *src;
-	char exit_status_str[13];
 	const char *start;
 	char *var_name;
 	
+	(void)exit_status;
 	len = 0;
 	src = input;
 	while(*src)
@@ -115,7 +115,7 @@ char	*replace_envvar(const char *input, int exit_status, t_envvar_list *env_list
 	size_t		len;
 	const char *src;
 	char 		*dst;
-	char		*exit_status_str[12];
+	//char		*exit_status_str[12];
 
 	const char *start; // para guardar o inicio da variavel
 	char		*var_name; // para guardar o nome da variavel
@@ -127,7 +127,6 @@ char	*replace_envvar(const char *input, int exit_status, t_envvar_list *env_list
 	
 	
 	len = calculate_final_len(input, env_list, exit_status);
-	printf("len 2 = %d\n", (int)len);
 
 	//alocar memoria para a string final
 	result = (char *)calloc(len + 2, sizeof(char)); // calloc tem de passar para ft_calloc
@@ -207,32 +206,32 @@ void free_env_list(t_envvar_list *env_list)
 	free(env_list);
 }
 
-int main()
-{
-	t_envvar_list *env_list;
+// int main()
+// {
+// 	t_envvar_list *env_list;
 
-	//char *input = "PATH é $PATH e HOME é $HOME e USER é $USER e PWD é $PWD 2";
-	char *input = "PWD $PWD ";
+// 	//char *input = "PATH é $PATH e HOME é $HOME e USER é $USER e PWD é $PWD 2";
+// 	char *input = "PWD $PWD ";
 
-	env_list = (t_envvar_list *)calloc(1, sizeof(t_envvar_list));
-	if (env_list == NULL)
-	{
-		perror("malloc");
-		exit(EXIT_FAILURE);
-	}
-	env_list->head = NULL;
-	set_envvar(env_list, "PATH", "/bin:/usr/bin:/usr/local/bin");
-	set_envvar(env_list, "HOME", "/home/user");
-	set_envvar(env_list, "USER", "user");
-	set_envvar(env_list, "PWD", "/home/user");
+// 	env_list = (t_envvar_list *)calloc(1, sizeof(t_envvar_list));
+// 	if (env_list == NULL)
+// 	{
+// 		perror("malloc");
+// 		exit(EXIT_FAILURE);
+// 	}
+// 	env_list->head = NULL;
+// 	set_envvar(env_list, "PATH", "/bin:/usr/bin:/usr/local/bin");
+// 	set_envvar(env_list, "HOME", "/home/user");
+// 	set_envvar(env_list, "USER", "user");
+// 	set_envvar(env_list, "PWD", "/home/user");
 
-	char *output = replace_envvar(input, 0, env_list);
+// 	char *output = replace_envvar(input, 0, env_list);
 
-	printf("input : %s\n", input);
-	printf("output: %s\n", output);
+// 	printf("input : %s\n", input);
+// 	printf("output: %s\n", output);
 
-	free_env_list(env_list);
-	free(output);
+// 	free_env_list(env_list);
+// 	free(output);	
 
-	return 0;
-}
+// 	return 0;
+// }
