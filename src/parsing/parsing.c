@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: addicted <addicted@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 08:59:52 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/10/22 12:47:19 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2024/10/27 12:21:50 by addicted         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,82 +67,69 @@ void free_command_list(t_command *cmd_list)
 		current = next;
 	}
 }
-void handle_input(char *input, t_data *data)
-{
-	t_lexer *lexer = NULL;
-	t_lexer *current = NULL;
-	t_lexer *new_node = NULL;
-	char *token = NULL;
-	int i = 0;
 
-	input = fix_token_space(input);
+t_lexer *devide_input(char *input)
+{
+	t_lexer *lexer;
+	t_lexer *current = NULL;
+	t_lexer *new_node;
+	char *token = NULL;
+	int i;
+	
+	i = 0;
 	token = ft_strtok(input, " ");
 	while (token != NULL)
 	{
-		// novo node
-		new_node = (t_lexer *)ft_calloc(1, sizeof(t_lexer));
+		new_node = (t_lexer *)ft_calloc(1, sizeof(t_lexer)); // novo node
 		if (new_node == NULL)
 		{
 			perror("malloc");
 			exit(EXIT_FAILURE);
 		}
-		// Inicializar node
-		if (is_token(token))
-		{
-
+		if (is_token(token)) // Inicializar node
 			new_node->token = strdup(token);
-			new_node->word = NULL;
-		}
 		else
-		{
 			new_node->word = strdup(token);
-			new_node->token = NULL;
-		}
 		new_node->i = i++;
-		new_node->next = NULL;
 		new_node->prev = current;
-
-		// meter node no fim da lista lista
-		if (current != NULL)
-		{
+		if (current != NULL) // meter node no fim da lista lista
 			current->next = new_node;
-		}
 		else
-		{
 			lexer = new_node; // Meter o primeiro na lista
-		}
 		current = new_node;
-
-		//obter o seguinte token
 		token = ft_strtok(NULL, " ");
 	}
+	return (lexer);
+}
 
+void handle_input(char *input, t_data *data)
+{
+	t_lexer *lexer = NULL;
+	t_lexer *current = NULL;
+	t_envvar_list *env_list;
+
+	env_list = (t_envvar_list *)calloc(1, sizeof(t_envvar_list));
+	if (env_list == NULL)
+	{
+		perror("malloc");
+		exit(EXIT_FAILURE);
+	}
+	set_envvar(env_list, "PATH", "/bin:/usr/bin:/usr/local/bin");
+	set_envvar(env_list, "HOME", "/home/user");
+	set_envvar(env_list, "USER", "user");
+	set_envvar(env_list, "PWD", "/home/user");
+	input = fix_token_space(input);
+	input = replace_envvar(input, 0, env_list);
+	lexer = devide_input(input);
+	if(lexer == NULL)
+	{
+		printf("lexer is NULl\n");
+	}
+
+	
 	//Parsing do Lexer
 	t_command *cmd_list = lexer_to_command(lexer);
-	
-
-	// Imprimir os comandos do parsing
-	// t_command *cmd_current = cmd_list;
-	// if (1)
-	// while (cmd_current != NULL)
-	// {
-	// 	printf("\nCommand:");
-	// 	if (cmd_current->args)
-	// 	{
-	// 		int i = 0;
-	// 		while(cmd_current->args[i] != NULL)
-	// 			printf("%s ", cmd_current->args[i++]);
-	// 	}
-	// 	if (cmd_current->input_file)
-	// 		printf("  Input: %s\n", cmd_current->input_file);
-	// 	if (cmd_current->output_file)
-	// 		printf("  Output: %s\n", cmd_current->output_file);
-	// 	cmd_current = cmd_current->next;
-	// }
-
-		execute(cmd_list, data);
-	
-
+	execute(cmd_list, data);
 	//Free da lista dos comandos
 	free_command_list(cmd_list);
 	current = lexer;
@@ -154,6 +141,7 @@ void handle_input(char *input, t_data *data)
 		free(current);
 		current = next;
 	}
+	//free_env_list(env_list);
 }
 
 /* int main()

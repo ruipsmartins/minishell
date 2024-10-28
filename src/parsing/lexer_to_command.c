@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_to_command.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: addicted <addicted@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/12 10:50:11 by addicted          #+#    #+#             */
-/*   Updated: 2024/10/16 14:10:15 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2024/10/27 12:16:37 by addicted         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,13 @@ t_command *lexer_to_command(t_lexer *lexer)
 
 	while (current != NULL)
 	{
+		if (current->word == NULL && current->token == NULL)
+		{
+			printf("Error: Both word and token are NULL\n");
+			current = current->next;
+			continue;
+		}
+
 		if (current->token && strncmp(current->token, "|", 2) == 0)
 			handle_pipe_token(&current_cmd, &arg_count);
 		else if (current->token && strncmp(current->token, ">>", 3) == 0) //

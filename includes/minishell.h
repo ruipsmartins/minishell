@@ -6,7 +6,7 @@
 /*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 17:34:50 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/10/25 12:36:05 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2024/10/27 12:41:26 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,14 @@ char					*readline(const char *prompt);
 char					*ft_strtok(char *str, const char *delim);
 void					close_fds(int *fd);
 char					*find_executable(const char *command);
+
+
+// env_var
+void					set_envvar(t_envvar_list *envvar_list, const char *name, const char *value);
+char					*get_envvar(t_envvar_list *env_list, const char *name);
+char					*replace_envvar(const char *input, int exit_status, t_envvar_list *env_list);
+t_envvar_list			*init_env_list();
+void					free_env_list(t_envvar_list *env_list);
 
 // parsing
 void					handle_input(char *input, t_data *data);
