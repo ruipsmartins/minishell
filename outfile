@@ -1,4 +1,8 @@
+.
+..
 en.subject.pdf
+.git
+.gitignore
 includes
 infile
 libft
@@ -11,4 +15,4 @@ readline.supp
 README.md
 src
 tests.md
-     19     164     927
+.vscode

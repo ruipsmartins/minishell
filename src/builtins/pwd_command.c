@@ -6,13 +6,13 @@
 /*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 17:21:15 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/10/26 10:42:19 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2024/10/28 16:58:09 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	pwd_command(void)
+int	pwd_command(t_data *data)
 {
 	char *cwd;
 
@@ -20,9 +20,10 @@ void	pwd_command(void)
 	if (!cwd)
 	{
 		perror("getcwd:");
-		return ;
+		return (data->return_value = 1);
 	}
 
 	ft_printf("%s\n", cwd);
 	free(cwd);
+	return (data->return_value = 0);
 }

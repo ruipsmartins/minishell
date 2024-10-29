@@ -6,7 +6,7 @@
 /*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 08:59:57 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/10/22 12:46:31 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2024/10/29 16:16:37 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,12 +71,17 @@ void	execute_command(char *command, char **args, char **env)
 	else if (pid == 0)
 	{
 		if (execve(command, args, env) == -1)
-			perror("execve");
+		{
+			perror("execveeeee");
+			exit(127);
+		}	
+
 		exit(EXIT_FAILURE);
 	}
 	else
 	{
 		waitpid(pid, &status, 0);
+		ft_printf("errno: %d\n", errno);
 	}
 }
 
@@ -91,7 +96,7 @@ void	execute_command_or_path(t_command *cmd, t_data *data)
 			if (access(cmd->args[0], X_OK) == 0)
 				execute_command(cmd->args[0], cmd->args, data->env);
 			else
-				print_command_error(cmd->args[0], 2);
+				print_command_error(data, cmd->args[0], 2);
 		}
 		else
 		{
@@ -102,30 +107,11 @@ void	execute_command_or_path(t_command *cmd, t_data *data)
 				free(executable);
 			}
 			else
-				print_command_error(cmd->args[0], 1);
+				print_command_error(data, cmd->args[0], 1);
 		}
 	}
 }
 
-/* 	 t_command *current = cmd;
-    int i = 0;
-    while (current != NULL)
-    {
-        ft_printf("Comando %d:\n", i);
-        ft_printf("  Args: ");
-        int j = 0;
-        while (current->args[j] != NULL)
-        {
-            ft_printf("%s ", current->args[j]);
-            j++;
-        }
-        ft_printf("\n");
-        ft_printf("  Input File: %s\n", current->input_file);
-        ft_printf("  Output File: %s\n", current->output_file);
-        ft_printf("\n");
-        current = current->next;
-        i++;
-    } */
 void	execute(t_command *cmd, t_data *data)
 {
 	data->cmd = cmd;

@@ -6,7 +6,7 @@
 /*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 17:28:57 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/10/22 12:56:07 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2024/10/28 16:26:11 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,15 @@ char	*get_command_input(void)
 	if (input && *input)
 		add_history(input);
 	return (input);
+}
+
+void data_init(t_data *data, char **env)
+{
+    data->env = env;
+    data->original_stdin = -1;
+    data->original_stdout = -1;
+    data->close_shell = false;
+	data->return_value = 0;
 }
 
 // t_envvar_list	*init_env_list()
@@ -41,10 +50,7 @@ int	main(int ac, char **av, char **env)
 	char	*input;
 	t_data	data;
 
-	data.env = env;
-	data.original_stdin = -1;
-	data.original_stdout = -1;
-	data.close_shell = false;
+	data_init(&data, env);
 	(void)ac;
 	(void)av;
 	input = get_command_input();
@@ -59,5 +65,5 @@ int	main(int ac, char **av, char **env)
 	}
 	free(input);
 	rl_clear_history();
-	return (0);
+	return (data.return_value);
 }

@@ -6,7 +6,7 @@
 /*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 17:49:57 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/10/26 11:53:03 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2024/10/28 16:45:43 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	cd_home(void)
 	}
 }
 
-void	cd_command(t_command cmd)
+int	cd_command(t_command cmd, t_data *data)
 {
 	int	i;
 
@@ -39,10 +39,10 @@ void	cd_command(t_command cmd)
 	if (i > 2)
 	{
 		ft_putstr_fd("cd: too many arguments\n", STDERR_FILENO);
-		return ;
+		return (data->return_value = 1);
 	}
 	else if (cmd.args[1] == NULL || (cmd.args[1][0] == '~'
-		&& cmd.args[1][1] == '\0'))
+			&& cmd.args[1][1] == '\0'))
 	{
 		cd_home();
 	}
@@ -51,8 +51,8 @@ void	cd_command(t_command cmd)
 		if (chdir(cmd.args[1]) == -1)
 		{
 			perror("cd");
-			return ;
+			return (data->return_value = 1);
 		}
 	}
+	return (data->return_value = 0);
 }
-

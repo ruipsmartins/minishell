@@ -6,7 +6,7 @@
 /*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 17:34:50 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/10/27 12:41:26 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2024/10/29 15:26:54 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,19 +63,25 @@ typedef struct s_data
 	int					original_stdout;
 	t_command			*cmd;
 	bool				close_shell;
+	int					return_value;
+	int					fd[2];
+	int					exit_pipe[2];
+	int					return_pipe[2];
 }						t_data;
 
 char					*readline(const char *prompt);
 char					*ft_strtok(char *str, const char *delim);
 void					close_fds(int *fd);
 char					*find_executable(const char *command);
-
+void					data_init(t_data *data, char **env);
 
 // env_var
-void					set_envvar(t_envvar_list *envvar_list, const char *name, const char *value);
+void					set_envvar(t_envvar_list *envvar_list, const char *name,
+							const char *value);
 char					*get_envvar(t_envvar_list *env_list, const char *name);
-char					*replace_envvar(const char *input, int exit_status, t_envvar_list *env_list);
-t_envvar_list			*init_env_list();
+char					*replace_envvar(const char *input, int exit_status,
+							t_envvar_list *env_list);
+t_envvar_list			*init_env_list(void);
 void					free_env_list(t_envvar_list *env_list);
 
 // parsing
@@ -91,14 +97,13 @@ void					execute(t_command *cmd_list, t_data *data);
 void					execute_command(char *command, char **args, char **env);
 char					*get_command_input(void);
 void					execute_command_or_path(t_command *cmd, t_data *data);
-void					print_command_error(char *command, int error_type);
+void					print_command_error(t_data *data, char *command, int error_type);
 
 // pipes
 void					execute_piped_commands(t_command *cmd, t_data *data);
-int						ft_child(int in_fd, t_command *cmd, int fd[2],
-							t_data *data, int exit_pipe[2]);
+bool					ft_parent(t_command *cmd, int *in_fd, t_data *data);
+int						ft_child(int in_fd, t_command *cmd, t_data *data);
 void					handle_fd(int in_fd, t_command *cmd, int fd[2]);
-char					***split_by_pipe(char *input);
 
 // redirections
 int						handle_redirects(t_command *cmd, t_data *data);
@@ -112,7 +117,7 @@ void					std_reset(int *original_stdin, int *original_stdout);
 // builtins
 bool					builtin_checker(t_command *cmd, t_data *data);
 void					exit_command(t_data *data);
-void					pwd_command(void);
-void					cd_command(t_command cmd);
+int						pwd_command(t_data *data);
+int						cd_command(t_command cmd, t_data *data);
 
 #endif
