@@ -6,7 +6,7 @@
 /*   By: addicted <addicted@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 08:59:52 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/10/27 12:21:50 by addicted         ###   ########.fr       */
+/*   Updated: 2024/10/30 11:49:27 by addicted         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,18 +106,18 @@ void handle_input(char *input, t_data *data)
 {
 	t_lexer *lexer = NULL;
 	t_lexer *current = NULL;
-	t_envvar_list *env_list;
+	t_envvar*env_list;
 
-	env_list = (t_envvar_list *)calloc(1, sizeof(t_envvar_list));
+	env_list = (t_envvar *)calloc(1, sizeof(t_envvar));
 	if (env_list == NULL)
 	{
 		perror("malloc");
 		exit(EXIT_FAILURE);
 	}
-	set_envvar(env_list, "PATH", "/bin:/usr/bin:/usr/local/bin");
-	set_envvar(env_list, "HOME", "/home/user");
-	set_envvar(env_list, "USER", "user");
-	set_envvar(env_list, "PWD", "/home/user");
+	// set_envvar(env_list, "PATH", "/bin:/usr/bin:/usr/local/bin");
+	// set_envvar(env_list, "HOME", "/home/user");
+	// set_envvar(env_list, "USER", "user");
+	// set_envvar(env_list, "PWD", "/home/user");
 	input = fix_token_space(input);
 	input = replace_envvar(input, 0, env_list);
 	lexer = devide_input(input);

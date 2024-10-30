@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: addicted <addicted@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 17:28:57 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/10/22 12:56:07 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2024/10/30 12:54:41 by addicted         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,12 +41,22 @@ int	main(int ac, char **av, char **env)
 	char	*input;
 	t_data	data;
 
+
+	t_envvar *env_list;
 	data.env = env;
 	data.original_stdin = -1;
 	data.original_stdout = -1;
 	data.close_shell = false;
 	(void)ac;
 	(void)av;
+	
+	env_list = ft_create_list(env);
+	//print_list (env_list);
+	char *value = ft_get_envvar(env_list, "USER")->value;
+	
+	printf("PATH = %s\n", value);
+	
+	//printf("User: %s\n", getenv("USER"));
 	input = get_command_input();
 	while (input != NULL  && !data.close_shell)
 	{

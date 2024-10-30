@@ -6,22 +6,23 @@
 /*   By: addicted <addicted@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/19 12:05:41 by addicted          #+#    #+#             */
-/*   Updated: 2024/10/27 12:22:46 by addicted         ###   ########.fr       */
+/*   Updated: 2024/10/30 13:06:36 by addicted         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void set_envvar(t_envvar_list *envvar_list, const char *name, const char *value)
+void set_envvar(t_envvar *envvar_list, const char *name, const char *value)
 {
 	t_envvar *current;
 	t_envvar *prev;
 	t_envvar *new_var;
 
-	current = envvar_list->head;
+	current = envvar_list;
 	prev = NULL;
 	while (current != NULL) // verificar se a variavel exitste
 	{
+		printf("current->name: %s\n", current->name);
 		if (strcmp(current->name, name) == 0) // strcmp tem de passar para ft_strcmp mas nao esta feito
 		{
 			free(current->value);
@@ -36,15 +37,15 @@ void set_envvar(t_envvar_list *envvar_list, const char *name, const char *value)
 	new_var->value = strdup(value);                    // STRDUP TEM DE PASSAR PARA FT_STRDUP
 	new_var->next = NULL;
 	if (prev == NULL)
-		envvar_list->head = new_var;
+		envvar_list = new_var;
 	else
 		prev->next = new_var;
 }
-char *get_envvar(t_envvar_list *env_list, const char *name)
+char *get_envvar(t_envvar *env_list, const char *name)
 {
 	t_envvar *current;
 
-	current = env_list->head;
+	current = env_list;
 	while (current != NULL)
 	{
 		if (strcmp(current->name, name) == 0)  // strcmp tem de passar para ft_strcmp mas nao esta feito
@@ -54,11 +55,11 @@ char *get_envvar(t_envvar_list *env_list, const char *name)
 	return (NULL);
 }
 
-void print_list_envvar(t_envvar_list *env_list)
+void print_list_envvar(t_envvar*env_list)
 {
 	t_envvar *current;
 
-	current = env_list->head;
+	current = env_list;
 	while (current != NULL)
 	{
 		printf("%s=%s\n", current->name, current->value);
@@ -66,13 +67,14 @@ void print_list_envvar(t_envvar_list *env_list)
 	}
 }
 
-size_t calculate_final_len(const char *input, t_envvar_list *env_list, int exit_status)
+size_t calculate_final_len(const char *input, t_envvar *env_list, int exit_status)
 {
 	size_t len;
 	const char *src;
 	const char *start;
 	char *var_name;
 	
+	(void)env_list;
 	(void)exit_status;
 	len = 0;
 	src = input;
@@ -91,13 +93,20 @@ size_t calculate_final_len(const char *input, t_envvar_list *env_list, int exit_
 			while(*src && (isalnum(*src) || *src == '_')) // passar para ft_isalnum
 				src++;
 			var_name = strndup(start, src - start); // passar para ft_strndup
-			if (get_envvar(env_list, var_name) == NULL)
+			if (getenv(var_name) == NULL)
 			{
 				printf("%s not found\n", var_name);
 				return (0);
 			}
-			len += strlen(get_envvar(env_list, var_name));
+			len += strlen(getenv(var_name));
 			free(var_name);
+			// if (get_envvar(env_list, var_name) == NULL)
+			// {
+			// 	printf("%s not found\n", var_name);
+			// 	return (0);
+			// }
+			// len += strlen(get_envvar(env_list, var_name));
+			// free(var_name);
 			}
 		}
 		else
@@ -109,7 +118,7 @@ size_t calculate_final_len(const char *input, t_envvar_list *env_list, int exit_
 	return len;
 }
 
-char	*replace_envvar(const char *input, int exit_status, t_envvar_list *env_list)
+char	replace_envvar(const char *input, int exit_status, t_envvar *env_list)
 {
 	char		*result;
 	size_t		len;
@@ -155,13 +164,18 @@ char	*replace_envvar(const char *input, int exit_status, t_envvar_list *env_list
 				while (*src && (isalnum(*src) || *src == '_')) // passar para ft_isalnum
 					src++;
 				var_name = strndup(start, src - start); // passar para ft_strndup
-				value = get_envvar(env_list, var_name);
+				value = getenv(var_name);
 				//printf("var_name: %s...\nstart: %s...\nsrc: %s...\n", var_name, start, src);
 				if (value == NULL)
 				{
-					printf("%snao encontrado\n", var_name);
-					return (NULL);
+					printf("%s not found\n", var_name);
+					return (0);
 				}
+				// if (value == NULL)
+				// {
+				// 	printf("%snao encontrado\n", var_name);
+				// 	return (NULL);
+				// }
 				strcpy(dst, value); //passar para ft_strcpy
 				dst += strlen(value); // passar para ft_strlen
 				free(var_name);
@@ -175,26 +189,26 @@ char	*replace_envvar(const char *input, int exit_status, t_envvar_list *env_list
 	
 }
 
-t_envvar_list *init_env_list()
-{
-	t_envvar_list *env_list;
+// t_envvar_list *init_env_list()
+// {
+// 	t_envvar_list *env_list;
 
-	env_list = (t_envvar_list *)calloc(1, sizeof(t_envvar_list)); // calloc tem de passar para ft_calloc
-	if (env_list == NULL)
-	{
-		perror("malloc");
-		exit(EXIT_FAILURE);
-	}
-	env_list->head = NULL;
-	return (env_list);
-}
+// 	env_list = (t_envvar_list *)calloc(1, sizeof(t_envvar_list)); // calloc tem de passar para ft_calloc
+// 	if (env_list == NULL)
+// 	{
+// 		perror("malloc");
+// 		exit(EXIT_FAILURE);
+// 	}
+// 	env_list->head = NULL;
+// 	return (env_list);
+// }
 
-void free_env_list(t_envvar_list *env_list)
+void free_env_list(t_envvar *env_list)
 {
 	t_envvar *current;
 	t_envvar *next;
 
-	current = env_list->head;
+	current = env_list;
 	while (current != NULL)
 	{
 		next = current->next;
