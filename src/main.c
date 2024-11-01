@@ -6,7 +6,7 @@
 /*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 17:28:57 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/10/28 16:26:11 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2024/10/29 18:04:33 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ int	main(int ac, char **av, char **env)
 		if (data.close_shell)
 			break;
 		free(input);
+		ft_printf("data.return_value na main: %d\n", data.return_value); // Debug return value of the command executed by the user (exit status)
 		input = get_command_input();
 	}
 	free(input);

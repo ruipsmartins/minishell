@@ -6,7 +6,7 @@
 /*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 17:34:50 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/10/29 15:26:54 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2024/11/01 12:32:11 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include <readline/readline.h>
 # include <stdio.h>
 # include <sys/wait.h>
+# include <sys/stat.h>
 
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 64;
@@ -66,7 +67,6 @@ typedef struct s_data
 	int					return_value;
 	int					fd[2];
 	int					exit_pipe[2];
-	int					return_pipe[2];
 }						t_data;
 
 char					*readline(const char *prompt);
@@ -94,10 +94,12 @@ t_command				*lexer_to_command(t_lexer *lexer);
 
 // execute
 void					execute(t_command *cmd_list, t_data *data);
-void					execute_command(char *command, char **args, char **env);
+int						execute_command(char *command, char **args, t_data *data);
 char					*get_command_input(void);
 void					execute_command_or_path(t_command *cmd, t_data *data);
 void					print_command_error(t_data *data, char *command, int error_type);
+bool					is_directory(char *path);
+int						check_file_type(char *path);
 
 // pipes
 void					execute_piped_commands(t_command *cmd, t_data *data);

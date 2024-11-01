@@ -6,7 +6,7 @@
 /*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 16:59:41 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/10/29 15:35:11 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2024/11/01 14:26:58 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,19 +47,37 @@ char	*ft_strtok(char *str, const char *delim)
 	close(fd[0]);
 	close(fd[1]);
 } */
-
-void	print_command_error(t_data *data,char *command, int error_type)
+void	print_command_error(t_data *data, char *command, int error_type)
 {
-	if (error_type == 1)
+	if (error_type == 127)
 	{
 		write(STDERR_FILENO, command, ft_strlen(command));
 		write(STDERR_FILENO, ": Command not found\n", 20);
 		data->return_value = 127;
 	}
-	else if (error_type == 2)
+	else if (error_type == 1)
 	{
 		write(STDERR_FILENO, command, ft_strlen(command));
 		write(STDERR_FILENO, ": No such file or directory\n", 29);
 		data->return_value = 1;
 	}
+	else if (error_type == 126)
+	{
+		write(STDERR_FILENO, command, ft_strlen(command));
+		write(STDERR_FILENO, ": Permission denied\n", 20);
+		data->return_value = 126;
+	}
+}
+
+
+int	check_file_type(char *path)
+{
+	struct stat path_stat;
+	if (stat(path, &path_stat) != 0)
+		return (-1); // Ficheiro não encontrado
+	if (S_ISDIR(path_stat.st_mode))
+		return (126); // É um diretório
+	if (!S_ISREG(path_stat.st_mode) || access(path, X_OK) != 0)
+		return (126); // Ficheiro não regular ou sem permissão de execução
+	return (0); // Ficheiro regular com permissão de execução
 }
