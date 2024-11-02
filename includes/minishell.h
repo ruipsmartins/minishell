@@ -6,7 +6,7 @@
 /*   By: addicted <addicted@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 17:34:50 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/10/30 12:41:54 by addicted         ###   ########.fr       */
+/*   Updated: 2024/11/01 12:28:42 by addicted         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ t_envvar				*init_env_list();
 void					free_env_list(t_envvar *env_list);
 
 // parsing
-void					handle_input(char *input, t_data *data);
+void					handle_input(char *input, t_data *data, t_envvar *env_list);
 char					**parse_command(char *input);
 int						check_if_token(char c);
 int						count_token(const char *str);

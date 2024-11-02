@@ -6,7 +6,7 @@
 /*   By: addicted <addicted@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/19 12:05:41 by addicted          #+#    #+#             */
-/*   Updated: 2024/10/30 12:54:09 by addicted         ###   ########.fr       */
+/*   Updated: 2024/11/01 14:06:10 by addicted         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,11 @@ void	print_list(t_envvar *env_list)
 	t_envvar *current;
 
 	current = env_list;
+	printf("Printing list\n");
 	while (current != NULL)
 	{
-		printf("\n%s\n", current->name);
+		printf("name:%s  =  %s(value)\n", current->name, current->value);
+		
 		current = current->next;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: addicted <addicted@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 17:28:57 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/10/30 12:54:41 by addicted         ###   ########.fr       */
+/*   Updated: 2024/11/02 14:40:45 by addicted         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,20 +21,6 @@ char	*get_command_input(void)
 		add_history(input);
 	return (input);
 }
-
-// t_envvar_list	*init_env_list()
-// {
-// 	t_envvar_list	*env_list;
-
-// 	env_list = (t_envvar_list *)ft_calloc(1, sizeof(t_envvar_list));
-// 	if (env_list == NULL)
-// 	{
-// 		perror("malloc");
-// 		exit(EXIT_FAILURE);
-// 	}
-// 	env_list->head = NULL;
-// 	return (env_list);
-// }
 
 int	main(int ac, char **av, char **env)
 {
@@ -51,17 +37,15 @@ int	main(int ac, char **av, char **env)
 	(void)av;
 	
 	env_list = ft_create_list(env);
-	//print_list (env_list);
-	char *value = ft_get_envvar(env_list, "USER")->value;
-	
-	printf("PATH = %s\n", value);
-	
-	//printf("User: %s\n", getenv("USER"));
+	//print_list(env_list);
 	input = get_command_input();
+
+	(void)data;
 	while (input != NULL  && !data.close_shell)
 	{
 		if (*input)
-			handle_input(input, &data);
+
+			handle_input(input, &data, env_list);
 		if (data.close_shell)
 			break;
 		free(input);

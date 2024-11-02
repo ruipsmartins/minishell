@@ -6,7 +6,7 @@
 /*   By: addicted <addicted@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/12 10:50:11 by addicted          #+#    #+#             */
-/*   Updated: 2024/10/27 12:16:37 by addicted         ###   ########.fr       */
+/*   Updated: 2024/11/02 15:11:40 by addicted         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,6 +124,8 @@ t_command *lexer_to_command(t_lexer *lexer)
 			current = handle_heredoc(current, &current_cmd, &cmd_list);
 		else if (current->token && strncmp(current->token, "<", 2) == 0) //
 			current = handle_input_redirection(current, &current_cmd, &cmd_list);
+		else if (strcmp(current->word, "$") == 0)
+			current = current->next;
 		else
 			handle_argument(current, &current_cmd, &cmd_list, &arg_count);
 		current = current->next;

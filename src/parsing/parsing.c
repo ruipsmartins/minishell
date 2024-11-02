@@ -6,13 +6,13 @@
 /*   By: addicted <addicted@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 08:59:52 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/10/30 11:49:27 by addicted         ###   ########.fr       */
+/*   Updated: 2024/11/02 15:24:51 by addicted         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int count_token(const char *str)
+int count_token(const char *str) //Conta o numero de tokens
 {
 	int i;
 	int count;
@@ -30,8 +30,8 @@ int count_token(const char *str)
 	return (0);
 }
 
-// Define o que sao tokens
-int is_token(const char *str)
+
+int is_token(const char *str)// Define o que sao tokens
 {
 	int i = 0;
 	const char *tokens[] = {"|", ">", "<", ">>", "<<", NULL};
@@ -44,7 +44,7 @@ int is_token(const char *str)
 	return 0;
 }
 
-void free_command_list(t_command *cmd_list)
+void free_command_list(t_command *cmd_list) //free da lista de comandos
 {
 	int i;
 	t_command *current;
@@ -68,7 +68,7 @@ void free_command_list(t_command *cmd_list)
 	}
 }
 
-t_lexer *devide_input(char *input)
+t_lexer *devide_input(char *input) //divide a string em tokens e palavras
 {
 	t_lexer *lexer;
 	t_lexer *current = NULL;
@@ -102,31 +102,141 @@ t_lexer *devide_input(char *input)
 	return (lexer);
 }
 
-void handle_input(char *input, t_data *data)
+char	*get_env_name(char  *input) //descobre o nome da variavel de ambiente que queremos criar
+{
+	int i;
+	int k;
+
+	i = 0;
+	while(input[i] != '=' && input[i] != '\0')
+		i++;
+	k = i - 1;
+	if (!isalnum(input[i + 1]) || !isalnum(input[i - 1]))
+	{
+		printf("Invalid variable name\n");
+		return (NULL);
+	}
+	while(k > 0 && input[k] && isalnum(input[k-1]) && (k == 0 || input[k - 1] != '_'))
+		k--;
+	return (strndup(input + k, i - k));  // passar para ft_strndup
+}
+
+char	*get_env_value(char *input)	//descobre o valor da variavel de ambiente que queremos criar
+{
+	int i;
+	int k;
+	
+	i = 0;
+	while(input[i] != '=' && input[i] != '\0')
+		i++;
+	k = i + 1;
+	while(input[k] && input[k] == ' ')
+		k++;
+	return (strndup(input+i+1, k));  // passar para ft_strndup
+}
+
+void	add_new_envvar(t_data *data, char *name, char *value) //adiciona a variavel de ambiente a lista
+{
+	char *new_env;
+	int current_size;
+	
+	new_env = ft_strjoin(name, "=");
+	new_env = ft_strjoin(new_env, value);
+	printf("new_env: %s\n", new_env);
+	(void)data;
+	current_size = 0;
+	while (data->env[current_size] != NULL)
+		current_size++;
+	char **temp_env = malloc((current_size + 1) * sizeof(char *));
+	if (temp_env == NULL)
+	{
+		perror("realloc");
+		exit(EXIT_FAILURE);
+	}
+	temp_env = data->env;
+	//char *backup = temp_env[current_size];
+	//printf("\n\nbackup: %s\n\n", backup);
+	data->env[current_size] = new_env;
+	//char *after = temp_env[current_size];
+	//printf("\n\nafter: %s\n\n", after);
+	//temp_env[current_size] = ft_strjoin(name, value);
+	data->env[current_size + 1] = NULL;
+	//data->env = &(*temp_env);
+	
+	printf("\n\nenv: %s\n\n", data->env[current_size]);
+	//free(new_env);
+}
+
+int	set_new_envvar(char *input, t_data *data)  //descobre o nome e o valor da variavel de ambiente que queremos criar
+{
+	char *name;
+	char *value;
+	int i;
+
+	(void)data;
+	i = 0;
+	while(input[i] != '\0')
+	{
+		i++;
+		if(input[i] == '=')
+		{
+			if(!isalnum(input[i+1]) || !isalnum(input[i-1]))
+			{
+				printf("Invalid variable name\n");
+				return(0);
+			}
+			else
+			{
+				name = get_env_name(input);
+				value = get_env_value(input);
+			}
+		}
+	}
+	if(name && value)
+		add_new_envvar(data, name, value);
+	//printf("name: %s\nvalue: %s\n", name, value);
+	return(1);
+}
+
+void handle_input(char *input, t_data *data, t_envvar *env_list)
 {
 	t_lexer *lexer = NULL;
 	t_lexer *current = NULL;
-	t_envvar*env_list;
+	int i;
 
-	env_list = (t_envvar *)calloc(1, sizeof(t_envvar));
-	if (env_list == NULL)
-	{
-		perror("malloc");
-		exit(EXIT_FAILURE);
-	}
-	// set_envvar(env_list, "PATH", "/bin:/usr/bin:/usr/local/bin");
-	// set_envvar(env_list, "HOME", "/home/user");
-	// set_envvar(env_list, "USER", "user");
-	// set_envvar(env_list, "PWD", "/home/user");
+	i = 0;
 	input = fix_token_space(input);
-	input = replace_envvar(input, 0, env_list);
+	while(data->env[i])
+		i++;
+	// {
+	// 	printf("env: %s\n", data->env[i]);
+	// }
+	printf("data->env: %s\n", data->env[i-1]);
+	if(strchr(input, '=')) //se tivermos um sinal de igual, quer dizer que queremos criar uma variavel de ambiente
+	{
+		printf("\nset new envvar\n");	
+		set_new_envvar(input, data);
+	}
+	i = 0;
+	printf("\n\n\n");
+	
+	printf("env: %s\n", data->env[i-1]);
+	if(strchr(input, '$')) //se tivermos um sinal de dolar, quer dizer que queremos substituir uma variavel de ambiente
+	{
+		printf("\nreplace envvar\n");
+		i = 0;
+		while (data->env[i])
+	{
+		printf("env: %s\n", data->env[i]);
+		i++;
+	}
+		input = replace_envvar(input, 0, env_list);
+	}
 	lexer = devide_input(input);
 	if(lexer == NULL)
 	{
 		printf("lexer is NULl\n");
 	}
-
-	
 	//Parsing do Lexer
 	t_command *cmd_list = lexer_to_command(lexer);
 	execute(cmd_list, data);

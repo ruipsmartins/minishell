@@ -6,7 +6,7 @@
 /*   By: addicted <addicted@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/19 12:05:41 by addicted          #+#    #+#             */
-/*   Updated: 2024/10/30 13:06:36 by addicted         ###   ########.fr       */
+/*   Updated: 2024/11/01 14:27:24 by addicted         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ void set_envvar(t_envvar *envvar_list, const char *name, const char *value)
 	prev = NULL;
 	while (current != NULL) // verificar se a variavel exitste
 	{
-		printf("current->name: %s\n", current->name);
 		if (strcmp(current->name, name) == 0) // strcmp tem de passar para ft_strcmp mas nao esta feito
 		{
 			free(current->value);
@@ -55,7 +54,7 @@ char *get_envvar(t_envvar *env_list, const char *name)
 	return (NULL);
 }
 
-void print_list_envvar(t_envvar*env_list)
+void print_list_envvar(t_envvar *env_list)
 {
 	t_envvar *current;
 
@@ -118,7 +117,7 @@ size_t calculate_final_len(const char *input, t_envvar *env_list, int exit_statu
 	return len;
 }
 
-char	replace_envvar(const char *input, int exit_status, t_envvar *env_list)
+char	*replace_envvar(const char *input, int exit_status, t_envvar *env_list)
 {
 	char		*result;
 	size_t		len;
@@ -189,20 +188,6 @@ char	replace_envvar(const char *input, int exit_status, t_envvar *env_list)
 	
 }
 
-// t_envvar_list *init_env_list()
-// {
-// 	t_envvar_list *env_list;
-
-// 	env_list = (t_envvar_list *)calloc(1, sizeof(t_envvar_list)); // calloc tem de passar para ft_calloc
-// 	if (env_list == NULL)
-// 	{
-// 		perror("malloc");
-// 		exit(EXIT_FAILURE);
-// 	}
-// 	env_list->head = NULL;
-// 	return (env_list);
-// }
-
 void free_env_list(t_envvar *env_list)
 {
 	t_envvar *current;
@@ -219,33 +204,3 @@ void free_env_list(t_envvar *env_list)
 	}
 	free(env_list);
 }
-
-// int main()
-// {
-// 	t_envvar_list *env_list;
-
-// 	//char *input = "PATH é $PATH e HOME é $HOME e USER é $USER e PWD é $PWD 2";
-// 	char *input = "PWD $PWD ";
-
-// 	env_list = (t_envvar_list *)calloc(1, sizeof(t_envvar_list));
-// 	if (env_list == NULL)
-// 	{
-// 		perror("malloc");
-// 		exit(EXIT_FAILURE);
-// 	}
-// 	env_list->head = NULL;
-// 	set_envvar(env_list, "PATH", "/bin:/usr/bin:/usr/local/bin");
-// 	set_envvar(env_list, "HOME", "/home/user");
-// 	set_envvar(env_list, "USER", "user");
-// 	set_envvar(env_list, "PWD", "/home/user");
-
-// 	char *output = replace_envvar(input, 0, env_list);
-
-// 	printf("input : %s\n", input);
-// 	printf("output: %s\n", output);
-
-// 	free_env_list(env_list);
-// 	free(output);	
-
-// 	return 0;
-// }
