@@ -19,7 +19,7 @@ SRCS_FILES = \
 	execute/execute.c execute/pipes.c \
 	execute/redirections.c execute/heredoc.c \
 	builtins/builtin_checker.c builtins/exit_command.c builtins/pwd_command.c builtins/cd_command.c \
-	builtins/echo_command.c	
+	builtins/echo_command.c	builtins/env_command.c 
 
 SRCS = $(addprefix $(SRCS_DIR)/, $(SRCS_FILES))
 OBJS = $(SRCS:$(SRCS_DIR)/%.c=$(OBJS_DIR)/%.o)

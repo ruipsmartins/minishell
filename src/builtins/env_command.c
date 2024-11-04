@@ -1,31 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtin_checker.c                                  :+:      :+:    :+:   */
+/*   env_command.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/17 15:17:35 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/11/04 15:26:19 by ruidos-s         ###   ########.fr       */
+/*   Created: 2024/11/04 15:23:16 by ruidos-s          #+#    #+#             */
+/*   Updated: 2024/11/04 15:43:20 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-bool	builtin_checker(t_command *cmd, t_data *data)
+void	env_command(t_data *data)
 {
-	if (ft_strncmp(cmd->args[0], "exit", 5) == 0)
-		exit_command(data);
-	else if (ft_strncmp(cmd->args[0], "pwd", 4) == 0)
-		pwd_command(data);
-	else if (ft_strncmp(cmd->args[0], "cd", 3) == 0)
-		return (true);
-	else if (ft_strncmp(cmd->args[0], "echo", 5) == 0)
-		echo_command(cmd);
-	else if (ft_strncmp(cmd->args[0], "env", 4) == 0)
-		env_command(data);
-	else
-		return (false);
+	int i;
 
-	return (true);
+	i = 0;
+	while (data->env[i])
+	{
+		ft_printf("%s\n", data->env[i]);
+		i++;
+	}
+	data->return_value = 0;
 }
