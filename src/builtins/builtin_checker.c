@@ -6,7 +6,7 @@
 /*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 15:17:35 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/10/28 17:25:17 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2024/11/04 12:29:03 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,10 @@ bool	builtin_checker(t_command *cmd, t_data *data)
 		exit_command(data);
 	else if (ft_strncmp(cmd->args[0], "pwd", 4) == 0)
 		pwd_command(data);
-	else if (ft_strncmp(cmd->args[0], "cd", 4) == 0)
+	else if (ft_strncmp(cmd->args[0], "cd", 3) == 0)
 		return (true);
+	else if (ft_strncmp(cmd->args[0], "echo", 5) == 0)
+		echo_command(cmd);
 	else
 		return (false);
 
