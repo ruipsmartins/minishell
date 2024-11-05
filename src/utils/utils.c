@@ -6,7 +6,7 @@
 /*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 16:59:41 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/11/01 14:26:58 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2024/11/05 16:03:33 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,3 +81,4 @@ int	check_file_type(char *path)
 		return (126); // Ficheiro não regular ou sem permissão de execução
 	return (0); // Ficheiro regular com permissão de execução
 }
+

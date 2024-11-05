@@ -6,7 +6,7 @@
 /*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 08:59:57 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/11/04 12:16:09 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2024/11/05 16:34:07 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ int	execute_command(char *command, char **args, t_data *data)
 	pid = fork();
 	if (pid < 0)
 		write(STDERR_FILENO, "fork error\n", 11);
+	//data->env = list_to_env(data->env_list);
 	else if (pid == 0)
 	{
 		if (execve(command, args, data->env) == -1)

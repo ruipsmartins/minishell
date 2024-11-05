@@ -6,7 +6,7 @@
 /*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 15:17:35 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/11/04 15:26:19 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2024/11/05 16:34:48 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 bool	builtin_checker(t_command *cmd, t_data *data)
 {
+	//data->env = list_to_env(data->env_list);
 	if (ft_strncmp(cmd->args[0], "exit", 5) == 0)
 		exit_command(data);
 	else if (ft_strncmp(cmd->args[0], "pwd", 4) == 0)
@@ -24,6 +25,10 @@ bool	builtin_checker(t_command *cmd, t_data *data)
 		echo_command(cmd);
 	else if (ft_strncmp(cmd->args[0], "env", 4) == 0)
 		env_command(data);
+	else if (ft_strncmp(cmd->args[0], "export", 7) == 0)
+		export_command(cmd->args[1]);
+	else if (ft_strncmp(cmd->args[0], "unset", 6) == 0)
+		unset_command(cmd->args[1]);
 	else
 		return (false);
 

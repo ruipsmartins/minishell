@@ -6,7 +6,7 @@
 /*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 17:34:50 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/11/04 15:23:45 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2024/11/05 16:52:29 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@
 # include <readline/history.h>
 # include <readline/readline.h>
 # include <stdio.h>
-# include <sys/wait.h>
 # include <sys/stat.h>
+# include <sys/wait.h>
 
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 64;
@@ -94,10 +94,12 @@ t_command				*lexer_to_command(t_lexer *lexer);
 
 // execute
 void					execute(t_command *cmd_list, t_data *data);
-int						execute_command(char *command, char **args, t_data *data);
+int						execute_command(char *command, char **args,
+							t_data *data);
 char					*get_command_input(void);
 void					execute_command_or_path(t_command *cmd, t_data *data);
-void					print_command_error(t_data *data, char *command, int error_type);
+void					print_command_error(t_data *data, char *command,
+							int error_type);
 bool					is_directory(char *path);
 int						check_file_type(char *path);
 
@@ -123,5 +125,7 @@ int						pwd_command(t_data *data);
 int						cd_command(t_command cmd, t_data *data);
 void					echo_command(t_command *cmd);
 void					env_command(t_data *data);
+void					export_command(char *arg);
+void					unset_command(char *arg);
 
 #endif
