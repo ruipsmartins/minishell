@@ -6,7 +6,7 @@
 /*   By: addicted <addicted@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 08:59:52 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/11/02 15:24:51 by addicted         ###   ########.fr       */
+/*   Updated: 2024/11/05 19:56:50 by addicted         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,44 +130,43 @@ char	*get_env_value(char *input)	//descobre o valor da variavel de ambiente que 
 	while(input[i] != '=' && input[i] != '\0')
 		i++;
 	k = i + 1;
-	while(input[k] && input[k] == ' ')
+	while(input[k] && input[k] != ' ')
 		k++;
 	return (strndup(input+i+1, k));  // passar para ft_strndup
 }
 
-void	add_new_envvar(t_data *data, char *name, char *value) //adiciona a variavel de ambiente a lista
-{
-	char *new_env;
-	int current_size;
+// void	add_new_envvar(t_data *data, char *name, char *value) //adiciona a variavel de ambiente a lista
+// {
+// 	char *new_env;
+// 	int current_size;
 	
-	new_env = ft_strjoin(name, "=");
-	new_env = ft_strjoin(new_env, value);
-	printf("new_env: %s\n", new_env);
-	(void)data;
-	current_size = 0;
-	while (data->env[current_size] != NULL)
-		current_size++;
-	char **temp_env = malloc((current_size + 1) * sizeof(char *));
-	if (temp_env == NULL)
-	{
-		perror("realloc");
-		exit(EXIT_FAILURE);
-	}
-	temp_env = data->env;
-	//char *backup = temp_env[current_size];
-	//printf("\n\nbackup: %s\n\n", backup);
-	data->env[current_size] = new_env;
-	//char *after = temp_env[current_size];
-	//printf("\n\nafter: %s\n\n", after);
-	//temp_env[current_size] = ft_strjoin(name, value);
-	data->env[current_size + 1] = NULL;
-	//data->env = &(*temp_env);
+// 	new_env = ft_strjoin(name, "=");
+// 	new_env = ft_strjoin(new_env, value);
+// 	printf("new_env: %s\n", new_env);															FORA DE USO
+// 	current_size = 0;
+// 	while (data->env[current_size] != NULL)
+// 		current_size++;
+// 	char **temp_env = malloc((current_size + 1) * sizeof(char *));
+// 	if (temp_env == NULL)
+// 	{
+// 		perror("realloc");
+// 		exit(EXIT_FAILURE);
+// 	}
+// 	temp_env = data->env;
+// 	//char *backup = temp_env[current_size];
+// 	//printf("\n\nbackup: %s\n\n", backup);
+// 	data->env[current_size] = new_env;
+// 	//char *after = temp_env[current_size];
+// 	//printf("\n\nafter: %s\n\n", after);
+// 	//temp_env[current_size] = ft_strjoin(name, value);
+// 	data->env[current_size + 1] = NULL;
+// 	//data->env = &(*temp_env);
 	
-	printf("\n\nenv: %s\n\n", data->env[current_size]);
-	//free(new_env);
-}
+// 	printf("\n\nenv: %s\n\n", data->env[current_size]);
+// 	//free(new_env);
+// }
 
-int	set_new_envvar(char *input, t_data *data)  //descobre o nome e o valor da variavel de ambiente que queremos criar
+int	set_new_envvar(char *input, t_data *data, t_envvar *env_list)  //descobre o nome e o valor da variavel de ambiente que queremos criar
 {
 	char *name;
 	char *value;
@@ -193,8 +192,7 @@ int	set_new_envvar(char *input, t_data *data)  //descobre o nome e o valor da va
 		}
 	}
 	if(name && value)
-		add_new_envvar(data, name, value);
-	//printf("name: %s\nvalue: %s\n", name, value);
+		set_envvar(env_list, name, value);
 	return(1);
 }
 
@@ -207,30 +205,17 @@ void handle_input(char *input, t_data *data, t_envvar *env_list)
 	i = 0;
 	input = fix_token_space(input);
 	while(data->env[i])
-		i++;
-	// {
-	// 	printf("env: %s\n", data->env[i]);
-	// }
-	printf("data->env: %s\n", data->env[i-1]);
+		i++;	
 	if(strchr(input, '=')) //se tivermos um sinal de igual, quer dizer que queremos criar uma variavel de ambiente
 	{
-		printf("\nset new envvar\n");	
-		set_new_envvar(input, data);
+		printf("\nset new envvar\n");
+		set_new_envvar(input, data, env_list);
 	}
 	i = 0;
-	printf("\n\n\n");
-	
-	printf("env: %s\n", data->env[i-1]);
 	if(strchr(input, '$')) //se tivermos um sinal de dolar, quer dizer que queremos substituir uma variavel de ambiente
 	{
-		printf("\nreplace envvar\n");
-		i = 0;
-		while (data->env[i])
-	{
-		printf("env: %s\n", data->env[i]);
-		i++;
-	}
-		input = replace_envvar(input, 0, env_list);
+		printf("\nreplace envvar after $\n");
+		input = replace_envvar(input, env_list);
 	}
 	lexer = devide_input(input);
 	if(lexer == NULL)
@@ -239,6 +224,9 @@ void handle_input(char *input, t_data *data, t_envvar *env_list)
 	}
 	//Parsing do Lexer
 	t_command *cmd_list = lexer_to_command(lexer);
+
+//TEMOS DE MANDA JA A NEW ENV LIST PARA A FUNCAO
+	
 	execute(cmd_list, data);
 	//Free da lista dos comandos
 	free_command_list(cmd_list);

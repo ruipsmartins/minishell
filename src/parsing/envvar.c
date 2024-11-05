@@ -6,13 +6,24 @@
 /*   By: addicted <addicted@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/19 12:05:41 by addicted          #+#    #+#             */
-/*   Updated: 2024/11/01 14:06:10 by addicted         ###   ########.fr       */
+/*   Updated: 2024/11/05 19:16:38 by addicted         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-t_envvar *ft_envlast(t_envvar *lst)
+void ft_new_envvar(t_envvar **env_list, char *name, char *value)
+{
+	t_envvar *new_node;
+
+	new_node = (t_envvar *)ft_calloc(1, sizeof(t_envvar));
+	new_node->name = ft_strdup(name);
+	new_node->value = ft_strdup(value);
+	ft_envadd_back(env_list, new_node);
+}
+
+// vai buscar o ultimo elemento da lista
+t_envvar *ft_last_env(t_envvar *lst)
 {
 	while(lst)
 	{
@@ -23,6 +34,8 @@ t_envvar *ft_envlast(t_envvar *lst)
 	return (lst);
 }
 
+
+// addicona um novo elemento no fim da lista
 void ft_envadd_back(t_envvar **lst, t_envvar *new)
 {
 	t_envvar *current;
@@ -34,7 +47,7 @@ void ft_envadd_back(t_envvar **lst, t_envvar *new)
 		*lst = new;
 		return;
 	}
-	current = ft_envlast(*lst);
+	current = ft_last_env(*lst);
 	current->next = new;
 }
 
@@ -52,7 +65,7 @@ void	print_list(t_envvar *env_list)
 	}
 }
 
-t_envvar	*ft_get_envvar(t_envvar *lst, char *name)
+t_envvar	*find_envvar(t_envvar *lst, char *name)
 {
 	t_envvar *current;
 	
@@ -66,11 +79,12 @@ t_envvar	*ft_get_envvar(t_envvar *lst, char *name)
 			return (current);
 		current = current->next;
 	}
-	printf("Deu bosta\n");
+	printf("NOT FOUND\n");
 	return (NULL);
 }
 
-t_envvar *ft_create_list(char **env)
+// criar uma nova lista de variaveis de ambiente com o ENV
+t_envvar *ft_create_env_list(char **env)
 {
 	char 		**current;
 	t_envvar	 *new_node;

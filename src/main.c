@@ -6,7 +6,7 @@
 /*   By: addicted <addicted@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 17:28:57 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/11/02 14:40:45 by addicted         ###   ########.fr       */
+/*   Updated: 2024/11/05 19:54:19 by addicted         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,32 @@ char	*get_command_input(void)
 	if (input && *input)
 		add_history(input);
 	return (input);
+}
+char	**swap_list_to_array(t_envvar *env_list)
+{
+	t_envvar *current;
+	int i;
+	char **env;
+	
+	i = 0;
+	current = env_list;
+	while(current != NULL)
+	{
+		current = current->next;
+		i++;
+	}
+	current = env_list;
+	env = (char **)malloc((i + 1) * sizeof(char *));
+	i = 0;
+	while (current != NULL)
+	{
+		env[i] = ft_strjoin(current->name, "=");
+		env[i] = ft_strjoin(env[i], current->value);
+		current = current->next;
+		i++;
+	}
+	env[i] = NULL;
+	return (env);
 }
 
 int	main(int ac, char **av, char **env)
@@ -36,10 +62,14 @@ int	main(int ac, char **av, char **env)
 	(void)ac;
 	(void)av;
 	
-	env_list = ft_create_list(env);
-	//print_list(env_list);
+	env_list = ft_create_env_list(env);
+	data.env_var_lst = env_list;     //passar a lista de variaveis de ambiente para a struct data
+	
+	
+	//char **env_list_array;							//para teste
+	//env_list_array = swap_list_to_array(env_list); //para teste
+	
 	input = get_command_input();
-
 	(void)data;
 	while (input != NULL  && !data.close_shell)
 	{
@@ -50,6 +80,12 @@ int	main(int ac, char **av, char **env)
 			break;
 		free(input);
 		input = get_command_input();
+		// int i = 0;									//para teste
+		// while(env_list_array[i])						//para teste
+		// {											//para teste						
+		// 	printf("%s\n", env_list_array[i]);		//para teste
+		// 	i++;									//para teste
+		// }											//para teste
 	}
 	free(input);
 	rl_clear_history();

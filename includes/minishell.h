@@ -6,7 +6,7 @@
 /*   By: addicted <addicted@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 17:34:50 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/11/01 12:28:42 by addicted         ###   ########.fr       */
+/*   Updated: 2024/11/05 18:17:57 by addicted         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ typedef struct s_data
 	int					original_stdin;
 	int					original_stdout;
 	t_command			*cmd;
+	t_envvar			*env_var_lst;
 	bool				close_shell;
 }						t_data;
 
@@ -72,13 +73,15 @@ char					*find_executable(const char *command);
 
 
 // env_var
-t_envvar				*ft_create_list(char **env);
+void					ft_new_envvar(t_envvar **env_list, char *name, char *value);
+t_envvar				*ft_create_env_list(char **env);
 void					print_list(t_envvar *env_list);
-t_envvar				*ft_get_envvar(t_envvar *lst, char *name);
+t_envvar				*find_envvar(t_envvar *lst, char *name);
+void ft_envadd_back(t_envvar **lst, t_envvar *new);
 
-void					set_envvar(t_envvar *envvar_list, const char *name, const char *value);
+void set_envvar(t_envvar *envvar_list, char *name, char *value);
 char					*get_envvar(t_envvar *env_list, const char *name);
-char					*replace_envvar(const char *input, int exit_status, t_envvar *env_list);
+char					*replace_envvar(const char *input, t_envvar *env_list);
 t_envvar				*init_env_list();
 void					free_env_list(t_envvar *env_list);
 
