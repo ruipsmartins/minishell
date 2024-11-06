@@ -6,59 +6,36 @@
 /*   By: addicted <addicted@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/19 12:05:41 by addicted          #+#    #+#             */
-/*   Updated: 2024/10/27 12:22:46 by addicted         ###   ########.fr       */
+/*   Updated: 2024/11/05 19:11:46 by addicted         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void set_envvar(t_envvar_list *envvar_list, const char *name, const char *value)
+
+// Adiciona uma nova variável de ambiente à lista de variaveis ou substitui o valor de uma variável de ambiente existente
+void set_envvar(t_envvar *envvar_list, char *name, char *value)
 {
 	t_envvar *current;
-	t_envvar *prev;
-	t_envvar *new_var;
 
-	current = envvar_list->head;
-	prev = NULL;
-	while (current != NULL) // verificar se a variavel exitste
+	current = find_envvar(envvar_list, name);
+	if(current != NULL)
 	{
-		if (strcmp(current->name, name) == 0) // strcmp tem de passar para ft_strcmp mas nao esta feito
-		{
-			free(current->value);
-			current->value = strdup(value); // STRDUP TEM DE PASSAR PARA FT_STRDUP
-			return;
-		}
-		prev = current;
-		current = current->next;
+		free(current->value);
+		current->value = strdup(value);
+		return;
 	}
-	new_var = (t_envvar *)calloc(1, sizeof(t_envvar)); // alocar memoria para a nova variavel // calloc tem de passar para ft_calloc
-	new_var->name = strdup(name);                      // STRDUP TEM DE PASSAR PARA FT_STRDUP
-	new_var->value = strdup(value);                    // STRDUP TEM DE PASSAR PARA FT_STRDUP
-	new_var->next = NULL;
-	if (prev == NULL)
-		envvar_list->head = new_var;
 	else
-		prev->next = new_var;
+		ft_new_envvar(&envvar_list, name, value);
+	return;
 }
-char *get_envvar(t_envvar_list *env_list, const char *name)
+
+// PRINTA A LISTA DE VARIAVEIS DE AMBIENTE
+void print_list_envvar(t_envvar *env_list)
 {
 	t_envvar *current;
 
-	current = env_list->head;
-	while (current != NULL)
-	{
-		if (strcmp(current->name, name) == 0)  // strcmp tem de passar para ft_strcmp mas nao esta feito
-			return (current->value);
-		current = current->next;
-	}
-	return (NULL);
-}
-
-void print_list_envvar(t_envvar_list *env_list)
-{
-	t_envvar *current;
-
-	current = env_list->head;
+	current = env_list;
 	while (current != NULL)
 	{
 		printf("%s=%s\n", current->name, current->value);
@@ -66,14 +43,13 @@ void print_list_envvar(t_envvar_list *env_list)
 	}
 }
 
-size_t calculate_final_len(const char *input, t_envvar_list *env_list, int exit_status)
+size_t calculate_final_len(const char *input, t_envvar *env_list)
 {
 	size_t len;
 	const char *src;
 	const char *start;
 	char *var_name;
 	
-	(void)exit_status;
 	len = 0;
 	src = input;
 	while(*src)
@@ -91,13 +67,20 @@ size_t calculate_final_len(const char *input, t_envvar_list *env_list, int exit_
 			while(*src && (isalnum(*src) || *src == '_')) // passar para ft_isalnum
 				src++;
 			var_name = strndup(start, src - start); // passar para ft_strndup
-			if (get_envvar(env_list, var_name) == NULL)
+			if (find_envvar(env_list, var_name) == NULL)
 			{
 				printf("%s not found\n", var_name);
 				return (0);
 			}
-			len += strlen(get_envvar(env_list, var_name));
+			len += strlen((find_envvar(env_list, var_name)->value));
 			free(var_name);
+			// if (get_envvar(env_list, var_name) == NULL)
+			// {
+			// 	printf("%s not found\n", var_name);
+			// 	return (0);
+			// }
+			// len += strlen(get_envvar(env_list, var_name));
+			// free(var_name);
 			}
 		}
 		else
@@ -109,13 +92,14 @@ size_t calculate_final_len(const char *input, t_envvar_list *env_list, int exit_
 	return len;
 }
 
-char	*replace_envvar(const char *input, int exit_status, t_envvar_list *env_list)
+
+// Substitui as variáveis de ambiente na lista de variáveis
+char	*replace_envvar(const char *input, t_envvar *env_list)
 {
 	char		*result;
 	size_t		len;
 	const char *src;
 	char 		*dst;
-	//char		*exit_status_str[12];
 
 	const char *start; // para guardar o inicio da variavel
 	char		*var_name; // para guardar o nome da variavel
@@ -123,10 +107,8 @@ char	*replace_envvar(const char *input, int exit_status, t_envvar_list *env_list
 	
 	len = 0;
 	src = input;
-	//snprintf(exit_status_str, sizeof(exit_status_str), "%d", exit_status);  //ver isto ainda
 	
-	
-	len = calculate_final_len(input, env_list, exit_status);
+	len = calculate_final_len(input, env_list);
 
 	//alocar memoria para a string final
 	result = (char *)calloc(len + 2, sizeof(char)); // calloc tem de passar para ft_calloc
@@ -155,12 +137,12 @@ char	*replace_envvar(const char *input, int exit_status, t_envvar_list *env_list
 				while (*src && (isalnum(*src) || *src == '_')) // passar para ft_isalnum
 					src++;
 				var_name = strndup(start, src - start); // passar para ft_strndup
-				value = get_envvar(env_list, var_name);
+				value = find_envvar(env_list, var_name)->value;
 				//printf("var_name: %s...\nstart: %s...\nsrc: %s...\n", var_name, start, src);
 				if (value == NULL)
 				{
-					printf("%snao encontrado\n", var_name);
-					return (NULL);
+					printf("%s not found\n", var_name);
+					return (0);
 				}
 				strcpy(dst, value); //passar para ft_strcpy
 				dst += strlen(value); // passar para ft_strlen
@@ -175,63 +157,19 @@ char	*replace_envvar(const char *input, int exit_status, t_envvar_list *env_list
 	
 }
 
-t_envvar_list *init_env_list()
-{
-	t_envvar_list *env_list;
-
-	env_list = (t_envvar_list *)calloc(1, sizeof(t_envvar_list)); // calloc tem de passar para ft_calloc
-	if (env_list == NULL)
-	{
-		perror("malloc");
-		exit(EXIT_FAILURE);
-	}
-	env_list->head = NULL;
-	return (env_list);
-}
-
-void free_env_list(t_envvar_list *env_list)
-{
-	t_envvar *current;
-	t_envvar *next;
-
-	current = env_list->head;
-	while (current != NULL)
-	{
-		next = current->next;
-		free(current->name);
-		free(current->value);
-		free(current);
-		current = next;
-	}
-	free(env_list);
-}
-
-// int main()
+// void free_env_list(t_envvar *env_list)
 // {
-// 	t_envvar_list *env_list;
+// 	t_envvar *current;
+// 	t_envvar *next;
 
-// 	//char *input = "PATH é $PATH e HOME é $HOME e USER é $USER e PWD é $PWD 2";
-// 	char *input = "PWD $PWD ";
-
-// 	env_list = (t_envvar_list *)calloc(1, sizeof(t_envvar_list));
-// 	if (env_list == NULL)
+// 	current = env_list;
+// 	while (current != NULL)
 // 	{
-// 		perror("malloc");
-// 		exit(EXIT_FAILURE);
+// 		next = current->next;
+// 		free(current->name);
+// 		free(current->value);
+// 		free(current);
+// 		current = next;
 // 	}
-// 	env_list->head = NULL;
-// 	set_envvar(env_list, "PATH", "/bin:/usr/bin:/usr/local/bin");
-// 	set_envvar(env_list, "HOME", "/home/user");
-// 	set_envvar(env_list, "USER", "user");
-// 	set_envvar(env_list, "PWD", "/home/user");
-
-// 	char *output = replace_envvar(input, 0, env_list);
-
-// 	printf("input : %s\n", input);
-// 	printf("output: %s\n", output);
-
-// 	free_env_list(env_list);
-// 	free(output);	
-
-// 	return 0;
+// 	free(env_list);
 // }

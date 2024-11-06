@@ -6,7 +6,7 @@
 /*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 17:34:50 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/11/05 16:52:29 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2024/11/06 16:08:34 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,10 +52,10 @@ typedef struct s_envvar
 	struct s_envvar		*next;
 }						t_envvar;
 
-typedef struct s_envvar_list
-{
-	t_envvar			*head;
-}						t_envvar_list;
+// typedef struct s_envvar_list
+// {
+// 	t_envvar			*head;
+// }						t_envvar_list;
 
 typedef struct s_data
 {
@@ -63,6 +63,7 @@ typedef struct s_data
 	int					original_stdin;
 	int					original_stdout;
 	t_command			*cmd;
+	t_envvar			*env_var_lst;
 	bool				close_shell;
 	int					return_value;
 	int					fd[2];
@@ -76,13 +77,19 @@ char					*find_executable(const char *command);
 void					data_init(t_data *data, char **env);
 
 // env_var
-void					set_envvar(t_envvar_list *envvar_list, const char *name,
-							const char *value);
-char					*get_envvar(t_envvar_list *env_list, const char *name);
-char					*replace_envvar(const char *input, int exit_status,
-							t_envvar_list *env_list);
-t_envvar_list			*init_env_list(void);
-void					free_env_list(t_envvar_list *env_list);
+void					ft_new_envvar(t_envvar **env_list, char *name, char *value);
+t_envvar				*ft_create_env_list(char **env);
+void					print_list(t_envvar *env_list);
+t_envvar				*find_envvar(t_envvar *lst, char *name);
+void ft_envadd_back(t_envvar **lst, t_envvar *new);
+
+char **swap_list_to_array(t_envvar *env_list);
+
+void set_envvar(t_envvar *envvar_list, char *name, char *value);
+char					*get_envvar(t_envvar *env_list, const char *name);
+char					*replace_envvar(const char *input, t_envvar *env_list);
+t_envvar				*init_env_list();
+void					free_env_list(t_envvar *env_list);
 
 // parsing
 void					handle_input(char *input, t_data *data);

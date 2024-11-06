@@ -47,7 +47,7 @@ Thanks to Minishell, I travelled through time and came back to problems people f
 | :-------------------------------- | :----------------------------------------------------------------------- |
 | `make -n`                         | Display the compilation information without actually compiling the code. |
 | `echo $?`                         | Display the exit status of the last executed command.                    |
-| `nm -g ./minishell \| grep " U "` | Check for forbidden functions.                                           |
+| `nm -g ./minishell \ | grep " U "`| Check for forbidden functions.                                           |
 | `norminette`                      | Checks the code for compliance with the coding style and guidelines.     |
 | `-R CheckForbiddenSourceHeader`   | Check the code in header files.                                          |
 | `cc -g -Wall -Wextra -Werror`     | Compile with the mandatory flags.                                        |
