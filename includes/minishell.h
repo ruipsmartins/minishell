@@ -6,7 +6,7 @@
 /*   By: addicted <addicted@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 17:34:50 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/11/06 11:48:30 by addicted         ###   ########.fr       */
+/*   Updated: 2024/11/06 12:07:46 by addicted         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include <readline/readline.h>
 # include <stdio.h>
 # include <sys/wait.h>
+# include <sys/stat.h>
 
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 64;
@@ -64,13 +65,16 @@ typedef struct s_data
 	t_command			*cmd;
 	t_envvar			*env_var_lst;
 	bool				close_shell;
+	int					return_value;
+	int					fd[2];
+	int					exit_pipe[2];
 }						t_data;
 
 char					*readline(const char *prompt);
 char					*ft_strtok(char *str, const char *delim);
 void					close_fds(int *fd);
 char					*find_executable(const char *command);
-
+void					data_init(t_data *data, char **env);
 
 // env_var
 void					ft_new_envvar(t_envvar **env_list, char *name, char *value);
@@ -97,17 +101,18 @@ t_command				*lexer_to_command(t_lexer *lexer);
 
 // execute
 void					execute(t_command *cmd_list, t_data *data);
-void					execute_command(char *command, char **args, char **env);
+int						execute_command(char *command, char **args, t_data *data);
 char					*get_command_input(void);
 void					execute_command_or_path(t_command *cmd, t_data *data);
-void					print_command_error(char *command, int error_type);
+void					print_command_error(t_data *data, char *command, int error_type);
+bool					is_directory(char *path);
+int						check_file_type(char *path);
 
 // pipes
 void					execute_piped_commands(t_command *cmd, t_data *data);
-int						ft_child(int in_fd, t_command *cmd, int fd[2],
-							t_data *data, int exit_pipe[2]);
+bool					ft_parent(t_command *cmd, int *in_fd, t_data *data);
+int						ft_child(int in_fd, t_command *cmd, t_data *data);
 void					handle_fd(int in_fd, t_command *cmd, int fd[2]);
-char					***split_by_pipe(char *input);
 
 // redirections
 int						handle_redirects(t_command *cmd, t_data *data);
@@ -121,7 +126,8 @@ void					std_reset(int *original_stdin, int *original_stdout);
 // builtins
 bool					builtin_checker(t_command *cmd, t_data *data);
 void					exit_command(t_data *data);
-void					pwd_command(void);
-void					cd_command(t_command cmd);
+int						pwd_command(t_data *data);
+int						cd_command(t_command cmd, t_data *data);
+void					echo_command(t_command *cmd);
 
 #endif
