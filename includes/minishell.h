@@ -6,7 +6,7 @@
 /*   By: addicted <addicted@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 17:34:50 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/11/05 18:17:57 by addicted         ###   ########.fr       */
+/*   Updated: 2024/11/06 11:48:30 by addicted         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,8 @@ void					print_list(t_envvar *env_list);
 t_envvar				*find_envvar(t_envvar *lst, char *name);
 void ft_envadd_back(t_envvar **lst, t_envvar *new);
 
+char **swap_list_to_array(t_envvar *env_list);
+
 void set_envvar(t_envvar *envvar_list, char *name, char *value);
 char					*get_envvar(t_envvar *env_list, const char *name);
 char					*replace_envvar(const char *input, t_envvar *env_list);
@@ -86,7 +88,7 @@ t_envvar				*init_env_list();
 void					free_env_list(t_envvar *env_list);
 
 // parsing
-void					handle_input(char *input, t_data *data, t_envvar *env_list);
+void					handle_input(char *input, t_data *data);
 char					**parse_command(char *input);
 int						check_if_token(char c);
 int						count_token(const char *str);

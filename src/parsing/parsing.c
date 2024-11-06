@@ -6,7 +6,7 @@
 /*   By: addicted <addicted@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 08:59:52 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/11/05 19:56:50 by addicted         ###   ########.fr       */
+/*   Updated: 2024/11/06 11:46:03 by addicted         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -166,13 +166,13 @@ char	*get_env_value(char *input)	//descobre o valor da variavel de ambiente que 
 // 	//free(new_env);
 // }
 
-int	set_new_envvar(char *input, t_data *data, t_envvar *env_list)  //descobre o nome e o valor da variavel de ambiente que queremos criar
+int	set_new_envvar(char *input, t_data *data)  //descobre o nome e o valor da variavel de ambiente que queremos criar
 {
 	char *name;
 	char *value;
 	int i;
 
-	(void)data;
+	//(void)env_list;
 	i = 0;
 	while(input[i] != '\0')
 	{
@@ -192,30 +192,25 @@ int	set_new_envvar(char *input, t_data *data, t_envvar *env_list)  //descobre o 
 		}
 	}
 	if(name && value)
-		set_envvar(env_list, name, value);
+		set_envvar(data->env_var_lst, name, value);
 	return(1);
 }
 
-void handle_input(char *input, t_data *data, t_envvar *env_list)
+void handle_input(char *input, t_data *data)
 {
 	t_lexer *lexer = NULL;
 	t_lexer *current = NULL;
-	int i;
 
-	i = 0;
 	input = fix_token_space(input);
-	while(data->env[i])
-		i++;	
 	if(strchr(input, '=')) //se tivermos um sinal de igual, quer dizer que queremos criar uma variavel de ambiente
 	{
 		printf("\nset new envvar\n");
-		set_new_envvar(input, data, env_list);
+		set_new_envvar(input, data);
 	}
-	i = 0;
 	if(strchr(input, '$')) //se tivermos um sinal de dolar, quer dizer que queremos substituir uma variavel de ambiente
 	{
 		printf("\nreplace envvar after $\n");
-		input = replace_envvar(input, env_list);
+		input = replace_envvar(input, data->env_var_lst);
 	}
 	lexer = devide_input(input);
 	if(lexer == NULL)
@@ -226,7 +221,9 @@ void handle_input(char *input, t_data *data, t_envvar *env_list)
 	t_command *cmd_list = lexer_to_command(lexer);
 
 //TEMOS DE MANDA JA A NEW ENV LIST PARA A FUNCAO
+	print_list(data->env_var_lst);
 	
+	data->env = swap_list_to_array(data->env_var_lst);
 	execute(cmd_list, data);
 	//Free da lista dos comandos
 	free_command_list(cmd_list);

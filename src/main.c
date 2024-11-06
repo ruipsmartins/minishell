@@ -6,7 +6,7 @@
 /*   By: addicted <addicted@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 17:28:57 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/11/05 19:54:19 by addicted         ###   ########.fr       */
+/*   Updated: 2024/11/06 11:47:30 by addicted         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,8 +74,7 @@ int	main(int ac, char **av, char **env)
 	while (input != NULL  && !data.close_shell)
 	{
 		if (*input)
-
-			handle_input(input, &data, env_list);
+			handle_input(input, &data);
 		if (data.close_shell)
 			break;
 		free(input);
