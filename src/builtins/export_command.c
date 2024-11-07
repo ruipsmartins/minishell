@@ -6,31 +6,37 @@
 /*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 15:14:53 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/11/05 16:51:58 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2024/11/07 14:14:55 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	export_command(char *arg)
+//função para adicionar ou modificar uma variável de ambiente
+void	export_command(char *arg, t_data *data)
 {
 	char	*name;
 	char	*value;
-	int		i;
+	char	*env_var;
+	t_envvar *current;
 
-	i = 0;
-	while (arg[i] && arg[i] != '=')
-		i++;
-	name = ft_substr(arg, 0, i);
-	value = ft_substr(arg, i + 1, ft_strlen(arg) - i);
-
-
-	
-
-	//data->env = list_to_env(data->env_list);
-
-	free(name);
-	free(value);
+	env_var = ft_strdup(arg);
+	name = ft_strtok(env_var, "=");
+	value = ft_strtok(NULL, "=");
+	if (name == NULL)
+	{
+		free(env_var);
+		return;
+	}
+	current = find_envvar(data->env_var_lst, name);
+	if (current != NULL)
+	{
+		free(current->value);
+		current->value = ft_strdup(value);
+	}
+	else
+		ft_new_envvar(&data->env_var_lst, name, value);
+	free(env_var);
 }
 
 

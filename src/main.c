@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: addicted <addicted@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 17:28:57 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/11/07 10:39:09 by addicted         ###   ########.fr       */
+/*   Updated: 2024/11/07 14:46:47 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ int	main(int ac, char **av, char **env)
 			break ;
 		free(input);
 		// Debug return value of the command executed by the user (exit status)
-		ft_printf("data.return_value na main: %d\n", data.return_value);
+		//ft_printf("data.return_value na main: %d\n", data.return_value);
 		input = get_command_input();
 		// int i = 0;									//para teste
 		// while(env_list_array[i])						//para teste
