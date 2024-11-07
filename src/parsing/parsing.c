@@ -6,7 +6,7 @@
 /*   By: addicted <addicted@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 08:59:52 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/11/06 11:46:03 by addicted         ###   ########.fr       */
+/*   Updated: 2024/11/07 10:39:47 by addicted         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -221,7 +221,7 @@ void handle_input(char *input, t_data *data)
 	t_command *cmd_list = lexer_to_command(lexer);
 
 //TEMOS DE MANDA JA A NEW ENV LIST PARA A FUNCAO
-	print_list(data->env_var_lst);
+	//print_list(data->env_var_lst);
 	
 	data->env = swap_list_to_array(data->env_var_lst);
 	execute(cmd_list, data);

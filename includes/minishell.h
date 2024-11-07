@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: addicted <addicted@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 17:34:50 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/11/06 16:08:34 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2024/11/07 11:51:56 by addicted         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ typedef struct s_data
 	t_command			*cmd;
 	t_envvar			*env_var_lst;
 	bool				close_shell;
-	int					return_value;
+	int					return_value;  // $? 
 	int					fd[2];
 	int					exit_pipe[2];
 }						t_data;
