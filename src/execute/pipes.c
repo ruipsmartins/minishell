@@ -6,7 +6,7 @@
 /*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 11:05:58 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/11/01 14:28:01 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2024/11/07 16:03:26 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,15 +60,17 @@ bool	ft_parent(t_command *cmd, int *in_fd, t_data *data)
 		data->close_shell = true;
 		return (true);
 	}
-	if (WIFEXITED(status))                       
-		// Se o filho terminou normalmente
-		data->return_value = WEXITSTATUS(status);
-			// Guarda o valor de saída do filho em `data->return_value`
+	if (WIFEXITED(status))  // Se o filho terminou normalmente                     
+		data->return_value = WEXITSTATUS(status);// Guarda o valor de saída do filho em `data->return_value`	
 	else
 		data->return_value = 0;
 	*in_fd = data->fd[0]; // Prepara para o próximo comando
-	if (ft_strncmp(cmd->args[0], "cd", 3) == 0)
+	/* if (ft_strncmp(cmd->args[0], "cd", 3) == 0)
 		cd_command(*cmd, data);
+	else if (ft_strncmp(cmd->args[0], "unset", 6) == 0)
+		unset_command(cmd->args[1], data); */
+	
+	builtin_checker_parent(cmd, data);
 	return (false);
 }
 

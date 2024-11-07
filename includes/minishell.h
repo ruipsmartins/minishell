@@ -6,7 +6,7 @@
 /*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 17:34:50 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/11/07 14:17:26 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2024/11/07 20:03:57 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,6 @@
 # include <sys/stat.h>
 # include <sys/wait.h>
 
-# ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 64;
-# endif
 
 typedef struct s_lexer
 {
@@ -73,7 +70,7 @@ typedef struct s_data
 char					*readline(const char *prompt);
 char					*ft_strtok(char *str, const char *delim);
 void					close_fds(int *fd);
-char					*find_executable(const char *command);
+char					*find_executable(const char *command, t_data *data);
 void					data_init(t_data *data, char **env);
 
 // env_var
@@ -126,7 +123,8 @@ int						execute_heredoc(t_command *cmd);
 void					std_reset(int *original_stdin, int *original_stdout);
 
 // builtins
-bool					builtin_checker(t_command *cmd, t_data *data);
+bool					builtin_checker_parent(t_command *cmd, t_data *data);
+bool					builtin_checker_child(t_command *cmd);
 void					exit_command(t_data *data);
 int						pwd_command(t_data *data);
 int						cd_command(t_command cmd, t_data *data);

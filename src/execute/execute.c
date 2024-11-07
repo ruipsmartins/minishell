@@ -6,7 +6,7 @@
 /*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 08:59:57 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/11/05 16:34:07 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2024/11/07 19:22:24 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,31 +32,42 @@ char	*get_executable_path(const char *command, const char *dir)
 	return (full_path);
 }
 
+char	*get_path_value(t_data *data)
+{
+	t_envvar	*path_var;
+
+	path_var = find_envvar(data->env_var_lst, "PATH");
+	if (!path_var)
+	{
+		ft_putstr_fd("Minishell: PATH not set\n", STDERR_FILENO);
+		return (NULL);
+	}
+	return (ft_strdup(path_var->value));
+}
+
 // Função para encontrar o executável no path
-char	*find_executable(const char *command)
+char	*find_executable(const char *command, t_data *data)
 {
 	char	*path;
 	char	*dir;
-	char	*path_copy;
 	char	*full_path;
 
-	path = getenv("PATH");
+	path = get_path_value(data);
 	if (!path)
 		return (NULL);
-	path_copy = ft_strdup(path);
-	dir = ft_strtok(path_copy, ":");
+	dir = ft_strtok(path, ":");
 	while (dir != NULL)
 	{
 		full_path = get_executable_path(command, dir);
 		if (access(full_path, X_OK) == 0)
 		{
-			free(path_copy);
+			free(path);
 			return (full_path);
 		}
 		free(full_path);
 		dir = ft_strtok(NULL, ":");
 	}
-	free(path_copy);
+	//free(path);
 	return (NULL);
 }
 
@@ -69,7 +80,7 @@ int	execute_command(char *command, char **args, t_data *data)
 	pid = fork();
 	if (pid < 0)
 		write(STDERR_FILENO, "fork error\n", 11);
-	//data->env = list_to_env(data->env_list);
+	// data->env = list_to_env(data->env_list);
 	else if (pid == 0)
 	{
 		if (execve(command, args, data->env) == -1)
@@ -89,29 +100,28 @@ int	execute_command(char *command, char **args, t_data *data)
 	return (status);
 }
 
-
-
-
 void	execute_command_or_path(t_command *cmd, t_data *data)
 {
 	char	*executable;
 	int		file_check;
 
-	if (builtin_checker(cmd, data) == false)
+	if (builtin_checker_child(cmd) == false)
 	{
 		if (cmd->args[0][0] == '/' || cmd->args[0][0] == '.')
 		{
 			file_check = check_file_type(cmd->args[0]);
 			if (file_check == 0)
-			execute_command(cmd->args[0], cmd->args, data);
-		else if (file_check == 126)
-			print_command_error(data, cmd->args[0], 126); // Retorna 126 se não for executável
-		else
-			print_command_error(data, cmd->args[0], 127); // Retorna 127 se não for encontrado ou outro erro
-	}
+				execute_command(cmd->args[0], cmd->args, data);
+			else if (file_check == 126)
+				print_command_error(data, cmd->args[0], 126);
+			// Retorna 126 se não for executável
+			else
+				print_command_error(data, cmd->args[0], 127);
+			// Retorna 127 se não for encontrado ou outro erro
+		}
 		else
 		{
-			executable = find_executable(cmd->args[0]);
+			executable = find_executable(cmd->args[0], data);
 			if (executable)
 			{
 				execute_command(executable, cmd->args, data);
@@ -128,4 +138,3 @@ void	execute(t_command *cmd, t_data *data)
 	data->cmd = cmd;
 	execute_piped_commands(cmd, data);
 }
-

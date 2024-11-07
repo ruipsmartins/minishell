@@ -6,7 +6,7 @@
 /*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 17:28:57 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/11/07 14:46:47 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2024/11/07 19:54:55 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ void	data_init(t_data *data, char **env)
 	data->original_stdout = -1;
 	data->close_shell = false;
 	data->return_value = 0;
+	data->env_var_lst = ft_create_env_list(env);
 }
 
 // t_envvar_list	*init_env_list(void)
@@ -76,19 +77,9 @@ int	main(int ac, char **av, char **env)
 	char	*input;
 	t_data	data;
 
-
-	t_envvar *env_list;
-	data.env = env;
-	data.original_stdin = -1;
-	data.original_stdout = -1;
-	data.close_shell = false;
 	(void)ac;
 	(void)av;
-	
-	env_list = ft_create_env_list(env);
-	data.env_var_lst = env_list;     //passar a lista de variaveis de ambiente para a struct data
-	
-	
+	data_init(&data, env);
 	//char **env_list_array;							//para teste
 	//env_list_array = swap_list_to_array(env_list); //para teste
 	
@@ -101,8 +92,10 @@ int	main(int ac, char **av, char **env)
 		if (data.close_shell)
 			break ;
 		free(input);
+
 		// Debug return value of the command executed by the user (exit status)
-		//ft_printf("data.return_value na main: %d\n", data.return_value);
+		ft_printf("data.return_value na main: %d\n", data.return_value);
+	
 		input = get_command_input();
 		// int i = 0;									//para teste
 		// while(env_list_array[i])						//para teste
