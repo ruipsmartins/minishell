@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   envvar.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: addicted <addicted@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/19 12:05:41 by addicted          #+#    #+#             */
-/*   Updated: 2024/11/07 15:12:38 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2024/11/08 11:05:49 by addicted         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ t_envvar	*find_envvar(t_envvar *lst, char *name)
 	while(current)
 	{
 		//printf("name = %s\n", current->name);
-		if (ft_strncmp(current->name, name, ft_strlen(name)) == 0)
+		if (strcmp(current->name, name) == 0)
 			return (current);
 		current = current->next;
 	}

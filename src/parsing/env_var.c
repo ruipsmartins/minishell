@@ -6,7 +6,7 @@
 /*   By: addicted <addicted@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/19 12:05:41 by addicted          #+#    #+#             */
-/*   Updated: 2024/11/05 19:11:46 by addicted         ###   ########.fr       */
+/*   Updated: 2024/11/08 10:25:04 by addicted         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,6 +109,12 @@ char	*replace_envvar(const char *input, t_envvar *env_list)
 	src = input;
 	
 	len = calculate_final_len(input, env_list);
+
+	if(len == 0)
+	{
+		printf("Error calculating final len\n");
+		return (NULL);
+	}
 
 	//alocar memoria para a string final
 	result = (char *)calloc(len + 2, sizeof(char)); // calloc tem de passar para ft_calloc

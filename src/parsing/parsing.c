@@ -6,7 +6,7 @@
 /*   By: addicted <addicted@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 08:59:52 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/11/07 10:39:47 by addicted         ###   ########.fr       */
+/*   Updated: 2024/11/08 11:18:39 by addicted         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,7 +116,7 @@ char	*get_env_name(char  *input) //descobre o nome da variavel de ambiente que q
 		printf("Invalid variable name\n");
 		return (NULL);
 	}
-	while(k > 0 && input[k] && isalnum(input[k-1]) && (k == 0 || input[k - 1] != '_'))
+	while(k > 0 && input[k] && (isalnum(input[k-1]) || input[k - 1] == '_'))
 		k--;
 	return (strndup(input + k, i - k));  // passar para ft_strndup
 }
