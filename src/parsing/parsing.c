@@ -6,7 +6,7 @@
 /*   By: addicted <addicted@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 08:59:52 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/11/08 11:18:39 by addicted         ###   ########.fr       */
+/*   Updated: 2024/11/15 12:43:08 by addicted         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,10 @@ void free_command_list(t_command *cmd_list) //free da lista de comandos
 		{
 			i = 0;
 			while (current->args[i] != NULL)
+			{
+				printf("freeing %s\n", current->args[i]);
 				free(current->args[i++]);
+			}
 			free(current->args);
 		}
 		free(current->input_file);
@@ -196,47 +199,57 @@ int	set_new_envvar(char *input, t_data *data)  //descobre o nome e o valor da va
 	return(1);
 }
 
+void free_lexer(t_lexer *lexer)
+{
+	t_lexer *current = lexer;
+	t_lexer *next = NULL;
+
+	while (current != NULL)
+	{
+		next = current->next;
+		free(current->word);
+		free(current->token);
+		current->next = NULL;
+		free(current);
+		current = next;
+	}
+	//free(lexer);
+}
+
 void handle_input(char *input, t_data *data)
 {
 	t_lexer *lexer = NULL;
-	t_lexer *current = NULL;
 
-	input = fix_token_space(input);
-	if(strchr(input, '=')) //se tivermos um sinal de igual, quer dizer que queremos criar uma variavel de ambiente
+	char *temp;
+
+	temp = fix_token_space(input);
+	if(strchr(temp, '=')) //se tivermos um sinal de igual, quer dizer que queremos criar uma variavel de ambiente
 	{
 		printf("\nset new envvar\n");
-		set_new_envvar(input, data);
+		set_new_envvar(temp, data);
+		data->env = swap_list_to_array(data->env_var_lst);
 	}
-	if(strchr(input, '$')) //se tivermos um sinal de dolar, quer dizer que queremos substituir uma variavel de ambiente
+	if(strchr(temp, '$')) //se tivermos um sinal de dolar, quer dizer que queremos substituir uma variavel de ambiente
 	{
 		printf("\nreplace envvar after $\n");
-		input = replace_envvar(input, data->env_var_lst);
+		temp = replace_envvar(temp, data->env_var_lst);
 	}
-	lexer = devide_input(input);
+	lexer = devide_input(temp);
 	if(lexer == NULL)
 	{
 		printf("lexer is NULl\n");
 	}
 	//Parsing do Lexer
 	t_command *cmd_list = lexer_to_command(lexer);
-
+	free(temp);
+	free_lexer(lexer);
+	data->cmd = cmd_list;
 //TEMOS DE MANDA JA A NEW ENV LIST PARA A FUNCAO
 	//print_list(data->env_var_lst);
-	
-	data->env = swap_list_to_array(data->env_var_lst);
 	execute(cmd_list, data);
-	//Free da lista dos comandos
-	free_command_list(cmd_list);
-	current = lexer;
-	while (current != NULL)
-	{
-		t_lexer *next = current->next;
-		free(current->word);
-		free(current->token);
-		free(current);
-		current = next;
-	}
-	//free_env_list(env_list);
+	//free_command_list(cmd_list);
+	//if(data->env_var_lst)
+	//	free_env_list(data->env_var_lst);
 }
 
 /* int main()

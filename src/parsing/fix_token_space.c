@@ -6,7 +6,7 @@
 /*   By: addicted <addicted@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 16:11:43 by addicted          #+#    #+#             */
-/*   Updated: 2024/10/11 18:34:42 by addicted         ###   ########.fr       */
+/*   Updated: 2024/11/13 14:18:44 by addicted         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ char *fix_token_space(char *str)
 		i++;
 	}
 	fix_str[k] = '\0';
+	free(str);
 	return (fix_str);
 }
 // int main(void)

@@ -6,7 +6,7 @@
 /*   By: addicted <addicted@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 17:28:57 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/11/08 10:33:58 by addicted         ###   ########.fr       */
+/*   Updated: 2024/11/15 12:41:48 by addicted         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,23 @@ char	**swap_list_to_array(t_envvar *env_list)
 	return (env);
 }
 
+void free_data(t_data *data)
+{
+	int i;
+
+	i = 0;
+	while(data->env[i])
+	{
+		free(data->env[i]);
+		i++;
+	}
+	free(data->env);
+	//free_command_list(data->cmd);
+	//if(data->env_var_lst)
+		//free_env_list(data->env_var_lst);
+	//free(data);
+}
+
 int	main(int ac, char **av, char **env)
 {
 	char	*input;
@@ -91,10 +108,9 @@ int	main(int ac, char **av, char **env)
 			handle_input(input, &data);
 		if (data.close_shell)
 			break ;
-		free(input);
-
 		// Debug return value of the command executed by the user (exit status)
 		ft_printf("data.return_value na main: %d\n", data.return_value);
+		free_command_list(data.cmd);
 	
 		input = get_command_input();
 		// int i = 0;									//para teste
@@ -102,9 +118,11 @@ int	main(int ac, char **av, char **env)
 		// {											//para teste						
 		// 	printf("%s\n", env_list_array[i]);		//para teste
 		// 	i++;									//para teste
-		// }											//para teste
+		// }
 	}
-	free(input);
+		if (data.env_var_lst)
+			free_env_list(data.env_var_lst);
+	//free_data(&data);
 	rl_clear_history();
 	return (data.return_value);
 }

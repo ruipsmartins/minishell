@@ -6,7 +6,7 @@
 /*   By: addicted <addicted@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/19 12:05:41 by addicted          #+#    #+#             */
-/*   Updated: 2024/11/08 10:25:04 by addicted         ###   ########.fr       */
+/*   Updated: 2024/11/13 12:46:26 by addicted         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -163,19 +163,18 @@ char	*replace_envvar(const char *input, t_envvar *env_list)
 	
 }
 
-// void free_env_list(t_envvar *env_list)
-// {
-// 	t_envvar *current;
-// 	t_envvar *next;
+void free_env_list(t_envvar *env_list)
+{
+	t_envvar *current;
+	t_envvar *next;
 
-// 	current = env_list;
-// 	while (current != NULL)
-// 	{
-// 		next = current->next;
-// 		free(current->name);
-// 		free(current->value);
-// 		free(current);
-// 		current = next;
-// 	}
-// 	free(env_list);
-// }
+	current = env_list;
+	while (current != NULL)
+	{
+		next = current->next;
+		free(current->name);
+		free(current->value);
+		free(current);
+		current = next;
+	}
+}
