@@ -215,16 +215,16 @@ Thanks to Minishell, I travelled through time and came back to problems people f
 
 | Status  | Command |
 | :------ | :------ |
-| 🟡 | `/bin/echo`        |
-| 🟡 | `/bin/grep`        |
-| 🟡 | `/bin/ls`          |
-| 🟡 | `/bin/ls -la`      |
-| 🟡 | `/bin/cat`         |
-| 🟡 | `/bin/pwd`         |
-| 🟡 | `/bin/cd`          | OK! Path not found in bash nor in our
-| 🟡 | `/bin/export`      | OK! Path not found in bash nor in our
-| 🟡 | `/bin/exit`        | OK! Path not found in bash nor in our
-| 🟡 | `/bin/env`         | IMPORTANT!
+| 🟢 | `/bin/echo`        |
+| 🟢 | `/bin/grep`        |
+| 🟢 | `/bin/ls`          |
+| 🟢 | `/bin/ls -la`      |
+| 🟢 | `/bin/cat`         |
+| 🟢 | `/bin/pwd`         |
+| 🟢 | `/bin/cd`          | OK! Path not found in bash nor in our
+| 🟢 | `/bin/export`      | OK! Path not found in bash nor in our
+| 🟢 | `/bin/exit`        | OK! Path not found in bash nor in our
+| 🔴 | `/bin/env`         | IMPORTANT!
 
 
 #### PWD
@@ -232,9 +232,9 @@ Thanks to Minishell, I travelled through time and came back to problems people f
 
 | Status  | Command |
 | :------ | :------ |
-| 🟡 | `pwd`         |
-| 🟡 | `pwd a`       |
-| 🟡 | `pwd a b c d` |
+| 🟢 | `pwd`         |
+| 🟢 | `pwd a`       |
+| 🟢 | `pwd a b c d` |
 
 
 #### EXPORT, ENV AND UNSET
@@ -242,14 +242,14 @@ Thanks to Minishell, I travelled through time and came back to problems people f
 
 | Status  | Command |
 | :------ | :------ |
-| 🟡 | `ENV`                        	|
-| 🟡 | `eNv`                        	|
-| 🟡 | `env`                        	|
-| 🟡 | ` env`                       	|
-| 🟡 | `env `                       	|
-| 🟡 | `  env  `                    	|
-| 🟡 | `UNSET`                      	|
-| 🟡 | `uNsEt`                      	|
+| 🟢 | `ENV`                        	|
+| 🟢 | `eNv`                        	|
+| 🟢 | `env`                        	|
+| 🟢 | ` env`                       	|
+| 🟢 | `env `                       	|
+| 🟢 | `  env  `                    	|
+| 🟢 | `UNSET`                      	|
+| 🟢 | `uNsEt`                      	|
 | 🟡 | `unset`                      	|
 | 🟡 | ` unset`                     	|
 | 🟡 | `unset `                     	|
@@ -296,67 +296,67 @@ Thanks to Minishell, I travelled through time and came back to problems people f
 
 | Status  | Command |
 | :------ | :------ |
-| 🟡 | `EXIT`                      |
-| 🟡 | `eXiT`                      |
-| 🟡 | `exit`                      |
-| 🟡 | `exit `                     |
-| 🟡 | ` exit`                     |
-| 🟡 | `  exit  `                  |
-| 🟡 | `exit test`                 | inverter a ordem das mensagens do stdout e err (verificar se o err ta no stderr)
-| 🟡 | `exit "test"`               | inverter a ordem das mensagens do stdout e err (verificar se o err ta no stderr)
+| 🟢 | `EXIT`                      |
+| 🟢 | `eXiT`                      |
+| 🟢 | `exit`                      |
+| 🟢 | `exit `                     |
+| 🟢 | ` exit`                     |
+| 🟢 | `  exit  `                  |
+| 🟡 | `exit test`                 | 
+| 🟡 | `exit "test"`               | 
 | 🟡 | `"exit test"`               |
 | 🟡 | `"exit"`                    |
-| 🟡 | `exit1`                     |
-| 🟡 | `exita`                     |
-| 🟡 | `exit exit`                 | inverter a ordem das mensagens do stdout e err (verificar se o err ta no stderr)
-| 🟡 | `exit a`                    | inverter a ordem das mensagens do stdout e err (verificar se o err ta no stderr)
-| 🟡 | `exit abc`                  | inverter a ordem das mensagens do stdout e err (verificar se o err ta no stderr)
-| 🟡 | `exit a b c`                | inverter a ordem das mensagens do stdout e err (verificar se o err ta no stderr) && ajustar mensagem de erro
-| 🟡 | `exit a b c d`              | inverter a ordem das mensagens do stdout e err (verificar se o err ta no stderr) && ajustar mensagem de erro
-| 🔵 | `exit #`                    | pensar sobre o parsing do # (not mandatory??)
+| 🟢 | `exit1`                     |
+| 🟢 | `exita`                     |
+| 🟡 | `exit exit`                 | 
+| 🟡 | `exit a`                    | 
+| 🟡 | `exit abc`                  | 
+| 🟡 | `exit a b c`                | 
+| 🟡 | `exit a b c d`              | bash: exit: a: numeric argument required e sai
+| 🔵 | `exit #`                    | 
 | 🔵 | `exit *`                    | wildcard not mandatory?
 | 🟡 | `exit 0`                    |
 | 🟡 | `exit 1`                    |
 | 🟡 | `exit 123`                  |
 | 🟡 | `exit 1234`                 |
-| 🟡 | `exit 1 2 3 4`              | inverter a ordem das mensagens do stdout e err (verificar se o err ta no stderr)
-| 🟡 | `exit +`                    | inverter a ordem das mensagens do stdout e err (verificar se o err ta no stderr) && incluir mensagem de erro
-| 🟡 | `exit -`                    | inverter a ordem das mensagens do stdout e err (verificar se o err ta no stderr) && incluir mensagem de erro
+| 🟡 | `exit 1 2 3 4`              |  tem que dizer too many arguments e nao pode sair
+| 🟡 | `exit +`                    |
+| 🟡 | `exit -`                    |
 | 🟡 | `exit +10`                  |
 | 🟡 | `exit -10`                  |
 | 🟡 | `exit +2000`                |
 | 🟡 | `exit -2000`                |
-| 🟡 | `exit +-2000`               | inverter a ordem das mensagens do stdout e err (verificar se o err ta no stderr)
-| 🟡 | `exit -+2000`               | inverter a ordem das mensagens do stdout e err (verificar se o err ta no stderr)
-| 🟡 | `exit ++2000`               | inverter a ordem das mensagens do stdout e err (verificar se o err ta no stderr)
-| 🟡 | `exit --2000`               | inverter a ordem das mensagens do stdout e err (verificar se o err ta no stderr)
+| 🟡 | `exit +-2000`               |
+| 🟡 | `exit -+2000`               |
+| 🟡 | `exit ++2000`               |
+| 🟡 | `exit --2000`               |
 | 🟡 | `exit -2147483649`          |
 | 🟡 | `exit 2147483648`           |
 | 🟡 | `exit 00000000000000000000` |
-| 🟡 | `exit 11111111111111111111` | inverter a ordem das mensagens do stdout e err (verificar se o err ta no stderr)
+| 🟡 | `exit 11111111111111111111` |
 | 🟡 | `exit'42'`                  |
-| 🟡 | `exit '\t42'`               | inverter a ordem das mensagens do stdout e err (verificar se o err ta no stderr)
-| 🟡 | `exit '\t\f\r 42'`          | inverter a ordem das mensagens do stdout e err (verificar se o err ta no stderr)
+| 🟡 | `exit '\t42'`               |
+| 🟡 | `exit '\t\f\r 42'`          |
 | 🟡 | `exit '42 '`                |
-| 🟡 | `exit '42\t'`               | inverter a ordem das mensagens do stdout e err (verificar se o err ta no stderr)
-| 🟡 | `exit '42\r'`               | inverter a ordem das mensagens do stdout e err (verificar se o err ta no stderr)
-| 🟡 | `exit '42\t\f\r '`          | inverter a ordem das mensagens do stdout e err (verificar se o err ta no stderr)
-| 🟡 | `exit '42     a'`           | inverter a ordem das mensagens do stdout e err (verificar se o err ta no stderr)
-| 🟡 | `exit '42\t\t\ta'`          | inverter a ordem das mensagens do stdout e err (verificar se o err ta no stderr)
+| 🟡 | `exit '42\t'`               |
+| 🟡 | `exit '42\r'`               |
+| 🟡 | `exit '42\t\f\r '`          |
+| 🟡 | `exit '42     a'`           |
+| 🟡 | `exit '42\t\t\ta'`          |
 
 #### CD
 > Traversing directories seamlessly using the cd command in Minishell.
 
 | Status  | Command |
 | :------ | :------ |
-| 🟡 | `CD`                     |
-| 🟡 | `cd`                    |
-| 🟡 | `cd `                   |
-| 🟡 | ` cd`                   |
-| 🟡 | `  cd  `                |
-| 🟡 | `cd .`                  |
-| 🟡 | `cd ~`                  |
-| 🟡 | `cd no_file`            |
+| 🟢 | `CD`                     |
+| 🟢 | `cd`                    |
+| 🟢 | `cd `                   |
+| 🟢 | ` cd`                   |
+| 🟢 | `  cd  `                |
+| 🟢 | `cd .`                  |
+| 🟢 | `cd ~`                  |
+| 🟡 | `cd no_file`            | ver return value
 | 🟡 | `cd1`                   |
 | 🟡 | `cd 0`                  |
 | 🟡 | `cd 1`                  |
@@ -383,9 +383,9 @@ Thanks to Minishell, I travelled through time and came back to problems people f
 
 | Status  | Command |
 | :------ | :------ |
-| 🟡 | `ECHO`                                                               |
-| 🟡 | `echO`                                                               |
-| 🟡 | `ECHo`                                                               |
+| 🟢 | `ECHO`                                                               |
+| 🟢 | `echO`                                                               |
+| 🟢 | `ECHo`                                                               |
 | 🟡 | `echo`                                                               |
 | 🟡 | `echo echo`                                                          |
 | 🟡 | `echo `                                                              |

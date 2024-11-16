@@ -6,7 +6,7 @@
 /*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 17:34:50 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/11/07 20:03:57 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2024/11/16 15:01:30 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@
 # include <stdio.h>
 # include <sys/stat.h>
 # include <sys/wait.h>
-
 
 typedef struct s_lexer
 {
@@ -62,7 +61,7 @@ typedef struct s_data
 	t_command			*cmd;
 	t_envvar			*env_var_lst;
 	bool				close_shell;
-	int					return_value;  // $? 
+	int return_value; // $?
 	int					fd[2];
 	int					exit_pipe[2];
 }						t_data;
@@ -74,18 +73,20 @@ char					*find_executable(const char *command, t_data *data);
 void					data_init(t_data *data, char **env);
 
 // env_var
-void					ft_new_envvar(t_envvar **env_list, char *name, char *value);
+void					ft_new_envvar(t_envvar **env_list, char *name,
+							char *value);
 t_envvar				*ft_create_env_list(char **env);
 void					print_list(t_envvar *env_list);
 t_envvar				*find_envvar(t_envvar *lst, char *name);
-void ft_envadd_back(t_envvar **lst, t_envvar *new);
+void					ft_envadd_back(t_envvar **lst, t_envvar *new);
 
-char **swap_list_to_array(t_envvar *env_list);
+char					**swap_list_to_array(t_envvar *env_list);
 
-void set_envvar(t_envvar *envvar_list, char *name, char *value);
+void					set_envvar(t_envvar *envvar_list, char *name,
+							char *value);
 char					*get_envvar(t_envvar *env_list, const char *name);
 char					*replace_envvar(const char *input, t_envvar *env_list);
-t_envvar				*init_env_list();
+t_envvar				*init_env_list(void);
 void					free_env_list(t_envvar *env_list);
 
 // parsing
@@ -108,7 +109,8 @@ bool					is_directory(char *path);
 int						check_file_type(char *path);
 
 // pipes
-void					execute_piped_commands(t_command *cmd, t_data *data);
+void execute_piped_commands(t_command *cmd, t_data *data);
+void fork_error();
 bool					ft_parent(t_command *cmd, int *in_fd, t_data *data);
 int						ft_child(int in_fd, t_command *cmd, t_data *data);
 void					handle_fd(int in_fd, t_command *cmd, int fd[2]);
