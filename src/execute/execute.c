@@ -6,7 +6,7 @@
 /*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 08:59:57 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/11/07 19:22:24 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2024/11/16 15:07:41 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,31 +105,26 @@ void	execute_command_or_path(t_command *cmd, t_data *data)
 	char	*executable;
 	int		file_check;
 
-	if (builtin_checker_child(cmd) == false)
+	if (cmd->args[0][0] == '/' || cmd->args[0][0] == '.')
 	{
-		if (cmd->args[0][0] == '/' || cmd->args[0][0] == '.')
+		file_check = check_file_type(cmd->args[0]);
+		if (file_check == 0)
+			execute_command(cmd->args[0], cmd->args, data);
+		else if (file_check == 126)
+			print_command_error(data, cmd->args[0], 126); // Retorna 126 se não for executável
+		else
+			print_command_error(data, cmd->args[0], 127);// Retorna 127 se não for encontrado ou outro erro
+	}
+	else
+	{
+		executable = find_executable(cmd->args[0], data);
+		if (executable)
 		{
-			file_check = check_file_type(cmd->args[0]);
-			if (file_check == 0)
-				execute_command(cmd->args[0], cmd->args, data);
-			else if (file_check == 126)
-				print_command_error(data, cmd->args[0], 126);
-			// Retorna 126 se não for executável
-			else
-				print_command_error(data, cmd->args[0], 127);
-			// Retorna 127 se não for encontrado ou outro erro
+			execute_command(executable, cmd->args, data);
+			free(executable);
 		}
 		else
-		{
-			executable = find_executable(cmd->args[0], data);
-			if (executable)
-			{
-				execute_command(executable, cmd->args, data);
-				free(executable);
-			}
-			else
-				print_command_error(data, cmd->args[0], 127);
-		}
+			print_command_error(data, cmd->args[0], 127);
 	}
 }
 

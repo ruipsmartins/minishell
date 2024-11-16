@@ -6,7 +6,7 @@
 /*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 17:28:57 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/11/16 14:34:13 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2024/11/16 15:10:32 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ int	main(int ac, char **av, char **env)
 		free(input);
 
 		// Debug return value of the command executed by the user (exit status)
-		ft_printf("data.return_value na main: %d\n", data.return_value);
+		//ft_printf("data.return_value na main: %d\n", data.return_value);
 	
 		input = get_command_input();
 		// int i = 0;									//para teste
