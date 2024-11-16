@@ -6,7 +6,7 @@
 /*   By: addicted <addicted@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/12 10:50:11 by addicted          #+#    #+#             */
-/*   Updated: 2024/11/15 12:58:18 by addicted         ###   ########.fr       */
+/*   Updated: 2024/11/16 19:00:59 by addicted         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,6 +130,6 @@ t_command *lexer_to_command(t_lexer *lexer)
 			handle_argument(current, &current_cmd, &cmd_list, &arg_count);
 		current = current->next;
 	}
-	free_command_list(current_cmd);
+	//free_command_list(current_cmd);
 	return cmd_list;
 }
