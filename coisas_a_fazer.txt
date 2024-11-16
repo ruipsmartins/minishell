@@ -1,0 +1,15 @@
+ coisas por fazer / erros:
+
+cd - (programa está sempre a ir buscar a env inicial) ?? afinal nao
+cd ~
+export (sem arguments)
+ls > outfile | wc nao está a funcionar como no bash 
+
+se dermos um espaço ou mais e dermos enter dá segmentation fault
+
+echo $varquenaoexiste dá segmentation fault
+
+
+
+
+

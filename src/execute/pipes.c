@@ -6,11 +6,12 @@
 /*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 11:05:58 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/11/07 16:03:26 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2024/11/16 15:01:40 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+#include "minishell.h"
 
 // Função para lidar com os file descriptors (FDs) (comunicação entre pipes).
 void	handle_fd(int in_fd, t_command *cmd, int fd[2])
@@ -41,7 +42,8 @@ int	ft_child(int in_fd, t_command *cmd, t_data *data)
 	}
 	execute_command_or_path(cmd, data);
 	std_reset(&data->original_stdin, &data->original_stdout); // Restaura os FDs
-	if (data->close_shell) // Se o comando for 'exit', fecha o shell
+	if (data->close_shell)                                   
+		// Se o comando for 'exit', fecha o shell
 		write(data->exit_pipe[1], "1", 1);
 	close(data->exit_pipe[1]);
 	exit(data->return_value);
@@ -60,8 +62,10 @@ bool	ft_parent(t_command *cmd, int *in_fd, t_data *data)
 		data->close_shell = true;
 		return (true);
 	}
-	if (WIFEXITED(status))  // Se o filho terminou normalmente                     
-		data->return_value = WEXITSTATUS(status);// Guarda o valor de saída do filho em `data->return_value`	
+	if (WIFEXITED(status))                       
+		// Se o filho terminou normalmente
+		data->return_value = WEXITSTATUS(status);
+			// Guarda o valor de saída do filho em `data->return_value`
 	else
 		data->return_value = 0;
 	*in_fd = data->fd[0]; // Prepara para o próximo comando
@@ -69,7 +73,6 @@ bool	ft_parent(t_command *cmd, int *in_fd, t_data *data)
 		cd_command(*cmd, data);
 	else if (ft_strncmp(cmd->args[0], "unset", 6) == 0)
 		unset_command(cmd->args[1], data); */
-	
 	builtin_checker_parent(cmd, data);
 	return (false);
 }
@@ -88,12 +91,13 @@ void	execute_piped_commands(t_command *cmd, t_data *data)
 		pipe(data->exit_pipe);
 		pid = fork();
 		if (pid < 0)
-		{
-			perror("fork error:");
-			exit(EXIT_FAILURE);
-		}
+			fork_error();
 		else if (pid == 0)
+		{
+			if (builtin_checker_child(cmd) == true)
+				exit(data->return_value);
 			ft_child(in_fd, cmd, data);
+		}
 		else
 		{
 			if (ft_parent(cmd, &in_fd, data))
@@ -101,4 +105,10 @@ void	execute_piped_commands(t_command *cmd, t_data *data)
 			cmd = cmd->next; // Avança para o próximo comando
 		}
 	}
+}
+
+void	fork_error(void)
+{
+	perror("fork error:");
+	exit(EXIT_FAILURE);
 }
