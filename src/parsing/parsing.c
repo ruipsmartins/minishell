@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: addicted <addicted@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 08:59:52 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/11/15 12:43:08 by addicted         ###   ########.fr       */
+/*   Updated: 2024/11/17 15:40:36 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void free_command_list(t_command *cmd_list) //free da lista de comandos
 			i = 0;
 			while (current->args[i] != NULL)
 			{
-				printf("freeing %s\n", current->args[i]);
+				//printf("freeing %s\n", current->args[i]);
 				free(current->args[i++]);
 			}
 			free(current->args);

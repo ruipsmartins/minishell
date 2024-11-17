@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: addicted <addicted@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 17:34:50 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/11/16 18:56:28 by addicted         ###   ########.fr       */
+/*   Updated: 2024/11/17 15:54:39 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,7 +130,7 @@ void					std_reset(int *original_stdin, int *original_stdout);
 // builtins
 bool					builtin_checker_parent(t_command *cmd, t_data *data);
 bool					builtin_checker_child(t_command *cmd);
-void					exit_command(t_data *data);
+void					exit_command(t_command *cmd, t_data *data);
 int						pwd_command(t_data *data);
 int						cd_command(t_command cmd, t_data *data);
 void					echo_command(t_command *cmd);

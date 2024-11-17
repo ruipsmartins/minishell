@@ -11,5 +11,7 @@ echo $varquenaoexiste dá segmentation fault
 
 
 
+echo -n"ola"  (-n colado) dá -nola
 
-
+echo  teste"teste2"'teste3'"teste'4'"
+testeteste2teste3teste'4'
