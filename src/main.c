@@ -6,7 +6,7 @@
 /*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 17:28:57 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/11/17 15:41:53 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2024/11/19 17:43:35 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ char	*get_command_input(void)
 
 void	data_init(t_data *data, char **env)
 {
-	data->env = env;
+	data->env = swap_list_to_array(ft_create_env_list(env));;
 	data->original_stdin = -1;
 	data->original_stdout = -1;
 	data->close_shell = false;
@@ -109,7 +109,7 @@ int	main(int ac, char **av, char **env)
 		if (data.close_shell)
 			break ;
 		// Debug return value of the command executed by the user (exit status)
-		ft_printf("data.return_value na main: %d\n", data.return_value);
+		//ft_printf("data.return_value na main: %d\n", data.return_value);
 		free_command_list(data.cmd);
 	
 		input = get_command_input();
@@ -122,7 +122,7 @@ int	main(int ac, char **av, char **env)
 	}
 		if (data.env_var_lst)
 			free_env_list(data.env_var_lst);
-	//free_data(&data);
+	free_data(&data);
 	rl_clear_history();
 	return (data.return_value);
 }

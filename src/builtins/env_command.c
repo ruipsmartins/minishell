@@ -6,7 +6,7 @@
 /*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 15:23:16 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/11/16 13:04:49 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2024/11/19 17:13:25 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void	env_command(t_data *data)
     int i;
 
     // Atualiza data->env com a nova lista de variáveis de ambiente
-    if (data->env != NULL)
+	if (data->env != NULL)
     {
         // Libera a memória previamente alocada para data->env
         i = 0;

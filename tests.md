@@ -371,7 +371,7 @@ Thanks to Minishell, I travelled through time and came back to problems people f
 | 🟢 | `cd ../../...`          |
 | 🟢 | `cd .../../..`          |
 | 🟢 | `cd .../../...`         |
-| 🟡 | `cd \`                  | nao sei se é para fazer
+| 🟡 | `cd \`                  | é para dar erro
 | 🟢 | `cd /`                  |
 | 🟢 | `cd //`                 | OK! TESTAR NO BASH DA ESCOLA>
 | 🟢 | `cd ///`                |

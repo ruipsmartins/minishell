@@ -1,8 +1,14 @@
  coisas por fazer / erros:
 
-cd - (programa está sempre a ir buscar a env inicial) ?? afinal nao
-cd ~
 export (sem arguments)
+➜  minishell git:(execute) ✗ bash
+rui@rui-MS-7B49:~/minishell$ export 5
+bash: export: `5': not a valid identifier
+rui@rui-MS-7B49:~/minishell$ export =
+bash: export: `=': not a valid identifier
+rui@rui-MS-7B49:~/minishell$ export =\
+> ^C
+rui@rui-MS-7B49:~/minishell$ 
 ls > outfile | wc nao está a funcionar como no bash 
 
 se dermos um espaço ou mais e dermos enter dá segmentation fault
