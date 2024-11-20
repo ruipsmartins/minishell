@@ -6,13 +6,13 @@
 /*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 15:23:16 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/11/19 17:13:25 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2024/11/20 11:11:24 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-char	**swap_list_to_array_rui(t_envvar *env_list)
+char	**swap_list_to_array(t_envvar *env_list)
 {
     t_envvar *current;
     int i;
@@ -31,9 +31,12 @@ char	**swap_list_to_array_rui(t_envvar *env_list)
     i = 0;
     while (current != NULL)
     {
-        temp = ft_strjoin(current->name, "=");
-        env[i] = ft_strjoin(temp, current->value);
-        free(temp); // Free the temporary string
+        temp = ft_strjoin(current->name, "="); //alterar aqui so para meter = quando metemos export b=
+		if(current->value)
+        	env[i] = ft_strjoin(temp, current->value);
+		else
+			env[i] = ft_strdup(temp);
+        free(temp);
         current = current->next;
         i++;
     }
@@ -62,7 +65,6 @@ void	env_command(t_data *data)
     // Atualiza data->env com a nova lista de variáveis de ambiente
 	if (data->env != NULL)
     {
-        // Libera a memória previamente alocada para data->env
         i = 0;
         while (data->env[i] != NULL)
         {
@@ -71,7 +73,7 @@ void	env_command(t_data *data)
         }
         free(data->env);
     }
-    data->env = swap_list_to_array_rui(data->env_var_lst);
+    data->env = swap_list_to_array(data->env_var_lst);
     // Imprime as variáveis de ambiente
     i = 0;
     while (data->env[i])

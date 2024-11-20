@@ -6,7 +6,7 @@
 /*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 08:59:52 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/11/17 15:40:36 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2024/11/20 11:18:27 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -223,12 +223,12 @@ void handle_input(char *input, t_data *data)
 	char *temp;
 
 	temp = fix_token_space(input);
-	if(strchr(temp, '=')) //se tivermos um sinal de igual, quer dizer que queremos criar uma variavel de ambiente
+	/* if(strchr(temp, '=')) //se tivermos um sinal de igual, quer dizer que queremos criar uma variavel de ambiente
 	{
 		printf("\nset new envvar\n");
 		set_new_envvar(temp, data);
 		data->env = swap_list_to_array(data->env_var_lst);
-	}
+	} */
 	if(strchr(temp, '$')) //se tivermos um sinal de dolar, quer dizer que queremos substituir uma variavel de ambiente
 	{
 		printf("\nreplace envvar after $\n");
