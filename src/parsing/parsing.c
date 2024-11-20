@@ -6,7 +6,7 @@
 /*   By: addicted <addicted@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 08:59:52 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/11/15 12:43:08 by addicted         ###   ########.fr       */
+/*   Updated: 2024/11/19 11:45:16 by addicted         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void free_command_list(t_command *cmd_list) //free da lista de comandos
 			i = 0;
 			while (current->args[i] != NULL)
 			{
-				printf("freeing %s\n", current->args[i]);
+				//printf("freeing %s\n", current->args[i]);
 				free(current->args[i++]);
 			}
 			free(current->args);
@@ -80,7 +80,7 @@ t_lexer *devide_input(char *input) //divide a string em tokens e palavras
 	int i;
 	
 	i = 0;
-	token = ft_strtok(input, " ");
+	token = get_word(&input);
 	while (token != NULL)
 	{
 		new_node = (t_lexer *)ft_calloc(1, sizeof(t_lexer)); // novo node
@@ -100,10 +100,12 @@ t_lexer *devide_input(char *input) //divide a string em tokens e palavras
 		else
 			lexer = new_node; // Meter o primeiro na lista
 		current = new_node;
-		token = ft_strtok(NULL, " ");
+		free(token);
+		token = get_word(&input);
 	}
 	return (lexer);
 }
+
 
 char	*get_env_name(char  *input) //descobre o nome da variavel de ambiente que queremos criar
 {
@@ -142,7 +144,6 @@ char	*get_env_value(char *input)	//descobre o valor da variavel de ambiente que 
 // {
 // 	char *new_env;
 // 	int current_size;
-	
 // 	new_env = ft_strjoin(name, "=");
 // 	new_env = ft_strjoin(new_env, value);
 // 	printf("new_env: %s\n", new_env);															FORA DE USO
@@ -163,8 +164,7 @@ char	*get_env_value(char *input)	//descobre o valor da variavel de ambiente que 
 // 	//printf("\n\nafter: %s\n\n", after);
 // 	//temp_env[current_size] = ft_strjoin(name, value);
 // 	data->env[current_size + 1] = NULL;
-// 	//data->env = &(*temp_env);
-	
+// 	//data->env = &(*temp_env);	
 // 	printf("\n\nenv: %s\n\n", data->env[current_size]);
 // 	//free(new_env);
 // }
@@ -221,7 +221,11 @@ void handle_input(char *input, t_data *data)
 	t_lexer *lexer = NULL;
 
 	char *temp;
-
+	if(check_quote(input))
+	{
+		printf("Error: Unmatched quote\n");
+		input = readline("minishell: ");
+	}
 	temp = fix_token_space(input);
 	if(strchr(temp, '=')) //se tivermos um sinal de igual, quer dizer que queremos criar uma variavel de ambiente
 	{
@@ -235,6 +239,23 @@ void handle_input(char *input, t_data *data)
 		temp = replace_envvar(temp, data->env_var_lst);
 	}
 	lexer = devide_input(temp);
+	
+	t_lexer *current = lexer;
+
+
+///////////////////////////////////
+	while(current != NULL)
+	{
+		if(current->word)
+			printf("word: %s\n", current->word);
+		if(current->token)
+			printf("token: %s\n", current->token);
+		printf("i: %d\n", current->i);
+		current = current->next;
+	}
+//////////////////////////////////
+
+	
 	if(lexer == NULL)
 	{
 		printf("lexer is NULl\n");
@@ -244,12 +265,7 @@ void handle_input(char *input, t_data *data)
 	free(temp);
 	free_lexer(lexer);
 	data->cmd = cmd_list;
-//TEMOS DE MANDA JA A NEW ENV LIST PARA A FUNCAO
-	//print_list(data->env_var_lst);
 	execute(cmd_list, data);
-	//free_command_list(cmd_list);
-	//if(data->env_var_lst)
-	//	free_env_list(data->env_var_lst);
 }
 
 /* int main()

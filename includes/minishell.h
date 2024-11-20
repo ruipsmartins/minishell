@@ -6,7 +6,7 @@
 /*   By: addicted <addicted@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 17:34:50 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/11/16 18:56:28 by addicted         ###   ########.fr       */
+/*   Updated: 2024/11/19 11:45:21 by addicted         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,10 @@ void					close_fds(int *fd);
 char					*find_executable(const char *command, t_data *data);
 void					data_init(t_data *data, char **env);
 
+// quotes
+int						check_quote(const char *input);
+char					*get_word(char **input);
+
 // env_var
 void					ft_new_envvar(t_envvar **env_list, char *name,
 							char *value);
@@ -79,18 +83,16 @@ t_envvar				*ft_create_env_list(char **env);
 void					print_list(t_envvar *env_list);
 t_envvar				*find_envvar(t_envvar *lst, char *name);
 void					ft_envadd_back(t_envvar **lst, t_envvar *new);
-
 char					**swap_list_to_array(t_envvar *env_list);
-
 void					set_envvar(t_envvar *envvar_list, char *name,
 							char *value);
 char					*get_envvar(t_envvar *env_list, const char *name);
 char					*replace_envvar(const char *input, t_envvar *env_list);
 t_envvar				*init_env_list(void);
 void					free_env_list(t_envvar *env_list);
-void free_data(t_data *data);
-void free_command_list(t_command * cmd_list);
-void free_lexer(t_lexer *lexer);
+void 					free_data(t_data *data);
+void 					free_command_list(t_command * cmd_list);
+void 					free_lexer(t_lexer *lexer);
 
 // parsing
 void handle_input(char *input, t_data *data);

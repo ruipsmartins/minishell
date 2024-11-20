@@ -14,8 +14,8 @@ INCLUDES = -I includes
 SRCS_FILES = \
 	main.c \
 	utils/utils.c \
-	parsing/parsing.c parsing/fix_token_space.c parsing/lexer_to_command.c\
-	parsing/env_var.c parsing/envvar.c \
+	parsing/parsing.c parsing/fix_token_space.c parsing/lexer_to_command.c \
+	parsing/env_var.c parsing/envvar.c parsing/quotes.c \
 	execute/execute.c execute/pipes.c \
 	execute/redirections.c execute/heredoc.c \
 	builtins/builtin_checker.c builtins/exit_command.c builtins/pwd_command.c builtins/cd_command.c \
