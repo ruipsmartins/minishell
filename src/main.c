@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: addicted <addicted@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 17:28:57 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/11/16 18:57:08 by addicted         ###   ########.fr       */
+/*   Updated: 2024/11/20 11:38:58 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,12 @@ char	*get_command_input(void)
 
 void	data_init(t_data *data, char **env)
 {
-	data->env = env;
+	data->env_var_lst = ft_create_env_list(env);
+	data->env = swap_list_to_array(data->env_var_lst);
 	data->original_stdin = -1;
 	data->original_stdout = -1;
 	data->close_shell = false;
 	data->return_value = 0;
-	data->env_var_lst = ft_create_env_list(env);
 }
 
 // t_envvar_list	*init_env_list(void)
@@ -45,7 +45,7 @@ void	data_init(t_data *data, char **env)
 // 	env_list->head = NULL;
 // 	return (env_list);
 // }
-char	**swap_list_to_array(t_envvar *env_list)
+/* char	**swap_list_to_array(t_envvar *env_list)
 {
 	t_envvar *current;
 	int i;
@@ -70,7 +70,7 @@ char	**swap_list_to_array(t_envvar *env_list)
 	}
 	env[i] = NULL;
 	return (env);
-}
+} */
 
 void free_data(t_data *data)
 {
@@ -83,7 +83,7 @@ void free_data(t_data *data)
 		i++;
 	}
 	free(data->env);
-	//free_command_list(data->cmd);
+	free_command_list(data->cmd);
 	//if(data->env_var_lst)
 		//free_env_list(data->env_var_lst);
 	//free(data);
@@ -122,7 +122,7 @@ int	main(int ac, char **av, char **env)
 	}
 		if (data.env_var_lst)
 			free_env_list(data.env_var_lst);
-	//free_data(&data);
+	free_data(&data);
 	rl_clear_history();
 	return (data.return_value);
 }

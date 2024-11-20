@@ -6,7 +6,7 @@
 /*   By: addicted <addicted@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 08:59:52 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/11/19 11:45:16 by addicted         ###   ########.fr       */
+/*   Updated: 2024/11/20 12:34:42 by addicted         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,6 @@ void free_command_list(t_command *cmd_list) //free da lista de comandos
 			i = 0;
 			while (current->args[i] != NULL)
 			{
-				//printf("freeing %s\n", current->args[i]);
 				free(current->args[i++]);
 			}
 			free(current->args);
@@ -227,12 +226,12 @@ void handle_input(char *input, t_data *data)
 		input = readline("minishell: ");
 	}
 	temp = fix_token_space(input);
-	if(strchr(temp, '=')) //se tivermos um sinal de igual, quer dizer que queremos criar uma variavel de ambiente
+	/* if(strchr(temp, '=')) //se tivermos um sinal de igual, quer dizer que queremos criar uma variavel de ambiente
 	{
 		printf("\nset new envvar\n");
 		set_new_envvar(temp, data);
 		data->env = swap_list_to_array(data->env_var_lst);
-	}
+	} */
 	if(strchr(temp, '$')) //se tivermos um sinal de dolar, quer dizer que queremos substituir uma variavel de ambiente
 	{
 		printf("\nreplace envvar after $\n");

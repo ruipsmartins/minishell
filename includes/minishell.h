@@ -6,7 +6,7 @@
 /*   By: addicted <addicted@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 17:34:50 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/11/19 11:45:21 by addicted         ###   ########.fr       */
+/*   Updated: 2024/11/20 12:34:22 by addicted         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ void 					free_command_list(t_command * cmd_list);
 void 					free_lexer(t_lexer *lexer);
 
 // parsing
-void handle_input(char *input, t_data *data);
+void					handle_input(char *input, t_data *data);
 char					**parse_command(char *input);
 int						check_if_token(char c);
 int						count_token(const char *str);
@@ -132,7 +132,7 @@ void					std_reset(int *original_stdin, int *original_stdout);
 // builtins
 bool					builtin_checker_parent(t_command *cmd, t_data *data);
 bool					builtin_checker_child(t_command *cmd);
-void					exit_command(t_data *data);
+void					exit_command(t_command *cmd, t_data *data);
 int						pwd_command(t_data *data);
 int						cd_command(t_command cmd, t_data *data);
 void					echo_command(t_command *cmd);

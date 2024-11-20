@@ -215,16 +215,16 @@ Thanks to Minishell, I travelled through time and came back to problems people f
 
 | Status  | Command |
 | :------ | :------ |
-| 🟢 | `/bin/echo`        |
+| 🔴 | `/bin/echo`        | IMPORTANTE! ver se é para usar o nosso ou o do pc echo -n"ola"
 | 🟢 | `/bin/grep`        |
 | 🟢 | `/bin/ls`          |
 | 🟢 | `/bin/ls -la`      |
 | 🟢 | `/bin/cat`         |
-| 🟢 | `/bin/pwd`         |
+| 🔴 | `/bin/pwd`         | IMPORTANTE! ver se é para usar o nosso ou o do pc
 | 🟢 | `/bin/cd`          | OK! Path not found in bash nor in our
 | 🟢 | `/bin/export`      | OK! Path not found in bash nor in our
 | 🟢 | `/bin/exit`        | OK! Path not found in bash nor in our
-| 🔴 | `/bin/env`         | IMPORTANT!
+| 🔴 | `/bin/env`         | IMPORTANTE! ver se é para usar o nosso ou o do pc
 
 
 #### PWD
@@ -245,7 +245,7 @@ Thanks to Minishell, I travelled through time and came back to problems people f
 | 🟢 | `ENV`                        	|
 | 🟢 | `eNv`                        	|
 | 🟢 | `env`                        	|
-| 🟢 | ` env`                       	|
+| 🟢 | ` env`                       	|	
 | 🟢 | `env `                       	|
 | 🟢 | `  env  `                    	|
 | 🟢 | `UNSET`                      	|
@@ -302,36 +302,36 @@ Thanks to Minishell, I travelled through time and came back to problems people f
 | 🟢 | `exit `                     |
 | 🟢 | ` exit`                     |
 | 🟢 | `  exit  `                  |
-| 🟡 | `exit test`                 | 
+| 🟢 | `exit test`                 | 
 | 🟡 | `exit "test"`               | 
 | 🟡 | `"exit test"`               |
 | 🟡 | `"exit"`                    |
 | 🟢 | `exit1`                     |
 | 🟢 | `exita`                     |
-| 🟡 | `exit exit`                 | 
-| 🟡 | `exit a`                    | 
-| 🟡 | `exit abc`                  | 
-| 🟡 | `exit a b c`                | 
-| 🟡 | `exit a b c d`              | bash: exit: a: numeric argument required e sai
+| 🟢 | `exit exit`                 | 
+| 🟢 | `exit a`                    | 
+| 🟢 | `exit abc`                  | 
+| 🟢 | `exit a b c`                | 
+| 🟢 | `exit a b c d`              |	bash: exit: a: numeric argument required e sai com return 2
 | 🔵 | `exit #`                    | 
-| 🔵 | `exit *`                    | wildcard not mandatory?
-| 🟡 | `exit 0`                    |
-| 🟡 | `exit 1`                    |
-| 🟡 | `exit 123`                  |
-| 🟡 | `exit 1234`                 |
-| 🟡 | `exit 1 2 3 4`              |  tem que dizer too many arguments e nao pode sair
-| 🟡 | `exit +`                    |
-| 🟡 | `exit -`                    |
-| 🟡 | `exit +10`                  |
-| 🟡 | `exit -10`                  |
-| 🟡 | `exit +2000`                |
-| 🟡 | `exit -2000`                |
-| 🟡 | `exit +-2000`               |
-| 🟡 | `exit -+2000`               |
-| 🟡 | `exit ++2000`               |
-| 🟡 | `exit --2000`               |
-| 🟡 | `exit -2147483649`          |
-| 🟡 | `exit 2147483648`           |
+| 🔵 | `exit *`                    |	wildcard not mandatory?
+| 🟢 | `exit 0`                    |
+| 🟢 | `exit 1`                    |
+| 🟢 | `exit 123`                  |
+| 🟢 | `exit 1234`                 |	testar no bash da escola se o numero de exit smepre é %256
+| 🟢 | `exit 1 2 3 4`              |	tem que dizer too many arguments e nao pode sair
+| 🟢 | `exit +`                    |
+| 🟢 | `exit -`                    |
+| 🟢 | `exit +10`                  |
+| 🟢 | `exit -10`                  |
+| 🟢 | `exit +2000`                |
+| 🟢 | `exit -2000`                |
+| 🟢 | `exit +-2000`               |
+| 🟢 | `exit -+2000`               |
+| 🟢 | `exit ++2000`               |
+| 🟢 | `exit --2000`               |
+| 🟢 | `exit -2147483649`          |
+| 🟢 | `exit 2147483648`           |
 | 🟡 | `exit 00000000000000000000` |
 | 🟡 | `exit 11111111111111111111` |
 | 🟡 | `exit'42'`                  |
@@ -356,27 +356,27 @@ Thanks to Minishell, I travelled through time and came back to problems people f
 | 🟢 | `  cd  `                |
 | 🟢 | `cd .`                  |
 | 🟢 | `cd ~`                  |
-| 🟡 | `cd no_file`            | ver return value
-| 🟡 | `cd1`                   |
-| 🟡 | `cd 0`                  |
-| 🟡 | `cd 1`                  |
-| 🟡 | `cd 123`                |
-| 🟡 | `cd 1 2 3 4`            |
-| 🟡 | `cd cd`                 |
-| 🟡 | `cd a`                  |
-| 🟡 | `cd abc`                |
-| 🟡 | `cd a b c`              |
-| 🟡 | `cd ../../`             |
-| 🟡 | `cd ../../../../../../` |
-| 🟡 | `cd ../../...`          |
-| 🟡 | `cd .../../..`          |
-| 🟡 | `cd .../../...`         |
-| 🟡 | `cd \`                  |
-| 🟡 | `cd /`                  |
-| 🟡 | `cd //`                 | OK! TESTAR NO BASH DA ESCOLA>
-| 🟡 | `cd ///`                |
-| 🟡 | `cd -`                  |
-| 🟡 | `cd $[VAR]`             |
+| 🟢 | `cd no_file`            | ver return value
+| 🟢 | `cd1`                   |
+| 🟢 | `cd 0`                  |
+| 🟢 | `cd 1`                  |
+| 🟢 | `cd 123`                |
+| 🟢 | `cd 1 2 3 4`            |
+| 🟢 | `cd cd`                 |
+| 🟢 | `cd a`                  |
+| 🟢 | `cd abc`                |
+| 🟢 | `cd a b c`              |
+| 🟢 | `cd ../../`             |
+| 🟢 | `cd ../../../../../../` |
+| 🟢 | `cd ../../...`          |
+| 🟢 | `cd .../../..`          |
+| 🟢 | `cd .../../...`         |
+| 🟡 | `cd \`                  | é para dar erro
+| 🟢 | `cd /`                  |
+| 🟢 | `cd //`                 | OK! TESTAR NO BASH DA ESCOLA>
+| 🟢 | `cd ///`                |
+| 🟢 | `cd -`                  |
+| 🟢 | `cd $[VAR]`             |
 
 #### ECHO
 > Rendering text and variables in the terminal with the versatile echo command in Minishell.
@@ -430,17 +430,17 @@ Thanks to Minishell, I travelled through time and came back to problems people f
 | 🟡 | `echo -n -n -n file test`                                            |
 | 🟡 | `echo $USER`                                                         |
 | 🟡 | `echo "$USER"`                                                       |
-| 🟡 | `echo "'$USER'"`                                                     | erro aspas simples dentro de duplas
-| 🟡 | `echo " '$USER' "`                                                   | erro aspas simples dentro de duplas
+| 🟡 | `echo "'$USER'"`                                                     | 
+| 🟡 | `echo " '$USER' "`                                                   | 
 | 🟡 | `echo text"$USER"`                                                   |
-| 🟡 | `echo text"'$USER'" ' $USER '`                                       | erro aspas simples dentro de duplas
+| 🟡 | `echo text"'$USER'" ' $USER '`                                       | 
 | 🟡 | `echo "text"   "$USER"    "$USER"`                                   |
 | 🟡 | `echo '              $USER          '`                               |
 | 🟡 | `echo               text "$USER"            "$USER"text`             |
 | 🟡 | `echo ''''''''''$USER''''''''''`                                     |
 | 🟡 | `echo """"""""$USER""""""""`                                         |
 | 🟡 | `echo $USER'$USER'text oui oui     oui  oui $USER oui      $USER ''` |
-| 🟡 | `echo $USER '' $USER $USER '' $USER '' $USER -n $USER`               | bug printando apenas 1 vez
+| 🟡 | `echo $USER '' $USER $USER '' $USER '' $USER -n $USER`               |
 | 🟡 | `echo ' \' ' \'`                                                     |
 | 🔵 | `echo '\" ' " \"\""`                                                 |
 | 🔵 | `echo \\\" \\\" \\\" \\\"\\\"\\\" \\\'\\\'\\\'`                      |
@@ -468,7 +468,7 @@ Thanks to Minishell, I travelled through time and came back to problems people f
 | 🟡 | `echo "$USER=12$USER"`                                               |
 | 🟡 | `echo "$9USER" "'$USER=12$SOMETHING'"`                               |
 | 🟡 | `echo $PWD/file`                                                     |
-| 🟡 | `echo "$PWD/file`                                                    | error unmatched quotes
+| 🟡 | `echo "$PWD/file`                                                    |
 | 🟡 | `echo "text" "text$USER" ... "$USER`                                 |
 | 🟡 | `echo $PW`                                                           |
 | 🟡 | `echo "'"'ola'"'"`                                                   |
@@ -477,15 +477,15 @@ Thanks to Minishell, I travelled through time and came back to problems people f
 #### PIPES AND REDIRECTS
 
 Redirecionamento Simples de Entrada e Saída:  
-| 🟡 | cat < input.txt > output.txt  
-| 🟡 | grep 'palavra' < arquivo.txt > resultados.txt  
+| 🟡 | cat < input.txt > output.txt  (ver com o echo)
+| 🟢 | grep 'palavra' < arquivo.txt > resultados.txt  
   
 Uso de Pipe Simples:  
-| 🟡 | ls | wc -l  
-| 🟡 | cat arquivo.txt | grep 'palavra'  
+| 🟢 | ls | wc -l  
+| 🟢 | cat arquivo.txt | grep 'palavra'  
   
-Combinação de Pipes:  
-| 🟡 | seq 100 | grep "1" | sort -r | uniq | wc -l
+Combinação de Pipes:  (só falta ver com as aspas e plicas)
+| 🟡 | seq 100 | grep "1" | sort -r | uniq | wc -l (ver com as aspas)
 | 🟡 | cat arquivo.txt | grep 'palavra' | sort | uniq  
 | 🟡 | ls -l | grep '^d' | wc -l  
   
@@ -500,7 +500,7 @@ Pipes com Redirecionamento de Saída:
 | 🟡 | cat arquivo.txt | head -n 5 > primeiras_linhas.txt  
   
 Redirecionamento de Erro:  
-| 🟡 | grep 'palavra' arquivo_inexistente.txt 2> erro.txt  
+| 🔴 | grep 'palavra' arquivo_inexistente.txt 2> erro.txt  (está diferente)
 | 🟡 | cat arquivo.txt 2> /dev/null  
   
 ## NORMINETTE
