@@ -6,7 +6,7 @@
 /*   By: addicted <addicted@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 08:59:52 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/11/21 10:39:58 by addicted         ###   ########.fr       */
+/*   Updated: 2024/11/21 11:07:17 by addicted         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int is_token(const char *str)// Define o que sao tokens
 void free_command_list(t_command *cmd_list) //free da lista de comandos
 {
 	int i;
-	t_command *current;
+	t_command *current = NULL; 
 	t_command *next;
 	
 	current = cmd_list;
@@ -239,19 +239,19 @@ void handle_input(char *input, t_data *data)
 	}
 	lexer = devide_input(temp);
 	
-	t_lexer *current = lexer;
+// 	t_lexer *current = lexer;
 
 
-///////////////////////////////////
-	while(current != NULL)
-	{
-		if(current->word)
-			printf("word: %s\n", current->word);
-		if(current->token)
-			printf("token: %s\n", current->token);
-		printf("i: %d\n", current->i);
-		current = current->next;
-	}
+// ///////////////////////////////////
+// 	while(current != NULL)
+// 	{
+// 		if(current->word)
+// 			printf("word: %s\n", current->word);
+// 		if(current->token)
+// 			printf("token: %s\n", current->token);
+// 		printf("i: %d\n", current->i);
+// 		current = current->next;
+// 	}
 //////////////////////////////////
 
 	

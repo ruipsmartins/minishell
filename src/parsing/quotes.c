@@ -6,7 +6,7 @@
 /*   By: addicted <addicted@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/17 18:57:27 by addicted          #+#    #+#             */
-/*   Updated: 2024/11/20 11:45:16 by addicted         ###   ########.fr       */
+/*   Updated: 2024/11/21 11:02:15 by addicted         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,6 @@ char *in_quotes(char **input, char *word, char c)
 		word[i] = (*input)[i];
 		i++;
 	}
-	//word[i] = c;
 	word[i] = '\0';
 	(*input) += i + 1;
 	return (word);
@@ -94,13 +93,12 @@ char *no_quotes(char **input, char *word)
 	if (!word)
 		return (printf("failed to allocate memory\n"), NULL);
 	i = 0;
-	while ((*input)[i] && !isspace((*input)[i]))
+	while ((*input)[i] && !isspace((*input)[i]))  // passar para ft_isspace
 	{
 		word[i] = (*input)[i];
 		i++;
 	}
-	word[i] = '\0';;
-	i++;
+	word[i] = '\0';	
 	(*input) += i;
 	return (word);
 }
@@ -110,7 +108,6 @@ char *get_word(char  **input)
 	char *word;
 	int i = 0;
 	char c;
-	//int k = 0;
 
 
 	word = NULL;
@@ -123,38 +120,10 @@ char *get_word(char  **input)
 		c = (*input)[i];
 		word = in_quotes(input, word, c);
 		c = 0;
-		
-		// c = (*input)[i];
-		// input++;
-		// while ((*input)[i] && (*input)[i] != c)
-		// 	i++;
-		// word = calloc(i + 1, sizeof(char));
-		// if (!word)
-		// 	return (printf("failed to allocate memory\n"), NULL);
-		// while ((*input)[k] && (*input)[k] != c && k < i)
-		// {
-		// 	word[k] = (*input)[k];
-		// 	k++;
-		// }
-		// i++;
-		// word[k] = '\0';
 	}
 	else 
 	{
 		word = no_quotes(input, word);
-		// while ((*input)[i] && !isspace((*input)[i]))
-		// 	i++;
-		// word = calloc(i + 1, sizeof(char));
-		// if (!word)
-		// 	return (printf("failed to allocate memory\n"), NULL);
-		// while ((*input)[k] && !isspace((*input)[k]) && k < i)
-		// {
-		// 	word[k] = (*input)[k];
-		// 	k++;
-		// }
-		// word[k] = '\0';;
 	}
-	*(input) += i;
 	return (word);
-	//return (input + i);
 }

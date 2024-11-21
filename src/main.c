@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: addicted <addicted@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 17:28:57 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/11/20 11:38:58 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2024/11/21 11:09:46 by addicted         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,10 @@ void	data_init(t_data *data, char **env)
 	data->original_stdout = -1;
 	data->close_shell = false;
 	data->return_value = 0;
+	data->cmd = NULL;
+	data->fd[0] = -1;
+	data->fd[1] = -1;
+	
 }
 
 // t_envvar_list	*init_env_list(void)
@@ -83,7 +87,8 @@ void free_data(t_data *data)
 		i++;
 	}
 	free(data->env);
-	free_command_list(data->cmd);
+	if(data->cmd)
+		free_command_list(data->cmd);
 	//if(data->env_var_lst)
 		//free_env_list(data->env_var_lst);
 	//free(data);
