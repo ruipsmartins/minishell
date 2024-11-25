@@ -6,7 +6,7 @@
 /*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 17:49:57 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/11/16 14:25:36 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2024/11/21 12:11:02 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ static void	cd_oldpwd(t_data *data)
 		return;
 	}
 	set_envvar(data->env_var_lst, "OLDPWD", current_pwd);
+	free(current_pwd);
 	current_pwd = getcwd(NULL, 0);
 	set_envvar(data->env_var_lst, "PWD", current_pwd);
 	free(current_pwd);
