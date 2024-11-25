@@ -386,9 +386,9 @@ Thanks to Minishell, I travelled through time and came back to problems people f
 | 🟢 | `ECHO`                                                               |
 | 🟢 | `echO`                                                               |
 | 🟢 | `ECHo`                                                               |
-| 🟡 | `echo`                                                               |
-| 🟡 | `echo echo`                                                          |
-| 🟡 | `echo `                                                              |
+| 🟢 | `echo`                                                               |
+| 🟢 | `echo echo`                                                          |
+| 🟢 | `echo `                                                              |
 | 🟡 | ` echo`                                                              |
 | 🟡 | `  echo  `                                                           |
 | 🟡 | `echo .`                                                             |

@@ -6,7 +6,7 @@
 /*   By: addicted <addicted@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/17 18:57:27 by addicted          #+#    #+#             */
-/*   Updated: 2024/11/21 11:02:15 by addicted         ###   ########.fr       */
+/*   Updated: 2024/11/25 12:26:47 by addicted         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ char *no_quotes(char **input, char *word)
 	if (!word)
 		return (printf("failed to allocate memory\n"), NULL);
 	i = 0;
-	while ((*input)[i] && !isspace((*input)[i]))  // passar para ft_isspace
+	while ((*input)[i] && !isspace((*input)[i]) && (*input)[i] != '\'' && (*input)[i] != '\"')  // passar para ft_isspace
 	{
 		word[i] = (*input)[i];
 		i++;
@@ -109,12 +109,31 @@ char *get_word(char  **input)
 	int i = 0;
 	char c;
 
+	static int first = 0;
 
 	word = NULL;
-	while (**input && isspace(**input))
+		while (**input && isspace(**input))
 		(*input)++;
+	if (isspace(**input) && first > 1)
+	{
+		word = calloc(2, sizeof(char));
+		if (!word)
+			return (printf("failed to allocate memory\n"), NULL);
+		word[0] = ' ';
+		word[1] = '\0';
+		(*input)++;
+		return (word);
+	}
+	while (isspace(**input))                                //else if
+	{
+		(*input)++;
+		first++;
+	}
 	if (!**input)
+	{
+		first = 0;
 		return (NULL);
+	}
 	if ((*input)[i] == '\'' || (*input)[i] == '\"')
 	{
 		c = (*input)[i];
@@ -122,8 +141,6 @@ char *get_word(char  **input)
 		c = 0;
 	}
 	else 
-	{
 		word = no_quotes(input, word);
-	}
 	return (word);
 }
