@@ -6,7 +6,7 @@
 /*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 17:34:50 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/11/26 11:20:08 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2024/11/26 13:05:00 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,9 +90,9 @@ char					*get_envvar(t_envvar *env_list, const char *name);
 char					*replace_envvar(const char *input, t_envvar *env_list);
 t_envvar				*init_env_list(void);
 void					free_env_list(t_envvar *env_list);
-void 					free_data(t_data *data);
-void 					free_command_list(t_command * cmd_list);
-void 					free_lexer(t_lexer *lexer);
+void					free_data(t_data *data);
+void					free_command_list(t_command *cmd_list);
+void					free_lexer(t_lexer *lexer);
 
 // parsing
 void					handle_input(char *input, t_data *data);

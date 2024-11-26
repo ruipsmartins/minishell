@@ -6,7 +6,7 @@
 /*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 15:23:16 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/11/20 11:11:24 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2024/11/26 13:00:48 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,39 +14,46 @@
 
 char	**swap_list_to_array(t_envvar *env_list)
 {
-    t_envvar *current;
-    int i;
-    char **env;
-    char *temp;
+	t_envvar	*current;
+	char		**env;
+	char		*temp;
+	int			i;
+	int			count;
 
-    i = 0;
-    current = env_list;
-    while(current != NULL)
-    {
-        current = current->next;
-        i++;
-    }
-    current = env_list;
-    env = (char **)malloc((i + 1) * sizeof(char *));
-    i = 0;
-    while (current != NULL)
-    {
-        temp = ft_strjoin(current->name, "="); //alterar aqui so para meter = quando metemos export b=
-		if(current->value)
-        	env[i] = ft_strjoin(temp, current->value);
-		else
-			env[i] = ft_strdup(temp);
-        free(temp);
-        current = current->next;
-        i++;
-    }
-    env[i] = NULL;
-    return (env);
+	// Contar apenas variáveis com valor (value != NULL)
+	count = 0;
+	current = env_list;
+	while (current != NULL)
+	{
+		if (current->value != NULL)
+			count++;
+		current = current->next;
+	}
+	
+	env = (char **)malloc((count + 1) * sizeof(char *));// Alocar espaço apenas para as variáveis válidas
+	if (!env)
+		return (NULL);
+	
+	current = env_list;// Preencher o array com variáveis que têm valor
+	i = 0;
+	while (current != NULL)
+	{
+		if (current->value != NULL)
+		{
+			temp = ft_strjoin(current->name, "=");
+			env[i] = ft_strjoin(temp, current->value);
+			free(temp);
+			i++;
+		}
+		current = current->next;
+	}
+	env[i] = NULL;
+	return (env);
 }
 
-char *get_envvar(t_envvar *env_list, const char *name)
+char	*get_envvar(t_envvar *env_list, const char *name)
 {
-	t_envvar *current;
+	t_envvar	*current;
 
 	current = env_list;
 	while (current != NULL)
@@ -60,26 +67,24 @@ char *get_envvar(t_envvar *env_list, const char *name)
 
 void	env_command(t_data *data)
 {
-    int i;
+	int	i;
 
-    // Atualiza data->env com a nova lista de variáveis de ambiente
 	if (data->env != NULL)
-    {
-        i = 0;
-        while (data->env[i] != NULL)
-        {
-            free(data->env[i]);
-            i++;
-        }
-        free(data->env);
-    }
-    data->env = swap_list_to_array(data->env_var_lst);
-    // Imprime as variáveis de ambiente
-    i = 0;
-    while (data->env[i])
-    {
-        ft_printf("%s\n", data->env[i]);
-        i++;
-    }
-    data->return_value = 0;
+	{
+		i = 0;
+		while (data->env[i] != NULL)
+		{
+			free(data->env[i]);
+			i++;
+		}
+		free(data->env);
+	}
+	data->env = swap_list_to_array(data->env_var_lst);
+	i = 0;
+	while (data->env[i])
+	{
+		ft_printf("%s\n", data->env[i]);
+		i++;
+	}
+	data->return_value = 0;
 }

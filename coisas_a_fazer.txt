@@ -1,14 +1,10 @@
  coisas por fazer / erros:
 
-export (sem arguments)
-➜  minishell git:(execute) ✗ bash
-rui@rui-MS-7B49:~/minishell$ export 5
-bash: export: `5': not a valid identifier
-rui@rui-MS-7B49:~/minishell$ export =
-bash: export: `=': not a valid identifier
-rui@rui-MS-7B49:~/minishell$ export =\
-> ^C
-rui@rui-MS-7B49:~/minishell$ 
+env | grep varname   (nao está a funcionar)
+export | grep varname
+
+
+
 ls > outfile | wc nao está a funcionar como no bash 
 
 se dermos um espaço ou mais e dermos enter dá segmentation fault

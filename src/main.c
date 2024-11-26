@@ -6,7 +6,7 @@
 /*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 17:28:57 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/11/26 11:58:09 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2024/11/26 12:57:33 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,32 +49,6 @@ void	data_init(t_data *data, char **env)
 // 	env_list->head = NULL;
 // 	return (env_list);
 // }
-/* char	**swap_list_to_array(t_envvar *env_list)
-{
-	t_envvar *current;
-	int i;
-	char **env;
-	
-	i = 0;
-	current = env_list;
-	while(current != NULL)
-	{
-		current = current->next;
-		i++;
-	}
-	current = env_list;
-	env = (char **)malloc((i + 1) * sizeof(char *));
-	i = 0;
-	while (current != NULL)
-	{
-		env[i] = ft_strjoin(current->name, "=");
-		env[i] = ft_strjoin(env[i], current->value);
-		current = current->next;
-		i++;
-	}
-	env[i] = NULL;
-	return (env);
-} */
 
 void free_data(t_data *data)
 {
@@ -102,8 +76,6 @@ int	main(int ac, char **av, char **env)
 	(void)ac;
 	(void)av;
 	data_init(&data, env);
-	//char **env_list_array;							//para teste
-	//env_list_array = swap_list_to_array(env_list); //para teste
 	
 	input = get_command_input();
 	(void)data;
