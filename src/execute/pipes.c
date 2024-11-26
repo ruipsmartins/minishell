@@ -6,7 +6,7 @@
 /*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 11:05:58 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/11/16 15:01:40 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2024/11/26 11:19:42 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,10 +69,6 @@ bool	ft_parent(t_command *cmd, int *in_fd, t_data *data)
 	else
 		data->return_value = 0;
 	*in_fd = data->fd[0]; // Prepara para o próximo comando
-	/* if (ft_strncmp(cmd->args[0], "cd", 3) == 0)
-		cd_command(*cmd, data);
-	else if (ft_strncmp(cmd->args[0], "unset", 6) == 0)
-		unset_command(cmd->args[1], data); */
 	builtin_checker_parent(cmd, data);
 	return (false);
 }
@@ -100,6 +96,7 @@ void	execute_piped_commands(t_command *cmd, t_data *data)
 		}
 		else
 		{
+			// enquanto tiver argumentos vai dando print			
 			if (ft_parent(cmd, &in_fd, data))
 				break ;       // Sai do loop se 'exit' foi encontrado
 			cmd = cmd->next; // Avança para o próximo comando

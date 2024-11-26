@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: addicted <addicted@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 17:34:50 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/11/21 10:39:43 by addicted         ###   ########.fr       */
+/*   Updated: 2024/11/26 11:20:08 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,7 +138,7 @@ int						pwd_command(t_data *data);
 int						cd_command(t_command cmd, t_data *data);
 void					echo_command(t_command *cmd);
 void					env_command(t_data *data);
-void					export_command(char *arg, t_data *data);
+void					export_command(t_command *cmd, t_data *data);
 void					unset_command(char *arg, t_data *data);
 
 #endif

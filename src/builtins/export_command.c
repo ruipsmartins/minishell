@@ -6,7 +6,7 @@
 /*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 15:14:53 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/11/19 16:20:21 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2024/11/26 11:33:07 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,29 +29,46 @@ void	print_exported_vars(t_envvar *env_var_lst)
 }
 
 // função para adicionar ou modificar uma variável de ambiente
-void	export_command(char *arg, t_data *data)
+void	export_command(t_command *cmd, t_data *data)
 {
 	char		*name;
 	char		*value;
 	char		*env_var;
 	t_envvar	*current;
+	int i = 1;
 
-	env_var = ft_strdup(arg);
-	name = ft_strtok(env_var, "=");
-	value = ft_strtok(NULL, "=");
-	if (name == NULL)
+	int x = 0;
+	while (cmd->args[x])
+			{
+				printf("args[%d]: %s\n", x, cmd->args[x]);
+				x++;
+			}
+	if (cmd->args[1] == NULL)
 	{
 		print_exported_vars(data->env_var_lst);
-		free(env_var);
 		return ;
-	}
-	current = find_envvar(data->env_var_lst, name);
-	if (current != NULL)
+	}	
+	//print todos os comandos que estamos a receber
+	while (cmd->args[i])
 	{
-		free(current->value);
-		current->value = ft_strdup(value);
+		env_var = ft_strdup(cmd->args[i]);
+		name = ft_strtok(env_var, "=");
+		value = ft_strtok(NULL, "=");
+		if (name == NULL)
+		{
+			print_exported_vars(data->env_var_lst);
+			free(env_var);
+			return ;
+		}
+		current = find_envvar(data->env_var_lst, name);
+		if (current != NULL)
+		{
+			free(current->value);
+			current->value = ft_strdup(value);
+		}
+		else
+			ft_new_envvar(&data->env_var_lst, name, value);
+		free(env_var);
+		i++;
 	}
-	else
-		ft_new_envvar(&data->env_var_lst, name, value);
-	free(env_var);
 }

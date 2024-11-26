@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: addicted <addicted@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 17:28:57 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/11/21 11:09:46 by addicted         ###   ########.fr       */
+/*   Updated: 2024/11/26 11:58:09 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ char	*get_command_input(void)
 {
 	char	*input;
 
-	input = readline("Minishell: ");
+	input = readline("\033[32mMinishell:\033[0m ");
 	if (input && *input)
 		add_history(input);
 	return (input);
