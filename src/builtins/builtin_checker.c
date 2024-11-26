@@ -6,7 +6,7 @@
 /*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 15:17:35 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/11/17 15:56:42 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2024/11/26 11:20:33 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ bool	builtin_checker_parent(t_command *cmd, t_data *data)
 	else if (ft_strncmp(cmd->args[0], "env", 4) == 0)
 		env_command(data);
 	else if (ft_strncmp(cmd->args[0], "export", 7) == 0)
-		export_command(cmd->args[1], data);
+		export_command(cmd, data);
 	else if (ft_strncmp(cmd->args[0], "unset", 6) == 0)
 		unset_command(cmd->args[1], data);
 	else

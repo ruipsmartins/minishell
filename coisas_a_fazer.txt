@@ -15,7 +15,7 @@ se dermos um espaço ou mais e dermos enter dá segmentation fault
 
 echo $varquenaoexiste dá segmentation fault
 
-
+export a = cenas tem que aparecer erro no  =  e deixar a e cenas como duas vars vazias
 
 echo -n"ola"  (-n colado) dá -nola
 

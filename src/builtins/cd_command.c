@@ -6,7 +6,7 @@
 /*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 17:49:57 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/11/21 12:11:02 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2024/11/26 12:09:19 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ void	change_directory(t_data *data, char *path)
 	oldpwd = getcwd(NULL, 0);
 	if (chdir(path) == -1)
 	{
+		free(oldpwd);
 		perror("cd");
 		data->return_value = 1;
 	}
