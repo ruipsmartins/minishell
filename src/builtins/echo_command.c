@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo_command.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: addicted <addicted@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 12:23:50 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/11/25 11:54:44 by addicted         ###   ########.fr       */
+/*   Updated: 2024/11/04 14:53:06 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,6 @@ int	validate_flag(const char *arg)
 	i = 1;
 	while (arg[i] == 'n')
 		i++;
-	if(arg[i] == ' ')
-		return (1);
 	return (arg[i] == '\0');  // Só retorna true se todos os caracteres após '-' forem 'n'
 }
 
@@ -42,8 +40,8 @@ void	echo_command(t_command *cmd)
 	while (cmd->args[i])
 	{
 		ft_printf("%s", cmd->args[i]);
-		//if (cmd->args[i + 1])
-			//ft_printf(" ");
+		if (cmd->args[i + 1])
+			ft_printf(" ");
 		i++;
 	}
 	if (newline)
