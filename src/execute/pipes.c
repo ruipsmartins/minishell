@@ -6,7 +6,7 @@
 /*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 11:05:58 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/11/26 11:19:42 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2024/11/27 15:00:31 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,10 @@ int	ft_child(int in_fd, t_command *cmd, t_data *data)
 			exit(EXIT_FAILURE);
 		handle_fd(in_fd, cmd, data->fd);
 	}
-	execute_command_or_path(cmd, data);
+	if (builtin_execute(cmd, data) == false)
+		execute_command_or_path(cmd, data);
 	std_reset(&data->original_stdin, &data->original_stdout); // Restaura os FDs
-	if (data->close_shell)                                   
+	if (data->close_shell)
 		// Se o comando for 'exit', fecha o shell
 		write(data->exit_pipe[1], "1", 1);
 	close(data->exit_pipe[1]);
@@ -62,14 +63,15 @@ bool	ft_parent(t_command *cmd, int *in_fd, t_data *data)
 		data->close_shell = true;
 		return (true);
 	}
-	if (WIFEXITED(status))                       
+	if (WIFEXITED(status))
 		// Se o filho terminou normalmente
 		data->return_value = WEXITSTATUS(status);
-			// Guarda o valor de saída do filho em `data->return_value`
+	// Guarda o valor de saída do filho em `data->return_value`
 	else
 		data->return_value = 0;
 	*in_fd = data->fd[0]; // Prepara para o próximo comando
-	builtin_checker_parent(cmd, data);
+	if (builtin_checker(cmd) == true)
+		builtin_execute(cmd, data);
 	return (false);
 }
 
@@ -90,13 +92,12 @@ void	execute_piped_commands(t_command *cmd, t_data *data)
 			fork_error();
 		else if (pid == 0)
 		{
-			if (builtin_checker_child(cmd) == true)
+			if (builtin_checker(cmd) == true)
 				exit(data->return_value);
 			ft_child(in_fd, cmd, data);
 		}
 		else
 		{
-			// enquanto tiver argumentos vai dando print			
 			if (ft_parent(cmd, &in_fd, data))
 				break ;       // Sai do loop se 'exit' foi encontrado
 			cmd = cmd->next; // Avança para o próximo comando

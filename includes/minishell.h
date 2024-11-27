@@ -6,7 +6,7 @@
 /*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 17:34:50 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/11/26 13:05:00 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2024/11/27 14:53:53 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,8 +131,8 @@ int						execute_heredoc(t_command *cmd);
 void					std_reset(int *original_stdin, int *original_stdout);
 
 // builtins
-bool					builtin_checker_parent(t_command *cmd, t_data *data);
-bool					builtin_checker_child(t_command *cmd);
+bool					builtin_execute(t_command *cmd, t_data *data);
+bool					builtin_checker(t_command *cmd);
 void					exit_command(t_command *cmd, t_data *data);
 int						pwd_command(t_data *data);
 int						cd_command(t_command cmd, t_data *data);

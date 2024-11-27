@@ -307,7 +307,7 @@ Thanks to Minishell, I travelled through time and came back to problems people f
 | 🟡 | `"exit test"`               |
 | 🟡 | `"exit"`                    |
 | 🟢 | `exit1`                     |
-| 🟢 | `exita`                     |
+| 🟡 | `exit | ls`                 |
 | 🟢 | `exit exit`                 | 
 | 🟢 | `exit a`                    | 
 | 🟢 | `exit abc`                  | 

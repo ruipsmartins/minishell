@@ -6,13 +6,13 @@
 /*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 15:17:35 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/11/26 11:20:33 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2024/11/27 15:00:44 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-bool	builtin_checker_parent(t_command *cmd, t_data *data)
+bool	builtin_execute(t_command *cmd, t_data *data)
 {
 	if (ft_strncmp(cmd->args[0], "exit", 5) == 0)
 		exit_command(cmd, data);
@@ -33,22 +33,23 @@ bool	builtin_checker_parent(t_command *cmd, t_data *data)
 	return (true);
 }
 
-bool	builtin_checker_child(t_command *cmd)
+bool	builtin_checker(t_command *cmd)
 {
 	if (ft_strncmp(cmd->args[0], "exit", 5) == 0)
 		return (true);
-	else if (ft_strncmp(cmd->args[0], "pwd", 4) == 0)
+	else if (ft_strncmp(cmd->args[0], "unset", 6) == 0)
 		return (true);
 	else if (ft_strncmp(cmd->args[0], "cd", 3) == 0)
 		return (true);
-	else if (ft_strncmp(cmd->args[0], "echo", 5) == 0)
+	else if ((ft_strncmp(cmd->args[0], "export", 7) == 0)
+		&& cmd->args[1] != NULL)
+		return (true);
+	/* else if (ft_strncmp(cmd->args[0], "echo", 5) == 0)
 		return (true);
 	else if (ft_strncmp(cmd->args[0], "env", 4) == 0)
 		return (true);
-	else if (ft_strncmp(cmd->args[0], "export", 7) == 0)
-		return (true);
-	else if (ft_strncmp(cmd->args[0], "unset", 6) == 0)
-		return (true);
+	else if (ft_strncmp(cmd->args[0], "pwd", 4) == 0)
+		return (true); */
 	else
 		return (false);
 	return (true);
