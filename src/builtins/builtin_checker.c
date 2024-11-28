@@ -6,7 +6,7 @@
 /*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 15:17:35 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/11/27 15:00:44 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2024/11/28 14:42:24 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ bool	builtin_execute(t_command *cmd, t_data *data)
 	else if (ft_strncmp(cmd->args[0], "export", 7) == 0)
 		export_command(cmd, data);
 	else if (ft_strncmp(cmd->args[0], "unset", 6) == 0)
-		unset_command(cmd->args[1], data);
+		unset_command(cmd, data);
 	else
 		return (false);
 	return (true);

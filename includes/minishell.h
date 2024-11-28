@@ -6,7 +6,7 @@
 /*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 17:34:50 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/11/27 14:53:53 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2024/11/28 15:09:07 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,9 @@ typedef struct s_command
 	char				**args;
 	char				*input_file;
 	char				*output_file;
-	bool append;     // >> para saber se é append ou não
-	bool heredoc;    // << para saber se é heredoc ou não
-	char *delimiter; // << para saber qual a ultima palavra do heredoc
+	bool				append;
+	bool				heredoc;
+	char				*delimiter;
 	struct s_command	*next;
 }						t_command;
 
@@ -61,7 +61,7 @@ typedef struct s_data
 	t_command			*cmd;
 	t_envvar			*env_var_lst;
 	bool				close_shell;
-	int return_value; // $?
+	int					return_value;
 	int					fd[2];
 	int					exit_pipe[2];
 }						t_data;
@@ -139,6 +139,6 @@ int						cd_command(t_command cmd, t_data *data);
 void					echo_command(t_command *cmd);
 void					env_command(t_data *data);
 void					export_command(t_command *cmd, t_data *data);
-void					unset_command(char *arg, t_data *data);
+void					unset_command(t_command *cmd, t_data *data);
 
 #endif

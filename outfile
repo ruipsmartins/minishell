@@ -1,7 +1,16 @@
-ola
-ola
-ola
-ola
-ola
-     14      14     132
-     14      14     132
+      4      36     191
+      4      36     191
+drwxrwxr-x 2 rui rui    4096 Nov 27 15:06 includes
+drwxrwxr-x 2 rui rui    4096 Nov 28 13:31 libft
+drwxrwxr-x 6 rui rui    4096 Nov 28 13:31 obj
+drwxrwxr-x 6 rui rui    4096 Nov 27 12:40 src
+total 1596
+-rw-rw-r-- 1 rui rui 1568461 Oct 16 13:10 en.subject.pdf
+drwxrwxr-x 2 rui rui    4096 Nov  1 14:30 includes
+-rwxrwxr-x 1 rui rui       0 Nov  4 12:11 infile
+drwxrwxr-x 2 rui rui    4096 Nov  4 12:08 libft
+total 1596
+-rw-rw-r-- 1 rui rui 1568461 Oct 16 13:10 en.subject.pdf
+drwxrwxr-x 2 rui rui    4096 Nov  1 14:30 includes
+-rwxrwxr-x 1 rui rui       0 Nov  4 12:11 infile
+drwxrwxr-x 2 rui rui    4096 Nov  4 12:08 libft

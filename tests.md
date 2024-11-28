@@ -477,7 +477,7 @@ Thanks to Minishell, I travelled through time and came back to problems people f
 #### PIPES AND REDIRECTS
 
 Redirecionamento Simples de Entrada e Saída:  
-| 🟡 | cat < input.txt > output.txt  (ver com o echo)
+| 🟢 | cat < input.txt > output.txt  (ver com o echo)
 | 🟢 | grep 'palavra' < arquivo.txt > resultados.txt  
   
 Uso de Pipe Simples:  
