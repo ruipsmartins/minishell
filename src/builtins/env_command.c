@@ -6,11 +6,27 @@
 /*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 15:23:16 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/11/26 13:00:48 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2024/12/02 12:10:29 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+int	count_valid_envvars(t_envvar *env_list)
+{
+	t_envvar	*current;
+	int			count;
+
+	count = 0;
+	current = env_list;
+	while (current != NULL)
+	{
+		if (current->value != NULL)
+			count++;
+		current = current->next;
+	}
+	return (count);
+}
 
 char	**swap_list_to_array(t_envvar *env_list)
 {
@@ -20,21 +36,11 @@ char	**swap_list_to_array(t_envvar *env_list)
 	int			i;
 	int			count;
 
-	// Contar apenas variáveis com valor (value != NULL)
-	count = 0;
-	current = env_list;
-	while (current != NULL)
-	{
-		if (current->value != NULL)
-			count++;
-		current = current->next;
-	}
-	
-	env = (char **)malloc((count + 1) * sizeof(char *));// Alocar espaço apenas para as variáveis válidas
+	count = count_valid_envvars(env_list);
+	env = (char **)malloc((count + 1) * sizeof(char *));
 	if (!env)
 		return (NULL);
-	
-	current = env_list;// Preencher o array com variáveis que têm valor
+	current = env_list;
 	i = 0;
 	while (current != NULL)
 	{

@@ -6,7 +6,7 @@
 /*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 12:23:50 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/11/04 14:53:06 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2024/12/02 12:04:06 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,12 @@ int	validate_flag(const char *arg)
 {
 	int	i;
 
-	// Verifica se o argumento começa com '-' e segue imediatamente com pelo menos um 'n'
 	if (arg[0] != '-' || arg[1] != 'n')
 		return (0);
 	i = 1;
 	while (arg[i] == 'n')
 		i++;
-	return (arg[i] == '\0');  // Só retorna true se todos os caracteres após '-' forem 'n'
+	return (arg[i] == '\0');
 }
 
 void	echo_command(t_command *cmd)

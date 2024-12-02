@@ -6,7 +6,7 @@
 /*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 15:17:35 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/11/28 14:42:24 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2024/12/02 12:01:55 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,12 +44,6 @@ bool	builtin_checker(t_command *cmd)
 	else if ((ft_strncmp(cmd->args[0], "export", 7) == 0)
 		&& cmd->args[1] != NULL)
 		return (true);
-	/* else if (ft_strncmp(cmd->args[0], "echo", 5) == 0)
-		return (true);
-	else if (ft_strncmp(cmd->args[0], "env", 4) == 0)
-		return (true);
-	else if (ft_strncmp(cmd->args[0], "pwd", 4) == 0)
-		return (true); */
 	else
 		return (false);
 	return (true);

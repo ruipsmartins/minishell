@@ -6,7 +6,7 @@
 /*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 17:34:50 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/11/28 15:09:07 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2024/12/02 12:11:56 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ int						check_quote(const char *input);
 char					*get_word(char **input);
 
 // env_var
+int						count_valid_envvars(t_envvar *env_list);
 void					ft_new_envvar(t_envvar **env_list, char *name,
 							char *value);
 t_envvar				*ft_create_env_list(char **env);

@@ -6,7 +6,7 @@
 /*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 17:21:15 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/10/28 16:58:09 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2024/12/02 12:17:20 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	pwd_command(t_data *data)
 {
-	char *cwd;
+	char	*cwd;
 
 	cwd = getcwd(NULL, 0);
 	if (!cwd)
@@ -22,7 +22,6 @@ int	pwd_command(t_data *data)
 		perror("getcwd:");
 		return (data->return_value = 1);
 	}
-
 	ft_printf("%s\n", cwd);
 	free(cwd);
 	return (data->return_value = 0);

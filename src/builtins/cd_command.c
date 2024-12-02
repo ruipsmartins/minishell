@@ -6,7 +6,7 @@
 /*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 17:49:57 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/11/26 12:09:19 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2024/12/02 12:03:25 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ static void	cd_home(t_data *data)
 		free(oldpwd);
 	}
 }
+
 static void	cd_oldpwd(t_data *data)
 {
 	char	*oldpwd;
@@ -46,7 +47,7 @@ static void	cd_oldpwd(t_data *data)
 	{
 		ft_putstr_fd("cd: OLDPWD not set\n", STDERR_FILENO);
 		data->return_value = 1;
-		return;
+		return ;
 	}
 	current_pwd = getcwd(NULL, 0);
 	if (chdir(oldpwd) == -1)
@@ -54,7 +55,7 @@ static void	cd_oldpwd(t_data *data)
 		perror("cd");
 		data->return_value = 1;
 		free(current_pwd);
-		return;
+		return ;
 	}
 	set_envvar(data->env_var_lst, "OLDPWD", current_pwd);
 	free(current_pwd);
@@ -86,6 +87,7 @@ void	change_directory(t_data *data, char *path)
 		data->return_value = 0;
 	}
 }
+
 int	cd_command(t_command cmd, t_data *data)
 {
 	int	i;
@@ -99,18 +101,11 @@ int	cd_command(t_command cmd, t_data *data)
 		return (data->return_value = 1);
 	}
 	else if (cmd.args[1] == NULL || (cmd.args[1][0] == '~'
-			&& cmd.args[1][1] == '\0'))
-	{
+		&& cmd.args[1][1] == '\0'))
 		cd_home(data);
-	}
 	else if (cmd.args[1][0] == '-' && cmd.args[1][1] == '\0')
-	{
-		cd_oldpwd(data);	
-	}
+		cd_oldpwd(data);
 	else
-	{
 		change_directory(data, cmd.args[1]);
-	}
 	return (data->return_value);
 }
-
