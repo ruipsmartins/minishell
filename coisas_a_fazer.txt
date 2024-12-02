@@ -21,3 +21,7 @@ echo -n"ola"  (-n colado) dá -nola
 
 echo  teste"teste2"'teste3'"teste'4'"
 testeteste2teste3teste'4'
+
+signals
+
+control - D === exit (se nao da segfault)

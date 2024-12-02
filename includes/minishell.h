@@ -6,7 +6,7 @@
 /*   By: addicted <addicted@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 17:34:50 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/11/21 10:39:43 by addicted         ###   ########.fr       */
+/*   Updated: 2024/12/02 11:59:19 by addicted         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,8 +75,16 @@ void					data_init(t_data *data, char **env);
 // quotes
 int						check_quote(const char *input);
 char					*get_word(char **input);
+char					*quotes_trim(char *input);
+
+const char				*handle_dollar_sign(const char *src, char *dst, t_envvar *env_list);
+void handle_exit_status(char *dst);
+const char *replace_variable(const char *src, char *dst, t_envvar *env_list);
+const char *handle_quoted_dollar(const char *src, char *dst, t_envvar *env_list);
+void replace_vars_in_string(const char *src, char *dst, t_envvar *env_list);
 
 // env_var
+size_t					calculate_final_len(const char *input, t_envvar *env_list);
 void					ft_new_envvar(t_envvar **env_list, char *name,
 							char *value);
 t_envvar				*ft_create_env_list(char **env);

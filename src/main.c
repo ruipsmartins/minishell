@@ -6,7 +6,7 @@
 /*   By: addicted <addicted@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 17:28:57 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/11/21 11:09:46 by addicted         ###   ########.fr       */
+/*   Updated: 2024/11/26 11:10:39 by addicted         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,12 +118,6 @@ int	main(int ac, char **av, char **env)
 		free_command_list(data.cmd);
 	
 		input = get_command_input();
-		// int i = 0;									//para teste
-		// while(env_list_array[i])						//para teste
-		// {											//para teste						
-		// 	printf("%s\n", env_list_array[i]);		//para teste
-		// 	i++;									//para teste
-		// }
 	}
 		if (data.env_var_lst)
 			free_env_list(data.env_var_lst);

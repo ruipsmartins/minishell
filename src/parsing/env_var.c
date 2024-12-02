@@ -6,7 +6,7 @@
 /*   By: addicted <addicted@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/19 12:05:41 by addicted          #+#    #+#             */
-/*   Updated: 2024/11/13 12:46:26 by addicted         ###   ########.fr       */
+/*   Updated: 2024/12/02 11:49:56 by addicted         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ size_t calculate_final_len(const char *input, t_envvar *env_list)
 	return len;
 }
 
-
+/*
 // Substitui as variáveis de ambiente na lista de variáveis
 char	*replace_envvar(const char *input, t_envvar *env_list)
 {
@@ -107,15 +107,12 @@ char	*replace_envvar(const char *input, t_envvar *env_list)
 	
 	len = 0;
 	src = input;
-	
 	len = calculate_final_len(input, env_list);
-
 	if(len == 0)
 	{
 		printf("Error calculating final len\n");
 		return (NULL);
 	}
-
 	//alocar memoria para a string final
 	result = (char *)calloc(len + 2, sizeof(char)); // calloc tem de passar para ft_calloc
 	if (result == NULL)
@@ -123,7 +120,6 @@ char	*replace_envvar(const char *input, t_envvar *env_list)
 		perror("malloc");
 		exit(EXIT_FAILURE);
 	}
-	
 	//Trocar variaveis ambientes
 	src = input;
 	dst = result;
@@ -160,8 +156,8 @@ char	*replace_envvar(const char *input, t_envvar *env_list)
 	}
 	*dst = '\0';
 	return (result);
-	
 }
+*/
 
 void free_env_list(t_envvar *env_list)
 {

@@ -6,7 +6,7 @@
 /*   By: addicted <addicted@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/17 18:57:27 by addicted          #+#    #+#             */
-/*   Updated: 2024/11/21 11:02:15 by addicted         ###   ########.fr       */
+/*   Updated: 2024/12/02 11:15:49 by addicted         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,4 +126,33 @@ char *get_word(char  **input)
 		word = no_quotes(input, word);
 	}
 	return (word);
+}
+
+char *quotes_trim(char *input)
+{
+	char c;
+	int i;
+	int k;
+	char *fix_str;
+
+	i = 0;
+	k = 0;
+	c = '\0';
+	fix_str = calloc(strlen(input) + 1, sizeof(char));
+	while (input[i])
+	{
+		while (input[i] != '\'' && input[i] != '\"' && input[i])
+			fix_str[k++] = input[i++];
+		if ((input[i] == '\'' || input[i] == '\"') && c == '\0')
+			c = input[i++];
+		while (input[i] != c && input[i])
+			fix_str[k++] = input[i++];
+		if (input[i] == c && c != '\0')
+		{
+			c = '\0';
+			i++;
+		}
+	}
+	fix_str[k] = '\0';
+	return fix_str;
 }

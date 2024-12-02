@@ -6,7 +6,7 @@
 /*   By: addicted <addicted@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 08:59:52 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/11/21 11:07:17 by addicted         ###   ########.fr       */
+/*   Updated: 2024/12/02 12:41:27 by addicted         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,7 @@ void free_command_list(t_command *cmd_list) //free da lista de comandos
 			while (current->args[i] != NULL)
 			{
 				free(current->args[i++]);
-			}
-			free(current->args);
+			}			free(current->args);
 		}
 		free(current->input_file);
 		free(current->output_file);
@@ -99,7 +98,6 @@ t_lexer *devide_input(char *input) //divide a string em tokens e palavras
 		else
 			lexer = new_node; // Meter o primeiro na lista
 		current = new_node;
-		free(token);
 		token = get_word(&input);
 	}
 	return (lexer);
@@ -215,6 +213,30 @@ void free_lexer(t_lexer *lexer)
 	//free(lexer);
 }
 
+// char *change_var_name(char *input, t_data *data)
+// {
+// 	char c;
+// 	int i;
+// 	int k;
+// 	char *new_str;
+
+// 	i = 0;
+// 	k = 0;
+// 	c = '\0';
+// 	new_str = calloc(calculate_final_len(input, data->env_var_lst), sizeof(char));
+	 
+// 	while(input[i] && input[i] != '\'' &&  input[i] != '\"' && input[i] != '$')
+// 		input[i++] = new_str[k++];
+// 	if ((input[i] == '\'' || input[i] == '\"') && c == '\0')
+// 		c = input[i];
+// 	else if (input[i] == '\'' || input[i] == '\"' && c != '\0')
+// 		c = '\0';
+// 	if (input[i] == '$')
+	
+		
+// }
+
+
 void handle_input(char *input, t_data *data)
 {
 	t_lexer *lexer = NULL;
@@ -225,35 +247,21 @@ void handle_input(char *input, t_data *data)
 		printf("Error: Unmatched quote\n");
 		input = readline("minishell: ");
 	}
-	temp = fix_token_space(input);
+	if(strchr(input, '$')) //se tivermos um sinal de dolar, quer dizer que queremos substituir uma variavel de ambiente
+	{
+		printf("\nreplace envvar after $\n");
+		input = replace_envvar(input, data->env_var_lst);
+	}
+	temp = quotes_trim(input);
+	
+	temp = fix_token_space(temp);
 	/* if(strchr(temp, '=')) //se tivermos um sinal de igual, quer dizer que queremos criar uma variavel de ambiente
 	{
 		printf("\nset new envvar\n");
 		set_new_envvar(temp, data);
 		data->env = swap_list_to_array(data->env_var_lst);
 	} */
-	if(strchr(temp, '$')) //se tivermos um sinal de dolar, quer dizer que queremos substituir uma variavel de ambiente
-	{
-		printf("\nreplace envvar after $\n");
-		temp = replace_envvar(temp, data->env_var_lst);
-	}
 	lexer = devide_input(temp);
-	
-// 	t_lexer *current = lexer;
-
-
-// ///////////////////////////////////
-// 	while(current != NULL)
-// 	{
-// 		if(current->word)
-// 			printf("word: %s\n", current->word);
-// 		if(current->token)
-// 			printf("token: %s\n", current->token);
-// 		printf("i: %d\n", current->i);
-// 		current = current->next;
-// 	}
-//////////////////////////////////
-
 	
 	if(lexer == NULL)
 	{
