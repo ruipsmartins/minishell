@@ -6,7 +6,7 @@
 /*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 11:05:58 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/11/27 15:00:31 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2024/12/03 16:43:36 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,39 +74,130 @@ bool	ft_parent(t_command *cmd, int *in_fd, t_data *data)
 		builtin_execute(cmd, data);
 	return (false);
 }
-
-/* Função para executar comandos em sequência,
-utilizando pipes para a comunicação entre processos. */
-void	execute_piped_commands(t_command *cmd, t_data *data)
+bool should_execute_in_parent(t_command *cmd)
 {
-	pid_t	pid;
-	int		in_fd;
-
-	in_fd = 0;
-	while (cmd != NULL)
-	{
-		pipe(data->fd);
-		pipe(data->exit_pipe);
-		pid = fork();
-		if (pid < 0)
-			fork_error();
-		else if (pid == 0)
-		{
-			if (builtin_checker(cmd) == true)
-				exit(data->return_value);
-			ft_child(in_fd, cmd, data);
-		}
-		else
-		{
-			if (ft_parent(cmd, &in_fd, data))
-				break ;       // Sai do loop se 'exit' foi encontrado
-			cmd = cmd->next; // Avança para o próximo comando
-		}
-	}
+    if (ft_strncmp(cmd->args[0], "cd", 3) == 0 ||
+        ft_strncmp(cmd->args[0], "unset", 6) == 0 ||
+        ft_strncmp(cmd->args[0], "exit", 5) == 0)
+        return true;
+    // Export com argumentos deve ser executado no pai
+    if (ft_strncmp(cmd->args[0], "export", 7) == 0)
+    {
+        if (cmd->args[1] != NULL) // Tem argumentos
+            return true;
+        return false; // Sem argumentos, executa no child
+    }
+    return false; // Outros comandos executam no child
 }
+
+int count_commands(t_command *cmd)
+{
+    int count = 0;
+    while (cmd)
+    {
+        count++;
+        cmd = cmd->next;
+    }
+    return count;
+}
+void close_all_pipes(int **fds, int pipe_count)
+{
+    int i = 0;
+    while (i < pipe_count)
+    {
+        close(fds[i][0]);
+        close(fds[i][1]);
+        i++;
+    }
+}
+
+void free_pipes(int **fds, int pipe_count)
+{
+    int i = 0;
+    while (i < pipe_count)
+    {
+        free(fds[i]);
+        i++;
+    }
+    free(fds);
+}
+
 
 void	fork_error(void)
 {
 	perror("fork error:");
 	exit(EXIT_FAILURE);
 }
+
+/* Função para executar comandos em sequência,
+utilizando pipes para a comunicação entre processos. */
+void execute_piped_commands(t_command *cmd, t_data *data)
+{
+    int cmd_count = count_commands(cmd); // Número de comandos no pipeline
+    int **fds; // Array de pipes
+    pid_t *pids; // Array de PIDs
+    int i = 0;
+
+    // Alocar memória para os pipes e PIDs
+    fds = malloc(sizeof(int *) * (cmd_count - 1));
+    pids = malloc(sizeof(pid_t) * cmd_count);
+    for (i = 0; i < cmd_count - 1; i++)
+    {
+        fds[i] = malloc(sizeof(int) * 2);
+        if (pipe(fds[i]) < 0)
+            perror("pipe");
+    }
+
+    i = 0;
+    while (cmd != NULL)
+    {
+        if (builtin_checker(cmd) && should_execute_in_parent(cmd)) // Builtin no pai
+        {
+            builtin_execute(cmd, data);
+        }
+        else // Processo filho
+        {
+            pids[i] = fork();
+            if (pids[i] < 0)
+                perror("fork");
+            else if (pids[i] == 0)
+            {
+                // Configura os FDs para o processo filho
+                if (i > 0)
+                    dup2(fds[i - 1][0], STDIN_FILENO); // Lê do pipe anterior
+                if (cmd->next != NULL)
+                    dup2(fds[i][1], STDOUT_FILENO); // Escreve no próximo pipe
+				
+                // Fecha todos os FDs nos filhos
+                close_all_pipes(fds, cmd_count - 1);
+
+                // Executa o comando
+                if (builtin_execute(cmd, data))
+                    exit(data->return_value);
+                execute_command_or_path(cmd, data);
+                exit(data->return_value);
+            }
+        }
+        // Fecha os pipes desnecessários no pai
+        if (i > 0)
+        {
+            close(fds[i - 1][0]);
+            close(fds[i - 1][1]);
+        }
+
+        cmd = cmd->next;
+        i++;
+    }
+
+    // Fecha todos os FDs restantes no pai
+    close_all_pipes(fds, cmd_count - 1);
+
+    // Espera por todos os processos filhos
+    for (int j = 0; j < i; j++)
+        waitpid(pids[j], &data->return_value, 0);
+
+    // Liberta memória
+    free_pipes(fds, cmd_count - 1);
+    free(pids);
+}
+
