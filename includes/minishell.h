@@ -6,7 +6,7 @@
 /*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 17:34:50 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/12/02 12:11:56 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2024/12/04 12:35:06 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ typedef struct s_data
 	int					original_stdout;
 	t_command			*cmd;
 	t_envvar			*env_var_lst;
+	int					cmd_count;
 	bool				close_shell;
 	int					return_value;
 	int					fd[2];
