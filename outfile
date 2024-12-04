@@ -1,23 +1,17 @@
-total 1772
-drwxrwxr-x  9 rui rui    4096 Dec  4 15:29 .
-drwxr-x--- 23 rui rui    4096 Dec  4 15:30 ..
--rw-rw-r--  1 rui rui     455 Dec  3 14:59 coisas_a_fazer.txt
--rw-rw-r--  1 rui rui 1568461 Dec  3 14:59 en.subject.pdf
--rw-rw-r--  1 rui rui       0 Dec  3 14:59 erro.txt
-drwxrwxr-x  8 rui rui    4096 Dec  3 18:39 .git
--rw-rw-r--  1 rui rui       7 Dec  3 14:59 .gitignore
-drwxrwxr-x  2 rui rui    4096 Dec  3 14:59 includes
--rwxrwxr-x  1 rui rui     572 Dec  3 14:59 infile
-drwxrwxr-x  2 rui rui    4096 Dec  4 15:29 libft
--rw-rw-r--  1 rui rui    1085 Dec  3 14:59 LICENSE
--rw-rw-r--  1 rui rui    1591 Dec  3 14:59 Makefile
--rwxrwxr-x  1 rui rui   87680 Dec  4 15:29 minishell
-drwxrwxr-x  2 rui rui    4096 Dec  3 14:59 minishell correction_files
--rw-rw-r--  1 rui rui   53830 Dec  3 14:59 minishell correction.html
-drwxrwxr-x  6 rui rui    4096 Dec  4 15:29 obj
--rwxrwxr-x  1 rui rui       0 Dec  4 15:31 outfile
--rw-rw-r--  1 rui rui     135 Dec  3 14:59 readline.supp
--rw-rw-r--  1 rui rui     345 Dec  3 14:59 README.md
-drwxrwxr-x  6 rui rui    4096 Dec  3 14:59 src
--rw-rw-r--  1 rui rui   31148 Dec  3 14:59 tests.md
-drwxrwxr-x  2 rui rui    4096 Dec  3 14:59 .vscode
+coisas_a_fazer.txt
+en.subject.pdf
+erro.txt
+includes
+infile
+libft
+LICENSE
+Makefile
+minishell
+minishell correction_files
+minishell correction.html
+obj
+outfile
+readline.supp
+README.md
+src
+tests.md

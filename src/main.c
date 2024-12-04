@@ -6,7 +6,7 @@
 /*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 17:28:57 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/11/26 12:57:33 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2024/12/04 16:40:34 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,6 @@ void	data_init(t_data *data, char **env)
 	data->close_shell = false;
 	data->return_value = 0;
 	data->cmd = NULL;
-	data->fd[0] = -1;
-	data->fd[1] = -1;
 	
 }
 

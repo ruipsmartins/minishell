@@ -1,23 +1,18 @@
  coisas por fazer / erros:
 
-env | grep varname   (nao está a funcionar)
-export | grep varname
-
-
-
-ls > outfile | wc nao está a funcionar como no bash 
+ls saddsf | (nada) segmentation fault
 
 se dermos um espaço ou mais e dermos enter dá segmentation fault
 
 echo $varquenaoexiste dá segmentation fault
-
-export a = cenas tem que aparecer erro no  =  e deixar a e cenas como duas vars vazias
 
 echo -n"ola"  (-n colado) dá -nola
 
 echo  teste"teste2"'teste3'"teste'4'"
 testeteste2teste3teste'4'
 
+
+-------------------------------------------------------------
 (não sei se é para fazer)
 rui@rui-MS-7B49:~/minishell$ export nome=rui
 rui@rui-MS-7B49:~/minishell$ echo $nome
@@ -29,3 +24,4 @@ rui@rui-MS-7B49:~/minishell$ cat << eof
 olá rui
 benvindo
 rui@rui-MS-7B49:~/minishell$ 
+--------------------------------------------------------------

@@ -6,7 +6,7 @@
 /*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 17:34:50 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/12/04 12:35:06 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2024/12/04 16:40:15 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ typedef struct s_data
 	int					cmd_count;
 	bool				close_shell;
 	int					return_value;
-	int					fd[2];
+	//int					fd[2];
 	int					exit_pipe[2];
 }						t_data;
 
@@ -117,11 +117,16 @@ bool					is_directory(char *path);
 int						check_file_type(char *path);
 
 // pipes
-void					execute_piped_commands(t_command *cmd, t_data *data);
-void					fork_error(void);
+void 					execute_piped_commands(t_command *cmd, t_data *data);
+void 					ft_child(int i, int **fds, t_command *cmd, t_data *data);
 bool					ft_parent(t_command *cmd, int *in_fd, t_data *data);
-int						ft_child(int in_fd, t_command *cmd, t_data *data);
 void					handle_fd(int in_fd, t_command *cmd, int fd[2]);
+bool					should_execute_in_parent(t_command *cmd);
+int						count_commands(t_command *cmd);
+void					close_all_pipes(int **fds, int pipe_count);
+void					free_pipes(int **fds, int pipe_count);
+void					fork_error(void);
+
 
 // redirections
 int						handle_redirects(t_command *cmd, t_data *data);

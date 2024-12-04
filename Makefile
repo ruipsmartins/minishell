@@ -16,7 +16,7 @@ SRCS_FILES = \
 	utils/utils.c \
 	parsing/parsing.c parsing/fix_token_space.c parsing/lexer_to_command.c \
 	parsing/env_var.c parsing/envvar.c parsing/quotes.c \
-	execute/execute.c execute/pipes.c \
+	execute/execute.c execute/pipes.c execute/pipes_utils.c \
 	execute/redirections.c execute/heredoc.c \
 	builtins/builtin_checker.c builtins/exit_command.c builtins/pwd_command.c builtins/cd_command.c \
 	builtins/echo_command.c	builtins/env_command.c builtins/export_command.c builtins/unset_command.c \
