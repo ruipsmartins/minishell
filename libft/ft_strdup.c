@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: addicted <addicted@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 10:43:15 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/10/15 15:20:26 by addicted         ###   ########.fr       */
+/*   Updated: 2024/12/06 14:23:19 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ char	*ft_strdup(const char *s)
 {
 	size_t	i;
 	char	*dup;
+
 	if (!s)
 		return (0);
 	dup = malloc (ft_strlen(s) + 1);

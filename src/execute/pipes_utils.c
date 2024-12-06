@@ -6,13 +6,12 @@
 /*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 11:05:58 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/12/04 16:17:43 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2024/12/06 14:25:03 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 #include "minishell.h"
-
 
 bool	should_execute_in_parent(t_command *cmd)
 {
@@ -40,6 +39,7 @@ int	count_commands(t_command *cmd)
 	}
 	return (count);
 }
+
 void	close_all_pipes(int **fds, int pipe_count)
 {
 	int	i;
@@ -66,8 +66,11 @@ void	free_pipes(int **fds, int pipe_count)
 	free(fds);
 }
 
-void	fork_error(void)
+void	close_all_parent_pipes(t_data *data, int i)
 {
-	perror("fork error:");
-	exit(EXIT_FAILURE);
+	if (i > 0)
+	{
+		close(data->fds[i - 1][0]);
+		close(data->fds[i - 1][1]);
+	}
 }
