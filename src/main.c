@@ -6,7 +6,7 @@
 /*   By: addicted <addicted@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 17:28:57 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/11/26 11:10:39 by addicted         ###   ########.fr       */
+/*   Updated: 2024/12/06 12:35:17 by addicted         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,46 +36,6 @@ void	data_init(t_data *data, char **env)
 	
 }
 
-// t_envvar_list	*init_env_list(void)
-// {
-// 	t_envvar_list	*env_list;
-
-// 	env_list = (t_envvar_list *)ft_calloc(1, sizeof(t_envvar_list));
-// 	if (env_list == NULL)
-// 	{
-// 		perror("malloc");
-// 		exit(EXIT_FAILURE);
-// 	}
-// 	env_list->head = NULL;
-// 	return (env_list);
-// }
-/* char	**swap_list_to_array(t_envvar *env_list)
-{
-	t_envvar *current;
-	int i;
-	char **env;
-	
-	i = 0;
-	current = env_list;
-	while(current != NULL)
-	{
-		current = current->next;
-		i++;
-	}
-	current = env_list;
-	env = (char **)malloc((i + 1) * sizeof(char *));
-	i = 0;
-	while (current != NULL)
-	{
-		env[i] = ft_strjoin(current->name, "=");
-		env[i] = ft_strjoin(env[i], current->value);
-		current = current->next;
-		i++;
-	}
-	env[i] = NULL;
-	return (env);
-} */
-
 void free_data(t_data *data)
 {
 	int i;
@@ -89,9 +49,6 @@ void free_data(t_data *data)
 	free(data->env);
 	if(data->cmd)
 		free_command_list(data->cmd);
-	//if(data->env_var_lst)
-		//free_env_list(data->env_var_lst);
-	//free(data);
 }
 
 int	main(int ac, char **av, char **env)
@@ -102,8 +59,6 @@ int	main(int ac, char **av, char **env)
 	(void)ac;
 	(void)av;
 	data_init(&data, env);
-	//char **env_list_array;							//para teste
-	//env_list_array = swap_list_to_array(env_list); //para teste
 	
 	input = get_command_input();
 	(void)data;
@@ -113,10 +68,8 @@ int	main(int ac, char **av, char **env)
 			handle_input(input, &data);
 		if (data.close_shell)
 			break ;
-		// Debug return value of the command executed by the user (exit status)
-		//ft_printf("data.return_value na main: %d\n", data.return_value);
-		free_command_list(data.cmd);
-	
+		if (!input)
+			free_command_list(data.cmd);
 		input = get_command_input();
 	}
 		if (data.env_var_lst)

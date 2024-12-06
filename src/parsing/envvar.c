@@ -6,7 +6,7 @@
 /*   By: addicted <addicted@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/19 12:05:41 by addicted          #+#    #+#             */
-/*   Updated: 2024/11/08 11:05:49 by addicted         ###   ########.fr       */
+/*   Updated: 2024/12/06 12:18:41 by addicted         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,6 @@ t_envvar	*find_envvar(t_envvar *lst, char *name)
 			return (current);
 		current = current->next;
 	}
-	printf("NOT FOUND\n");
 	return (NULL);
 }
 

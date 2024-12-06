@@ -6,7 +6,7 @@
 /*   By: addicted <addicted@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 08:59:52 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/12/02 12:41:27 by addicted         ###   ########.fr       */
+/*   Updated: 2024/12/06 12:21:54 by addicted         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ t_lexer *devide_input(char *input) //divide a string em tokens e palavras
 	int i;
 	
 	i = 0;
-	token = get_word(&input);
+	token = split_string(&input);
 	while (token != NULL)
 	{
 		new_node = (t_lexer *)ft_calloc(1, sizeof(t_lexer)); // novo node
@@ -98,7 +98,7 @@ t_lexer *devide_input(char *input) //divide a string em tokens e palavras
 		else
 			lexer = new_node; // Meter o primeiro na lista
 		current = new_node;
-		token = get_word(&input);
+		token = split_string(&input);
 	}
 	return (lexer);
 }
@@ -249,18 +249,11 @@ void handle_input(char *input, t_data *data)
 	}
 	if(strchr(input, '$')) //se tivermos um sinal de dolar, quer dizer que queremos substituir uma variavel de ambiente
 	{
-		printf("\nreplace envvar after $\n");
+		//printf("\nreplace envvar after $\n");
 		input = replace_envvar(input, data->env_var_lst);
 	}
-	temp = quotes_trim(input);
 	
-	temp = fix_token_space(temp);
-	/* if(strchr(temp, '=')) //se tivermos um sinal de igual, quer dizer que queremos criar uma variavel de ambiente
-	{
-		printf("\nset new envvar\n");
-		set_new_envvar(temp, data);
-		data->env = swap_list_to_array(data->env_var_lst);
-	} */
+	temp = fix_token_space(input);
 	lexer = devide_input(temp);
 	
 	if(lexer == NULL)
@@ -274,19 +267,3 @@ void handle_input(char *input, t_data *data)
 	data->cmd = cmd_list;
 	execute(cmd_list, data);
 }
-
-/* int main()
-{
-	char *input = "<ls -la|grep worln<d  0123|45 ii9|i|iiiii";
-	char *env[] = {NULL}; // Dummy environment
-
-	printf("strlen: %d\n", (int)strlen(input));
-	printf("input:\n%s\n", input);
-	input = fix_token_space(input);
-	printf("input after:\n%s\n", input);
-	//linha para ver se sei fazer
-	handle_input(input, env);
-	free(input);
-
-	return 0;
-} */

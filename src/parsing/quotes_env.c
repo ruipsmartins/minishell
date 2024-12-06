@@ -6,7 +6,7 @@
 /*   By: addicted <addicted@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/02 11:47:59 by addicted          #+#    #+#             */
-/*   Updated: 2024/12/02 12:50:39 by addicted         ###   ########.fr       */
+/*   Updated: 2024/12/06 12:21:13 by addicted         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,8 +148,14 @@ static char *allocate_result(size_t len)
 // Função para obter o valor da variável de ambiente
 static const char *get_envvar_value(const char *start, const char *end, t_envvar *env_list)
 {
-    char *var_name = strndup(start, end - start); // Trocar para ft_strndup, se necessário
-    const char *value = find_envvar(env_list, var_name)->value;
+    char *var_name;
+    const char *value;
+    
+    var_name = strndup(start, end - start); // Trocar para ft_strndup, se necessário
+    if(find_envvar(env_list, var_name))
+        value = find_envvar(env_list, var_name)->value;
+    else
+        value = "";
     free(var_name);
     return value;
 }
@@ -240,7 +246,7 @@ char *replace_envvar(const char *input, t_envvar *env_list)
     size_t len = calculate_final_len(input, env_list);
     if (len == 0)
     {
-        printf("Error calculating final length\n");
+        ft_printf("Error calculating final length\n");
         return NULL;
     }
     char *result = allocate_result(len);

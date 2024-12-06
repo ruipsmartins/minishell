@@ -6,7 +6,7 @@
 /*   By: addicted <addicted@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 17:34:50 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/12/02 11:59:19 by addicted         ###   ########.fr       */
+/*   Updated: 2024/12/06 10:36:32 by addicted         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,8 @@ void					data_init(t_data *data, char **env);
 // quotes
 int						check_quote(const char *input);
 char					*get_word(char **input);
-char					*quotes_trim(char *input);
+char 					*split_string(char **input);
+char 					*quotes_trim(char *input);
 
 const char				*handle_dollar_sign(const char *src, char *dst, t_envvar *env_list);
 void handle_exit_status(char *dst);
