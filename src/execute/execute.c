@@ -6,7 +6,7 @@
 /*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 08:59:57 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/11/16 15:07:41 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2024/12/02 12:18:27 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,6 @@ char	*find_executable(const char *command, t_data *data)
 		free(full_path);
 		dir = ft_strtok(NULL, ":");
 	}
-	//free(path);
 	return (NULL);
 }
 
@@ -80,7 +79,6 @@ int	execute_command(char *command, char **args, t_data *data)
 	pid = fork();
 	if (pid < 0)
 		write(STDERR_FILENO, "fork error\n", 11);
-	// data->env = list_to_env(data->env_list);
 	else if (pid == 0)
 	{
 		if (execve(command, args, data->env) == -1)
@@ -111,9 +109,9 @@ void	execute_command_or_path(t_command *cmd, t_data *data)
 		if (file_check == 0)
 			execute_command(cmd->args[0], cmd->args, data);
 		else if (file_check == 126)
-			print_command_error(data, cmd->args[0], 126); // Retorna 126 se não for executável
+			print_command_error(data, cmd->args[0], 126);
 		else
-			print_command_error(data, cmd->args[0], 127);// Retorna 127 se não for encontrado ou outro erro
+			print_command_error(data, cmd->args[0], 127);
 	}
 	else
 	{

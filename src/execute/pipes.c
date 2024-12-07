@@ -6,109 +6,97 @@
 /*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 11:05:58 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/11/16 15:01:40 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2024/12/06 14:21:03 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 #include "minishell.h"
 
-// Função para lidar com os file descriptors (FDs) (comunicação entre pipes).
-void	handle_fd(int in_fd, t_command *cmd, int fd[2])
-{
-	if (in_fd != 0)
-	{
-		dup2(in_fd, STDIN_FILENO);
-		close(in_fd);
-	}
-	if (cmd->next != NULL)
-	{
-		dup2(fd[1], STDOUT_FILENO);
-		close(fd[0]);
-	}
-	close(fd[1]);
-}
-
 // Função para executar o comando no processo filho.
-int	ft_child(int in_fd, t_command *cmd, t_data *data)
+void	execute_child_process(int i, int **fds, t_command *cmd, t_data *data)
 {
-	close(data->exit_pipe[0]);
-	data->return_value = 0;
-	if (ft_strncmp(cmd->args[0], "exit", 5))
 	{
+		// Configura os FDs para o processo filho
+		if (i > 0)
+			dup2(fds[i - 1][0], STDIN_FILENO); // Lê do pipe anterior
+		if (cmd->next != NULL)
+			dup2(fds[i][1], STDOUT_FILENO); // Escreve no próximo pipe
+		// Fecha todos os FDs nos filhos
+		close_all_pipes(fds, data->cmd_count - 1);
 		if (handle_redirects(cmd, data) == -1)
 			exit(EXIT_FAILURE);
-		handle_fd(in_fd, cmd, data->fd);
+		// Executa o comando
+		if (builtin_execute(cmd, data))
+			exit(data->return_value);
+		execute_command_or_path(cmd, data);
+		exit(data->return_value);
 	}
-	execute_command_or_path(cmd, data);
-	std_reset(&data->original_stdin, &data->original_stdout); // Restaura os FDs
-	if (data->close_shell)                                   
-		// Se o comando for 'exit', fecha o shell
-		write(data->exit_pipe[1], "1", 1);
-	close(data->exit_pipe[1]);
-	exit(data->return_value);
 }
 
-bool	ft_parent(t_command *cmd, int *in_fd, t_data *data)
+/* Inicializa os pipes e os PIDs para o pipeline. */
+void	init_pipes_and_pids(t_data *data, int cmd_count)
 {
-	char	exit_signal;
-	int		status;
+	int	i;
 
-	close(data->fd[1]); // Fecha a extremidade de escrita do pipe
-	close(data->exit_pipe[1]);
-	waitpid(-1, &status, 0); // Espera pelo processo filho e recebe o status
-	if (read(data->exit_pipe[0], &exit_signal, 1) > 0 && exit_signal == '1')
+	data->fds = malloc(sizeof(int *) * (cmd_count - 1));
+	data->pids = malloc(sizeof(pid_t) * cmd_count);
+	i = 0;
+	while (i < data->cmd_count - 1)
 	{
-		data->close_shell = true;
-		return (true);
+		data->fds[i] = malloc(sizeof(int) * 2);
+		if (pipe(data->fds[i]) < 0)
+			perror("pipe");
+		i++;
 	}
-	if (WIFEXITED(status))                       
-		// Se o filho terminou normalmente
-		data->return_value = WEXITSTATUS(status);
-			// Guarda o valor de saída do filho em `data->return_value`
+}
+
+void	wait_for_children(t_data *data, int cmd_count)
+{
+	int	j;
+
+	j = 0;
+	while (j < cmd_count)
+	{
+		waitpid(data->pids[j], &data->return_value, 0);
+		if (WIFEXITED(data->return_value))
+			data->return_value = WEXITSTATUS(data->return_value);
+		j++;
+	}
+}
+
+void	run_single_command(t_command *cmd, t_data *data, int index)
+{
+	if (builtin_checker(cmd) && should_execute_in_parent(cmd))
+		builtin_execute(cmd, data);
 	else
-		data->return_value = 0;
-	*in_fd = data->fd[0]; // Prepara para o próximo comando
-	/* if (ft_strncmp(cmd->args[0], "cd", 3) == 0)
-		cd_command(*cmd, data);
-	else if (ft_strncmp(cmd->args[0], "unset", 6) == 0)
-		unset_command(cmd->args[1], data); */
-	builtin_checker_parent(cmd, data);
-	return (false);
+	{
+		data->pids[index] = fork();
+		if (data->pids[index] < 0)
+			perror("fork");
+		else if (data->pids[index] == 0)
+			execute_child_process(index, data->fds, cmd, data);
+	}
 }
 
 /* Função para executar comandos em sequência,
 utilizando pipes para a comunicação entre processos. */
 void	execute_piped_commands(t_command *cmd, t_data *data)
 {
-	pid_t	pid;
-	int		in_fd;
+	int	i;
 
-	in_fd = 0;
+	data->cmd_count = count_commands(cmd);
+	init_pipes_and_pids(data, data->cmd_count);
+	i = 0;
 	while (cmd != NULL)
 	{
-		pipe(data->fd);
-		pipe(data->exit_pipe);
-		pid = fork();
-		if (pid < 0)
-			fork_error();
-		else if (pid == 0)
-		{
-			if (builtin_checker_child(cmd) == true)
-				exit(data->return_value);
-			ft_child(in_fd, cmd, data);
-		}
-		else
-		{
-			if (ft_parent(cmd, &in_fd, data))
-				break ;       // Sai do loop se 'exit' foi encontrado
-			cmd = cmd->next; // Avança para o próximo comando
-		}
+		run_single_command(cmd, data, i);
+		close_all_parent_pipes(data, i);
+		cmd = cmd->next;
+		i++;
 	}
-}
-
-void	fork_error(void)
-{
-	perror("fork error:");
-	exit(EXIT_FAILURE);
+	close_all_pipes(data->fds, data->cmd_count - 1);
+	wait_for_children(data, data->cmd_count);
+	free_pipes(data->fds, data->cmd_count - 1);
+	free(data->pids);
 }

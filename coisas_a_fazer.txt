@@ -1,27 +1,27 @@
  coisas por fazer / erros:
 
-export (sem arguments)
-➜  minishell git:(execute) ✗ bash
-rui@rui-MS-7B49:~/minishell$ export 5
-bash: export: `5': not a valid identifier
-rui@rui-MS-7B49:~/minishell$ export =
-bash: export: `=': not a valid identifier
-rui@rui-MS-7B49:~/minishell$ export =\
-> ^C
-rui@rui-MS-7B49:~/minishell$ 
-ls > outfile | wc nao está a funcionar como no bash 
+ls saddsf | (nada) segmentation fault
 
 se dermos um espaço ou mais e dermos enter dá segmentation fault
 
 echo $varquenaoexiste dá segmentation fault
-
-
 
 echo -n"ola"  (-n colado) dá -nola
 
 echo  teste"teste2"'teste3'"teste'4'"
 testeteste2teste3teste'4'
 
-signals
 
-control - D === exit (se nao da segfault)
+-------------------------------------------------------------
+(não sei se é para fazer)
+rui@rui-MS-7B49:~/minishell$ export nome=rui
+rui@rui-MS-7B49:~/minishell$ echo $nome
+rui
+rui@rui-MS-7B49:~/minishell$ cat << eof
+> olá $nome
+> benvindo
+> eof
+olá rui
+benvindo
+rui@rui-MS-7B49:~/minishell$ 
+--------------------------------------------------------------

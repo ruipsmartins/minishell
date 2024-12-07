@@ -6,7 +6,7 @@
 /*   By: addicted <addicted@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 17:28:57 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/12/06 12:35:17 by addicted         ###   ########.fr       */
+/*   Updated: 2024/12/07 11:10:51 by addicted         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ char	*get_command_input(void)
 {
 	char	*input;
 
-	input = readline("Minishell: ");
+	input = readline("\033[32mMinishell:\033[0m ");
 	if (input && *input)
 		add_history(input);
 	return (input);
@@ -31,8 +31,6 @@ void	data_init(t_data *data, char **env)
 	data->close_shell = false;
 	data->return_value = 0;
 	data->cmd = NULL;
-	data->fd[0] = -1;
-	data->fd[1] = -1;
 	
 }
 

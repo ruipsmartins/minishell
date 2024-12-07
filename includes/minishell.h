@@ -6,7 +6,7 @@
 /*   By: addicted <addicted@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 17:34:50 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/12/06 10:36:32 by addicted         ###   ########.fr       */
+/*   Updated: 2024/12/07 11:09:52 by addicted         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,9 @@ typedef struct s_command
 	char				**args;
 	char				*input_file;
 	char				*output_file;
-	bool append;     // >> para saber se é append ou não
-	bool heredoc;    // << para saber se é heredoc ou não
-	char *delimiter; // << para saber qual a ultima palavra do heredoc
+	bool				append;
+	bool				heredoc;
+	char				*delimiter;
 	struct s_command	*next;
 }						t_command;
 
@@ -60,10 +60,11 @@ typedef struct s_data
 	int					original_stdout;
 	t_command			*cmd;
 	t_envvar			*env_var_lst;
+	int					cmd_count;
 	bool				close_shell;
-	int return_value; // $?
-	int					fd[2];
-	int					exit_pipe[2];
+	int					return_value;
+	int					**fds;
+	pid_t				*pids;
 }						t_data;
 
 char					*readline(const char *prompt);
@@ -85,6 +86,7 @@ const char *handle_quoted_dollar(const char *src, char *dst, t_envvar *env_list)
 void replace_vars_in_string(const char *src, char *dst, t_envvar *env_list);
 
 // env_var
+int						count_valid_envvars(t_envvar *env_list);
 size_t					calculate_final_len(const char *input, t_envvar *env_list);
 void					ft_new_envvar(t_envvar **env_list, char *name,
 							char *value);
@@ -99,9 +101,9 @@ char					*get_envvar(t_envvar *env_list, const char *name);
 char					*replace_envvar(const char *input, t_envvar *env_list);
 t_envvar				*init_env_list(void);
 void					free_env_list(t_envvar *env_list);
-void 					free_data(t_data *data);
-void 					free_command_list(t_command * cmd_list);
-void 					free_lexer(t_lexer *lexer);
+void					free_data(t_data *data);
+void					free_command_list(t_command *cmd_list);
+void					free_lexer(t_lexer *lexer);
 
 // parsing
 void					handle_input(char *input, t_data *data);
@@ -124,11 +126,17 @@ bool					is_directory(char *path);
 int						check_file_type(char *path);
 
 // pipes
-void					execute_piped_commands(t_command *cmd, t_data *data);
-void					fork_error(void);
+void 					execute_piped_commands(t_command *cmd, t_data *data);
+void 					execute_child_process(int i, int **fds, t_command *cmd, t_data *data);
 bool					ft_parent(t_command *cmd, int *in_fd, t_data *data);
-int						ft_child(int in_fd, t_command *cmd, t_data *data);
-void					handle_fd(int in_fd, t_command *cmd, int fd[2]);
+//void					handle_fd(int in_fd, t_command *cmd, int fd[2]);
+bool					should_execute_in_parent(t_command *cmd);
+int						count_commands(t_command *cmd);
+void					close_all_parent_pipes(t_data *data, int current_index);
+void					close_all_pipes(int **fds, int pipe_count);
+void					free_pipes(int **fds, int pipe_count);
+//void					fork_error(void);
+
 
 // redirections
 int						handle_redirects(t_command *cmd, t_data *data);
@@ -140,14 +148,14 @@ int						execute_heredoc(t_command *cmd);
 void					std_reset(int *original_stdin, int *original_stdout);
 
 // builtins
-bool					builtin_checker_parent(t_command *cmd, t_data *data);
-bool					builtin_checker_child(t_command *cmd);
+bool					builtin_execute(t_command *cmd, t_data *data);
+bool					builtin_checker(t_command *cmd);
 void					exit_command(t_command *cmd, t_data *data);
 int						pwd_command(t_data *data);
 int						cd_command(t_command cmd, t_data *data);
 void					echo_command(t_command *cmd);
 void					env_command(t_data *data);
-void					export_command(char *arg, t_data *data);
-void					unset_command(char *arg, t_data *data);
+void					export_command(t_command *cmd, t_data *data);
+void					unset_command(t_command *cmd, t_data *data);
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: addicted <addicted@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 18:00:48 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/10/15 16:18:32 by addicted         ###   ########.fr       */
+/*   Updated: 2024/12/06 14:23:34 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ size_t	ft_strlen(const char *str)
 	size_t	i;
 
 	i = 0;
-	if(str == NULL)
+	if (str == NULL)
 		return (0);
 	while (str[i])
 		i++;
