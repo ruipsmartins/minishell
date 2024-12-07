@@ -6,7 +6,7 @@
 /*   By: addicted <addicted@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 17:34:50 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/12/07 11:09:52 by addicted         ###   ########.fr       */
+/*   Updated: 2024/12/07 11:13:16 by addicted         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,7 @@ const char *handle_quoted_dollar(const char *src, char *dst, t_envvar *env_list)
 void replace_vars_in_string(const char *src, char *dst, t_envvar *env_list);
 
 // env_var
+
 int						count_valid_envvars(t_envvar *env_list);
 size_t					calculate_final_len(const char *input, t_envvar *env_list);
 void					ft_new_envvar(t_envvar **env_list, char *name,
