@@ -6,7 +6,7 @@
 /*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 08:59:57 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/12/02 12:18:27 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2024/12/09 11:57:45 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ char	*get_path_value(t_data *data)
 	path_var = find_envvar(data->env_var_lst, "PATH");
 	if (!path_var)
 	{
-		ft_putstr_fd("Minishell: PATH not set\n", STDERR_FILENO);
 		return (NULL);
 	}
 	return (ft_strdup(path_var->value));
