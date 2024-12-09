@@ -6,7 +6,7 @@
 /*   By: addicted <addicted@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/19 12:05:41 by addicted          #+#    #+#             */
-/*   Updated: 2024/12/06 12:17:54 by addicted         ###   ########.fr       */
+/*   Updated: 2024/12/09 18:18:02 by addicted         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,24 @@ void print_list_envvar(t_envvar *env_list)
 	}
 }
 
-size_t calculate_final_len(const char *input, t_envvar *env_list)
+int size_return(int return_value)
 {
+	int size_of_nbm;
+	
+	size_of_nbm = 1;
+	while(return_value / 10)
+	{
+		return_value /= 10;
+		size_of_nbm++;
+	}
+//	printf("size_of_nbm: %d\n", size_of_nbm);
+	return (size_of_nbm);
+}
+
+size_t calculate_final_len(const char *input, t_data *data)
+{
+
+	t_envvar *env_list = data->env_var_lst;
 	size_t len;
 	const char *src;
 	const char *start;
@@ -58,11 +74,12 @@ size_t calculate_final_len(const char *input, t_envvar *env_list)
 		{
 			if(*(src + 1) == '?')
 			{
-				printf("not done yet\n");
-				return(0);
+				//printf("return_value: %d\n", data->return_value);
+				len =+ size_return(data->return_value);
+				
 			}
-			else
-			{
+			// else
+			// {
 				start = ++src;
 			while(*src && (isalnum(*src) || *src == '_')) // passar para ft_isalnum
 				src++;
@@ -70,7 +87,7 @@ size_t calculate_final_len(const char *input, t_envvar *env_list)
 			if (find_envvar(env_list, var_name))
 				len += strlen((find_envvar(env_list, var_name)->value));
 			free(var_name);
-			}
+			//}
 		}
 		else
 		{

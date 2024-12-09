@@ -6,7 +6,7 @@
 /*   By: addicted <addicted@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 17:34:50 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/12/07 11:13:16 by addicted         ###   ########.fr       */
+/*   Updated: 2024/12/09 16:37:16 by addicted         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ void replace_vars_in_string(const char *src, char *dst, t_envvar *env_list);
 // env_var
 
 int						count_valid_envvars(t_envvar *env_list);
-size_t					calculate_final_len(const char *input, t_envvar *env_list);
+size_t					calculate_final_len(const char *input, t_data *data);
 void					ft_new_envvar(t_envvar **env_list, char *name,
 							char *value);
 t_envvar				*ft_create_env_list(char **env);
@@ -99,7 +99,7 @@ char					**swap_list_to_array(t_envvar *env_list);
 void					set_envvar(t_envvar *envvar_list, char *name,
 							char *value);
 char					*get_envvar(t_envvar *env_list, const char *name);
-char					*replace_envvar(const char *input, t_envvar *env_list);
+char					*replace_envvar(const char *input, t_data *data);
 t_envvar				*init_env_list(void);
 void					free_env_list(t_envvar *env_list);
 void					free_data(t_data *data);
