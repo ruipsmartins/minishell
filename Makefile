@@ -13,7 +13,7 @@ INCLUDES = -I includes
 # Lista de ficheiros fonte com subpastas
 SRCS_FILES = \
 	main.c \
-	utils/utils.c \
+	utils/utils.c utils/signals.c\
 	parsing/parsing.c parsing/fix_token_space.c parsing/lexer_to_command.c \
 	parsing/env_var.c parsing/envvar.c parsing/quotes.c parsing/quotes_env.c \
 	parsing/QUotes.c \

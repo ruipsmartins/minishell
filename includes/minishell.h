@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: addicted <addicted@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 17:34:50 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/12/07 11:13:16 by addicted         ###   ########.fr       */
+/*   Updated: 2024/12/11 15:32:12 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <stdio.h>
 # include <sys/stat.h>
 # include <sys/wait.h>
+# include <signal.h>
 
 typedef struct s_lexer
 {
@@ -158,5 +159,11 @@ void					echo_command(t_command *cmd);
 void					env_command(t_data *data);
 void					export_command(t_command *cmd, t_data *data);
 void					unset_command(t_command *cmd, t_data *data);
+
+// signals
+void					setup_signals(void);
+void					sigint_handler(int signum);
+void					sigquit_handler(int signum);
+
 
 #endif

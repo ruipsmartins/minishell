@@ -6,7 +6,7 @@
 /*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 11:05:58 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/12/06 14:21:03 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2024/12/11 17:00:54 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ void	init_pipes_and_pids(t_data *data, int cmd_count)
 		data->fds[i] = malloc(sizeof(int) * 2);
 		if (pipe(data->fds[i]) < 0)
 			perror("pipe");
+		data->pids[i] = 0;
 		i++;
 	}
 }
@@ -58,9 +59,12 @@ void	wait_for_children(t_data *data, int cmd_count)
 	j = 0;
 	while (j < cmd_count)
 	{
-		waitpid(data->pids[j], &data->return_value, 0);
-		if (WIFEXITED(data->return_value))
-			data->return_value = WEXITSTATUS(data->return_value);
+		if (data->pids && data->pids[j] > 0)
+		{
+			waitpid(data->pids[j], &data->return_value, 0);
+			if (WIFEXITED(data->return_value))
+				data->return_value = WEXITSTATUS(data->return_value);
+		}
 		j++;
 	}
 }
@@ -68,7 +72,10 @@ void	wait_for_children(t_data *data, int cmd_count)
 void	run_single_command(t_command *cmd, t_data *data, int index)
 {
 	if (builtin_checker(cmd) && should_execute_in_parent(cmd))
+	{
 		builtin_execute(cmd, data);
+		data->pids[index] = -1;
+	}
 	else
 	{
 		data->pids[index] = fork();
