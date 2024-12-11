@@ -6,7 +6,7 @@
 /*   By: addicted <addicted@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 16:11:43 by addicted          #+#    #+#             */
-/*   Updated: 2024/11/13 14:18:44 by addicted         ###   ########.fr       */
+/*   Updated: 2024/12/09 17:32:32 by addicted         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ char *fix_token_space(char *str)
 	
 	i = 0;
 	k = 0;
-	fix_str = malloc(sizeof(char) * (strlen(str) + (count_token(str) * 2) + 1));
+	fix_str = malloc(sizeof(char) * (ft_strlen(str) + (count_token(str) * 2) + 1));
 	while (str[i])
 	{
 		if (check_if_token(str[i]))
@@ -36,7 +36,7 @@ char *fix_token_space(char *str)
 			fix_str[k] = str[i];
 			if (str[i + 1] == str[i])
 				fix_str[++k] = str[++i];
-			else if (str[i + 1] != str[i] && str[i + 1])
+			else if (str[i + 1] != str[i] && str[i + 1] )
 				fix_str[++k] = ' ';
 		}
 		else
