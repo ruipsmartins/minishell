@@ -6,7 +6,7 @@
 /*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 17:34:50 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/12/11 17:09:13 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2024/12/11 17:30:25 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,7 +155,7 @@ bool					builtin_checker(t_command *cmd);
 void					exit_command(t_command *cmd, t_data *data);
 int						pwd_command(t_data *data);
 int						cd_command(t_command cmd, t_data *data);
-void					echo_command(t_command *cmd);
+void					echo_command(t_command *cmd, t_data *data);
 void					env_command(t_data *data);
 void					export_command(t_command *cmd, t_data *data);
 void					unset_command(t_command *cmd, t_data *data);

@@ -6,7 +6,7 @@
 /*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 15:17:35 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/12/03 15:44:15 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2024/12/11 17:29:22 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ bool	builtin_execute(t_command *cmd, t_data *data)
 	else if (ft_strncmp(cmd->args[0], "cd", 3) == 0)
 		cd_command(*cmd, data);
 	else if (ft_strncmp(cmd->args[0], "echo", 5) == 0)
-		echo_command(cmd);
+		echo_command(cmd, data);
 	else if (ft_strncmp(cmd->args[0], "env", 4) == 0)
 		env_command(data);
 	else if (ft_strncmp(cmd->args[0], "export", 7) == 0)

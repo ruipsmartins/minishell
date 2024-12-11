@@ -6,7 +6,7 @@
 /*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 17:28:57 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/12/11 15:27:28 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2024/12/11 17:24:28 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ char	*get_command_input(void)
 
 void	data_init(t_data *data, char **env)
 {
+	setup_signals();
 	data->env_var_lst = ft_create_env_list(env);
 	data->env = swap_list_to_array(data->env_var_lst);
 	data->original_stdin = -1;
@@ -31,7 +32,6 @@ void	data_init(t_data *data, char **env)
 	data->close_shell = false;
 	data->return_value = 0;
 	data->cmd = NULL;
-	setup_signals();
 	
 }
 

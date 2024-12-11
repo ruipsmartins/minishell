@@ -6,7 +6,7 @@
 /*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 12:23:50 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/12/02 12:04:06 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2024/12/11 17:29:39 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	validate_flag(const char *arg)
 	return (arg[i] == '\0');
 }
 
-void	echo_command(t_command *cmd)
+void	echo_command(t_command *cmd, t_data *data)
 {
 	int		i;
 	bool	newline;
@@ -45,4 +45,5 @@ void	echo_command(t_command *cmd)
 	}
 	if (newline)
 		ft_printf("\n");
+	data->return_value = 0;
 }
