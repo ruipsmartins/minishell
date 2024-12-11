@@ -6,7 +6,7 @@
 /*   By: addicted <addicted@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 16:11:43 by addicted          #+#    #+#             */
-/*   Updated: 2024/12/09 17:32:32 by addicted         ###   ########.fr       */
+/*   Updated: 2024/12/09 18:41:16 by addicted         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,15 +48,3 @@ char *fix_token_space(char *str)
 	free(str);
 	return (fix_str);
 }
-// int main(void)
-// {
-// 	// char *input = "test";
-// 	char *input = "<ls -la|grep worln<d  0123|45 ii9|i|iiiii";
-// 	char *env[] = {NULL}; // Dummy environment
-
-// 	printf("strlen: %d\n", (int)strlen(input));
-// 	printf("input:\n%s\n", input);
-// 	input = fix_token_space(input);
-// 	printf("input:\n%s\n", input);
-// 	return (0);
-// }
