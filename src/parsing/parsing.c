@@ -6,7 +6,7 @@
 /*   By: addicted <addicted@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 08:59:52 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/12/09 16:31:44 by addicted         ###   ########.fr       */
+/*   Updated: 2024/12/09 18:40:49 by addicted         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,35 +137,6 @@ char	*get_env_value(char *input)	//descobre o valor da variavel de ambiente que 
 	return (strndup(input+i+1, k));  // passar para ft_strndup
 }
 
-// void	add_new_envvar(t_data *data, char *name, char *value) //adiciona a variavel de ambiente a lista
-// {
-// 	char *new_env;
-// 	int current_size;
-// 	new_env = ft_strjoin(name, "=");
-// 	new_env = ft_strjoin(new_env, value);
-// 	printf("new_env: %s\n", new_env);															FORA DE USO
-// 	current_size = 0;
-// 	while (data->env[current_size] != NULL)
-// 		current_size++;
-// 	char **temp_env = malloc((current_size + 1) * sizeof(char *));
-// 	if (temp_env == NULL)
-// 	{
-// 		perror("realloc");
-// 		exit(EXIT_FAILURE);
-// 	}
-// 	temp_env = data->env;
-// 	//char *backup = temp_env[current_size];
-// 	//printf("\n\nbackup: %s\n\n", backup);
-// 	data->env[current_size] = new_env;
-// 	//char *after = temp_env[current_size];
-// 	//printf("\n\nafter: %s\n\n", after);
-// 	//temp_env[current_size] = ft_strjoin(name, value);
-// 	data->env[current_size + 1] = NULL;
-// 	//data->env = &(*temp_env);	
-// 	printf("\n\nenv: %s\n\n", data->env[current_size]);
-// 	//free(new_env);
-// }
-
 int	set_new_envvar(char *input, t_data *data)  //descobre o nome e o valor da variavel de ambiente que queremos criar
 {
 	char *name;
@@ -212,28 +183,6 @@ void free_lexer(t_lexer *lexer)
 	}
 	//free(lexer);
 }
-
-// char *change_var_name(char *input, t_data *data)
-// {
-// 	char c;
-// 	int i;
-// 	int k;
-// 	char *new_str;
-
-// 	i = 0;
-// 	k = 0;
-// 	c = '\0';
-// 	new_str = calloc(calculate_final_len(input, data->env_var_lst), sizeof(char));
-	 
-// 	while(input[i] && input[i] != '\'' &&  input[i] != '\"' && input[i] != '$')
-// 		input[i++] = new_str[k++];
-// 	if ((input[i] == '\'' || input[i] == '\"') && c == '\0')
-// 		c = input[i];
-// 	else if (input[i] == '\'' || input[i] == '\"' && c != '\0')
-// 		c = '\0';
-// 	if (input[i] == '$')
-// }
-
 
 void handle_input(char *input, t_data *data)
 {

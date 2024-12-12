@@ -6,7 +6,7 @@
 /*   By: addicted <addicted@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/04 11:32:40 by addicted          #+#    #+#             */
-/*   Updated: 2024/12/06 11:41:14 by addicted         ###   ########.fr       */
+/*   Updated: 2024/12/12 11:57:21 by addicted         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@
 // 		if(input[i] == '$')
 // 			replace_envvar
 		
-// 	}
+// 	}.?
 	
 // }
 
@@ -54,7 +54,7 @@ char *split_string(char **input)
 		return NULL;
 
 	char *start = skip_spaces(*input); // Ignora espaços no início
-	char *output = malloc((strlen(start) + 1) * sizeof(char));
+	char *output = malloc((ft_strlen(start) + 1) * sizeof(char));
 	char *output_ptr = output;
 
 	int in_single = 0, in_double = 0;

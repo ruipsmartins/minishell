@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: addicted <addicted@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 17:34:50 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/12/11 18:17:49 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2024/12/12 16:18:25 by addicted         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ void					close_fds(int *fd);
 char					*find_executable(const char *command, t_data *data);
 void					data_init(t_data *data, char **env);
 
+int only_spaces(char *input);
 // quotes
 int						check_quote(const char *input);
 char					*get_word(char **input);
