@@ -6,7 +6,7 @@
 /*   By: addicted <addicted@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 17:28:57 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/12/07 11:10:51 by addicted         ###   ########.fr       */
+/*   Updated: 2024/12/12 16:00:52 by addicted         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,17 @@ void free_data(t_data *data)
 		free_command_list(data->cmd);
 }
 
+int only_spaces(char *input)
+{
+	while (*input)
+	{
+		if (!isspace(*input))
+			return (0);
+		input++;
+	}
+	return (1);
+}
+
 int	main(int ac, char **av, char **env)
 {
 	char	*input;
@@ -62,11 +73,11 @@ int	main(int ac, char **av, char **env)
 	(void)data;
 	while (input != NULL  && !data.close_shell)
 	{
-		if (*input)
+		if (*input && !only_spaces(input))
 			handle_input(input, &data);
 		if (data.close_shell)
 			break ;
-		if (!input)
+		if (!input && !only_spaces(input))
 			free_command_list(data.cmd);
 		input = get_command_input();
 	}

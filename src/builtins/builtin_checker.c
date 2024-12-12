@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_checker.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: addicted <addicted@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 15:17:35 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/12/03 15:44:15 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2024/12/12 15:02:15 by addicted         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ bool	builtin_execute(t_command *cmd, t_data *data)
 
 bool	builtin_checker(t_command *cmd)
 {
+	if (cmd-> args == NULL)
+		return (false);
 	if (ft_strncmp(cmd->args[0], "exit", 5) == 0)
 		return (true);
 	else if (ft_strncmp(cmd->args[0], "unset", 6) == 0)
