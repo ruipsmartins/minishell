@@ -6,7 +6,7 @@
 /*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 11:05:58 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/12/11 17:00:54 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2024/12/12 14:13:48 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,8 @@ void	wait_for_children(t_data *data, int cmd_count)
 		j++;
 	}
 }
+
+
 
 void	run_single_command(t_command *cmd, t_data *data, int index)
 {

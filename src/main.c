@@ -6,11 +6,13 @@
 /*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 17:28:57 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/12/11 17:24:28 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2024/12/12 14:17:02 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+int signal_received = 0;
 
 char	*get_command_input(void)
 {
@@ -58,7 +60,6 @@ int	main(int ac, char **av, char **env)
 	(void)ac;
 	(void)av;
 	data_init(&data, env);
-	
 	input = get_command_input();
 	(void)data;
 	while (input != NULL  && !data.close_shell)

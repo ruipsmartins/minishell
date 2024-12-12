@@ -6,7 +6,7 @@
 /*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 15:17:35 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/12/11 17:29:22 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2024/12/12 14:00:02 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 bool	builtin_execute(t_command *cmd, t_data *data)
 {
+	if (!cmd->args)
+		return (false);
 	if (ft_strncmp(cmd->args[0], "exit", 5) == 0)
 		exit_command(cmd, data);
 	else if (ft_strncmp(cmd->args[0], "pwd", 4) == 0)
@@ -35,6 +37,8 @@ bool	builtin_execute(t_command *cmd, t_data *data)
 
 bool	builtin_checker(t_command *cmd)
 {
+	if (cmd->args == NULL)
+		return (false);
 	if (ft_strncmp(cmd->args[0], "exit", 5) == 0)
 		return (true);
 	else if (ft_strncmp(cmd->args[0], "unset", 6) == 0)

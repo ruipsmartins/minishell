@@ -6,7 +6,7 @@
 /*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 08:59:57 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/12/09 11:57:45 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2024/12/12 14:11:00 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,11 @@ void	execute_command_or_path(t_command *cmd, t_data *data)
 	char	*executable;
 	int		file_check;
 
+	if(!cmd->args)
+	{
+		data->return_value=0;
+		return ;
+	}
 	if (cmd->args[0][0] == '/' || cmd->args[0][0] == '.')
 	{
 		file_check = check_file_type(cmd->args[0]);

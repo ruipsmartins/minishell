@@ -1,12 +1,18 @@
-total 1596
--rw-rw-r-- 1 rui rui 1568461 Oct 16 13:10 en.subject.pdf
-drwxrwxr-x 2 rui rui    4096 Nov  1 14:30 includes
--rwxrwxr-x 1 rui rui       0 Nov  4 12:11 infile
-drwxrwxr-x 2 rui rui    4096 Nov  4 12:08 libft
--rw-rw-r-- 1 rui rui    1085 Oct 10 13:45 LICENSE
--rw-rw-r-- 1 rui rui    1453 Oct 28 14:31 Makefile
--rwxrwxr-x 1 rui rui     142 Nov  1 14:30 outfile
--rw-rw-r-- 1 rui rui     135 Oct 21 18:58 readline.supp
--rw-rw-r-- 1 rui rui     345 Oct 10 13:45 README.md
-drwxrwxr-x 6 rui rui    4096 Nov  1 14:30 src
--rw-rw-r-- 1 rui rui   30619 Oct 29 11:28 tests.md
+coisas_a_fazer.txt
+dsdasd
+en.subject.pdf
+erro.txt
+includes
+infile
+libft
+LICENSE
+Makefile
+minishell
+minishell correction_files
+minishell correction.html
+obj
+outfile
+readline.supp
+README.md
+src
+tests.md

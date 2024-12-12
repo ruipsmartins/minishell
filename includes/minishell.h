@@ -6,7 +6,7 @@
 /*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 17:34:50 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/12/11 17:30:25 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2024/12/11 18:17:49 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@
 # include <sys/stat.h>
 # include <sys/wait.h>
 # include <signal.h>
+
+extern int signal_received;
 
 typedef struct s_lexer
 {
