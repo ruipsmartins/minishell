@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: addicted <addicted@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 17:34:50 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/12/12 16:18:25 by addicted         ###   ########.fr       */
+/*   Updated: 2024/12/14 14:33:50 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,12 @@
 # include <errno.h>
 # include <readline/history.h>
 # include <readline/readline.h>
+# include <signal.h>
 # include <stdio.h>
 # include <sys/stat.h>
 # include <sys/wait.h>
-# include <signal.h>
 
-extern int signal_received;
+extern int				global_var;
 
 typedef struct s_lexer
 {
@@ -76,18 +76,22 @@ void					close_fds(int *fd);
 char					*find_executable(const char *command, t_data *data);
 void					data_init(t_data *data, char **env);
 
-int only_spaces(char *input);
+int						only_spaces(char *input);
 // quotes
 int						check_quote(const char *input);
 char					*get_word(char **input);
-char 					*split_string(char **input);
-char 					*quotes_trim(char *input);
+char					*split_string(char **input);
+char					*quotes_trim(char *input);
 
-const char				*handle_dollar_sign(const char *src, char *dst, t_envvar *env_list);
-void handle_exit_status(char *dst);
-const char *replace_variable(const char *src, char *dst, t_envvar *env_list);
-const char *handle_quoted_dollar(const char *src, char *dst, t_envvar *env_list);
-void replace_vars_in_string(const char *src, char *dst, t_envvar *env_list);
+const char				*handle_dollar_sign(const char *src, char *dst,
+							t_envvar *env_list);
+void					handle_exit_status(char *dst);
+const char				*replace_variable(const char *src, char *dst,
+							t_envvar *env_list);
+const char				*handle_quoted_dollar(const char *src, char *dst,
+							t_envvar *env_list);
+void					replace_vars_in_string(const char *src, char *dst,
+							t_envvar *env_list);
 
 // env_var
 
@@ -123,7 +127,7 @@ t_command				*lexer_to_command(t_lexer *lexer);
 void					execute(t_command *cmd_list, t_data *data);
 int						execute_command(char *command, char **args,
 							t_data *data);
-char					*get_command_input(void);
+char					*get_command_input(t_data *data);
 void					execute_command_or_path(t_command *cmd, t_data *data);
 void					print_command_error(t_data *data, char *command,
 							int error_type);
@@ -131,17 +135,17 @@ bool					is_directory(char *path);
 int						check_file_type(char *path);
 
 // pipes
-void 					execute_piped_commands(t_command *cmd, t_data *data);
-void 					execute_child_process(int i, int **fds, t_command *cmd, t_data *data);
+void					execute_piped_commands(t_command *cmd, t_data *data);
+void					execute_child_process(int i, int **fds, t_command *cmd,
+							t_data *data);
 bool					ft_parent(t_command *cmd, int *in_fd, t_data *data);
-//void					handle_fd(int in_fd, t_command *cmd, int fd[2]);
+// void					handle_fd(int in_fd, t_command *cmd, int fd[2]);
 bool					should_execute_in_parent(t_command *cmd);
 int						count_commands(t_command *cmd);
 void					close_all_parent_pipes(t_data *data, int current_index);
 void					close_all_pipes(int **fds, int pipe_count);
 void					free_pipes(int **fds, int pipe_count);
-//void					fork_error(void);
-
+// void					fork_error(void);
 
 // redirections
 int						handle_redirects(t_command *cmd, t_data *data);
@@ -168,5 +172,10 @@ void					setup_signals(void);
 void					sigint_handler(int signum);
 void					sigquit_handler(int signum);
 
+// signals.c
+void					quit_here_doc(int signal);
+void					ctrl_c_child(int signal);
+void					ctrl_c_signal_hd(int signal);
+void					ctrl_c_parent(int signal);
 
 #endif

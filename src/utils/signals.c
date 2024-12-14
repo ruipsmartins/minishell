@@ -6,41 +6,39 @@
 /*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 15:21:56 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/12/11 18:33:26 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2024/12/14 14:28:06 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 #include "../../includes/minishell.h"
 
-
-void sigint_handler(int signum)
+void	ctrl_c_parent(int signal)
 {
-    //(void)signum;
-	signal_received = signum; 
-    write(1, "\n", 1);
+	write(1, "\n", 1);
     rl_on_new_line();
-    rl_replace_line("", 0);
-    rl_redisplay();
+	rl_replace_line("", 0);
+	rl_redisplay();
+	global_var = 130;
+	(void)signal;
 }
-
-/* void sigquit_handler(int signum) {
-    (void)signum; // Ignorar o argumento
-    // Não faz nada
-} */
-
-void setup_signals(void)
+void	quit_here_doc(int signal)
 {
-    struct sigaction sa;
-
-    // SIGINT (Ctrl-C)
-    sa.sa_handler = sigint_handler;
-    sigemptyset(&sa.sa_mask);
-    sa.sa_flags = SA_RESTART; // Reinicia funções bloqueantes como read/write
-    sigaction(SIGINT, &sa, NULL);
-    // SIGQUIT (Ctrl-\)
-    sa.sa_handler = SIG_IGN;
-    sigemptyset(&sa.sa_mask);
-    sa.sa_flags = 0;
-    sigaction(SIGQUIT, &sa, NULL);
+	close(0);
+	global_var = 130;
+	(void)signal;
 }
+
+void	ctrl_c_child(int signal)
+{
+	write(1, "\n", 1);
+	global_var = 130;
+	(void)signal;
+}
+
+void	ctrl_c_signal_hd(int signal)
+{
+	global_var = 130;
+	(void)signal;
+}
+

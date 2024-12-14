@@ -6,7 +6,7 @@
 /*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 11:05:58 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/12/12 14:13:48 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2024/12/14 14:24:52 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 // Função para executar o comando no processo filho.
 void	execute_child_process(int i, int **fds, t_command *cmd, t_data *data)
 {
-	{
 		// Configura os FDs para o processo filho
 		if (i > 0)
 			dup2(fds[i - 1][0], STDIN_FILENO); // Lê do pipe anterior
@@ -30,8 +29,13 @@ void	execute_child_process(int i, int **fds, t_command *cmd, t_data *data)
 		if (builtin_execute(cmd, data))
 			exit(data->return_value);
 		execute_command_or_path(cmd, data);
+		if(global_var == 130)
+			{
+				signal(SIGINT, ctrl_c_parent);
+				global_var = 0;
+				exit(130);
+			}
 		exit(data->return_value);
-	}
 }
 
 /* Inicializa os pipes e os PIDs para o pipeline. */
@@ -70,7 +74,6 @@ void	wait_for_children(t_data *data, int cmd_count)
 }
 
 
-
 void	run_single_command(t_command *cmd, t_data *data, int index)
 {
 	if (builtin_checker(cmd) && should_execute_in_parent(cmd))
@@ -84,7 +87,12 @@ void	run_single_command(t_command *cmd, t_data *data, int index)
 		if (data->pids[index] < 0)
 			perror("fork");
 		else if (data->pids[index] == 0)
+		{
+			signal(SIGINT, ctrl_c_child);
 			execute_child_process(index, data->fds, cmd, data);
+		}
+		else
+			signal(SIGINT, SIG_IGN);
 	}
 }
 
@@ -108,4 +116,5 @@ void	execute_piped_commands(t_command *cmd, t_data *data)
 	wait_for_children(data, data->cmd_count);
 	free_pipes(data->fds, data->cmd_count - 1);
 	free(data->pids);
+	signal(SIGINT, ctrl_c_parent);
 }
