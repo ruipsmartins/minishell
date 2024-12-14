@@ -6,27 +6,33 @@
 /*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 17:28:57 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/12/12 14:17:02 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2024/12/14 14:24:52 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-int signal_received = 0;
+int global_var;
 
-char	*get_command_input(void)
+char	*get_command_input(t_data *data)
 {
 	char	*input;
 
 	input = readline("\033[32mMinishell:\033[0m ");
 	if (input && *input)
 		add_history(input);
+	if (global_var == 130)
+	{
+		global_var = 0;
+		data->return_value = 130;
+	}
 	return (input);
 }
 
 void	data_init(t_data *data, char **env)
 {
-	setup_signals();
+	signal(SIGINT, ctrl_c_parent);
+	signal(SIGQUIT, SIG_IGN);
 	data->env_var_lst = ft_create_env_list(env);
 	data->env = swap_list_to_array(data->env_var_lst);
 	data->original_stdin = -1;
@@ -60,17 +66,17 @@ int	main(int ac, char **av, char **env)
 	(void)ac;
 	(void)av;
 	data_init(&data, env);
-	input = get_command_input();
-	(void)data;
+	input = get_command_input(&data);
 	while (input != NULL  && !data.close_shell)
 	{
+		global_var = 0;
 		if (*input)
 			handle_input(input, &data);
 		if (data.close_shell)
 			break ;
 		if (!input)
 			free_command_list(data.cmd);
-		input = get_command_input();
+		input = get_command_input(&data);
 	}
 		if (data.env_var_lst)
 			free_env_list(data.env_var_lst);

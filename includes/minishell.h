@@ -6,7 +6,7 @@
 /*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 17:34:50 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/12/11 18:17:49 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2024/12/14 14:24:52 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 # include <sys/wait.h>
 # include <signal.h>
 
-extern int signal_received;
+extern int global_var;
 
 typedef struct s_lexer
 {
@@ -122,7 +122,7 @@ t_command				*lexer_to_command(t_lexer *lexer);
 void					execute(t_command *cmd_list, t_data *data);
 int						execute_command(char *command, char **args,
 							t_data *data);
-char					*get_command_input(void);
+char					*get_command_input(t_data *data);
 void					execute_command_or_path(t_command *cmd, t_data *data);
 void					print_command_error(t_data *data, char *command,
 							int error_type);
@@ -166,6 +166,12 @@ void					unset_command(t_command *cmd, t_data *data);
 void					setup_signals(void);
 void					sigint_handler(int signum);
 void					sigquit_handler(int signum);
+
+//signals.c
+void		quit_here_doc(int signal);
+void		ctrl_c_child(int signal);
+void		ctrl_c_signal_hd(int signal);
+void		ctrl_c_parent(int signal);
 
 
 #endif
