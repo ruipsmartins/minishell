@@ -6,7 +6,7 @@
 /*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 16:59:41 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/11/05 16:03:33 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2024/12/16 13:17:53 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,12 +41,6 @@ char	*ft_strtok(char *str, const char *delim)
 	return (start);
 }
 
-// Função para fechar os file descriptors
-/* void	close_fds(int *fd)
-{
-	close(fd[0]);
-	close(fd[1]);
-} */
 void	print_command_error(t_data *data, char *command, int error_type)
 {
 	if (error_type == 127)
@@ -74,11 +68,12 @@ int	check_file_type(char *path)
 {
 	struct stat path_stat;
 	if (stat(path, &path_stat) != 0)
-		return (-1); // Ficheiro não encontrado
+		return (-1);
 	if (S_ISDIR(path_stat.st_mode))
-		return (126); // É um diretório
+		return (126);
 	if (!S_ISREG(path_stat.st_mode) || access(path, X_OK) != 0)
-		return (126); // Ficheiro não regular ou sem permissão de execução
-	return (0); // Ficheiro regular com permissão de execução
+		return (126);
+	return (0);
 }
+
 

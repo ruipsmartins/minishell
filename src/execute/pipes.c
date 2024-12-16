@@ -6,7 +6,7 @@
 /*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 11:05:58 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/12/14 14:24:52 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2024/12/16 15:14:31 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	execute_child_process(int i, int **fds, t_command *cmd, t_data *data)
 		// Fecha todos os FDs nos filhos
 		close_all_pipes(fds, data->cmd_count - 1);
 		if (handle_redirects(cmd, data) == -1)
-			exit(EXIT_FAILURE);
+			exit(data->return_value);
 		// Executa o comando
 		if (builtin_execute(cmd, data))
 			exit(data->return_value);
@@ -35,6 +35,8 @@ void	execute_child_process(int i, int **fds, t_command *cmd, t_data *data)
 				global_var = 0;
 				exit(130);
 			}
+		ft_printf("free data\n");
+		cleanup_child_data(data);
 		exit(data->return_value);
 }
 

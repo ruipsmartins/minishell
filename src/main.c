@@ -6,7 +6,7 @@
 /*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 17:28:57 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/12/14 14:32:41 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2024/12/16 15:12:43 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,20 +43,6 @@ void	data_init(t_data *data, char **env)
 	
 }
 
-void free_data(t_data *data)
-{
-	int i;
-
-	i = 0;
-	while(data->env[i])
-	{
-		free(data->env[i]);
-		i++;
-	}
-	free(data->env);
-	if(data->cmd)
-		free_command_list(data->cmd);
-}
 
 int only_spaces(char *input)
 {
@@ -91,7 +77,7 @@ int	main(int ac, char **av, char **env)
 	}
 		if (data.env_var_lst)
 			free_env_list(data.env_var_lst);
-	free_data(&data);
+	cleanup_data(&data);
 	rl_clear_history();
 	return (data.return_value);
 }

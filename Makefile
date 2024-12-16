@@ -13,7 +13,7 @@ INCLUDES = -I includes
 # Lista de ficheiros fonte com subpastas
 SRCS_FILES = \
 	main.c \
-	utils/utils.c utils/signals.c\
+	utils/utils.c utils/signals.c utils/clean_shell.c \
 	parsing/parsing.c parsing/fix_token_space.c parsing/lexer_to_command.c \
 	parsing/env_var.c parsing/envvar.c parsing/quotes.c parsing/quotes_env.c \
 	parsing/QUotes.c \
@@ -58,7 +58,7 @@ git:
 	git status
 
 valgrind:
-	valgrind --suppressions=readline.supp --leak-check=full --show-leak-kinds=all ./minishell
+	valgrind --suppressions=readline.supp  --track-fds=all --leak-check=full --show-leak-kinds=all ./minishell
 
 # Evita que make limpe ficheiros desnecessariamente
 .PHONY: all clean fclean re git valgrind

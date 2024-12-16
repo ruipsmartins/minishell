@@ -6,7 +6,7 @@
 /*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 17:34:50 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/12/14 14:33:50 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2024/12/16 15:14:31 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,7 @@ char					*get_envvar(t_envvar *env_list, const char *name);
 char					*replace_envvar(const char *input, t_data *data);
 t_envvar				*init_env_list(void);
 void					free_env_list(t_envvar *env_list);
-void					free_data(t_data *data);
+void					cleanup_data(t_data *data);
 void					free_command_list(t_command *cmd_list);
 void					free_lexer(t_lexer *lexer);
 
@@ -173,9 +173,13 @@ void					sigint_handler(int signum);
 void					sigquit_handler(int signum);
 
 // signals.c
-void					quit_here_doc(int signal);
+void					handle_here_doc_exit(int signal);
 void					ctrl_c_child(int signal);
 void					ctrl_c_signal_hd(int signal);
 void					ctrl_c_parent(int signal);
+
+// utils
+void					cleanup_child_data(t_data *data);
+void					cleanup_data(t_data *data);
 
 #endif
