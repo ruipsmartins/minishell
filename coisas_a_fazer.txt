@@ -1,5 +1,6 @@
  coisas por fazer / erros:
 
+< infile cat | cat > outfile (FD abertos)
 
  Minishell: | cat
 as[1]    7939 segmentation fault (core dumped)  ./minishell

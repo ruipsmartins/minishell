@@ -6,7 +6,7 @@
 /*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 14:01:43 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/12/15 18:25:26 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2024/12/16 15:23:34 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,12 +38,12 @@ int	execute_heredoc(t_command *cmd)
 	}
 	if (global_var == 130)
 	{
-		ft_printf("heredoc terminado por ctl+c\n");
+		//ft_printf("heredoc terminado por ctl+c\n");
 		close(pipe_fd[1]);
 		close(pipe_fd[0]);
 		return (-1);\
 	}
-	ft_printf("heredoc terminado normalmente\n");
+	//ft_printf("heredoc terminado normalmente\n");
 	close(pipe_fd[1]);
 	return (pipe_fd[0]);
 }

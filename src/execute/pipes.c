@@ -6,7 +6,7 @@
 /*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 11:05:58 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/12/16 15:14:31 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2024/12/17 17:53:12 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,28 +16,37 @@
 // Função para executar o comando no processo filho.
 void	execute_child_process(int i, int **fds, t_command *cmd, t_data *data)
 {
-		// Configura os FDs para o processo filho
-		if (i > 0)
-			dup2(fds[i - 1][0], STDIN_FILENO); // Lê do pipe anterior
-		if (cmd->next != NULL)
-			dup2(fds[i][1], STDOUT_FILENO); // Escreve no próximo pipe
-		// Fecha todos os FDs nos filhos
-		close_all_pipes(fds, data->cmd_count - 1);
-		if (handle_redirects(cmd, data) == -1)
-			exit(data->return_value);
-		// Executa o comando
-		if (builtin_execute(cmd, data))
-			exit(data->return_value);
-		execute_command_or_path(cmd, data);
-		if(global_var == 130)
-			{
-				signal(SIGINT, ctrl_c_parent);
-				global_var = 0;
-				exit(130);
-			}
-		ft_printf("free data\n");
-		cleanup_child_data(data);
+	// Configura os FDs para o processo filho
+	if (i > 0)
+	{
+		dup2(fds[i - 1][0], STDIN_FILENO); // Lê do pipe anterior
+		//close(fds[i - 1][0]);              // Fecha o descritor antigo		ver isto aqui como melhorar
+	}
+	if (cmd->next != NULL)
+	{
+		dup2(fds[i][1], STDOUT_FILENO); // Escreve no próximo pipe
+		//close(fds[i][1]);               // Fecha o descritor antigo			aqui tambem
+	}
+	// Fecha todos os FDs nos filhos
+	close_all_pipes(fds, data->cmd_count - 1);
+	if (handle_redirects(cmd, data) == -1)
 		exit(data->return_value);
+	// Executa o comando
+	if (builtin_execute(cmd, data))
+		exit(data->return_value);
+	execute_command_or_path(cmd, data);
+/* 	close(1);
+	close(0); // ver aqui uma melhor maneira de fazer isto
+	close(2); */
+	if (global_var == 130)
+	{
+		cleanup_child_data(data);
+		signal(SIGINT, ctrl_c_parent);
+		global_var = 0;
+		exit(130);
+	}
+	cleanup_child_data(data);
+	exit(data->return_value);
 }
 
 /* Inicializa os pipes e os PIDs para o pipeline. */
@@ -75,7 +84,6 @@ void	wait_for_children(t_data *data, int cmd_count)
 	}
 }
 
-
 void	run_single_command(t_command *cmd, t_data *data, int index)
 {
 	if (builtin_checker(cmd) && should_execute_in_parent(cmd))
@@ -111,6 +119,7 @@ void	execute_piped_commands(t_command *cmd, t_data *data)
 	{
 		run_single_command(cmd, data, i);
 		close_all_parent_pipes(data, i);
+		std_reset(&data->original_stdin, &data->original_stdout);
 		cmd = cmd->next;
 		i++;
 	}

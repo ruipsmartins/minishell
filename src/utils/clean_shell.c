@@ -6,7 +6,7 @@
 /*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 13:16:56 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/12/16 15:14:31 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2024/12/16 17:08:16 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,5 +45,8 @@ void cleanup_child_data(t_data *data)
 	free_pipes(data->fds, data->cmd_count - 1);
 	if (data->pids)
 		free(data->pids);
+	close(0);
+	close(1);		//ver aqui uma melhor maneira de fazer isto
+	close(2);
 }
 

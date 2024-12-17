@@ -6,46 +6,54 @@
 /*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 14:11:52 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/12/16 14:57:23 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2024/12/16 16:38:31 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
 // Restaurar o stds se foram alterados
-/* void	std_reset(int *original_stdin, int *original_stdout)
+void	std_reset(int *original_stdin, int *original_stdout)
 {
 	if (*original_stdin != -1)
 	{
 		dup2(*original_stdin, STDIN_FILENO);
 		close(*original_stdin);
+		*original_stdin = -1; // Atualiza para indicar que o FD foi fechado
 	}
 	if (*original_stdout != -1)
 	{
 		dup2(*original_stdout, STDOUT_FILENO);
 		close(*original_stdout);
+		*original_stdout = -1; // Atualiza para indicar que o FD foi fechado
 	}
-} */
+}
+
+int	process_heredoc(t_command *cmd, int *original_stdin)
+{
+	int heredoc_fd;
+
+	*original_stdin = dup(STDIN_FILENO);
+	if (*original_stdin == -1)
+		return (-1);
+	heredoc_fd = execute_heredoc(cmd);
+	if (heredoc_fd == -1)
+	{
+		close(*original_stdin);
+		return (-1);
+	}
+	dup2(heredoc_fd, STDIN_FILENO);
+	close(heredoc_fd);
+	return (0);
+}
+
 
 int	handle_input_redirect(t_command *cmd, int *original_stdin)
 {
 	int	in_file;
-	int	heredoc_fd;
 
 	if (cmd->heredoc == true)
-	{
-		*original_stdin = dup(STDIN_FILENO);
-		if (*original_stdin == -1)
-			return (-1);
-		heredoc_fd = execute_heredoc(cmd);
-		if (heredoc_fd == -1)
-		{
-			close(*original_stdin);
-			return (-1);
-		}
-		dup2(heredoc_fd, STDIN_FILENO);
-		close(heredoc_fd);
-	}
+		return (process_heredoc(cmd, original_stdin));
 	else if (cmd->input_file && *cmd->input_file)
 	{
 		in_file = open(cmd->input_file, O_RDONLY);
@@ -103,7 +111,9 @@ int	handle_redirects(t_command *cmd, t_data *data)
 
 	ret= 0;
 	if (handle_input_redirect(cmd, &data->original_stdin) == -1)
+	{
 		ret= -1;
+	}
 	if (handle_output_redirect(cmd, &data->original_stdout) == -1)
 		ret= -1;
 	if (global_var == 130)
