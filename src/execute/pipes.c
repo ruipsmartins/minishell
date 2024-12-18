@@ -6,7 +6,7 @@
 /*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 11:05:58 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/12/18 16:34:56 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2024/12/18 16:44:07 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,6 @@ void	execute_child_process(int i, int **fds, t_command *cmd, t_data *data)
 		exit(data->return_value);
 	}
 	execute_command_or_path(cmd, data);
-/* 	close(1);
-	close(0); // ver aqui uma melhor maneira de fazer isto
-	close(2); */
 	if (g_var == 130)
 	{
 		cleanup_child_data(data);
