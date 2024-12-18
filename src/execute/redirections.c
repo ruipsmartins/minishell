@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirections.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: duamarqu <duamarqu@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 14:11:52 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/12/18 14:51:52 by duamarqu         ###   ########.fr       */
+/*   Updated: 2024/12/18 16:51:27 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,6 +112,7 @@ int	handle_redirects(t_command *cmd, t_data *data)
 	ret= 0;
 	if (handle_input_redirect(cmd, &data->original_stdin) == -1)
 	{
+		cleanup_child_data(data);
 		ret= -1;
 	}
 	if (handle_output_redirect(cmd, &data->original_stdout) == -1)
