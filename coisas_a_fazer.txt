@@ -1,6 +1,15 @@
  coisas por fazer / erros:
 
-< infile cat | cat > outfile (FD abertos)
+Minishell: cat << ok |wc
+     19      36     267
+Minishell: bash
+ruidos-s@c2r8s7:~/minishell$ cat << ok | wc
+> asdf
+> asdf
+> ok
+      2       2      10
+ruidos-s@c2r8s7:~/minishell$ 
+
 
  Minishell: | cat
 as[1]    7939 segmentation fault (core dumped)  ./minishell
