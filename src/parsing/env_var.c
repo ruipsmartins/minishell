@@ -6,7 +6,7 @@
 /*   By: duamarqu <duamarqu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/19 12:05:41 by addicted          #+#    #+#             */
-/*   Updated: 2024/12/18 14:52:37 by duamarqu         ###   ########.fr       */
+/*   Updated: 2024/12/18 15:58:04 by duamarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,67 +56,33 @@ int	size_return(int return_value)
 	return (size_of_nbm);
 }
 
-// size_t	calculate_final_len(const char *input, t_data *data)
-// {
-// 	size_t len;
-// 	const char *src;
-// 	const char *start;
-// 	char *var_name;
-
-// 	len = 0;
-// 	src = input;
-// 	while(*src)
-// 	{
-// 		if(*src == '$')
-// 		{
-// 			if(*(src + 1) == '?')
-// 				len += size_return(data->return_value);
-// 				start = ++src;
-// 			while(*src && (isalnum(*src) || *src == '_')) // passar para ft_isalnum
-// 				src++;
-// 			var_name = strndup(start, src - start); // passar para ft_strndup
-// 			if (find_envvar(data->env_var_lst, var_name))
-// 				len += strlen((find_envvar(data->env_var_lst, var_name)->value));
-// 			free(var_name);
-// 		}
-// 		else
-// 		{
-// 			len++;
-// 			src++;
-// 		}
-// 	}
-// 	return len;
-// }
-char	*find_envvar_value(t_envvar *env_var_lst, const char *var_name)
+char	*find_envvar_value(t_envvar *env_var_lst, char *var_name)
 {
-	t_envvar *env;
-	
+	t_envvar	*env;
+
 	env = find_envvar(env_var_lst, var_name);
 	if (env)
-		return env->value;
-
-	return NULL;
+		return (env->value);
+	return (NULL);
 }
 
 char	*extract_var_name(const char **src)
 {
-	const char *start;
+	const char	*start;
 
 	start = *src;
 	while (**src && (ft_isalnum(**src) || **src == '_'))
 		(*src)++;
-
-	if (*src == start) // Nenhum caractere válido foi encontrado
-		return NULL;
-
-	return strndup(start, *src - start);
+	if (*src == start)
+		return (NULL);
+	return (strndup(start, *src - start));
 }
 
 size_t	handle_variable(const char **src, t_data *data)
 {
-	size_t len;
-	char *var_name;
-	char *value;
+	size_t	len;
+	char	*var_name;
+	char	*value;
 
 	len = 0;
 	(*src)++; // Avança após o '$'
@@ -124,24 +90,23 @@ size_t	handle_variable(const char **src, t_data *data)
 	{
 		len += size_return(data->return_value);
 		(*src)++;
-		return len;
+		return (len);
 	}
 	var_name = extract_var_name(src);
 	if (var_name)
 	{
-		char *value = find_envvar_value(data->env_var_lst, var_name);
+		value = find_envvar_value(data->env_var_lst, var_name);
 		if (value)
 			len += strlen(value);
 		free(var_name);
 	}
-	return len;
+	return (len);
 }
-
 
 size_t	calculate_final_len(const char *input, t_data *data)
 {
-	size_t	len;
-	const char *src;
+	size_t		len;
+	const char	*src;
 
 	len = 0;
 	src = input;
@@ -157,9 +122,8 @@ size_t	calculate_final_len(const char *input, t_data *data)
 			src++;
 		}
 	}
-	return len;
+	return (len);
 }
-
 
 void	free_env_list(t_envvar *env_list)
 {
