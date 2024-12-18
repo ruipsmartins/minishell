@@ -3,43 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   QUotes.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: addicted <addicted@student.42.fr>          +#+  +:+       +#+        */
+/*   By: duamarqu <duamarqu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/04 11:32:40 by addicted          #+#    #+#             */
-/*   Updated: 2024/12/12 11:57:21 by addicted         ###   ########.fr       */
+/*   Updated: 2024/12/18 17:10:16 by duamarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-
-// void	check_for_var(char *input)
-// {
-// 	int i;
-// 	int in_duble;
-// 	int in_single;
-	
-// 	i = 0;
-// 	in_duble = 0;
-// 	in_single = 0;
-// 	while(input[i])
-// 	{
-// 		if(input[i] == '"' && !in_duble  && !in_single)
-// 			in_duble = !in_duble;
-// 		else if(input[i] == '\'' && !in_duble && !in_single)
-// 			in_single = !in_single;
-// 		else if (input[i] == '"' && in_duble)
-// 			in_duble = !in_duble;
-// 		else if (input[i] == '\'' && in_single)
-// 			in_single = !in_single;
-// 		if(input[i] == '$')
-// 			replace_envvar
-		
-// 	}.?
-	
-// }
-
-// Avança até o próximo caractere não-espaço
 char *skip_spaces(char *input)
 {
 	while (isspace(*input))

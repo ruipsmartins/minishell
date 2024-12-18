@@ -1,9 +1,8 @@
  coisas por fazer / erros:
 
-< infile cat | cat > outfile (FD abertos)
-
- Minishell: | cat
-as[1]    7939 segmentation fault (core dumped)  ./minishell
+input radom (tipo so "asdasdada"), nao um built in da leak no child
+$? da leaks tbm
+$? como primeiro comando esta a dar invalid read size of 1 e leaks
 
 -------------------------------------------------------------
 (não sei se é para fazer)

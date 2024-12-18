@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_to_command.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: addicted <addicted@student.42.fr>          +#+  +:+       +#+        */
+/*   By: duamarqu <duamarqu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/12 10:50:11 by addicted          #+#    #+#             */
-/*   Updated: 2024/12/09 18:41:23 by addicted         ###   ########.fr       */
+/*   Updated: 2024/12/18 17:02:15 by duamarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,5 +130,6 @@ t_command *lexer_to_command(t_lexer *lexer)
 			handle_argument(current, &current_cmd, &cmd_list, &arg_count);
 		current = current->next;
 	}
+	
 	return cmd_list;
 }
