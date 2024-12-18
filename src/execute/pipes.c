@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipes.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: duamarqu <duamarqu@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 11:05:58 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/12/18 14:51:40 by duamarqu         ###   ########.fr       */
+/*   Updated: 2024/12/18 16:34:56 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,10 @@ void	execute_child_process(int i, int **fds, t_command *cmd, t_data *data)
 		exit(data->return_value);
 	// Executa o comando
 	if (builtin_execute(cmd, data))
+	{
+		cleanup_child_data(data);
 		exit(data->return_value);
+	}
 	execute_command_or_path(cmd, data);
 /* 	close(1);
 	close(0); // ver aqui uma melhor maneira de fazer isto

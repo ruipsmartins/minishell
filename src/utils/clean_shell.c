@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   clean_shell.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: duamarqu <duamarqu@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 13:16:56 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/12/18 14:52:47 by duamarqu         ###   ########.fr       */
+/*   Updated: 2024/12/18 16:29:33 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ void cleanup_child_data(t_data *data)
 	if(data->cmd)
 		free_command_list(data->cmd);
 	free_pipes(data->fds, data->cmd_count - 1);
+	free_env_list(data->env_var_lst);
 	if(data->pids)
 		free(data->pids);
 	if(data->original_stdin != -1)
