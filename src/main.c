@@ -6,7 +6,7 @@
 /*   By: duamarqu <duamarqu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 17:28:57 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/12/18 15:18:01 by duamarqu         ###   ########.fr       */
+/*   Updated: 2024/12/18 16:48:25 by duamarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,25 @@ int	only_spaces(char *input)
 	}
 	return (1);
 }
+int check_4_pipe(char *input)
+{
+	int i;
 
+	i = 0;
+	while(input[i])
+	{
+		while(input[i] == ' ')
+			i++;
+		if(input[i] == '|')
+		{
+			ft_printf("\033[32mMinishell:\033[0m  syntax error near unexpected token `|'\n");
+			return(1);
+		}
+		else 
+			return(0);
+	}
+	return(0);
+}
 int	main(int ac, char **av, char **env)
 {
 	char	*input;
@@ -65,7 +83,7 @@ int	main(int ac, char **av, char **env)
 	while (input != NULL && !data.close_shell)
 	{
 		g_var = 0;
-		if (*input && !only_spaces(input))
+		if (*input && !only_spaces(input) && !check_4_pipe(input))
 			handle_input(input, &data);
 		if (data.close_shell)
 			break ;
