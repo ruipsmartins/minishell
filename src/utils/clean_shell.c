@@ -6,7 +6,7 @@
 /*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 13:16:56 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/12/16 17:08:16 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2024/12/18 12:47:18 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,12 @@ void cleanup_child_data(t_data *data)
 	if(data->cmd)
 		free_command_list(data->cmd);
 	free_pipes(data->fds, data->cmd_count - 1);
-	if (data->pids)
+	if(data->pids)
 		free(data->pids);
+	if(data->original_stdin != -1)
+		close(data->original_stdin);
+	if(data->original_stdout != -1) 
+		close(data->original_stdout);
 	close(0);
 	close(1);		//ver aqui uma melhor maneira de fazer isto
 	close(2);

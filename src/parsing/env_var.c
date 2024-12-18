@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_var.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: addicted <addicted@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/19 12:05:41 by addicted          #+#    #+#             */
-/*   Updated: 2024/12/09 18:18:02 by addicted         ###   ########.fr       */
+/*   Updated: 2024/12/18 10:29:03 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ size_t calculate_final_len(const char *input, t_data *data)
 			if(*(src + 1) == '?')
 			{
 				//printf("return_value: %d\n", data->return_value);
-				len =+ size_return(data->return_value);
+				len += size_return(data->return_value);
 				
 			}
 			// else

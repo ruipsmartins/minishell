@@ -6,7 +6,7 @@
 /*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 08:59:57 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/12/12 14:11:00 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2024/12/18 10:29:49 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ int	execute_command(char *command, char **args, t_data *data)
 	pid_t	pid;
 	int		status;
 
+	status=0;
 	pid = fork();
 	if (pid < 0)
 		write(STDERR_FILENO, "fork error\n", 11);
