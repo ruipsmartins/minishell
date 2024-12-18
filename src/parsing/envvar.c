@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   envvar.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: addicted <addicted@student.42.fr>          +#+  +:+       +#+        */
+/*   By: duamarqu <duamarqu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/19 12:05:41 by addicted          #+#    #+#             */
-/*   Updated: 2024/12/06 12:18:41 by addicted         ###   ########.fr       */
+/*   Updated: 2024/12/18 13:50:22 by duamarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,18 +51,18 @@ void ft_envadd_back(t_envvar **lst, t_envvar *new)
 	current->next = new;
 }
 
-void	print_list(t_envvar *env_list)
-{
-	t_envvar *current;
+// void	print_list(t_envvar *env_list)
+// {
+// 	t_envvar *current;
 
-	current = env_list;
-	printf("Printing list\n");
-	while (current != NULL)
-	{
-		printf("name:%s  =  %s(value)\n", current->name, current->value);
-		current = current->next;
-	}
-}
+// 	current = env_list;
+// 	printf("Printing list\n");
+// 	while (current != NULL)
+// 	{
+// 		printf("name:%s  =  %s(value)\n", current->name, current->value);
+// 		current = current->next;
+// 	}
+//}
 
 t_envvar	*find_envvar(t_envvar *lst, char *name)
 {

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   clean_shell.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: duamarqu <duamarqu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 13:16:56 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/12/16 15:14:31 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2024/12/18 12:06:19 by duamarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@ void cleanup_data(t_data *data)
 		i++;
 	}
 	free(data->env);
-	if(data->cmd)
-		free_command_list(data->cmd);
+	//if(data->cmd)
+		//free_command_list(data->cmd);
 }
 
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: duamarqu <duamarqu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 14:01:43 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/12/15 18:25:26 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2024/12/18 12:24:17 by duamarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	execute_heredoc(t_command *cmd)
 		write(pipe_fd[1], "\n", 1);
 		free(line);
 	}
-	if (global_var == 130)
+	if (g_var == 130)
 	{
 		ft_printf("heredoc terminado por ctl+c\n");
 		close(pipe_fd[1]);
