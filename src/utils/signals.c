@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: duamarqu <duamarqu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 15:21:56 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/12/16 12:06:02 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2024/12/18 12:24:17 by duamarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,14 @@ void	ctrl_c_parent(int signal)
 	rl_on_new_line();
 	rl_replace_line("", 0);
 	rl_redisplay();
-	global_var = 130;
+	g_var = 130;
 	(void)signal;
 }
 void	handle_here_doc_exit(int signal)
 {
 	(void)signal;
 	write(1, "\n", 1);
-	global_var = 130;
+	g_var = 130;
 	close(0);
 }
 
@@ -34,7 +34,7 @@ void	ctrl_c_child(int signal)
 {
 	(void)signal;
 	write(1, "\n", 1);
-	global_var = 130;
+	g_var = 130;
 }
 
 

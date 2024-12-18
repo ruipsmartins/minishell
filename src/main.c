@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: duamarqu <duamarqu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 17:28:57 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/12/16 15:12:43 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2024/12/18 12:24:33 by duamarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-int global_var;
+int	g_var;
 
 char	*get_command_input(t_data *data)
 {
@@ -21,9 +21,9 @@ char	*get_command_input(t_data *data)
 	input = readline("\033[32mMinishell:\033[0m ");
 	if (input && *input)
 		add_history(input);
-	if (global_var == 130)
+	if (g_var == 130)
 	{
-		global_var = 0;
+		g_var = 0;
 		data->return_value = 130;
 	}
 	return (input);
@@ -40,11 +40,9 @@ void	data_init(t_data *data, char **env)
 	data->close_shell = false;
 	data->return_value = 0;
 	data->cmd = NULL;
-	
 }
 
-
-int only_spaces(char *input)
+int	only_spaces(char *input)
 {
 	while (*input)
 	{
@@ -64,9 +62,9 @@ int	main(int ac, char **av, char **env)
 	(void)av;
 	data_init(&data, env);
 	input = get_command_input(&data);
-	while (input != NULL  && !data.close_shell)
+	while (input != NULL && !data.close_shell)
 	{
-		global_var = 0;
+		g_var = 0;
 		if (*input && !only_spaces(input))
 			handle_input(input, &data);
 		if (data.close_shell)
@@ -75,8 +73,8 @@ int	main(int ac, char **av, char **env)
 			free_command_list(data.cmd);
 		input = get_command_input(&data);
 	}
-		if (data.env_var_lst)
-			free_env_list(data.env_var_lst);
+	if (data.env_var_lst)
+		free_env_list(data.env_var_lst);
 	cleanup_data(&data);
 	rl_clear_history();
 	return (data.return_value);

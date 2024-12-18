@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: duamarqu <duamarqu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 08:59:57 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/12/18 10:29:49 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2024/12/18 14:51:02 by duamarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ int	execute_command(char *command, char **args, t_data *data)
 	pid_t	pid;
 	int		status;
 
-	status=0;
+	status = 0;
 	pid = fork();
 	if (pid < 0)
 		write(STDERR_FILENO, "fork error\n", 11);

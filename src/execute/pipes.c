@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipes.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: duamarqu <duamarqu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 11:05:58 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/12/17 17:53:12 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2024/12/18 14:51:40 by duamarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,11 +38,11 @@ void	execute_child_process(int i, int **fds, t_command *cmd, t_data *data)
 /* 	close(1);
 	close(0); // ver aqui uma melhor maneira de fazer isto
 	close(2); */
-	if (global_var == 130)
+	if (g_var == 130)
 	{
 		cleanup_child_data(data);
 		signal(SIGINT, ctrl_c_parent);
-		global_var = 0;
+		g_var = 0;
 		exit(130);
 	}
 	cleanup_child_data(data);

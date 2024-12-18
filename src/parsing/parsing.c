@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: duamarqu <duamarqu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 08:59:52 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/12/14 14:34:01 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2024/12/18 12:21:09 by duamarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ int count_token(const char *str) //Conta o numero de tokens
 		return (count);
 	return (0);
 }
-
 
 int is_token(const char *str)// Define o que sao tokens
 {
@@ -98,8 +97,10 @@ t_lexer *devide_input(char *input) //divide a string em tokens e palavras
 		else
 			lexer = new_node; // Meter o primeiro na lista
 		current = new_node;
+		free (token);
 		token = split_string(&input);
 	}
+	free(token);
 	return (lexer);
 }
 
@@ -137,13 +138,13 @@ char	*get_env_value(char *input)	//descobre o valor da variavel de ambiente que 
 	return (strndup(input+i+1, k));  // passar para ft_strndup
 }
 
-int	set_new_envvar(char *input, t_data *data)  //descobre o nome e o valor da variavel de ambiente que queremos criar
+//descobre o nome e o valor da variavel de ambiente que queremos criar
+int	set_new_envvar(char *input, t_data *data)  
 {
 	char *name;
 	char *value;
 	int i;
 
-	//(void)env_list;
 	i = 0;
 	while(input[i] != '\0')
 	{
@@ -213,4 +214,5 @@ void handle_input(char *input, t_data *data)
 	free_lexer(lexer);
 	data->cmd = cmd_list;
 	execute(cmd_list, data);
+	free_command_list(cmd_list);
 }
