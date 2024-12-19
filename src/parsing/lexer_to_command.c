@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_to_command.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: duamarqu <duamarqu@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/12 10:50:11 by addicted          #+#    #+#             */
-/*   Updated: 2024/12/18 17:02:15 by duamarqu         ###   ########.fr       */
+/*   Updated: 2024/12/19 13:00:14 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ t_lexer *handle_append(t_lexer *current, t_command **current_cmd, t_command **cm
 			*cmd_list = *current_cmd;
 		}
 		(*current_cmd)->append = true;
-		(*current_cmd)->output_file = ft_strdup(current->word);
+		(*current_cmd)->out_file = ft_strdup(current->word);
 	}
 	return (current);
 }
@@ -61,7 +61,7 @@ t_lexer	*handle_output_redirection(t_lexer *current, t_command **current_cmd, t_
 			*cmd_list = *current_cmd;
 		}
 		(*current_cmd)->append = false;
-		(*current_cmd)->output_file = ft_strdup(current->word);
+		(*current_cmd)->out_file = ft_strdup(current->word);
 	}
 	return (current);
 }

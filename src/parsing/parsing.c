@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: duamarqu <duamarqu@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 08:59:52 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/12/18 17:02:01 by duamarqu         ###   ########.fr       */
+/*   Updated: 2024/12/19 13:00:19 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ void free_command_list(t_command *cmd_list) //free da lista de comandos
 		if (current->heredoc)
 			free(current->delimiter);
 		free(current->input_file);
-		free(current->output_file);
+		free(current->out_file);
 		free(current);
 		current = next;
 	}

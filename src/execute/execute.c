@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: duamarqu <duamarqu@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 08:59:57 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/12/18 14:51:02 by duamarqu         ###   ########.fr       */
+/*   Updated: 2024/12/19 12:11:21 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ char	*find_executable(const char *command, t_data *data)
 		free(full_path);
 		dir = ft_strtok(NULL, ":");
 	}
+	free(path);
 	return (NULL);
 }
 
@@ -135,4 +136,5 @@ void	execute(t_command *cmd, t_data *data)
 {
 	data->cmd = cmd;
 	execute_piped_commands(cmd, data);
+	//ft_printf("return value: %d\n", data->return_value);
 }
