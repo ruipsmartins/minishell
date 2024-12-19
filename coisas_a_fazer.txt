@@ -1,5 +1,22 @@
  coisas por fazer / erros:
 
+ cat | cat | ls dá leaks se fizermos ctrl + C
+
+
+Minishell: echo "ola
+Error: Unmatched quote
+minishell: echo "ola
+ola
+Minishell: 
+
+Minishell: echo 'ola | cat
+Error: Unmatched quote
+minishell: echo 'ola | cat
+ola  |  cat
+Minishell: 
+-----------------------------------------------
+
+	ola		
 Minishell: echo <
 minishell: syntax error near unexpected token `<'
 ==49914== Conditional jump or move depends on uninitialised value(s)

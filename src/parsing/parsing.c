@@ -6,7 +6,7 @@
 /*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 08:59:52 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/12/19 13:00:19 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2024/12/19 13:45:54 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -196,7 +196,7 @@ void handle_input(char *input, t_data *data)
 	if(check_quote(input))
 	{
 		printf("Error: Unmatched quote\n");
-		input = readline("minishell: ");
+		input = readline("minishell: "); //ver se dá para fazer diferente aqui -----
 	}
 	if(strchr(input, '$')) //se tivermos um sinal de dolar, quer dizer que queremos substituir uma variavel de ambiente
 	{
