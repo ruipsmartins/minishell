@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_var.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: duamarqu <duamarqu@student.42.fr>          +#+  +:+       +#+        */
+/*   By: addicted <addicted@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/19 12:05:41 by addicted          #+#    #+#             */
-/*   Updated: 2024/12/18 15:58:04 by duamarqu         ###   ########.fr       */
+/*   Updated: 2024/12/19 12:13:28 by addicted         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ size_t	handle_variable(const char **src, t_data *data)
 	if (**src == '?')
 	{
 		len += size_return(data->return_value);
-		(*src)++;
+		//(*src)++;
 		return (len);
 	}
 	var_name = extract_var_name(src);

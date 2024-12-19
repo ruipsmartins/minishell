@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: duamarqu <duamarqu@student.42.fr>          +#+  +:+       +#+        */
+/*   By: addicted <addicted@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 17:28:57 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/12/18 17:41:02 by duamarqu         ###   ########.fr       */
+/*   Updated: 2024/12/19 12:33:55 by addicted         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,10 @@ char	*get_command_input(t_data *data)
 
 	input = readline("\033[32mMinishell:\033[0m ");
 	if (input && *input)
+	{
+		input[ft_strlen(input)] = '\0';
 		add_history(input);
+	}
 	if (g_var == 130)
 	{
 		g_var = 0;

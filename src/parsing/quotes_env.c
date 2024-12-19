@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   quotes_env.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: duamarqu <duamarqu@student.42.fr>          +#+  +:+       +#+        */
+/*   By: addicted <addicted@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/02 11:47:59 by addicted          #+#    #+#             */
-/*   Updated: 2024/12/18 18:40:14 by duamarqu         ###   ########.fr       */
+/*   Updated: 2024/12/19 12:52:09 by addicted         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,8 +90,8 @@ static void replace_vars(const char *input, char *result, t_data *data)
 			*dst++ = *src++; // Copiar aspas simples para a saída sem alternar o estado
 		else if (*src == '$' && (!in_single_quotes || in_double_quotes)) // Substituir variáveis
 			process_envvar(&src, &dst, data);
-			
-		*dst++ = *src++; // Copiar outros caracteres
+		else
+			*dst++ = *src++; // Copiar outros caracteres
 	}
 	*dst = '\0'; // Finalizar a string
 }
@@ -99,6 +99,7 @@ static void replace_vars(const char *input, char *result, t_data *data)
 // Função principal
 char *replace_envvar(const char *input, t_data *data)
 {
+	char *result;
 
 	size_t len = calculate_final_len(input, data);
 	if (len == 0)
@@ -106,7 +107,7 @@ char *replace_envvar(const char *input, t_data *data)
 		ft_printf("Error calculating final length\n");
 		return NULL;
 	}
-	char *result = allocate_result(len);
+	result = allocate_result(len);
 	replace_vars(input, result, data);
 	return result;
 }

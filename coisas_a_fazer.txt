@@ -2,7 +2,9 @@
 
 input radom (tipo so "asdasdada"), nao um built in da leak no child
 $? da leaks tbm
-$? como primeiro comando esta a dar invalid read size of 1 e leaks
+
+
+heredoc normal da leak
 
 -------------------------------------------------------------
 (não sei se é para fazer)
