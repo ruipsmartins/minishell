@@ -6,7 +6,7 @@
 /*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 08:59:52 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/12/18 16:30:36 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2024/12/19 12:28:29 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ void free_command_list(t_command *cmd_list) //free da lista de comandos
 			}			free(current->args);
 		}
 		free(current->input_file);
-		free(current->output_file);
+		free(current->out_file);
 		free(current);
 		current = next;
 	}

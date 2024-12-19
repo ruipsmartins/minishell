@@ -6,7 +6,7 @@
 /*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 11:05:58 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/12/18 16:44:07 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2024/12/19 12:23:55 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,16 +18,9 @@ void	execute_child_process(int i, int **fds, t_command *cmd, t_data *data)
 {
 	// Configura os FDs para o processo filho
 	if (i > 0)
-	{
 		dup2(fds[i - 1][0], STDIN_FILENO); // Lê do pipe anterior
-		//close(fds[i - 1][0]);              // Fecha o descritor antigo		ver isto aqui como melhorar
-	}
 	if (cmd->next != NULL)
-	{
 		dup2(fds[i][1], STDOUT_FILENO); // Escreve no próximo pipe
-		//close(fds[i][1]);               // Fecha o descritor antigo			aqui tambem
-	}
-	// Fecha todos os FDs nos filhos
 	close_all_pipes(fds, data->cmd_count - 1);
 	if (handle_redirects(cmd, data) == -1)
 		exit(data->return_value);
@@ -119,7 +112,7 @@ void	execute_piped_commands(t_command *cmd, t_data *data)
 	{
 		run_single_command(cmd, data, i);
 		close_all_parent_pipes(data, i);
-		std_reset(&data->original_stdin, &data->original_stdout);
+		//std_reset(&data->original_stdin, &data->original_stdout);
 		cmd = cmd->next;
 		i++;
 	}
