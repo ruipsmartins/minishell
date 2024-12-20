@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fix_token_space.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: duamarqu <duamarqu@student.42.fr>          +#+  +:+       +#+        */
+/*   By: addicted <addicted@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 16:11:43 by addicted          #+#    #+#             */
-/*   Updated: 2024/12/18 15:59:17 by duamarqu         ###   ########.fr       */
+/*   Updated: 2024/12/20 12:08:32 by addicted         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,9 @@ int	check_token(char *str)
 			if (c != '|')
 			{
 				if (check_if_token(str[i + 1]))
-					return (ft_printf("%d\n",ft_printf("minishell: syntax error near unexpected token `%c'\n", str[i + 1])));
+					return (ft_printf("%d\n",ft_printf("Minishell: syntax error near unexpected token `%c'\n", str[i + 1])));
 				if(str[i + 1] == '\0')
-					return (ft_printf("minishell: syntax error near unexpected token `%c'\n", c));
+					return (ft_printf("Minishell: syntax error near unexpected token `%c'\n", c));
 			}
 			if (str[i + 1] == '|')
 				return (ft_printf("Minishell: syntax error near unexpected token `%c'\n", str[i +1]));
@@ -57,13 +57,13 @@ char *fix_token_space(char *str)
 	
 	i = 0;
 	k = 0;
-	fix_str = malloc(sizeof(char) * (ft_strlen(str) + (count_token(str) * 2) + 1));
-	
 	if (check_token(str))
 	{
 		free(str);
 		return (NULL);
 	}
+	fix_str = malloc(sizeof(char) * (ft_strlen(str) + (count_token(str) * 2) + 1));
+	
 	while (str[i])
 	{
 		if (check_if_token(str[i]))

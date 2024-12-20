@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: addicted <addicted@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 08:59:52 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/12/19 13:45:54 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2024/12/20 12:09:16 by addicted         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ void free_command_list(t_command *cmd_list) //free da lista de comandos
 
 t_lexer *devide_input(char *input) //divide a string em tokens e palavras
 {
-	t_lexer *lexer;
+	t_lexer *lexer = NULL;
 	t_lexer *current = NULL;
 	t_lexer *new_node;
 	char *token = NULL;
@@ -196,7 +196,7 @@ void handle_input(char *input, t_data *data)
 	if(check_quote(input))
 	{
 		printf("Error: Unmatched quote\n");
-		input = readline("minishell: "); //ver se dá para fazer diferente aqui -----
+		return;
 	}
 	if(strchr(input, '$')) //se tivermos um sinal de dolar, quer dizer que queremos substituir uma variavel de ambiente
 	{
@@ -205,11 +205,13 @@ void handle_input(char *input, t_data *data)
 	}
 	
 	temp = fix_token_space(input);
-	lexer = devide_input(temp);
+	if (temp)
+		lexer = devide_input(temp);
 	
 	if(lexer == NULL)
 	{
-		printf("lexer is NULl\n");
+		free(temp);
+		return;
 	}
 	//Parsing do Lexer
 	t_command *cmd_list = lexer_to_command(lexer);

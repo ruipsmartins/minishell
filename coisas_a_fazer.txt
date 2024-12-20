@@ -3,46 +3,6 @@
  cat | cat | ls dá leaks se fizermos ctrl + C
 
 
-Minishell: echo "ola
-Error: Unmatched quote
-minishell: echo "ola
-ola
-Minishell: 
-
-Minishell: echo 'ola | cat
-Error: Unmatched quote
-minishell: echo 'ola | cat
-ola  |  cat
-Minishell: 
------------------------------------------------
-
-	ola		
-Minishell: echo <
-minishell: syntax error near unexpected token `<'
-==49914== Conditional jump or move depends on uninitialised value(s)
-==49914==    at 0x10A6ED: handle_input (parsing.c:210)
-==49914==    by 0x109987: main (main.c:113)
-==49914== 
-lexer is NULl
-==49914== Conditional jump or move depends on uninitialised value(s)
-==49914==    at 0x10B139: lexer_to_command (lexer_to_command.c:108)
-==49914==    by 0x10A709: handle_input (parsing.c:215)
-==49914==    by 0x109987: main (main.c:113)
-==49914== 
-==49914== Conditional jump or move depends on uninitialised value(s)
-==49914==    at 0x10A647: free_lexer (parsing.c:179)
-==49914==    by 0x10A725: handle_input (parsing.c:217)
-==49914==    by 0x109987: main (main.c:113)
-==49914== 
-==49914== Argument 'size' of function malloc has a fishy (possibly negative) value: -8
-==49914==    at 0x4846828: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==49914==    by 0x10C316: init_pipes_and_pids (pipes.c:50)
-==49914==    by 0x10C5CF: execute_piped_commands (pipes.c:109)
-==49914==    by 0x10C192: execute (execute.c:138)
-==49914==    by 0x10A744: handle_input (parsing.c:219)
-==49914==    by 0x109987: main (main.c:113)
-==49914== 
-
 
 -------------------------------------------------------------
 (não sei se é para fazer)
