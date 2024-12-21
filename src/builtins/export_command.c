@@ -6,7 +6,7 @@
 /*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 15:14:53 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/12/21 10:10:01 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2024/12/21 17:17:48 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,63 +28,85 @@ void	print_exported_vars(t_envvar *env_var_lst)
 	}
 }
 
+int	is_valid_identifier(const char *arg, t_data *data)
+{
+	if (ft_isdigit(arg[0]) || !ft_isalpha(arg[0]))
+	{
+		printf("minishell: export: `%s': not a valid identifier\n", arg);
+		data->return_value = 1;
+		return (0);
+	}
+	return (1);
+}
+
+void	update_or_create_env_variable(char *name, char *value, t_data *data)
+{
+	t_envvar	*current;
+
+	current = find_envvar(data->env_var_lst, name);
+	if (current != NULL)
+	{
+		free(current->value);
+		if (value != NULL)
+			current->value = ft_strdup(value);
+		else
+			current->value = NULL;
+	}
+	else
+	{
+		ft_new_envvar(&data->env_var_lst, name, value);
+	}
+}
+
+void	process_env_variable(const char *arg, t_data *data)
+{
+	char	*env_var;
+	char	*equal_sign;
+	char	*name;
+	char	*value;
+
+	env_var = ft_strdup(arg);
+	equal_sign = ft_strchr(env_var, '=');
+	if (equal_sign != NULL)
+	{
+		name = ft_substr(env_var, 0, equal_sign - env_var);
+		value = ft_strdup(equal_sign + 1);
+	}
+	else
+	{
+		name = ft_strdup(env_var);
+		value = NULL;
+	}
+	update_or_create_env_variable(name, value, data);
+	free(env_var);
+	free(name);
+	if (value)
+		free(value);
+}
+
 // função para adicionar ou modificar uma variável de ambiente
 void	export_command(t_command *cmd, t_data *data)
 {
-	char		*name;
-	char		*value;
-	char		*env_var;
-	t_envvar	*current;
-	int			i;
-	char		*equal_sign;
+	int	i;
 
 	data->return_value = 0;
-	i = 1;
+
 	if (cmd->args[1] == NULL)
 	{
 		print_exported_vars(data->env_var_lst);
 		return ;
 	}
+	if (ft_strncmp(cmd->args[1], "_=", 2) == 0)
+		return ;
+	i = 1;
 	while (cmd->args[i])
 	{
-		// Verificar se é um identificador válido
-		if (ft_isdigit(cmd->args[i][0]) || !ft_isalpha(cmd->args[i][0]))
+		if (!is_valid_identifier(cmd->args[i], data))
 		{
-			printf("minishell: export: `%s': not a valid identifier\n",
-				cmd->args[i]);
-			data->return_value = 1;
 			i++;
 			continue ;
 		}
-		// Obter a variável completa
-		env_var = ft_strdup(cmd->args[i]);
-		equal_sign = ft_strchr(env_var, '=');
-		if (equal_sign != NULL)
-		{
-			// Caso com '=' (b= ou c=coisas)
-			name = ft_substr(env_var, 0, equal_sign - env_var);
-			value = ft_strdup(equal_sign + 1); // Pode ser vazio
-		}
-		else
-		{
-			// Caso sem '=' (a)
-			name = ft_strdup(env_var);
-			value = NULL;
-		}
-		// Procurar na lista
-		current = find_envvar(data->env_var_lst, name);
-		if (current != NULL)
-		{
-			free(current->value);
-			current->value = value ? ft_strdup(value) : NULL;
-		}
-		else
-			ft_new_envvar(&data->env_var_lst, name, value);
-		free(env_var);
-		free(name);
-		if (value)
-			free(value);
+		process_env_variable(cmd->args[i], data);
 		i++;
 	}
 }
-

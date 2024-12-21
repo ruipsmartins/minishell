@@ -289,7 +289,6 @@ Thanks to Minishell, I travelled through time and came back to problems people f
 | 🟡 | `export A=a B=b C=c D=d E=e` 	|
 | 🔵 | `export _=a; echo $_a` 		    |
 
-# all tested in valgrind until here
 
 #### EXIT
 > Concluding Minishell's operations gracefully using the exit command.
@@ -307,7 +306,6 @@ Thanks to Minishell, I travelled through time and came back to problems people f
 | 🟡 | `"exit test"`               |
 | 🟡 | `"exit"`                    |
 | 🟢 | `exit1`                     |
-| 🟡 | `exit | ls`                 |
 | 🟢 | `exit exit`                 | 
 | 🟢 | `exit a`                    | 
 | 🟢 | `exit abc`                  | 
@@ -376,7 +374,7 @@ Thanks to Minishell, I travelled through time and came back to problems people f
 | 🟢 | `cd //`                 | OK! TESTAR NO BASH DA ESCOLA>
 | 🟢 | `cd ///`                |
 | 🟢 | `cd -`                  |
-| 🟢 | `cd $[VAR]`             |
+| 🟡 | `cd $[VAR]`             | seg fault
 
 #### ECHO
 > Rendering text and variables in the terminal with the versatile echo command in Minishell.
