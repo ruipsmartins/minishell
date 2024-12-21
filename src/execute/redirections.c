@@ -6,7 +6,7 @@
 /*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 14:11:52 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/12/19 12:28:44 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2024/12/20 17:57:45 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,8 +114,8 @@ int	handle_redirects(t_command *cmd, t_data *data)
 		cleanup_child_data(data);
 		if (g_var == 130)
 		{
-			signal(SIGINT, ctrl_c_parent);
-			g_var = 0;
+			//signal(SIGINT, ctrl_c_parent);
+			//g_var = 0;
 			exit(130);
 		}
 		exit(1);

@@ -6,7 +6,7 @@
 /*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 11:05:58 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/12/19 12:23:55 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2024/12/20 19:55:17 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,12 +33,13 @@ void	execute_child_process(int i, int **fds, t_command *cmd, t_data *data)
 	execute_command_or_path(cmd, data);
 	if (g_var == 130)
 	{
-		cleanup_child_data(data);
-		signal(SIGINT, ctrl_c_parent);
-		g_var = 0;
-		exit(130);
+		//write(2, "testee\n", 7);
+		//cleanup_child_data(data);
+		//signal(SIGINT, ctrl_c_parent);
+		//g_var = 0;
+		data->return_value = 130;
 	}
-	cleanup_child_data(data);
+//	cleanup_child_data(data);
 	exit(data->return_value);
 }
 

@@ -6,7 +6,7 @@
 /*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 13:16:56 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/12/18 16:29:33 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2024/12/20 19:12:36 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ void cleanup_child_data(t_data *data)
 	int i;
 
 	i = 0;
+	//write(2, "cleanup_child_data\n", 19);
 	while(data->env[i])
 	{
 		free(data->env[i]);

@@ -6,7 +6,7 @@
 /*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 15:14:53 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/11/28 14:07:39 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2024/12/21 10:10:01 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ void	export_command(t_command *cmd, t_data *data)
 	int			i;
 	char		*equal_sign;
 
+	data->return_value = 0;
 	i = 1;
 	if (cmd->args[1] == NULL)
 	{

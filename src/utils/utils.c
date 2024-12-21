@@ -6,7 +6,7 @@
 /*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 16:59:41 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/12/16 13:17:53 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2024/12/20 18:45:11 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ void	print_command_error(t_data *data, char *command, int error_type)
 		write(STDERR_FILENO, ": Permission denied\n", 20);
 		data->return_value = 126;
 	}
+	cleanup_child_data(data);
 }
 
 

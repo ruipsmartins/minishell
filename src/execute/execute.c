@@ -6,7 +6,7 @@
 /*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 08:59:57 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/12/19 12:11:21 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2024/12/21 10:19:18 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,7 @@ int	execute_command(char *command, char **args, t_data *data)
 	}
 	else
 	{
+		cleanup_child_data(data);
 		waitpid(pid, &status, 0);
 		if (WIFEXITED(status))
 			status = WEXITSTATUS(status);
@@ -104,9 +105,9 @@ void	execute_command_or_path(t_command *cmd, t_data *data)
 	char	*executable;
 	int		file_check;
 
-	if(!cmd->args)
+	if(!cmd->args) //ver o que é isto
 	{
-		data->return_value=0;
+		data->return_value = 0; 
 		return ;
 	}
 	if (cmd->args[0][0] == '/' || cmd->args[0][0] == '.')
@@ -134,7 +135,10 @@ void	execute_command_or_path(t_command *cmd, t_data *data)
 
 void	execute(t_command *cmd, t_data *data)
 {
+	//signal(SIGINT, ctrl_c_child);
 	data->cmd = cmd;
 	execute_piped_commands(cmd, data);
+	if (data->return_value == 130 /* && !cmd->heredoc */)
+		write(2, "\n", 1);
 	//ft_printf("return value: %d\n", data->return_value);
 }

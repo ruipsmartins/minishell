@@ -6,7 +6,7 @@
 /*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 17:49:57 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/12/02 12:03:25 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2024/12/20 19:59:36 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,7 @@ int	cd_command(t_command cmd, t_data *data)
 	int	i;
 
 	i = 0;
+	data->return_value = 0;
 	while (cmd.args[i])
 		i++;
 	if (i > 2)
