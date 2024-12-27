@@ -6,7 +6,7 @@
 /*   By: addicted <addicted@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/02 11:47:59 by addicted          #+#    #+#             */
-/*   Updated: 2024/12/19 12:52:09 by addicted         ###   ########.fr       */
+/*   Updated: 2024/12/27 12:39:18 by addicted         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,14 +57,15 @@ static void  process_envvar(const char **src, char **dst, t_data *data)
 			(*src)++;
 		value = get_envvar_value(start, *src, env_list);
 	}
-	if (value == NULL)
-	{
-		printf("Variable not found\n");
-		exit(EXIT_FAILURE);
-	}
+	// if (value == )
+	// {
+	// 	printf("1Variable not found\n");
+	// 	exit(EXIT_FAILURE);
+	// 	free((char *)value);
+	// }
 	strcpy(*dst, value);   // Trocar para ft_strcpy, se necessário
 	*dst += strlen(value); // Trocar para ft_strlen, se necessário
-	free((char *)value);
+//	free((char *)value);
 }
 
 static void replace_vars(const char *input, char *result, t_data *data)

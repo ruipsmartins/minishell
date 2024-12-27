@@ -6,7 +6,7 @@
 /*   By: addicted <addicted@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 08:59:52 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/12/20 12:09:16 by addicted         ###   ########.fr       */
+/*   Updated: 2024/12/27 12:37:03 by addicted         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -198,7 +198,7 @@ void handle_input(char *input, t_data *data)
 		printf("Error: Unmatched quote\n");
 		return;
 	}
-	if(strchr(input, '$')) //se tivermos um sinal de dolar, quer dizer que queremos substituir uma variavel de ambiente
+	if(strchr(input, '$'))//&& !check_envvar(input, data)) //se tivermos um sinal de dolar, quer dizer que queremos substituir uma variavel de ambiente
 	{
 		//printf("\nreplace envvar after $\n");
 		input = replace_envvar(input, data);

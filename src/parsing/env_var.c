@@ -6,7 +6,7 @@
 /*   By: addicted <addicted@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/19 12:05:41 by addicted          #+#    #+#             */
-/*   Updated: 2024/12/19 12:13:28 by addicted         ###   ########.fr       */
+/*   Updated: 2024/12/27 12:44:40 by addicted         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,37 @@ char	*extract_var_name(const char **src)
 	return (strndup(start, *src - start));
 }
 
+// int check_envvar(const char *input, t_data *data)	// Fora de uso
+// {
+// 	char *var_name;
+// 	char *temp;
+// 	char *value;
+
+// 	temp = (char *)input;
+// 	while(*temp)
+// 	{
+// 		if(*(temp) == '$')
+// 		{
+// 			temp++;
+// 			var_name = extract_var_name((const char **)&temp);
+// 			value = find_envvar_value(data->env_var_lst, var_name);
+// 			if(value)
+// 			{
+// 				free(var_name);
+// 			}
+// 			else
+// 			{
+// 				free(var_name);
+// 				return (printf("Variable not found\nCHECK_ENVVAR\n"));
+// 			}
+// 		}
+// 		else
+// 			temp++;
+// 	}
+// 	return (0);
+// }
+				
+
 size_t	handle_variable(const char **src, t_data *data)
 {
 	size_t	len;
@@ -98,6 +129,14 @@ size_t	handle_variable(const char **src, t_data *data)
 		value = find_envvar_value(data->env_var_lst, var_name);
 		if (value)
 			len += strlen(value);
+		if (!value)
+		{
+			len += strlen(var_name);
+			// free(var_name);
+			// free_env_list(data->env_var_lst);
+			// cleanup_data(data);
+			// exit(EXIT_FAILURE);
+		}
 		free(var_name);
 	}
 	return (len);
