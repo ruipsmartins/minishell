@@ -6,7 +6,7 @@
 /*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 13:16:56 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/12/28 10:50:29 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2024/12/28 15:57:53 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ void	cleanup_child_data(t_data *data)
 		i++;
 	}
 	free(data->env);
+	if (data->executable != NULL)
+		free(data->executable);
 	if (data->cmd)
 		free_command_list(data->cmd);
 	free_pipes(data->fds, data->cmd_count - 1);

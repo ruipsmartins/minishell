@@ -6,7 +6,7 @@
 /*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 14:01:43 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/12/28 10:43:39 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2024/12/28 15:26:04 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 static int	handle_signal_and_pipe(int pipe_fd[2])
 {
 	signal(SIGINT, handle_here_doc_exit);
+	signal(SIGQUIT, SIG_IGN);
 	if (pipe(pipe_fd) == -1)
 	{
 		perror("pipe");

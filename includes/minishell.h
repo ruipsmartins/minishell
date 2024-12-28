@@ -6,7 +6,7 @@
 /*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 17:34:50 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/12/28 11:01:26 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2024/12/28 15:52:02 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ typedef struct s_envvar
 typedef struct s_data
 {
 	char				**env;
+	char				*executable;
 	int					original_stdin;
 	int					original_stdout;
 	t_command			*cmd;
@@ -72,8 +73,6 @@ typedef struct s_data
 
 char					*readline(const char *prompt);
 char					*ft_strtok(char *str, const char *delim);
-void					close_fds(int *fd);
-char					*find_executable(const char *command, t_data *data);
 void					data_init(t_data *data, char **env);
 
 int						only_spaces(char *input);
@@ -131,11 +130,10 @@ char					*get_command_input(t_data *data);
 char					*get_executable_path(const char *command,
 							const char *dir);
 char					*get_path_value(t_data *data);
-
+char					*find_executable(const char *command, t_data *data);
 void					execute_command_or_path(t_command *cmd, t_data *data);
 void					print_command_error(t_data *data, char *command,
 							int error_type);
-bool					is_directory(char *path);
 int						check_file_type(char *path);
 
 // pipes

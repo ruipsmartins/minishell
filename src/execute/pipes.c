@@ -6,7 +6,7 @@
 /*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 11:05:58 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/12/28 10:29:24 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2024/12/28 14:40:23 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,7 @@ void	run_single_command(t_command *cmd, t_data *data, int index)
 			perror("fork");
 		else if (data->pids[index] == 0)
 		{
+			signal(SIGQUIT, SIG_DFL);
 			signal(SIGINT, ctrl_c_child);
 			execute_child_process(index, data->fds, cmd, data);
 		}

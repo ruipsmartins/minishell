@@ -6,7 +6,7 @@
 /*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 17:28:57 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/12/28 11:08:05 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2024/12/28 15:59:46 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ void	data_init(t_data *data, char **env)
 	data->close_shell = false;
 	data->return_value = 0;
 	data->cmd = NULL;
+	data->executable = NULL;
 }
 
 int	only_spaces(char *input)
