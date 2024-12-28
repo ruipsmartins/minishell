@@ -5,6 +5,7 @@ NAME = minishell
 CC = cc
 CFLAGS = -Wall -Wextra -Werror -g #-fsanitize=address
 LDFLAGS = -lreadline #-lncurses
+
 # Diretórios
 SRCS_DIR = src
 OBJS_DIR = obj
@@ -17,7 +18,7 @@ SRCS_FILES = \
 	parsing/parsing.c parsing/fix_token_space.c parsing/lexer_to_command.c \
 	parsing/env_var.c parsing/envvar.c parsing/quotes.c parsing/quotes_env.c \
 	parsing/QUotes.c \
-	execute/execute.c execute/pipes.c  execute/pipes_utils.c \
+	execute/execute.c execute/pipes.c  execute/pipes_utils.c execute/execute_utils.c \
 	execute/redirections.c execute/heredoc.c \
 	builtins/builtin_checker.c builtins/exit_command.c builtins/pwd_command.c builtins/cd_command.c \
 	builtins/echo_command.c	builtins/env_command.c builtins/export_command.c builtins/unset_command.c \
@@ -40,7 +41,7 @@ $(NAME): $(OBJS) $(LIBFT)
 
 # Compilar os ficheiros fonte com subpastas
 $(OBJS_DIR)/%.o: $(SRCS_DIR)/%.c
-	@mkdir -p $(dir $@)   #Cria a subpasta correspondente em obj
+	@mkdir -p $(dir $@)   # Cria a subpasta correspondente em obj
 	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
 
 clean:

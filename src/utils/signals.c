@@ -6,10 +6,9 @@
 /*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 15:21:56 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/12/20 19:48:01 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2024/12/28 16:19:00 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "../../includes/minishell.h"
 
@@ -22,10 +21,10 @@ void	ctrl_c_parent(int signal)
 	g_var = 130;
 	(void)signal;
 }
+
 void	handle_here_doc_exit(int signal)
 {
 	(void)signal;
-	//write(1, "\n", 1);
 	g_var = 130;
 	close(0);
 }
@@ -33,9 +32,5 @@ void	handle_here_doc_exit(int signal)
 void	ctrl_c_child(int signal)
 {
 	(void)signal;
-	write(1, "\nctrl+c child\n", 14);
-	write(1, "\n", 1);
 	g_var = 130;
 }
-
-

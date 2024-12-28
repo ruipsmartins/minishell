@@ -6,43 +6,11 @@
 /*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 08:59:57 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/12/21 10:19:18 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2024/12/28 16:17:46 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-#include "minishell.h"
-#include <sys/stat.h>
-
-// Função para obter o caminho do executável
-char	*get_executable_path(const char *command, const char *dir)
-{
-	char	*full_path;
-	size_t	dir_len;
-	size_t	cmd_len;
-
-	dir_len = ft_strlen(dir);
-	cmd_len = ft_strlen(command);
-	full_path = malloc(dir_len + cmd_len + 2);
-	if (!full_path)
-		return (NULL);
-	ft_strlcpy(full_path, dir, dir_len + 1);
-	ft_strlcat(full_path, "/", dir_len + 2);
-	ft_strlcat(full_path, command, dir_len + cmd_len + 2);
-	return (full_path);
-}
-
-char	*get_path_value(t_data *data)
-{
-	t_envvar	*path_var;
-
-	path_var = find_envvar(data->env_var_lst, "PATH");
-	if (!path_var)
-	{
-		return (NULL);
-	}
-	return (ft_strdup(path_var->value));
-}
 
 // Função para encontrar o executável no path
 char	*find_executable(const char *command, t_data *data)
@@ -71,7 +39,7 @@ char	*find_executable(const char *command, t_data *data)
 }
 
 // Função para executar o comando
-int	execute_command(char *command, char **args, t_data *data)
+int	execute_command(char *executable, char **args, t_data *data)
 {
 	pid_t	pid;
 	int		status;
@@ -82,7 +50,7 @@ int	execute_command(char *command, char **args, t_data *data)
 		write(STDERR_FILENO, "fork error\n", 11);
 	else if (pid == 0)
 	{
-		if (execve(command, args, data->env) == -1)
+		if (execve(executable, args, data->env) == -1)
 		{
 			perror("execve");
 			exit(EXIT_FAILURE);
@@ -102,14 +70,8 @@ int	execute_command(char *command, char **args, t_data *data)
 
 void	execute_command_or_path(t_command *cmd, t_data *data)
 {
-	char	*executable;
 	int		file_check;
 
-	if(!cmd->args) //ver o que é isto
-	{
-		data->return_value = 0; 
-		return ;
-	}
 	if (cmd->args[0][0] == '/' || cmd->args[0][0] == '.')
 	{
 		file_check = check_file_type(cmd->args[0]);
@@ -122,12 +84,9 @@ void	execute_command_or_path(t_command *cmd, t_data *data)
 	}
 	else
 	{
-		executable = find_executable(cmd->args[0], data);
-		if (executable)
-		{
-			execute_command(executable, cmd->args, data);
-			free(executable);
-		}
+		data->executable = find_executable(cmd->args[0], data);
+		if (data->executable)
+			execute_command(data->executable, cmd->args, data);
 		else
 			print_command_error(data, cmd->args[0], 127);
 	}
@@ -135,10 +94,11 @@ void	execute_command_or_path(t_command *cmd, t_data *data)
 
 void	execute(t_command *cmd, t_data *data)
 {
-	//signal(SIGINT, ctrl_c_child);
 	data->cmd = cmd;
 	execute_piped_commands(cmd, data);
-	if (data->return_value == 130 /* && !cmd->heredoc */)
+	if (data->return_value == 130 && !data->close_shell)
 		write(2, "\n", 1);
-	//ft_printf("return value: %d\n", data->return_value);
+	if (data->return_value == 131 && !data->close_shell)
+		write(2, "Quit (core dumped)\n", 19);
+	//ft_printf("data.return_value: %d\n", data->return_value);
 }

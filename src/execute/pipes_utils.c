@@ -6,7 +6,7 @@
 /*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 11:05:58 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/12/16 13:12:14 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2024/12/28 10:34:10 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,16 +57,16 @@ void	free_pipes(int **fds, int pipe_count)
 {
 	int	i;
 
-	if (!fds) // Verifica se fds é NULL
+	if (!fds)
 		return ;
 	i = 0;
 	while (i < pipe_count)
 	{
-		if (fds[i]) // Verifica se fds[i] foi alocado
+		if (fds[i])
 			free(fds[i]);
 		i++;
 	}
-	free(fds); // Liberta o array de ponteiros
+	free(fds);
 }
 
 void	close_all_parent_pipes(t_data *data, int i)

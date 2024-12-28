@@ -6,28 +6,11 @@
 /*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 14:11:52 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/12/20 17:57:45 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2024/12/28 10:45:39 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
-// Restaurar o stds se foram alterados
-void	std_reset(int *original_stdin, int *original_stdout)
-{
-	if (*original_stdin != -1)
-	{
-		dup2(*original_stdin, STDIN_FILENO);
-		close(*original_stdin);
-		*original_stdin = -1; // Atualiza para indicar que o FD foi fechado
-	}
-	if (*original_stdout != -1)
-	{
-		dup2(*original_stdout, STDOUT_FILENO);
-		close(*original_stdout);
-		*original_stdout = -1; // Atualiza para indicar que o FD foi fechado
-	}
-}
 
 int	process_heredoc(t_command *cmd, int *original_stdin)
 {
@@ -113,11 +96,7 @@ int	handle_redirects(t_command *cmd, t_data *data)
 	{
 		cleanup_child_data(data);
 		if (g_var == 130)
-		{
-			//signal(SIGINT, ctrl_c_parent);
-			//g_var = 0;
 			exit(130);
-		}
 		exit(1);
 	}
 	if (ret == 0 && handle_output_redirect(cmd, &data->original_stdout) == -1)
