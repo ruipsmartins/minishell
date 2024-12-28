@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: addicted <addicted@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 10:23:34 by ruidos-s          #+#    #+#             */
-/*   Updated: 2023/10/30 11:23:36 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2024/12/28 19:06:44 by addicted         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static	int	count_num(long lnum)
 
 char	*ft_itoa(int n)
 {
-	char	*str_num;
+	 char	*str_num;
 	int		i;
 	long	lnum;
 

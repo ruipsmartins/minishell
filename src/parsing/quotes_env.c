@@ -6,7 +6,7 @@
 /*   By: addicted <addicted@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/02 11:47:59 by addicted          #+#    #+#             */
-/*   Updated: 2024/12/27 12:39:18 by addicted         ###   ########.fr       */
+/*   Updated: 2024/12/28 19:18:13 by addicted         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,24 +49,22 @@ static void  process_envvar(const char **src, char **dst, t_data *data)
 	{
 		value = ft_itoa(data->return_value);
 		(*src)++;
-				
+		strcpy(*dst, value);   // Trocar para ft_strcpy, se necessário
+		*dst += strlen(value); // Trocar para ft_strlen, se necessário
+		free((char *)value);
 	}
 	else
 	{
 		while (**src && (isalnum(**src) || **src == '_')) // Trocar para ft_isalnum, se necessário
 			(*src)++;
 		value = get_envvar_value(start, *src, env_list);
+		strcpy(*dst, value);   // Trocar para ft_strcpy, se necessário
+		*dst += strlen(value); // Trocar para ft_strlen, se necessário
 	}
-	// if (value == )
-	// {
-	// 	printf("1Variable not found\n");
-	// 	exit(EXIT_FAILURE);
-	// 	free((char *)value);
-	// }
-	strcpy(*dst, value);   // Trocar para ft_strcpy, se necessário
-	*dst += strlen(value); // Trocar para ft_strlen, se necessário
-//	free((char *)value);
-}
+// 	strcpy(*dst, value);   // Trocar para ft_strcpy, se necessário
+// 	*dst += strlen(value); // Trocar para ft_strlen, se necessário
+// 	free((char *)value);
+ }
 
 static void replace_vars(const char *input, char *result, t_data *data)
 {
