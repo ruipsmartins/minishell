@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: addicted <addicted@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 17:34:50 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/12/27 12:44:45 by addicted         ###   ########.fr       */
+/*   Updated: 2024/12/28 11:01:26 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,8 +94,8 @@ void					replace_vars_in_string(const char *src, char *dst,
 							t_envvar *env_list);
 
 // env_var
-//int check_envvar(const char *input, t_data *data);
-int count_valid_envvars(t_envvar *env_list);
+// int check_envvar(const char *input, t_data *data);
+int						count_valid_envvars(t_envvar *env_list);
 size_t					calculate_final_len(const char *input, t_data *data);
 void					ft_new_envvar(t_envvar **env_list, char *name,
 							char *value);
@@ -128,6 +128,10 @@ void					execute(t_command *cmd_list, t_data *data);
 int						execute_command(char *command, char **args,
 							t_data *data);
 char					*get_command_input(t_data *data);
+char					*get_executable_path(const char *command,
+							const char *dir);
+char					*get_path_value(t_data *data);
+
 void					execute_command_or_path(t_command *cmd, t_data *data);
 void					print_command_error(t_data *data, char *command,
 							int error_type);
@@ -138,14 +142,11 @@ int						check_file_type(char *path);
 void					execute_piped_commands(t_command *cmd, t_data *data);
 void					execute_child_process(int i, int **fds, t_command *cmd,
 							t_data *data);
-bool					ft_parent(t_command *cmd, int *in_fd, t_data *data);
-// void					handle_fd(int in_fd, t_command *cmd, int fd[2]);
 bool					should_execute_in_parent(t_command *cmd);
 int						count_commands(t_command *cmd);
 void					close_all_parent_pipes(t_data *data, int current_index);
 void					close_all_pipes(int **fds, int pipe_count);
 void					free_pipes(int **fds, int pipe_count);
-// void					fork_error(void);
 
 // redirections
 int						handle_redirects(t_command *cmd, t_data *data);
@@ -154,7 +155,6 @@ int						handle_input_redirect(t_command *cmd,
 int						handle_output_redirect(t_command *cmd,
 							int *original_stdout);
 int						execute_heredoc(t_command *cmd);
-void					std_reset(int *original_stdin, int *original_stdout);
 
 // builtins
 bool					builtin_execute(t_command *cmd, t_data *data);
@@ -167,15 +167,9 @@ void					env_command(t_data *data);
 void					export_command(t_command *cmd, t_data *data);
 void					unset_command(t_command *cmd, t_data *data);
 
-// signals
-void					setup_signals(void);
-void					sigint_handler(int signum);
-void					sigquit_handler(int signum);
-
 // signals.c
 void					handle_here_doc_exit(int signal);
 void					ctrl_c_child(int signal);
-void					ctrl_c_signal_hd(int signal);
 void					ctrl_c_parent(int signal);
 
 // utils

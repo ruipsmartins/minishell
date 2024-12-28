@@ -6,7 +6,7 @@
 /*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 15:14:53 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/12/21 17:17:48 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2024/12/28 10:22:58 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,6 @@ void	export_command(t_command *cmd, t_data *data)
 	int	i;
 
 	data->return_value = 0;
-
 	if (cmd->args[1] == NULL)
 	{
 		print_exported_vars(data->env_var_lst);

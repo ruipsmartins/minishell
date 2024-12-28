@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: addicted <addicted@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 17:28:57 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/12/19 12:33:55 by addicted         ###   ########.fr       */
+/*   Updated: 2024/12/28 11:08:05 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-int	g_var;
+int		g_var;
 
 char	*get_command_input(t_data *data)
 {
@@ -55,46 +55,48 @@ int	only_spaces(char *input)
 	}
 	return (1);
 }
-int check_4_pipe(char *input, t_data *data)
+
+int	check_4_pipe(char *input, t_data *data)
 {
-	int i;
+	int	i;
 
 	i = 0;
-	while(input[i])
+	while (input[i])
 	{
-		while(input[i] == ' ')
+		while (input[i] == ' ')
 			i++;
-		if(input[i] == '|')
+		if (input[i] == '|')
 		{
 			data->return_value = 2;
-			return(ft_printf("\033[32mMinishell:\033[0m  syntax error near unexpected token `|'\n"));
-		}
-		else 
-			return(0);
-	}
-	return(0);
-}
-int check_here_doc(char *input, t_data *data)
-{
-	int i;
-
-	i = 0;
-	while(input[i] != '<' && input[i] != '\0')
-		i++;
-	if(input[i] == '<' && input[i + 1] == '<')
-	{
-		i += 2;
-		while(input[i] == ' ')
-			i++;
-		if(input[i] == '\0' || input[i] == '|')
-		{
-			data->return_value = 2;
-		  return(ft_printf("\033[32mMinishell:\033[0m  syntax error near unexpected token `<<'\n"));
+			return (ft_printf("\033[32mMinishell:\033[0m  syntax error near unexpected token `|'\n"));
 		}
 		else
-			return(0);
+			return (0);
 	}
-	return(0);
+	return (0);
+}
+
+int	check_here_doc(char *input, t_data *data)
+{
+	int	i;
+
+	i = 0;
+	while (input[i] != '<' && input[i] != '\0')
+		i++;
+	if (input[i] == '<' && input[i + 1] == '<')
+	{
+		i += 2;
+		while (input[i] == ' ')
+			i++;
+		if (input[i] == '\0' || input[i] == '|')
+		{
+			data->return_value = 2;
+			return (ft_printf("\033[32mMinishell:\033[0m  syntax error near unexpected token `<<'\n"));
+		}
+		else
+			return (0);
+	}
+	return (0);
 }
 
 int	main(int ac, char **av, char **env)
@@ -109,7 +111,8 @@ int	main(int ac, char **av, char **env)
 	while (input != NULL && !data.close_shell)
 	{
 		g_var = 0;
-		if (*input && !only_spaces(input) && !check_4_pipe(input, &data) && !check_here_doc(input, &data))
+		if (*input && !only_spaces(input) && !check_4_pipe(input, &data)
+			&& !check_here_doc(input, &data))
 			handle_input(input, &data);
 		if (data.close_shell)
 			break ;
