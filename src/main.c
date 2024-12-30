@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: duamarqu <duamarqu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 17:28:57 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/12/28 15:59:46 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2024/12/30 18:47:18 by duamarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,11 +68,17 @@ int	check_4_pipe(char *input, t_data *data)
 			i++;
 		if (input[i] == '|')
 		{
-			data->return_value = 2;
-			return (ft_printf("\033[32mMinishell:\033[0m  syntax error near unexpected token `|'\n"));
+			i++;
+			while (input[i] == ' ')
+				i++;
+			if (input[i] == '\0')
+			{
+				data->return_value = 2;
+				return (ft_printf("\033[32mMinishell:\033[0m  syntax error near unexpected token `|'\n"));
+			}
 		}
-		else
-			return (0);
+		if (input[i] != '\0')
+			i++;
 	}
 	return (0);
 }
