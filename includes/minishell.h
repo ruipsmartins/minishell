@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: duamarqu <duamarqu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 17:34:50 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/12/28 15:52:02 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2024/12/30 17:26:56 by duamarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,11 +51,6 @@ typedef struct s_envvar
 	struct s_envvar		*next;
 }						t_envvar;
 
-// typedef struct s_envvar_list
-// {
-// 	t_envvar			*head;
-// }						t_envvar_list;
-
 typedef struct s_data
 {
 	char				**env;
@@ -75,6 +70,18 @@ char					*readline(const char *prompt);
 char					*ft_strtok(char *str, const char *delim);
 void					data_init(t_data *data, char **env);
 
+void	handle_pipe_token(t_command **current_cmd, int *arg_count);
+t_lexer	*handle_append(t_lexer *current, t_command **current_cmd,
+t_command **cmd_list);
+t_lexer	*handle_heredoc(t_lexer *current, t_command **current_cmd,
+t_command **cmd_list);
+t_lexer	*handle_output_redirection(t_lexer *current,
+t_command **current_cmd, t_command **cmd_list);
+t_lexer	*handle_input_redirection(t_lexer *current,
+t_command **current_cmd, t_command **cmd_list);
+t_lexer	*handle_token(t_lexer *current, t_command **current_cmd,t_command **cmd_list, int *arg_count);
+t_lexer *devide_input(char *input);
+int	is_token(const char *str);
 int						only_spaces(char *input);
 // quotes
 int						check_quote(const char *input);
@@ -93,7 +100,24 @@ void					replace_vars_in_string(const char *src, char *dst,
 							t_envvar *env_list);
 
 // env_var
-// int check_envvar(const char *input, t_data *data);
+void					set_envvar(t_envvar *envvar_list, char *name,
+							char *value);
+char					*find_envvar_value(t_envvar *env_var_lst, char *var_name);
+char					*extract_var_name(const char **src);
+size_t					handle_variable(const char **src, t_data *data);
+void					replace_vars(const char *input, char *result,
+							t_data *data);
+void					process_envvar(const char **src, char **dst, t_data *data);
+const char				*get_envvar_value(const char *start, const char *end,
+							t_envvar *env_list);
+char					*skip_spaces(char *input);
+char					*split_string(char **input);
+int						check_if_token(char c);
+int						count_token(const char *str);
+char					*fix_token_space(char *str);
+t_command				*lexer_to_command(t_lexer *lexer);
+int						size_return(int return_value);
+size_t					calculate_final_len(const char *input, t_data *data);
 int						count_valid_envvars(t_envvar *env_list);
 size_t					calculate_final_len(const char *input, t_data *data);
 void					ft_new_envvar(t_envvar **env_list, char *name,
@@ -106,12 +130,16 @@ char					**swap_list_to_array(t_envvar *env_list);
 void					set_envvar(t_envvar *envvar_list, char *name,
 							char *value);
 char					*get_envvar(t_envvar *env_list, const char *name);
+char					*get_env_value(char *input);
+char					*get_env_name(char *input);
+t_envvar				*ft_last_env(t_envvar *lst);
 char					*replace_envvar(const char *input, t_data *data);
 t_envvar				*init_env_list(void);
-void					free_env_list(t_envvar *env_list);
 void					cleanup_data(t_data *data);
 void					free_command_list(t_command *cmd_list);
 void					free_lexer(t_lexer *lexer);
+void					free_env_list(t_envvar *env_list);
+
 
 // parsing
 void					handle_input(char *input, t_data *data);

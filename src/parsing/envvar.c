@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   envvar.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: addicted <addicted@student.42.fr>          +#+  +:+       +#+        */
+/*   By: duamarqu <duamarqu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/19 12:05:41 by addicted          #+#    #+#             */
-/*   Updated: 2024/12/19 12:11:30 by addicted         ###   ########.fr       */
+/*   Updated: 2024/12/30 10:49:22 by duamarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ t_envvar	*ft_create_env_list(char **env)
 	while (*current)
 	{
 		new_node = (t_envvar *)ft_calloc(1, sizeof(t_envvar));
-		new_node->name = strndup(*current, ft_strchr(*current, '=') - *current);// passar para ft_strndup
+		new_node->name = strndup(*current, ft_strchr(*current, '=') - *current);
 		new_node->value = ft_strdup(ft_strchr(*current, '=') + 1);
 		ft_envadd_back(&head, new_node);
 		current++;

@@ -1,42 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen.c                                        :+:      :+:    :+:   */
+/*   ft_strndup.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: duamarqu <duamarqu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/05 18:00:48 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/12/30 14:17:55 by duamarqu         ###   ########.fr       */
+/*   Created: 2024/12/30 11:35:32 by duamarqu          #+#    #+#             */
+/*   Updated: 2024/12/30 11:36:54 by duamarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-/* The strlen() function calculates the length of the string pointed to by s, 
-excluding the terminating null byte ('\0'). */
 #include "libft.h"
 
-size_t	ft_strlen(const char *str)
+char	*ft_strndup(const char *s1, size_t n)
 {
+	char	*dst;
 	size_t	i;
 
-	if (str == NULL)
-		return (0);
+	dst = (char *)malloc(n + 1);
+	if (!dst)
+		return (NULL);
 	i = 0;
-	while (str[i])
-		i++;
-	return (i);
-}
-/*
-#include <stdio.h>
-
-int	main(int ac, char **av)
-{
-	int	nbr;
-
-	if (ac == 2)
+	while (s1[i] && i < n)
 	{
-		nbr = ft_strlen(av[1]);
-		printf("a frase tem: %d caracteres\n", nbr);
+		dst[i] = s1[i];
+		i++;
 	}
-	return (0);
+	dst[i] = '\0';
+	return (dst);
 }
-*/
