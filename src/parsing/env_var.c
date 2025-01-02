@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_var.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: duamarqu <duamarqu@student.42.fr>          +#+  +:+       +#+        */
+/*   By: addicted <addicted@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/19 12:05:41 by addicted          #+#    #+#             */
-/*   Updated: 2024/12/30 11:30:27 by duamarqu         ###   ########.fr       */
+/*   Updated: 2025/01/02 19:03:13 by addicted         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,5 +75,7 @@ size_t	handle_variable(const char **src, t_data *data)
 			len += ft_strlen(var_name);
 		free(var_name);
 	}
+	else if (var_name == NULL)
+		len++;
 	return (len);
 }

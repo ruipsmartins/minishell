@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: duamarqu <duamarqu@student.42.fr>          +#+  +:+       +#+        */
+/*   By: addicted <addicted@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 17:28:57 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/12/30 18:47:18 by duamarqu         ###   ########.fr       */
+/*   Updated: 2025/01/02 19:54:14 by addicted         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int	only_spaces(char *input)
 {
 	while (*input)
 	{
-		if (!isspace(*input))
+		if (!isspace(*input) && *input != '\'' && *input != '\"')
 			return (0);
 		input++;
 	}

@@ -2,7 +2,12 @@
 
  cat | cat | ls dá leaks se fizermos ctrl + C
 
+$
+echo $
 
+echo '$' leaks
+
+""
 
 -------------------------------------------------------------
 (não sei se é para fazer)

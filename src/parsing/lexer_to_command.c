@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_to_command.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: duamarqu <duamarqu@student.42.fr>          +#+  +:+       +#+        */
+/*   By: addicted <addicted@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/12 10:50:11 by addicted          #+#    #+#             */
-/*   Updated: 2024/12/30 17:26:34 by duamarqu         ###   ########.fr       */
+/*   Updated: 2025/01/02 19:30:19 by addicted         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,8 +130,8 @@ t_command **cmd_list, int *arg_count)
 		current = handle_heredoc(current, current_cmd, cmd_list);
 	else if (current->token && strncmp(current->token, "<", 2) == 0)
 		current = handle_input_redirection(current, current_cmd, cmd_list);
-	else if (strcmp(current->word, "$") == 0)
-		current = current->next;
+	//else if (strcmp(current->word, "$") == 0)
+	//	current = current->next;
 	else
 		handle_argument(current, current_cmd, cmd_list, arg_count);
 	return (current->next);

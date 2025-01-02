@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   replace_vars.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: duamarqu <duamarqu@student.42.fr>          +#+  +:+       +#+        */
+/*   By: addicted <addicted@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/30 13:16:33 by duamarqu          #+#    #+#             */
-/*   Updated: 2024/12/30 13:25:26 by duamarqu         ###   ########.fr       */
+/*   Updated: 2025/01/02 19:50:24 by addicted         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,13 @@ int in_double_quotes, int *in_single_quotes)
 		*(*dst)++ = *(*src)++;
 }
 
+int check_after_$(char c)
+{
+	if (c == ' ' || c == '\0' || c == '\"' || c == '\'')
+		return (1);
+	return (0);
+}
+
 void	replace_vars(const char *input, char *result, t_data *data)
 {
 	const char	*src;
@@ -45,7 +52,7 @@ void	replace_vars(const char *input, char *result, t_data *data)
 		else if (*src == '\'')
 			handle_single_quotes(&src, &dst, in_double_quotes,
 				&in_single_quotes);
-		else if (*src == '$' && (!in_single_quotes || in_double_quotes))
+		else if (*src == '$' && (!in_single_quotes || in_double_quotes) && !check_after_$(src[1]))
 			process_envvar(&src, &dst, data);
 		else
 			*dst++ = *src++;
