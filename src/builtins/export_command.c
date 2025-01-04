@@ -6,7 +6,7 @@
 /*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 15:14:53 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/12/28 10:22:58 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2025/01/04 11:58:10 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,27 @@
 void	print_exported_vars(t_envvar *env_var_lst)
 {
 	t_envvar	*current;
+	int			i;
 
 	current = env_var_lst;
 	while (current != NULL)
 	{
 		if (current->value)
-			printf("declare -x %s=\"%s\"\n", current->name, current->value);
+		{
+			ft_printf("declare -x %s=\"", current->name);
+			i = 0;
+			while (current->value[i])
+			{
+				if (current->value[i] == '\\' || current->value[i] == '\"'
+					|| current->value[i] == '$')
+					ft_printf("\\");
+				ft_printf("%c", current->value[i]);
+				i++;
+			}
+			ft_printf("\"\n");
+		}
 		else
-			printf("declare -x %s\n", current->name);
+			ft_printf("declare -x %s\n", current->name);
 		current = current->next;
 	}
 }
@@ -32,7 +45,7 @@ int	is_valid_identifier(const char *arg, t_data *data)
 {
 	if (ft_isdigit(arg[0]) || !ft_isalpha(arg[0]))
 	{
-		printf("minishell: export: `%s': not a valid identifier\n", arg);
+		ft_printf("export: `%s': not a valid identifier\n", arg);
 		data->return_value = 1;
 		return (0);
 	}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: duamarqu <duamarqu@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 17:34:50 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/12/30 17:26:56 by duamarqu         ###   ########.fr       */
+/*   Updated: 2025/01/04 11:58:33 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,18 +70,20 @@ char					*readline(const char *prompt);
 char					*ft_strtok(char *str, const char *delim);
 void					data_init(t_data *data, char **env);
 
-void	handle_pipe_token(t_command **current_cmd, int *arg_count);
-t_lexer	*handle_append(t_lexer *current, t_command **current_cmd,
-t_command **cmd_list);
-t_lexer	*handle_heredoc(t_lexer *current, t_command **current_cmd,
-t_command **cmd_list);
-t_lexer	*handle_output_redirection(t_lexer *current,
-t_command **current_cmd, t_command **cmd_list);
-t_lexer	*handle_input_redirection(t_lexer *current,
-t_command **current_cmd, t_command **cmd_list);
-t_lexer	*handle_token(t_lexer *current, t_command **current_cmd,t_command **cmd_list, int *arg_count);
-t_lexer *devide_input(char *input);
-int	is_token(const char *str);
+void					handle_pipe_token(t_command **current_cmd,
+							int *arg_count);
+t_lexer					*handle_append(t_lexer *current,
+							t_command **current_cmd, t_command **cmd_list);
+t_lexer					*handle_heredoc(t_lexer *current,
+							t_command **current_cmd, t_command **cmd_list);
+t_lexer					*handle_output_redirection(t_lexer *current,
+							t_command **current_cmd, t_command **cmd_list);
+t_lexer					*handle_input_redirection(t_lexer *current,
+							t_command **current_cmd, t_command **cmd_list);
+t_lexer					*handle_token(t_lexer *current, t_command **current_cmd,
+							t_command **cmd_list, int *arg_count);
+t_lexer					*devide_input(char *input);
+int						is_token(const char *str);
 int						only_spaces(char *input);
 // quotes
 int						check_quote(const char *input);
@@ -102,12 +104,14 @@ void					replace_vars_in_string(const char *src, char *dst,
 // env_var
 void					set_envvar(t_envvar *envvar_list, char *name,
 							char *value);
-char					*find_envvar_value(t_envvar *env_var_lst, char *var_name);
+char					*find_envvar_value(t_envvar *env_var_lst,
+							char *var_name);
 char					*extract_var_name(const char **src);
 size_t					handle_variable(const char **src, t_data *data);
 void					replace_vars(const char *input, char *result,
 							t_data *data);
-void					process_envvar(const char **src, char **dst, t_data *data);
+void					process_envvar(const char **src, char **dst,
+							t_data *data);
 const char				*get_envvar_value(const char *start, const char *end,
 							t_envvar *env_list);
 char					*skip_spaces(char *input);
@@ -139,7 +143,6 @@ void					cleanup_data(t_data *data);
 void					free_command_list(t_command *cmd_list);
 void					free_lexer(t_lexer *lexer);
 void					free_env_list(t_envvar *env_list);
-
 
 // parsing
 void					handle_input(char *input, t_data *data);

@@ -1,14 +1,3 @@
- coisas por fazer / erros:
-
- cat | cat | ls dá leaks se fizermos ctrl + C
-
-$
-echo $
-
-echo '$' leaks
-
-""
-
 -------------------------------------------------------------
 (não sei se é para fazer)
 rui@rui-MS-7B49:~/minishell$ export nome=rui
