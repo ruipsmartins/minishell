@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: addicted <addicted@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 17:34:50 by ruidos-s          #+#    #+#             */
-/*   Updated: 2025/01/04 11:58:33 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2025/01/05 17:54:46 by addicted         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,10 +66,14 @@ typedef struct s_data
 	pid_t				*pids;
 }						t_data;
 
+// input
+int						only_spaces(char *input);
+int						check_4_pipe(char *input, t_data *data);
+int						check_here_doc(char *input, t_data *data);
+
 char					*readline(const char *prompt);
 char					*ft_strtok(char *str, const char *delim);
 void					data_init(t_data *data, char **env);
-
 void					handle_pipe_token(t_command **current_cmd,
 							int *arg_count);
 t_lexer					*handle_append(t_lexer *current,

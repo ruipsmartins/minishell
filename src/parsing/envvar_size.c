@@ -6,7 +6,7 @@
 /*   By: addicted <addicted@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/30 11:15:03 by duamarqu          #+#    #+#             */
-/*   Updated: 2025/01/02 18:47:37 by addicted         ###   ########.fr       */
+/*   Updated: 2025/01/05 17:16:42 by addicted         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ size_t	calculate_final_len(const char *input, t_data *data)
 	while (*src)
 	{
 		if (*src == '$')
-		{ 
+		{
 			len += handle_variable(&src, data);
 		}
 		else

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: addicted <addicted@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 08:59:57 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/12/28 16:17:46 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2025/01/05 17:00:54 by addicted         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,5 +100,4 @@ void	execute(t_command *cmd, t_data *data)
 		write(2, "\n", 1);
 	if (data->return_value == 131 && !data->close_shell)
 		write(2, "Quit (core dumped)\n", 19);
-	//ft_printf("data.return_value: %d\n", data->return_value);
 }
