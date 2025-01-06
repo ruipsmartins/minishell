@@ -1,3 +1,17 @@
+Minishell: bash
+ruidos-s@c2r8s11:~/minishell$ ls -l $| cat
+ls: cannot access '$': No such file or directory
+ruidos-s@c2r8s11:~/minishell$ 
+exit
+Minishell: ls -l $ | cat
+ls: cannot access '$': No such file or directory
+Minishell: ls -l $| cat
+-rwxr-xr-x 1 root root 1013328 Feb 12  2022 /bin/zsh
+Minishell: ls -l $ | cat
+ls: cannot access '$': No such file or directory
+
+
+
 -------------------------------------------------------------
 (não sei se é para fazer)
 rui@rui-MS-7B49:~/minishell$ export nome=rui

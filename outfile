@@ -1,16 +1,22 @@
-coisas_a_fazer.txt
-en.subject.pdf
-includes
-infile
-libft
-LICENSE
-Makefile
-minishell
-minishell correction_files
-minishell correction.html
-obj
-outfile
-readline.supp
-README.md
-src
-tests.md
+total 1768
+drwxr-xr-x  9 ruidos-s 2023_lisboa    4096 Jan  6 15:49 .
+drwx------ 32 ruidos-s 2023_lisboa    4096 Jan  6 15:50 ..
+-rw-r--r--  1 ruidos-s 2023_lisboa     734 Jan  6 14:15 coisas_a_fazer.txt
+-rw-r--r--  1 ruidos-s 2023_lisboa 1568461 Dec 18 10:25 en.subject.pdf
+drwxr-xr-x  8 ruidos-s 2023_lisboa    4096 Jan  6 15:49 .git
+-rw-r--r--  1 ruidos-s 2023_lisboa       7 Dec 18 10:25 .gitignore
+drwxr-xr-x  2 ruidos-s 2023_lisboa      25 Jan  6 11:31 includes
+-rwxr-xr-x  1 ruidos-s 2023_lisboa      24 Dec 30 11:08 infile
+drwxr-xr-x  2 ruidos-s 2023_lisboa    4096 Jan  6 15:49 libft
+-rw-r--r--  1 ruidos-s 2023_lisboa    1085 Aug 21 12:52 LICENSE
+-rw-r--r--  1 ruidos-s 2023_lisboa    1843 Jan  6 11:31 Makefile
+-rwxr-xr-x  1 ruidos-s 2023_lisboa   99184 Jan  6 15:49 minishell
+drwxr-xr-x  2 ruidos-s 2023_lisboa      66 Dec 18 10:25 minishell correction_files
+-rw-r--r--  1 ruidos-s 2023_lisboa   53830 Dec 18 10:25 minishell correction.html
+drwxr-xr-x  6 ruidos-s 2023_lisboa      79 Jan  6 15:49 obj
+-rwxr-xr-x  1 ruidos-s 2023_lisboa       0 Jan  6 15:50 outfile
+-rw-r--r--  1 ruidos-s 2023_lisboa     135 Dec 18 10:25 readline.supp
+-rw-r--r--  1 ruidos-s 2023_lisboa     345 Aug 29 15:29 README.md
+drwxr-xr-x  6 ruidos-s 2023_lisboa      79 Jan  6 11:31 src
+-rw-r--r--  1 ruidos-s 2023_lisboa   31083 Jan  6 11:51 tests.md
+drwxr-xr-x  2 ruidos-s 2023_lisboa      64 Dec 18 10:25 .vscode
