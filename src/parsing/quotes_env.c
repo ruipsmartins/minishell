@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   quotes_env.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: duamarqu <duamarqu@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/02 11:47:59 by addicted          #+#    #+#             */
-/*   Updated: 2024/12/30 13:23:32 by duamarqu         ###   ########.fr       */
+/*   Updated: 2025/01/06 12:32:53 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ t_envvar *env_list)
 	char		*var_name;
 	const char	*value;
 
-	var_name = strndup(start, end - start);
+	var_name = ft_strndup(start, end - start);
 	if (find_envvar(env_list, var_name))
 		value = find_envvar(env_list, var_name)->value;
 	else

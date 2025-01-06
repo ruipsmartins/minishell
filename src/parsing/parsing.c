@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: duamarqu <duamarqu@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 08:59:52 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/12/30 17:50:48 by duamarqu         ###   ########.fr       */
+/*   Updated: 2025/01/06 12:37:49 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,9 +62,9 @@ int	is_token(const char *str)// Define o que sao tokens
 // 			exit(EXIT_FAILURE);
 // 		}
 // 		if (is_token(token)) // Inicializar node
-// 			new_node->token = strdup(token);
+// 			new_node->token = ft_strdup(token);
 // 		else
-// 			new_node->word = strdup(token);
+// 			new_node->word = ft_strdup(token);
 // 		new_node->i = i++;
 // 		new_node->prev = current;
 // 		if (current != NULL) // meter node no fim da lista lista
@@ -119,7 +119,7 @@ void	handle_input(char *input, t_data *data)
 	lexer = NULL;
 	if (check_quote(input))
 		return ((void)printf("Unmatched quote\n"));
-	if (strchr(input, '$'))
+	if (ft_strchr(input, '$'))
 		input = replace_envvar(input, data);
 	temp = fix_token_space(input);
 	if (temp)

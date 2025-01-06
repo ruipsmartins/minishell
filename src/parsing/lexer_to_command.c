@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_to_command.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: addicted <addicted@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/12 10:50:11 by addicted          #+#    #+#             */
-/*   Updated: 2025/01/05 17:00:35 by addicted         ###   ########.fr       */
+/*   Updated: 2025/01/06 12:21:42 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,15 +120,15 @@ int	is_null_token(t_lexer *current)
 t_lexer	*handle_token(t_lexer *current, t_command **current_cmd,
 t_command **cmd_list, int *arg_count)
 {
-	if (current->token && strncmp(current->token, "|", 2) == 0)
+	if (current->token && ft_strncmp(current->token, "|", 2) == 0)
 		handle_pipe_token(current_cmd, arg_count);
-	else if (current->token && strncmp(current->token, ">>", 3) == 0)
+	else if (current->token && ft_strncmp(current->token, ">>", 3) == 0)
 		current = handle_append(current, current_cmd, cmd_list);
-	else if (current->token && strncmp(current->token, ">", 2) == 0)
+	else if (current->token && ft_strncmp(current->token, ">", 2) == 0)
 		current = handle_output_redirection(current, current_cmd, cmd_list);
-	else if (current->token && strncmp(current->token, "<<", 3) == 0)
+	else if (current->token && ft_strncmp(current->token, "<<", 3) == 0)
 		current = handle_heredoc(current, current_cmd, cmd_list);
-	else if (current->token && strncmp(current->token, "<", 2) == 0)
+	else if (current->token && ft_strncmp(current->token, "<", 2) == 0)
 		current = handle_input_redirection(current, current_cmd, cmd_list);
 	else
 		handle_argument(current, current_cmd, cmd_list, arg_count);

@@ -6,7 +6,7 @@
 /*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 14:11:52 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/12/28 10:45:39 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2025/01/06 12:27:30 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int	handle_input_redirect(t_command *cmd, int *original_stdin)
 		in_file = open(cmd->input_file, O_RDONLY);
 		if (in_file == -1)
 		{
-			write(STDERR_FILENO, cmd->input_file, strlen(cmd->input_file));
+			write(STDERR_FILENO, cmd->input_file, ft_strlen(cmd->input_file));
 			write(STDERR_FILENO, ": Failed to open input file\n", 28);
 			return (-1);
 		}
@@ -70,7 +70,7 @@ int	handle_output_redirect(t_command *cmd, int *original_stdout)
 			out_file = open(cmd->out_file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 		if (out_file == -1)
 		{
-			write(STDERR_FILENO, cmd->out_file, strlen(cmd->out_file));
+			write(STDERR_FILENO, cmd->out_file, ft_strlen(cmd->out_file));
 			write(STDERR_FILENO, ": Failed to open output file\n", 29);
 			return (-1);
 		}

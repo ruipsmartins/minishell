@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_var.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: addicted <addicted@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/19 12:05:41 by addicted          #+#    #+#             */
-/*   Updated: 2025/01/02 19:03:13 by addicted         ###   ########.fr       */
+/*   Updated: 2025/01/06 12:39:03 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	set_envvar(t_envvar *envvar_list, char *name, char *value)
 	if (current != NULL)
 	{
 		free(current->value);
-		current->value = strdup(value);
+		current->value = ft_strdup(value);
 		return ;
 	}
 	else
@@ -49,7 +49,7 @@ char	*extract_var_name(const char **src)
 		(*src)++;
 	if (*src == start)
 		return (NULL);
-	return (strndup(start, *src - start));
+	return (ft_strndup(start, *src - start));
 }
 
 size_t	handle_variable(const char **src, t_data *data)
