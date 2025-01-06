@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fix_token_space.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: addicted <addicted@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 16:11:43 by addicted          #+#    #+#             */
-/*   Updated: 2025/01/05 17:39:16 by addicted         ###   ########.fr       */
+/*   Updated: 2025/01/06 16:40:58 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	check_if_token(char c)
 {
-	if (c == '|' || c == '>' || c == '<' || c == '&')
+	if (c == '|' || c == '>' || c == '<')
 		return (1);
 	return (0);
 }

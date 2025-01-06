@@ -6,7 +6,7 @@
 /*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/12 10:50:11 by addicted          #+#    #+#             */
-/*   Updated: 2025/01/06 12:21:42 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2025/01/06 16:56:31 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,8 +87,11 @@
 // }
 
 void	handle_argument(t_lexer *current,
-t_command **current_cmd, t_command **cmd_list, int *arg_count)
+	t_command **current_cmd, t_command **cmd_list, int *arg_count)
 {
+	static size_t	args_size = 0;
+	size_t			new_size;
+
 	if (*arg_count == 0)
 	{
 		if (*cmd_list == NULL)
@@ -99,8 +102,10 @@ t_command **current_cmd, t_command **cmd_list, int *arg_count)
 		else if (*current_cmd == NULL)
 			*current_cmd = (t_command *)ft_calloc(1, sizeof(t_command));
 	}
-	(*current_cmd)->args = (char **)realloc((*current_cmd)->args,
-			sizeof(char *) * (*arg_count + 2));
+	new_size = sizeof(char *) * (*arg_count + 2);
+	(*current_cmd)->args = (char **)ft_realloc((*current_cmd)->args,
+			args_size, new_size);
+	args_size = new_size;
 	(*current_cmd)->args[*arg_count] = ft_strdup(current->word);
 	(*current_cmd)->args[*arg_count + 1] = NULL;
 	(*arg_count)++;

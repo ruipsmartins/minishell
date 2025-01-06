@@ -6,7 +6,7 @@
 /*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 13:54:22 by ruidos-s          #+#    #+#             */
-/*   Updated: 2025/01/06 15:28:13 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2025/01/06 16:59:35 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,31 +21,26 @@ for all values of size; if size is equal to zero, and ptr is not NULL, then the
 call is equivalent to free(ptr).  Unless ptr is NULL, it must have been
 returned by an earlier call to malloc(), calloc(), or realloc().
 If the area pointed to was moved, a free(ptr) is done. */
-void *ft_realloc(void *ptr, size_t size)
+void	*ft_realloc(void *ptr, size_t old_size, size_t new_size)
 {
 	void	*new_ptr;
 	size_t	copy_size;
 
-	if (ptr == NULL) {
-        // Se ptr for NULL, comporta-se como malloc.
-        return malloc(size);
-    }
-    if (size == 0) {
-        // Se o tamanho for 0, liberta o bloco e retorna NULL.
-        free(ptr);
-        return NULL;
-    }
-    // Aloca um novo bloco de memória.
-    new_ptr = malloc(size);
-    if (!new_ptr) {
-        // Retorna NULL se a alocação falhar.
-        return NULL;
-    }
-    // Calcula o tamanho a copiar sem usar o operador ternário.
-    copy_size = size; // Supondo inicialmente que `size` é o limite.
-    // Aqui, usamos `memcpy` apenas até o tamanho disponível. 
-    ft_memcpy(new_ptr, ptr, sizeof(ptr));
-    // Liberta o bloco antigo.
-    free(ptr);
-    return new_ptr;
+	if (ptr == NULL)
+		return (malloc(new_size));
+	if (new_size == 0)
+	{
+		free(ptr);
+		return (NULL);
+	}
+	new_ptr = malloc(new_size);
+	if (!new_ptr)
+		return (NULL);
+	if (old_size < new_size)
+		copy_size = old_size;
+	else
+		copy_size = new_size;
+	ft_memcpy(new_ptr, ptr, copy_size);
+	free(ptr);
+	return (new_ptr);
 }

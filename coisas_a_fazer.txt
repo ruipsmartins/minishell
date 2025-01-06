@@ -9,8 +9,10 @@ Minishell: ls -l $| cat
 -rwxr-xr-x 1 root root 1013328 Feb 12  2022 /bin/zsh
 Minishell: ls -l $ | cat
 ls: cannot access '$': No such file or directory
+-------------------------------------------------------------
 
-
+Minishell: echo a&??
+a & ??
 
 -------------------------------------------------------------
 (não sei se é para fazer)
