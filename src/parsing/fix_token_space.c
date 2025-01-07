@@ -6,7 +6,7 @@
 /*   By: duamarqu <duamarqu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 16:11:43 by addicted          #+#    #+#             */
-/*   Updated: 2025/01/07 14:09:21 by duamarqu         ###   ########.fr       */
+/*   Updated: 2025/01/07 14:55:13 by duamarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ void	token_space(char *str, int i, int k, char *fix_str)
 	fix_str[k] = '\0';
 }
 
-char	*fix_token_space(char *str)
+char	*fix_token_space(char *str, t_data *data)
 {
 	int		i;
 	int		k;
@@ -82,6 +82,7 @@ char	*fix_token_space(char *str)
 	k = 0;
 	if (check_token(str))
 	{
+		data->return_value = 2;
 		free(str);
 		return (NULL);
 	}

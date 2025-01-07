@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: addicted <addicted@student.42.fr>          +#+  +:+       +#+        */
+/*   By: duamarqu <duamarqu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 17:34:50 by ruidos-s          #+#    #+#             */
-/*   Updated: 2025/01/05 17:54:46 by addicted         ###   ########.fr       */
+/*   Updated: 2025/01/07 14:52:05 by duamarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,7 +122,6 @@ char					*skip_spaces(char *input);
 char					*split_string(char **input);
 int						check_if_token(char c);
 int						count_token(const char *str);
-char					*fix_token_space(char *str);
 t_command				*lexer_to_command(t_lexer *lexer);
 int						size_return(int return_value);
 size_t					calculate_final_len(const char *input, t_data *data);
@@ -154,7 +153,7 @@ void					handle_input(char *input, t_data *data);
 char					**parse_command(char *input);
 int						check_if_token(char c);
 int						count_token(const char *str);
-char					*fix_token_space(char *str);
+char					*fix_token_space(char *str, t_data *data);
 t_command				*lexer_to_command(t_lexer *lexer);
 
 // execute

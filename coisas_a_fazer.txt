@@ -2,6 +2,69 @@ Minishell: echo a&??
 a & ??
 (ja esta a imprimir "a&??", e' diferente do bash mas pq o & sere com (e) e faz outro comando)
 
+""""''""''
+
+duamarqu@c2r8s10:~/Desktop/42/minishell$ echo "$1USER$USER$PIPIPI"
+USERduamarqu
+Minishell: echo "$1USER$USER$PIPIPI"
+duamarqu
+
+
+cd ~
+~
+
+➜  minishell git:(parcing) ✗ env -i ./minishell               // apagava a env
+Minishell: clear
+clear: Command not found
+Minishell: env
+Minishell: cd ..
+Minishell: cd -
+cd: OLDPWD not set                                            // quando nao existe criar (quando se usa o CD para na proxima execusao ja existir)
+
+duamarqu@c2r8s10:~/Desktop/42/minishell$ env -i bash        // apagava a env
+duamarqu@c2r8s10:/home/duamarqu/Desktop/42/minishell$ env
+PWD=/home/duamarqu/Desktop/42/minishell                                                            //inicializar pelo menos estas 3
+SHLVL=1                                                                                            //
+_=/usr/bin/env                                                                                     //
+duamarqu@c2r8s10:/home/duamarqu/Desktop/42/minishell$ echo piippi
+piippi
+duamarqu@c2r8s10:/home/duamarqu/Desktop/42/minishell$ echo $_
+piippi
+duamarqu@c2r8s10:/home/duamarqu/Desktop/42/minishell$ 
+
+
+
+duamarqu@c2r8s10:~/Desktop/42/minishell$ mkdir teste
+duamarqu@c2r8s10:~/Desktop/42/minishell$ cd teste
+duamarqu@c2r8s10:~/Desktop/42/minishell/teste$ bash
+duamarqu@c2r8s10:~/Desktop/42/minishell/teste$ 
+exit
+duamarqu@c2r8s10:~/Desktop/42/minishell/teste$ bash
+duamarqu@c2r8s10:~/Desktop/42/minishell/teste$ cd ..
+duamarqu@c2r8s10:~/Desktop/42/minishell$ rmdir teste
+duamarqu@c2r8s10:~/Desktop/42/minishell$ exit
+exit
+duamarqu@c2r8s10:~/Desktop/42/minishell/teste$ pwd
+/home/duamarqu/Desktop/42/minishell/teste
+duamarqu@c2r8s10:~/Desktop/42/minishell/teste$ 
+
+Minishell: mkdir teste
+Minishell: cd teste
+Minishell: ./../minishell
+Minishell: cd ..
+Minishell: rmdir teste
+Minishell: exit
+EXIT
+Minishell: pwd
+getcwd:: No such file or directory            // prioridade em usar a env $PWD em vez da funcao getcwd;
+Minishell: cd ..
+Minishell: pwd
+/home/duamarqu/Desktop/42/minishell
+
+
+
+
+
 
 -------------------------------------------------------------
 (não sei se é para fazer)

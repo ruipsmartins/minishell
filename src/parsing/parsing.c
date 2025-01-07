@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: duamarqu <duamarqu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 08:59:52 by ruidos-s          #+#    #+#             */
-/*   Updated: 2025/01/06 12:37:49 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2025/01/07 14:59:27 by duamarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,10 +118,14 @@ void	handle_input(char *input, t_data *data)
 
 	lexer = NULL;
 	if (check_quote(input))
-		return ((void)printf("Unmatched quote\n"));
+	{
+		printf("Unmatched quote\n");
+		data->return_value = 2;
+		return ;
+	}
 	if (ft_strchr(input, '$'))
 		input = replace_envvar(input, data);
-	temp = fix_token_space(input);
+	temp = fix_token_space(input, data);
 	if (temp)
 		lexer = devide_input(temp);
 	if (lexer == NULL)

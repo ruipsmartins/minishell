@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_to_command.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: duamarqu <duamarqu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/12 10:50:11 by addicted          #+#    #+#             */
-/*   Updated: 2025/01/06 16:56:31 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2025/01/07 15:07:36 by duamarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -162,38 +162,3 @@ t_command	*lexer_to_command(t_lexer *lexer)
 	}
 	return (cmd_list);
 }
-// t_command	*lexer_to_command(t_lexer *lexer)
-// {
-// 	t_command	*cmd_list = NULL;
-// 	t_command	*current_cmd = NULL;
-// 	t_lexer		*current = lexer;
-// 	int			arg_count = 0;
-
-// 	while (current != NULL)
-// 	{
-// 		if (current->word == NULL && current->token == NULL)
-// 		{
-// 			printf("Error: Both word and token are NULL\n");
-// 			current = current->next;
-// 			continue;
-// 		}
-// 		if (current->token && strncmp(current->token, "|", 2) == 0)
-// 			handle_pipe_token(&current_cmd, &arg_count);
-// 		else if (current->token && strncmp(current->token, ">>", 3) == 0) //
-// 			current =  handle_append(current, &current_cmd, &cmd_list);
-// 		else if (current->token && strncmp(current->token, ">", 2) == 0) //
-// 			current = handle_output_redirection(current,
-// &current_cmd, &cmd_list);
-// 		else if (current->token && strncmp(current->token, "<<", 3) == 0) //
-// 			current = handle_heredoc(current, &current_cmd, &cmd_list);
-// 		else if (current->token && strncmp(current->token, "<", 2) == 0) //
-// 			current = handle_input_redirection(current,
-// &current_cmd, &cmd_list);
-// 		else if (strcmp(current->word, "$") == 0)
-// 			current = current->next;
-// 		else
-// 			handle_argument(current, &current_cmd, &cmd_list, &arg_count);
-// 		current = current->next;
-// 	}
-// 	return cmd_list;
-// }
