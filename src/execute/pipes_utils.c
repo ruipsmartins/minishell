@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipes_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: duamarqu <duamarqu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 11:05:58 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/12/28 10:34:10 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2025/01/07 18:26:19 by duamarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 bool	should_execute_in_parent(t_command *cmd)
 {
 	if (ft_strncmp(cmd->args[0], "cd", 3) == 0 || ft_strncmp(cmd->args[0],
-			"unset", 6) == 0 || ft_strncmp(cmd->args[0], "exit", 5) == 0)
+			"unset", 6) == 0 || ft_strncmp(cmd->args[0], "exit", 5) == 0)						//talvez seja melhor mudar para strcmp
 		return (true);
 	if (ft_strncmp(cmd->args[0], "export", 7) == 0)
 	{
