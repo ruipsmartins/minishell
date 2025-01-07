@@ -6,7 +6,7 @@
 /*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/19 12:05:41 by addicted          #+#    #+#             */
-/*   Updated: 2025/01/06 16:56:11 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2025/01/07 10:20:03 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ t_envvar	*find_envvar(t_envvar *lst, char *name)
 	current = lst;
 	while (current)
 	{
-		if (ft_strncmp(current->name, name, ft_strlen(name)) == 0)
+		if (ft_strncmp(current->name, name, ft_strlen(name) + 1) == 0)
 			return (current);
 		current = current->next;
 	}
@@ -78,8 +78,8 @@ t_envvar	*ft_create_env_list(char **env)
 	while (*current)
 	{
 		new_node = (t_envvar *)ft_calloc(1, sizeof(t_envvar));
-		new_node->name = ft_strndup(*current,
-				ft_strchr(*current, '=') - *current);
+		new_node->name = ft_strndup(*current, ft_strchr(*current, '=')
+				- *current);
 		new_node->value = ft_strdup(ft_strchr(*current, '=') + 1);
 		ft_envadd_back(&head, new_node);
 		current++;
