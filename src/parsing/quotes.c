@@ -6,7 +6,7 @@
 /*   By: duamarqu <duamarqu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/17 18:57:27 by addicted          #+#    #+#             */
-/*   Updated: 2025/01/07 14:58:06 by duamarqu         ###   ########.fr       */
+/*   Updated: 2025/01/08 14:47:29 by duamarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ char	*split_string(char **input)
 	int		in_single;
 	int		in_double;
 
-	if (!*input || **input == '\0')
+	if (!*input || **input == '\0' || !input)
 		return (NULL);
 	start = skip_spaces(*input);
 	output = malloc((ft_strlen(start) + 1) * sizeof(char));
