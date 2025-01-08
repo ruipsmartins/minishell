@@ -6,7 +6,7 @@
 /*   By: duamarqu <duamarqu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 17:50:34 by addicted          #+#    #+#             */
-/*   Updated: 2025/01/08 16:05:19 by duamarqu         ###   ########.fr       */
+/*   Updated: 2025/01/08 16:23:32 by duamarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,7 @@ int	only_spaces(char *input)
 {
 	while (*input)
 	{
-		if (!check_empty(input)){
-			printf(" ONLY \"\"\n");
-			return(1);
-		}
-		if (!isspace(*input) && *input != '\'' && *input != '\"')
+		if (!isspace(*input))
 			return (0);
 		input++;
 	}
