@@ -3,22 +3,64 @@
 /*                                                        :::      ::::::::   */
 /*   input_checkers.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: addicted <addicted@student.42.fr>          +#+  +:+       +#+        */
+/*   By: duamarqu <duamarqu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 17:50:34 by addicted          #+#    #+#             */
-/*   Updated: 2025/01/05 17:58:36 by addicted         ###   ########.fr       */
+/*   Updated: 2025/01/08 16:05:19 by duamarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
+int	check_empty(char *input)
+{
+	int	i;
+
+	i = 0;
+	while (input[i])
+	{
+		if (input[i] == '\'' || input[i] == '\"')
+		{
+			if (input[i + 1] == input[i])
+				return (0);
+		}
+		i++;
+	}
+	return (1);
+}
+
 int	only_spaces(char *input)
 {
 	while (*input)
 	{
+		if (!check_empty(input)){
+			printf(" ONLY \"\"\n");
+			return(1);
+		}
 		if (!isspace(*input) && *input != '\'' && *input != '\"')
 			return (0);
 		input++;
+	}
+	return (1);
+}
+
+int	start_pipe(char *input, t_data *data)
+{
+	int	i;
+
+	i = 0;
+	while (input[i])
+	{
+		while (input[i] == ' ' || input[i] == '\t')
+			i++;
+		if (input[i] == '|')
+		{
+			data->return_value = 2;
+			ft_printf("Syntax error near unexpected token `|'\n");
+			return (0);
+		}
+		else
+			return (1);
 	}
 	return (1);
 }
@@ -28,9 +70,11 @@ int	check_4_pipe(char *input, t_data *data)
 	int	i;
 
 	i = 0;
+	if (!start_pipe(input, data))
+		return (1);
 	while (input[i])
 	{
-		while (input[i] == ' ')
+		while (input[i] == ' ' || input[i] == '\t')
 			i++;
 		if (input[i] == '|')
 		{
