@@ -6,7 +6,7 @@
 /*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 11:05:58 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/12/28 14:40:23 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2025/01/08 15:53:07 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,14 @@ void	execute_child_process(int i, int **fds, t_command *cmd, t_data *data)
 	close_all_pipes(fds, data->cmd_count - 1);
 	if (handle_redirects(cmd, data) == -1)
 		exit(data->return_value);
+	if (!cmd->args || !cmd->args[0])
+	{
+		int x = 0;
+		while (x < 9999999)
+			x++;
+		cleanup_child_data(data);
+		exit(data->return_value);
+	}
 	if (builtin_execute(cmd, data))
 	{
 		cleanup_child_data(data);

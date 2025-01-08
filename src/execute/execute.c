@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: addicted <addicted@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 08:59:57 by ruidos-s          #+#    #+#             */
-/*   Updated: 2025/01/05 17:00:54 by addicted         ###   ########.fr       */
+/*   Updated: 2025/01/08 14:13:42 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ char	*find_executable(const char *command, t_data *data)
 	char	*dir;
 	char	*full_path;
 
+	if (!command[0])
+		return (NULL);
 	path = get_path_value(data);
 	if (!path)
 		return (NULL);
@@ -84,7 +86,9 @@ void	execute_command_or_path(t_command *cmd, t_data *data)
 	}
 	else
 	{
+		//ft_printf("cmd->args[0]= %s\n", cmd->args[0]);
 		data->executable = find_executable(cmd->args[0], data);
+		//ft_printf("data->executable: %s\n",data->executable);
 		if (data->executable)
 			execute_command(data->executable, cmd->args, data);
 		else
