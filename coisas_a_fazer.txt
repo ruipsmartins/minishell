@@ -14,7 +14,23 @@ duamarqu@c2r8s10:~/Desktop/42/minishell$ echo "$1USER$USER$PIPIPI"
 USERduamarqu
 Minishell: echo "$1USER$USER$PIPIPI"
 duamarqu
+////////////////////////
 
+
+    ls | lsd ---> return esta a dar 0 e devia dar errors
+
+    ls | exit | ls   --------->nao era para sair
+
+
+    ls | cat > a > b > c | wc -l   ----->nao cria o A e o b mas funciona
+
+   (resolvido) ls | ls |  cat > a > b > c > d >> e | wc -l -----> esta a dar leak uns comandos dpeois (echo $@ por exemlo)
+
+
+
+
+
+/////////////////////////
 
 cd ~
 ~
@@ -42,9 +58,6 @@ duamarqu@c2r8s10:/home/duamarqu/Desktop/42/minishell$
 
 duamarqu@c2r8s10:~/Desktop/42/minishell$ mkdir teste
 duamarqu@c2r8s10:~/Desktop/42/minishell$ cd teste
-duamarqu@c2r8s10:~/Desktop/42/minishell/teste$ bash
-duamarqu@c2r8s10:~/Desktop/42/minishell/teste$ 
-exit
 duamarqu@c2r8s10:~/Desktop/42/minishell/teste$ bash
 duamarqu@c2r8s10:~/Desktop/42/minishell/teste$ cd ..
 duamarqu@c2r8s10:~/Desktop/42/minishell$ rmdir teste
