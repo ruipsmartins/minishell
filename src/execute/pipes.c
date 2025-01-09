@@ -6,7 +6,7 @@
 /*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 11:05:58 by ruidos-s          #+#    #+#             */
-/*   Updated: 2025/01/08 15:53:07 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2025/01/09 14:59:00 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,6 @@ void	execute_child_process(int i, int **fds, t_command *cmd, t_data *data)
 		exit(data->return_value);
 	if (!cmd->args || !cmd->args[0])
 	{
-		int x = 0;
-		while (x < 9999999)
-			x++;
 		cleanup_child_data(data);
 		exit(data->return_value);
 	}
@@ -36,6 +33,9 @@ void	execute_child_process(int i, int **fds, t_command *cmd, t_data *data)
 		cleanup_child_data(data);
 		exit(data->return_value);
 	}
+	/* int x = 0;
+	while (x < 9999999)
+		x++; */
 	execute_command_or_path(cmd, data);
 	if (g_var == 130)
 		data->return_value = 130;
