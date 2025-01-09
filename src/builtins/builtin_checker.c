@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_checker.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: addicted <addicted@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 15:17:35 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/12/12 16:19:39 by addicted         ###   ########.fr       */
+/*   Updated: 2025/01/09 16:16:38 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 bool	builtin_execute(t_command *cmd, t_data *data)
 {
+	signal(SIGPIPE, SIG_IGN);
 	if (!cmd->args)
 		return (false);
 	if (ft_strncmp(cmd->args[0], "exit", 5) == 0)
@@ -31,7 +32,11 @@ bool	builtin_execute(t_command *cmd, t_data *data)
 	else if (ft_strncmp(cmd->args[0], "unset", 6) == 0)
 		unset_command(cmd, data);
 	else
+	{
+		signal(SIGPIPE, SIG_DFL);
 		return (false);
+	}
+	//signal(SIGPIPE, SIG_DFL);
 	return (true);
 }
 

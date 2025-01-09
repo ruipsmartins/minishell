@@ -1,6 +1,4 @@
-Minishell: echo a&??
-a & ??
-(ja esta a imprimir "a&??", e' diferente do bash mas pq o & sere com (e) e faz outro comando)
+se tiver pipes nao correr no parent
 
 """"''""''
 >outfile  da' segfault e bue leaks

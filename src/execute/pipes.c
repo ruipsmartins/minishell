@@ -6,7 +6,7 @@
 /*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 11:05:58 by ruidos-s          #+#    #+#             */
-/*   Updated: 2025/01/09 14:59:00 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2025/01/09 16:25:54 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,6 @@ void	execute_child_process(int i, int **fds, t_command *cmd, t_data *data)
 		cleanup_child_data(data);
 		exit(data->return_value);
 	}
-	/* int x = 0;
-	while (x < 9999999)
-		x++; */
 	execute_command_or_path(cmd, data);
 	if (g_var == 130)
 		data->return_value = 130;
@@ -64,8 +61,8 @@ void	wait_for_children(t_data *data, int cmd_count)
 {
 	int	j;
 
-	j = 0;
-	while (j < cmd_count)
+	j = cmd_count -1;
+	while (j >= 0)
 	{
 		if (data->pids && data->pids[j] > 0)
 		{
@@ -73,8 +70,9 @@ void	wait_for_children(t_data *data, int cmd_count)
 			if (WIFEXITED(data->return_value))
 				data->return_value = WEXITSTATUS(data->return_value);
 		}
-		j++;
+		j--;
 	}
+	//close_all_pipes(data->fds, data->cmd_count-1);
 }
 
 void	run_single_command(t_command *cmd, t_data *data, int index)
