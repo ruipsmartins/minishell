@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   envvar.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: duamarqu <duamarqu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/19 12:05:41 by addicted          #+#    #+#             */
-/*   Updated: 2025/01/07 10:20:03 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2025/01/09 16:40:41 by duamarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,30 @@ t_envvar	*find_envvar(t_envvar *lst, char *name)
 	return (NULL);
 }
 
+t_envvar *no_env(t_envvar *head)
+{
+	t_envvar *new_node;
+
+	new_node = (t_envvar *)ft_calloc(1, sizeof(t_envvar));
+	new_node->name = "PWD";
+	new_node->value = getcwd(NULL, 0);
+
+	ft_printf("value: %s\n", new_node->name);
+	ft_printf("value: %s\n", new_node->value);
+	ft_envadd_back(&head, new_node);
+	
+	new_node = (t_envvar *)ft_calloc(1, sizeof(t_envvar));
+	new_node->name = "SHLVL";
+	new_node->value = "1";
+	ft_envadd_back(&head, new_node);
+
+	new_node = (t_envvar *)ft_calloc(1, sizeof(t_envvar));
+	new_node->name = "_";
+	new_node->value = "/usr/bin/env";
+	ft_envadd_back(&head, new_node);
+
+	return(head);
+}
 // criar uma nova lista de variaveis de ambiente com o ENV
 t_envvar	*ft_create_env_list(char **env)
 {
@@ -74,6 +98,12 @@ t_envvar	*ft_create_env_list(char **env)
 	t_envvar	*head;
 
 	head = NULL;
+	if (*(env) == NULL )//|| *env == NULL)
+	{
+		head = no_env(head);
+		write(1, "help no env\n", 13);
+		return (NULL);
+	}
 	current = env;
 	while (*current)
 	{
