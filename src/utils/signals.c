@@ -6,7 +6,7 @@
 /*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 15:21:56 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/12/28 16:19:00 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2025/01/10 17:26:52 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,19 +18,17 @@ void	ctrl_c_parent(int signal)
 	rl_on_new_line();
 	rl_replace_line("", 0);
 	rl_redisplay();
-	g_var = 130;
-	(void)signal;
+	g_var = signal;
 }
 
 void	handle_here_doc_exit(int signal)
 {
-	(void)signal;
-	g_var = 130;
+	g_var = signal;
 	close(0);
 }
 
 void	ctrl_c_child(int signal)
 {
-	(void)signal;
-	g_var = 130;
+	g_var = signal;
+	write(1, "\n", 1);
 }

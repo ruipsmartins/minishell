@@ -6,7 +6,7 @@
 /*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 08:59:57 by ruidos-s          #+#    #+#             */
-/*   Updated: 2025/01/09 14:25:53 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2025/01/10 17:27:45 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,9 +86,7 @@ void	execute_command_or_path(t_command *cmd, t_data *data)
 	}
 	else
 	{
-		//ft_printf("cmd->args[0]= %s\n", cmd->args[0]);
 		data->executable = find_executable(cmd->args[0], data);
-		//ft_printf("data->executable: %s\n",data->executable);
 		if (data->executable)
 			execute_command(data->executable, cmd->args, data);
 		else

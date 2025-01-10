@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: addicted <addicted@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 17:28:57 by ruidos-s          #+#    #+#             */
-/*   Updated: 2025/01/05 17:50:59 by addicted         ###   ########.fr       */
+/*   Updated: 2025/01/10 16:55:57 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ char	*get_command_input(t_data *data)
 		input[ft_strlen(input)] = '\0';
 		add_history(input);
 	}
-	if (g_var == 130)
+	if (g_var == 2)
 	{
 		g_var = 0;
 		data->return_value = 130;

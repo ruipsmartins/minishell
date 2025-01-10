@@ -6,7 +6,7 @@
 /*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 14:01:43 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/12/28 15:26:04 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2025/01/10 16:56:02 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static int	read_lines_and_write(t_command *cmd, int write_fd)
 		write(write_fd, "\n", 1);
 		free(line);
 	}
-	if (g_var == 130)
+	if (g_var == 2)
 	{
 		close(write_fd);
 		return (-1);
