@@ -1,14 +1,4 @@
-se tiver pipes nao correr no parent
 
-
-/* else meter no parent
-	{
-		cleanup_child_data(data);
-		waitpid(pid, &status, 0);
-		if (WIFEXITED(status))
-			status = WEXITSTATUS(status);
-		data->return_value = status;
-	} */
 
 duamarqu@c2r8s10:~/Desktop/42/minishell$ echo "$1USER$USER$PIPIPI"
 USERduamarqu
@@ -17,14 +7,13 @@ duamarqu
 ////////////////////////
 
 
-    ls | lsd ---> return esta a dar 0 e devia dar errors
 
-    ls | exit | ls   --------->nao era para sair
+ls | cat > a > b > c | wc -l   ----->nao cria o A e o b mas funciona
 
+arranjar maneira de guardar todos os files para depopis serem criados.
+algo como isto -----  cmd->out_files[i]
 
-    ls | cat > a > b > c | wc -l   ----->nao cria o A e o b mas funciona
-
-   (resolvido) ls | ls |  cat > a > b > c > d >> e | wc -l -----> esta a dar leak uns comandos dpeois (echo $@ por exemlo)
+(resolvido) ls | ls |  cat > a > b > c > d >> e | wc -l -----> esta a dar leak uns comandos dpeois (echo $@ por exemlo)
 
 
 
