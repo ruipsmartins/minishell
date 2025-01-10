@@ -6,7 +6,7 @@
 /*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 11:05:58 by ruidos-s          #+#    #+#             */
-/*   Updated: 2025/01/10 15:52:06 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2025/01/10 16:07:40 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,13 +56,13 @@ void	init_pipes_and_pids(t_data *data, int cmd_count)
 		i++;
 	}
 }
-
+// Função para esperar pelos processos filhos.
 void	wait_for_children(t_data *data, int cmd_count)
 {
 	int	j;
 
-	j = cmd_count -1;
-	while (j >= 0)
+	j = 0;
+	while (j < cmd_count)
 	{
 		if (data->pids && data->pids[j] > 0)
 		{
@@ -70,10 +70,10 @@ void	wait_for_children(t_data *data, int cmd_count)
 			if (WIFEXITED(data->return_value))
 				data->return_value = WEXITSTATUS(data->return_value);
 		}
-		j--;
+		j++;
 	}
 }
-
+// Função para executar um único comando.
 void	run_single_command(t_command *cmd, t_data *data, int index)
 {
 	if (should_execute_in_parent(cmd))

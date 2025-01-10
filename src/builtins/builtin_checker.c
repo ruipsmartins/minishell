@@ -6,12 +6,13 @@
 /*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 15:17:35 by ruidos-s          #+#    #+#             */
-/*   Updated: 2025/01/10 15:56:35 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2025/01/10 16:09:50 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
+// Função para executar os builtins.
 bool	builtin_execute(t_command *cmd, t_data *data)
 {
 	signal(SIGPIPE, SIG_IGN);
@@ -39,7 +40,7 @@ bool	builtin_execute(t_command *cmd, t_data *data)
 	return (true);
 }
 
-
+/* Função para verificar se o comando deve ser executado no processo pai. */
 bool	should_execute_in_parent(t_command *cmd)
 {
 	if (cmd->args == NULL)
@@ -55,7 +56,6 @@ bool	should_execute_in_parent(t_command *cmd)
 	}
 	return (false);
 }
-
 
 /* bool	builtin_checker(t_command *cmd)
 {
