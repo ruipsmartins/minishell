@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: duamarqu <duamarqu@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 17:34:50 by ruidos-s          #+#    #+#             */
-/*   Updated: 2025/01/07 14:52:05 by duamarqu         ###   ########.fr       */
+/*   Updated: 2025/01/10 15:57:01 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -190,7 +190,7 @@ int						execute_heredoc(t_command *cmd);
 
 // builtins
 bool					builtin_execute(t_command *cmd, t_data *data);
-bool					builtin_checker(t_command *cmd);
+//bool					builtin_checker(t_command *cmd);
 void					exit_command(t_command *cmd, t_data *data);
 int						pwd_command(t_data *data);
 int						cd_command(t_command cmd, t_data *data);

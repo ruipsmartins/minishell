@@ -6,7 +6,7 @@
 /*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 11:05:58 by ruidos-s          #+#    #+#             */
-/*   Updated: 2025/01/09 16:36:38 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2025/01/10 15:52:06 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,9 +76,10 @@ void	wait_for_children(t_data *data, int cmd_count)
 
 void	run_single_command(t_command *cmd, t_data *data, int index)
 {
-	if (builtin_checker(cmd) && should_execute_in_parent(cmd))
+	if (should_execute_in_parent(cmd))
 	{
-		builtin_execute(cmd, data);
+		if (data->cmd_count == 1)
+			builtin_execute(cmd, data);
 		data->pids[index] = -1;
 	}
 	else

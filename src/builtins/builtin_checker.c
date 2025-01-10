@@ -6,7 +6,7 @@
 /*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 15:17:35 by ruidos-s          #+#    #+#             */
-/*   Updated: 2025/01/09 16:16:38 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2025/01/10 15:56:35 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,11 +36,28 @@ bool	builtin_execute(t_command *cmd, t_data *data)
 		signal(SIGPIPE, SIG_DFL);
 		return (false);
 	}
-	//signal(SIGPIPE, SIG_DFL);
 	return (true);
 }
 
-bool	builtin_checker(t_command *cmd)
+
+bool	should_execute_in_parent(t_command *cmd)
+{
+	if (cmd->args == NULL)
+		return (false);
+	if (ft_strncmp(cmd->args[0], "cd", 3) == 0 || ft_strncmp(cmd->args[0],
+			"unset", 6) == 0 || ft_strncmp(cmd->args[0], "exit", 5) == 0)
+		return (true);
+	if (ft_strncmp(cmd->args[0], "export", 7) == 0)
+	{
+		if (cmd->args[1] != NULL)
+			return (true);
+		return (false);
+	}
+	return (false);
+}
+
+
+/* bool	builtin_checker(t_command *cmd)
 {
 	if (cmd->args == NULL)
 		return (false);
@@ -56,4 +73,4 @@ bool	builtin_checker(t_command *cmd)
 	else
 		return (false);
 	return (true);
-}
+} */
