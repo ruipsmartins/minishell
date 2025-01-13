@@ -6,26 +6,12 @@
 /*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 11:05:58 by ruidos-s          #+#    #+#             */
-/*   Updated: 2025/01/08 12:01:07 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2025/01/10 15:56:26 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 #include "minishell.h"
-
-bool	should_execute_in_parent(t_command *cmd)
-{
-	if (ft_strncmp(cmd->args[0], "cd", 3) == 0 || ft_strncmp(cmd->args[0],
-			"unset", 6) == 0 || ft_strncmp(cmd->args[0], "exit", 5) == 0)
-		return (true);
-	if (ft_strncmp(cmd->args[0], "export", 7) == 0)
-	{
-		if (cmd->args[1] != NULL)
-			return (true);
-		return (false);
-	}
-	return (false);
-}
 
 int	count_commands(t_command *cmd)
 {

@@ -1,17 +1,25 @@
-Minishell: echo a&??
-a & ??
-(ja esta a imprimir "a&??", e' diferente do bash mas pq o & sere com (e) e faz outro comando)
-
-""""''""''
->outfile  da' segfault e bue leaks
-
 
 
 duamarqu@c2r8s10:~/Desktop/42/minishell$ echo "$1USER$USER$PIPIPI"
 USERduamarqu
 Minishell: echo "$1USER$USER$PIPIPI"
 duamarqu
+////////////////////////
 
+
+
+ls | cat > a > b > c | wc -l   ----->nao cria o A e o b mas funciona
+
+arranjar maneira de guardar todos os files para depopis serem criados.
+algo como isto -----  cmd->out_files[i]
+
+(resolvido) ls | ls |  cat > a > b > c > d >> e | wc -l -----> esta a dar leak uns comandos dpeois (echo $@ por exemlo)
+
+
+
+
+
+/////////////////////////
 
 cd ~
 ~
@@ -40,9 +48,6 @@ duamarqu@c2r8s10:/home/duamarqu/Desktop/42/minishell$
 duamarqu@c2r8s10:~/Desktop/42/minishell$ mkdir teste
 duamarqu@c2r8s10:~/Desktop/42/minishell$ cd teste
 duamarqu@c2r8s10:~/Desktop/42/minishell/teste$ bash
-duamarqu@c2r8s10:~/Desktop/42/minishell/teste$ 
-exit
-duamarqu@c2r8s10:~/Desktop/42/minishell/teste$ bash
 duamarqu@c2r8s10:~/Desktop/42/minishell/teste$ cd ..
 duamarqu@c2r8s10:~/Desktop/42/minishell$ rmdir teste
 duamarqu@c2r8s10:~/Desktop/42/minishell$ exit
@@ -63,12 +68,6 @@ getcwd:: No such file or directory            // prioridade em usar a env $PWD e
 Minishell: cd ..
 Minishell: pwd
 /home/duamarqu/Desktop/42/minishell
-
-
-
-
-da segfault quando passaas uma redirecao sem o comando
-
 
 
 ==58150== 

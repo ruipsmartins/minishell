@@ -6,7 +6,7 @@
 /*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 11:05:58 by ruidos-s          #+#    #+#             */
-/*   Updated: 2025/01/08 15:53:07 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2025/01/10 17:26:49 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,6 @@ void	execute_child_process(int i, int **fds, t_command *cmd, t_data *data)
 		exit(data->return_value);
 	if (!cmd->args || !cmd->args[0])
 	{
-		int x = 0;
-		while (x < 9999999)
-			x++;
 		cleanup_child_data(data);
 		exit(data->return_value);
 	}
@@ -37,7 +34,7 @@ void	execute_child_process(int i, int **fds, t_command *cmd, t_data *data)
 		exit(data->return_value);
 	}
 	execute_command_or_path(cmd, data);
-	if (g_var == 130)
+	if (g_var == 2)
 		data->return_value = 130;
 	exit(data->return_value);
 }
@@ -59,7 +56,7 @@ void	init_pipes_and_pids(t_data *data, int cmd_count)
 		i++;
 	}
 }
-
+// Função para esperar pelos processos filhos.
 void	wait_for_children(t_data *data, int cmd_count)
 {
 	int	j;
@@ -76,12 +73,13 @@ void	wait_for_children(t_data *data, int cmd_count)
 		j++;
 	}
 }
-
+// Função para executar um único comando.
 void	run_single_command(t_command *cmd, t_data *data, int index)
 {
-	if (builtin_checker(cmd) && should_execute_in_parent(cmd))
+	if (should_execute_in_parent(cmd))
 	{
-		builtin_execute(cmd, data);
+		if (data->cmd_count == 1)
+			builtin_execute(cmd, data);
 		data->pids[index] = -1;
 	}
 	else
@@ -92,11 +90,11 @@ void	run_single_command(t_command *cmd, t_data *data, int index)
 		else if (data->pids[index] == 0)
 		{
 			signal(SIGQUIT, SIG_DFL);
-			signal(SIGINT, ctrl_c_child);
 			execute_child_process(index, data->fds, cmd, data);
 		}
 		else
-			signal(SIGINT, SIG_IGN);
+			signal(SIGINT, ctrl_c_child);
+
 	}
 }
 

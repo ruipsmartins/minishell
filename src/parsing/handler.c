@@ -6,7 +6,7 @@
 /*   By: duamarqu <duamarqu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/30 16:32:09 by duamarqu          #+#    #+#             */
-/*   Updated: 2025/01/07 18:07:08 by duamarqu         ###   ########.fr       */
+/*   Updated: 2025/01/09 18:58:14 by duamarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ t_command **cmd_list)
 			*cmd_list = *current_cmd;
 		}
 		(*current_cmd)->append = true;
+		if((*current_cmd)->out_file)
+			free((*current_cmd)->out_file);
 		(*current_cmd)->out_file = ft_strdup(current->word);
 	}
 	return (current);
@@ -65,6 +67,8 @@ t_command **current_cmd, t_command **cmd_list)
 			*cmd_list = *current_cmd;
 		}
 		(*current_cmd)->append = false;
+		if((*current_cmd)->out_file)
+			free((*current_cmd)->out_file);
 		(*current_cmd)->out_file = ft_strdup(current->word);       //check para dar free depois
 	}
 	return (current);

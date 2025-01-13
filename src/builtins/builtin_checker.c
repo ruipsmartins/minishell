@@ -3,17 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_checker.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: addicted <addicted@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 15:17:35 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/12/12 16:19:39 by addicted         ###   ########.fr       */
+/*   Updated: 2025/01/10 16:09:50 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
+// Função para executar os builtins.
 bool	builtin_execute(t_command *cmd, t_data *data)
 {
+	signal(SIGPIPE, SIG_IGN);
 	if (!cmd->args)
 		return (false);
 	if (ft_strncmp(cmd->args[0], "exit", 5) == 0)
@@ -31,11 +33,31 @@ bool	builtin_execute(t_command *cmd, t_data *data)
 	else if (ft_strncmp(cmd->args[0], "unset", 6) == 0)
 		unset_command(cmd, data);
 	else
+	{
+		signal(SIGPIPE, SIG_DFL);
 		return (false);
+	}
 	return (true);
 }
 
-bool	builtin_checker(t_command *cmd)
+/* Função para verificar se o comando deve ser executado no processo pai. */
+bool	should_execute_in_parent(t_command *cmd)
+{
+	if (cmd->args == NULL)
+		return (false);
+	if (ft_strncmp(cmd->args[0], "cd", 3) == 0 || ft_strncmp(cmd->args[0],
+			"unset", 6) == 0 || ft_strncmp(cmd->args[0], "exit", 5) == 0)
+		return (true);
+	if (ft_strncmp(cmd->args[0], "export", 7) == 0)
+	{
+		if (cmd->args[1] != NULL)
+			return (true);
+		return (false);
+	}
+	return (false);
+}
+
+/* bool	builtin_checker(t_command *cmd)
 {
 	if (cmd->args == NULL)
 		return (false);
@@ -51,4 +73,4 @@ bool	builtin_checker(t_command *cmd)
 	else
 		return (false);
 	return (true);
-}
+} */

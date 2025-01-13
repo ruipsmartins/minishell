@@ -6,7 +6,7 @@
 /*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 08:59:57 by ruidos-s          #+#    #+#             */
-/*   Updated: 2025/01/08 14:13:42 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2025/01/10 17:27:45 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,30 +43,30 @@ char	*find_executable(const char *command, t_data *data)
 // Função para executar o comando
 int	execute_command(char *executable, char **args, t_data *data)
 {
-	pid_t	pid;
+	//pid_t	pid;
 	int		status;
 
 	status = 0;
-	pid = fork();
+	/* pid = fork();
 	if (pid < 0)
-		write(STDERR_FILENO, "fork error\n", 11);
-	else if (pid == 0)
+		write(STDERR_FILENO, "fork error\n", 11); */
+	/* else if (pid == 0)
+	{ */
+	if (execve(executable, args, data->env) == -1)
 	{
-		if (execve(executable, args, data->env) == -1)
-		{
-			perror("execve");
-			exit(EXIT_FAILURE);
-		}
-		exit(EXIT_SUCCESS);
+		perror("execve");
+		exit(EXIT_FAILURE);
 	}
-	else
+	//exit(EXIT_SUCCESS);
+	//}
+	/* else
 	{
 		cleanup_child_data(data);
 		waitpid(pid, &status, 0);
 		if (WIFEXITED(status))
 			status = WEXITSTATUS(status);
 		data->return_value = status;
-	}
+	} */
 	return (status);
 }
 
@@ -86,9 +86,7 @@ void	execute_command_or_path(t_command *cmd, t_data *data)
 	}
 	else
 	{
-		//ft_printf("cmd->args[0]= %s\n", cmd->args[0]);
 		data->executable = find_executable(cmd->args[0], data);
-		//ft_printf("data->executable: %s\n",data->executable);
 		if (data->executable)
 			execute_command(data->executable, cmd->args, data);
 		else

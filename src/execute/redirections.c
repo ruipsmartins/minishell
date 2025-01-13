@@ -6,7 +6,7 @@
 /*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 14:11:52 by ruidos-s          #+#    #+#             */
-/*   Updated: 2025/01/06 12:27:30 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2025/01/10 16:56:19 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ int	handle_redirects(t_command *cmd, t_data *data)
 	if (handle_input_redirect(cmd, &data->original_stdin) == -1)
 	{
 		cleanup_child_data(data);
-		if (g_var == 130)
+		if (g_var == 2)
 			exit(130);
 		exit(1);
 	}
