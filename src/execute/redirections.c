@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirections.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: duamarqu <duamarqu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 14:11:52 by ruidos-s          #+#    #+#             */
-/*   Updated: 2025/01/10 16:56:19 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2025/01/13 14:05:19 by duamarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,15 +62,15 @@ int	handle_output_redirect(t_command *cmd, int *original_stdout)
 {
 	int	out_file;
 
-	if (cmd->out_file && *cmd->out_file)
+	while (cmd->redirect && cmd->redirect->out_file)
 	{
 		if (cmd->append == true)
-			out_file = open(cmd->out_file, O_WRONLY | O_CREAT | O_APPEND, 0644);
+			out_file = open(cmd->redirect->out_file, O_WRONLY | O_CREAT | O_APPEND, 0644);
 		else
-			out_file = open(cmd->out_file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+			out_file = open(cmd->redirect->out_file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 		if (out_file == -1)
 		{
-			write(STDERR_FILENO, cmd->out_file, ft_strlen(cmd->out_file));
+			write(STDERR_FILENO, cmd->redirect->out_file, ft_strlen(cmd->redirect->out_file));
 			write(STDERR_FILENO, ": Failed to open output file\n", 29);
 			return (-1);
 		}
@@ -83,6 +83,7 @@ int	handle_output_redirect(t_command *cmd, int *original_stdout)
 		}
 		dup2(out_file, STDOUT_FILENO);
 		close(out_file);
+		cmd->redirect = cmd->redirect->next;
 	}
 	return (0);
 }

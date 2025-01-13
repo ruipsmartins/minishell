@@ -6,7 +6,7 @@
 /*   By: duamarqu <duamarqu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/30 16:32:09 by duamarqu          #+#    #+#             */
-/*   Updated: 2025/01/09 18:58:14 by duamarqu         ###   ########.fr       */
+/*   Updated: 2025/01/13 14:43:39 by duamarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,18 +23,29 @@ t_lexer	*handle_append(t_lexer *current, t_command **current_cmd,
 t_command **cmd_list)
 {
 	current = current->next;
-	if (current && current->word)
-	{
 		if (*current_cmd == NULL)
 		{
 			*current_cmd = (t_command *)ft_calloc(1, sizeof(t_command));
 			*cmd_list = *current_cmd;
 		}
 		(*current_cmd)->append = true;
-		if((*current_cmd)->out_file)
-			free((*current_cmd)->out_file);
-		(*current_cmd)->out_file = ft_strdup(current->word);
-	}
+
+		t_redirect *new_redirect = (t_redirect *)ft_calloc(1, sizeof(t_redirect));
+		if ((*current_cmd)->redirect == NULL)
+		{
+			(*current_cmd)->redirect = new_redirect;
+			(*current_cmd)->redirect->out_file = ft_strdup(current->word);
+			(*current_cmd)->redirect->append = true;
+		}
+		else
+		{
+			t_redirect *tmp = (*current_cmd)->redirect;
+			while (tmp->next)
+				tmp = tmp->next;
+			tmp->next = new_redirect;
+			tmp->next->out_file = ft_strdup(current->word);
+			tmp->next->append = true;
+		}
 	return (current);
 }
 
@@ -59,18 +70,28 @@ t_lexer	*handle_output_redirection(t_lexer *current,
 t_command **current_cmd, t_command **cmd_list)
 {
 	current = current->next;
-	if (current && current->word)
-	{
 		if (*current_cmd == NULL)
 		{
 			*current_cmd = (t_command *)ft_calloc(1, sizeof(t_command));
 			*cmd_list = *current_cmd;
 		}
 		(*current_cmd)->append = false;
-		if((*current_cmd)->out_file)
-			free((*current_cmd)->out_file);
-		(*current_cmd)->out_file = ft_strdup(current->word);       //check para dar free depois
-	}
+		t_redirect *new_redirect = (t_redirect *)ft_calloc(1, sizeof(t_redirect));
+		if ((*current_cmd)->redirect == NULL)
+		{
+			(*current_cmd)->redirect = new_redirect;
+			(*current_cmd)->redirect->out_file = ft_strdup(current->word);
+			(*current_cmd)->redirect->append = false;
+		}
+		else
+		{
+			t_redirect *tmp = (*current_cmd)->redirect;
+			while (tmp->next)
+				tmp = tmp->next;
+			tmp->next = new_redirect;
+			tmp->next->out_file = ft_strdup(current->word);
+			tmp->next->append = false;
+		}
 	return (current);
 }
 

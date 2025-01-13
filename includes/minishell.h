@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: duamarqu <duamarqu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 17:34:50 by ruidos-s          #+#    #+#             */
-/*   Updated: 2025/01/10 15:57:01 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2025/01/13 14:51:25 by duamarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,15 +33,31 @@ typedef struct s_lexer
 	struct s_lexer		*prev;
 }						t_lexer;
 
+typedef struct s_redirect
+{
+	char				*out_file;
+	bool				append;
+	struct s_redirect	*next;
+}						t_redirect;
+
+typedef struct s_heredoc
+{
+	char				*delimiter;
+	bool 				heredoc;
+	t_heredoc			*next;
+}						t_heredoc;
+
 typedef struct s_command
 {
 	char				**args;
 	char				*input_file;
-	char				*out_file;
+	t_redirect			*redirect;
+//	char			*out_file;
 	bool				append;
 	bool				heredoc;
 	char				*delimiter;
 	struct s_command	*next;
+	int					i;
 }						t_command;
 
 typedef struct s_envvar
