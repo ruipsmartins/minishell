@@ -6,7 +6,7 @@
 /*   By: duamarqu <duamarqu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 17:34:50 by ruidos-s          #+#    #+#             */
-/*   Updated: 2025/01/13 14:51:25 by duamarqu         ###   ########.fr       */
+/*   Updated: 2025/01/13 15:09:45 by duamarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ typedef struct s_heredoc
 {
 	char				*delimiter;
 	bool 				heredoc;
-	t_heredoc			*next;
+	struct s_heredoc	*next;
 }						t_heredoc;
 
 typedef struct s_command
@@ -54,8 +54,8 @@ typedef struct s_command
 	t_redirect			*redirect;
 //	char			*out_file;
 	bool				append;
-	bool				heredoc;
-	char				*delimiter;
+	//bool				heredoc;
+	t_heredoc	*heredoc;
 	struct s_command	*next;
 	int					i;
 }						t_command;

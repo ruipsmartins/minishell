@@ -6,7 +6,7 @@
 /*   By: duamarqu <duamarqu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 14:11:52 by ruidos-s          #+#    #+#             */
-/*   Updated: 2025/01/13 14:05:19 by duamarqu         ###   ########.fr       */
+/*   Updated: 2025/01/13 16:11:54 by duamarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	handle_input_redirect(t_command *cmd, int *original_stdin)
 {
 	int	in_file;
 
-	if (cmd->heredoc == true)
+	if (cmd->heredoc && cmd->heredoc->heredoc == true)
 		return (process_heredoc(cmd, original_stdin));
 	else if (cmd->input_file && *cmd->input_file)
 	{

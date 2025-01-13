@@ -6,7 +6,7 @@
 /*   By: duamarqu <duamarqu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/30 16:32:09 by duamarqu          #+#    #+#             */
-/*   Updated: 2025/01/13 14:43:39 by duamarqu         ###   ########.fr       */
+/*   Updated: 2025/01/13 15:05:35 by duamarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,23 @@ t_command **cmd_list)
 			*current_cmd = (t_command *)ft_calloc(1, sizeof(t_command));
 			*cmd_list = *current_cmd;
 		}
-		(*current_cmd)->heredoc = true;
-		(*current_cmd)->delimiter = ft_strdup(current->word);
+		t_heredoc *new_heredoc = (t_heredoc *)ft_calloc(1, sizeof(t_heredoc));
+		if ((*current_cmd)->heredoc == NULL)
+		{
+			(*current_cmd)->heredoc = new_heredoc;
+			if ((*current_cmd)->heredoc)
+				(*current_cmd)->heredoc->delimiter = ft_strdup(current->word);
+			(*current_cmd)->heredoc->heredoc = true;
+		}
+		else
+		{
+			t_heredoc *tmp = (*current_cmd)->heredoc;
+			while (tmp->next)
+				tmp = tmp->next;
+			tmp->next = new_heredoc;
+			tmp->next->heredoc = true;
+			tmp->next->delimiter = ft_strdup(current->word);
+		}
 	}
 	return (current);
 }

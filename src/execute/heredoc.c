@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: duamarqu <duamarqu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 14:01:43 by ruidos-s          #+#    #+#             */
-/*   Updated: 2025/01/10 16:56:02 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2025/01/13 15:59:55 by duamarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,15 +31,24 @@ static int	read_lines_and_write(t_command *cmd, int write_fd)
 	while (1)
 	{
 		line = readline("> ");
-		if (!line || ft_strncmp(line, cmd->delimiter, ft_strlen(cmd->delimiter)
-				+ 1) == 0)
+		if (!line || ft_strncmp(line, cmd->heredoc->delimiter, 
+				ft_strlen(cmd->heredoc->delimiter) + 1) == 0)
 		{
 			free(line);
-			break ;
+			if(cmd->heredoc->next)
+			{
+				cmd->heredoc = cmd->heredoc->next;
+				continue ;
+			}
+			else
+				break ;
 		}
-		write(write_fd, line, ft_strlen(line));
-		write(write_fd, "\n", 1);
-		free(line);
+		if(!cmd->heredoc->next)
+		{
+			write(write_fd, line, ft_strlen(line));
+			write(write_fd, "\n", 1);
+			free(line);
+		}
 	}
 	if (g_var == 2)
 	{

@@ -6,7 +6,7 @@
 /*   By: duamarqu <duamarqu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/30 11:17:42 by duamarqu          #+#    #+#             */
-/*   Updated: 2025/01/13 14:19:33 by duamarqu         ###   ########.fr       */
+/*   Updated: 2025/01/13 15:10:57 by duamarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,10 @@ void	free_command_list(t_command *cmd_list) //free da lista de comandos
 			free(current->args);
 		}
 		if (current->heredoc)
-			free(current->delimiter);
+		{
+			free(current->heredoc->delimiter);
+			free(current->heredoc);
+		}
 		free(current->input_file);
 		while(current->redirect)
 		{

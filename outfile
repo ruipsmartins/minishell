@@ -1,11 +1,11 @@
-\
-a.out
+aaaaaa
 coisas_a_fazer.txt
 en.subject.pdf
 includes
 infile
 libft
 LICENSE
+ls
 Makefile
 minishell
 minishell correction_files
@@ -15,4 +15,8 @@ outfile
 readline.supp
 README.md
 src
+test
+test1
+test2
+test3
 tests.md
