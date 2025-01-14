@@ -18,7 +18,7 @@ char	*get_command_input(t_data *data)
 {
 	char	*input;
 
-	input = readline("\033[32mMinishell:\033[0m ");
+	input = readline("Minishell: ");
 	if (input && *input)
 	{
 		input[ft_strlen(input)] = '\0';

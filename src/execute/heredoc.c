@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: duamarqu <duamarqu@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 14:01:43 by ruidos-s          #+#    #+#             */
-/*   Updated: 2025/01/13 15:59:55 by duamarqu         ###   ########.fr       */
+/*   Updated: 2025/01/14 13:10:06 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,27 @@ static int	handle_signal_and_pipe(int pipe_fd[2])
 	return (0);
 }
 
+static int	write_line_to_fd(char *line, int write_fd)
+{
+	if (line)
+	{
+		write(write_fd, line, ft_strlen(line));
+		write(write_fd, "\n", 1);
+		free(line);
+	}
+	return (0);
+}
+
+static int	check_g_var(int write_fd)
+{
+	if (g_var == 2)
+	{
+		close(write_fd);
+		return (-1);
+	}
+	return (0);
+}
+
 static int	read_lines_and_write(t_command *cmd, int write_fd)
 {
 	char	*line;
@@ -31,11 +52,11 @@ static int	read_lines_and_write(t_command *cmd, int write_fd)
 	while (1)
 	{
 		line = readline("> ");
-		if (!line || ft_strncmp(line, cmd->heredoc->delimiter, 
+		if (!line || ft_strncmp(line, cmd->heredoc->delimiter,
 				ft_strlen(cmd->heredoc->delimiter) + 1) == 0)
 		{
 			free(line);
-			if(cmd->heredoc->next)
+			if (cmd->heredoc->next)
 			{
 				cmd->heredoc = cmd->heredoc->next;
 				continue ;
@@ -43,18 +64,11 @@ static int	read_lines_and_write(t_command *cmd, int write_fd)
 			else
 				break ;
 		}
-		if(!cmd->heredoc->next)
-		{
-			write(write_fd, line, ft_strlen(line));
-			write(write_fd, "\n", 1);
-			free(line);
-		}
+		if (!cmd->heredoc->next)
+			write_line_to_fd(line, write_fd);
 	}
-	if (g_var == 2)
-	{
-		close(write_fd);
+	if (check_g_var(write_fd) == -1)
 		return (-1);
-	}
 	return (0);
 }
 
