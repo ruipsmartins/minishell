@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirections.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: duamarqu <duamarqu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 14:11:52 by ruidos-s          #+#    #+#             */
-/*   Updated: 2025/01/14 12:42:31 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2025/01/15 16:00:24 by duamarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,21 +53,27 @@ int	handle_input_redirect(t_command *cmd, int *original_stdin)
 	int		in_fd;
 	char	*input_file_name;
 
+	
+
 	if (cmd->heredoc && cmd->heredoc->heredoc == true)
 		return (process_heredoc(cmd, original_stdin));
-	else if (cmd->input_file && *cmd->input_file)
+	while(cmd->input && cmd->input->file_name)
 	{
-		input_file_name = cmd->input_file;
-		in_fd = open(cmd->input_file, O_RDONLY);
-		if (in_fd == -1)
-			return (handle_file_error(input_file_name,
-					": Failed to open input file\n", in_fd, -1));
-		*original_stdin = dup(STDIN_FILENO);
-		if (*original_stdin == -1)
-			return (handle_file_error(NULL, "Failed to duplicate stdin\n",
-					in_fd, -1));
-		dup2(in_fd, STDIN_FILENO);
-		close(in_fd);
+		if (cmd->input->file_name && *cmd->input->file_name)
+		{
+			input_file_name = cmd->input->file_name;
+			in_fd = open(cmd->input->file_name, O_RDONLY);
+			if (in_fd == -1)
+				return (handle_file_error(input_file_name,
+						": Failed to open input file\n", in_fd, -1));
+			*original_stdin = dup(STDIN_FILENO);
+			if (*original_stdin == -1)
+				return (handle_file_error(NULL, "Failed to duplicate stdin\n",
+						in_fd, -1));
+			dup2(in_fd, STDIN_FILENO);
+			close(in_fd);
+		}
+		cmd->input = cmd->input->next;
 	}
 	return (0);
 }
@@ -80,7 +86,7 @@ int	handle_output_redirect(t_command *cmd, int *original_stdout)
 	while (cmd->redirect && cmd->redirect->out_file)
 	{
 		out_file_name = cmd->redirect->out_file;
-		if (cmd->append == true)
+		if (cmd->redirect->append == true)
 			out_fd = open(out_file_name, O_WRONLY | O_CREAT | O_APPEND, 0644);
 		else
 			out_fd = open(out_file_name, O_WRONLY | O_CREAT | O_TRUNC, 0644);

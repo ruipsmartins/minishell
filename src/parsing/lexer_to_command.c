@@ -6,7 +6,7 @@
 /*   By: duamarqu <duamarqu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/12 10:50:11 by addicted          #+#    #+#             */
-/*   Updated: 2025/01/07 15:07:36 by duamarqu         ###   ########.fr       */
+/*   Updated: 2025/01/15 13:43:33 by duamarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,9 +128,9 @@ t_command **cmd_list, int *arg_count)
 	if (current->token && ft_strncmp(current->token, "|", 2) == 0)
 		handle_pipe_token(current_cmd, arg_count);
 	else if (current->token && ft_strncmp(current->token, ">>", 3) == 0)
-		current = handle_append(current, current_cmd, cmd_list);
+		current = handle_output(current, current_cmd, cmd_list, true);
 	else if (current->token && ft_strncmp(current->token, ">", 2) == 0)
-		current = handle_output_redirection(current, current_cmd, cmd_list);
+		current = handle_output(current, current_cmd, cmd_list, false);
 	else if (current->token && ft_strncmp(current->token, "<<", 3) == 0)
 		current = handle_heredoc(current, current_cmd, cmd_list);
 	else if (current->token && ft_strncmp(current->token, "<", 2) == 0)

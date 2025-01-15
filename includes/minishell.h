@@ -6,7 +6,7 @@
 /*   By: duamarqu <duamarqu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 17:34:50 by ruidos-s          #+#    #+#             */
-/*   Updated: 2025/01/13 15:09:45 by duamarqu         ###   ########.fr       */
+/*   Updated: 2025/01/15 14:31:39 by duamarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,13 +47,19 @@ typedef struct s_heredoc
 	struct s_heredoc	*next;
 }						t_heredoc;
 
+typedef struct s_input
+{
+	char				*file_name;
+	struct s_input		*next;
+}						t_input;
+
 typedef struct s_command
 {
 	char				**args;
-	char				*input_file;
+	//char			*input_file;//para apagar
+	t_input				*input;
 	t_redirect			*redirect;
 //	char			*out_file;
-	bool				append;
 	//bool				heredoc;
 	t_heredoc	*heredoc;
 	struct s_command	*next;
@@ -86,8 +92,6 @@ typedef struct s_data
 int						only_spaces(char *input);
 int						check_4_pipe(char *input, t_data *data);
 int						check_here_doc(char *input, t_data *data);
-
-char					*readline(const char *prompt);
 char					*ft_strtok(char *str, const char *delim);
 void					data_init(t_data *data, char **env);
 void					handle_pipe_token(t_command **current_cmd,
@@ -96,8 +100,8 @@ t_lexer					*handle_append(t_lexer *current,
 							t_command **current_cmd, t_command **cmd_list);
 t_lexer					*handle_heredoc(t_lexer *current,
 							t_command **current_cmd, t_command **cmd_list);
-t_lexer					*handle_output_redirection(t_lexer *current,
-							t_command **current_cmd, t_command **cmd_list);
+t_lexer					*handle_output(t_lexer *current,
+							t_command **current_cmd, t_command **cmd_list, bool append);
 t_lexer					*handle_input_redirection(t_lexer *current,
 							t_command **current_cmd, t_command **cmd_list);
 t_lexer					*handle_token(t_lexer *current, t_command **current_cmd,
@@ -105,21 +109,10 @@ t_lexer					*handle_token(t_lexer *current, t_command **current_cmd,
 t_lexer					*devide_input(char *input);
 int						is_token(const char *str);
 int						only_spaces(char *input);
+
 // quotes
 int						check_quote(const char *input);
-char					*get_word(char **input);
 char					*split_string(char **input);
-char					*quotes_trim(char *input);
-
-const char				*handle_dollar_sign(const char *src, char *dst,
-							t_envvar *env_list);
-void					handle_exit_status(char *dst);
-const char				*replace_variable(const char *src, char *dst,
-							t_envvar *env_list);
-const char				*handle_quoted_dollar(const char *src, char *dst,
-							t_envvar *env_list);
-void					replace_vars_in_string(const char *src, char *dst,
-							t_envvar *env_list);
 
 // env_var
 void					set_envvar(t_envvar *envvar_list, char *name,
@@ -146,7 +139,6 @@ size_t					calculate_final_len(const char *input, t_data *data);
 void					ft_new_envvar(t_envvar **env_list, char *name,
 							char *value);
 t_envvar				*ft_create_env_list(char **env);
-void					print_list(t_envvar *env_list);
 t_envvar				*find_envvar(t_envvar *lst, char *name);
 void					ft_envadd_back(t_envvar **lst, t_envvar *new);
 char					**swap_list_to_array(t_envvar *env_list);
@@ -157,7 +149,6 @@ char					*get_env_value(char *input);
 char					*get_env_name(char *input);
 t_envvar				*ft_last_env(t_envvar *lst);
 char					*replace_envvar(const char *input, t_data *data);
-t_envvar				*init_env_list(void);
 void					cleanup_data(t_data *data);
 void					free_command_list(t_command *cmd_list);
 void					free_lexer(t_lexer *lexer);
@@ -166,11 +157,17 @@ void					free_env_list(t_envvar *env_list);
 // parsing
 void					handle_input(char *input, t_data *data);
 void					handle_input(char *input, t_data *data);
-char					**parse_command(char *input);
 int						check_if_token(char c);
 int						count_token(const char *str);
 char					*fix_token_space(char *str, t_data *data);
 t_command				*lexer_to_command(t_lexer *lexer);
+
+
+
+void helper_output(t_command ** current_cmd, t_redirect * new_redirect, t_lexer * current, bool append);
+void helper_heredoc(t_command **current_cmd,t_heredoc * new_heredoc, t_lexer * current);
+void helper_input(t_command **curent_cmd, t_input *new_input, t_lexer *current);
+
 
 // execute
 void					execute(t_command *cmd_list, t_data *data);
