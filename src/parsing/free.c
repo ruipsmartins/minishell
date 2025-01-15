@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: duamarqu <duamarqu@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/30 11:17:42 by duamarqu          #+#    #+#             */
-/*   Updated: 2025/01/15 14:33:53 by duamarqu         ###   ########.fr       */
+/*   Updated: 2025/01/15 19:37:32 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,16 +27,17 @@ void	free_env_list(t_envvar *env_list)
 		current = next;
 	}
 }
-void free_redirect(t_command *current)
+
+void	free_redirect(t_command *current)
 {
-	t_redirect *tmp;
-	
-	if(current->redirect)
+	t_redirect	*tmp;
+
+	if (current->redirect)
 	{
-		while(current->redirect)
+		while (current->redirect)
 		{
 			free(current->redirect->out_file);
-			if(current->redirect->next)
+			if (current->redirect->next)
 			{
 				tmp = current->redirect->next;
 				free(current->redirect);
@@ -53,11 +54,12 @@ void free_redirect(t_command *current)
 
 void	free_heredoc(t_command *current)
 {
-	t_heredoc *tmp;
-	while(current->heredoc)
+	t_heredoc	*tmp;
+
+	while (current->heredoc)
 	{
 		free(current->heredoc->delimiter);
-		if(current->heredoc->next)
+		if (current->heredoc->next)
 		{
 			tmp = current->heredoc->next;
 			free(current->heredoc);
@@ -73,12 +75,12 @@ void	free_heredoc(t_command *current)
 
 void	free_input(t_command *current)
 {
-	t_input *tmp;
+	t_input	*tmp;
 
-	while(current->input)
+	while (current->input)
 	{
 		free(current->input->file_name);
-		if(current->input->next)
+		if (current->input->next)
 		{
 			tmp = current->input->next;
 			free(current->input);
@@ -92,7 +94,7 @@ void	free_input(t_command *current)
 	}
 }
 
-void	free_command_list(t_command *cmd_list) //free da lista de comandos
+void	free_command_list(t_command *cmd_list) // free da lista de comandos
 {
 	int			i;
 	t_command	*current;
@@ -112,7 +114,6 @@ void	free_command_list(t_command *cmd_list) //free da lista de comandos
 		free_heredoc(current);
 		free_redirect(current);
 		free_input(current);
-		
 		free(current);
 		current = next;
 	}
