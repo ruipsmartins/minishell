@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: duamarqu <duamarqu@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 17:34:50 by ruidos-s          #+#    #+#             */
-/*   Updated: 2025/01/15 14:31:39 by duamarqu         ###   ########.fr       */
+/*   Updated: 2025/01/15 20:03:20 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ typedef struct s_redirect
 typedef struct s_heredoc
 {
 	char				*delimiter;
-	bool 				heredoc;
+	bool				heredoc;
 	struct s_heredoc	*next;
 }						t_heredoc;
 
@@ -56,12 +56,12 @@ typedef struct s_input
 typedef struct s_command
 {
 	char				**args;
-	//char			*input_file;//para apagar
+	// char			*input_file;//para apagar
 	t_input				*input;
 	t_redirect			*redirect;
-//	char			*out_file;
-	//bool				heredoc;
-	t_heredoc	*heredoc;
+	//	char			*out_file;
+	// bool				heredoc;
+	t_heredoc			*heredoc;
 	struct s_command	*next;
 	int					i;
 }						t_command;
@@ -101,7 +101,8 @@ t_lexer					*handle_append(t_lexer *current,
 t_lexer					*handle_heredoc(t_lexer *current,
 							t_command **current_cmd, t_command **cmd_list);
 t_lexer					*handle_output(t_lexer *current,
-							t_command **current_cmd, t_command **cmd_list, bool append);
+							t_command **current_cmd, t_command **cmd_list,
+							bool append);
 t_lexer					*handle_input_redirection(t_lexer *current,
 							t_command **current_cmd, t_command **cmd_list);
 t_lexer					*handle_token(t_lexer *current, t_command **current_cmd,
@@ -162,12 +163,13 @@ int						count_token(const char *str);
 char					*fix_token_space(char *str, t_data *data);
 t_command				*lexer_to_command(t_lexer *lexer);
 
-
-
-void helper_output(t_command ** current_cmd, t_redirect * new_redirect, t_lexer * current, bool append);
-void helper_heredoc(t_command **current_cmd,t_heredoc * new_heredoc, t_lexer * current);
-void helper_input(t_command **curent_cmd, t_input *new_input, t_lexer *current);
-
+void					helper_output(t_command **current_cmd,
+							t_redirect *new_redirect, t_lexer *current,
+							bool append);
+void					helper_heredoc(t_command **current_cmd,
+							t_heredoc *new_heredoc, t_lexer *current);
+void					helper_input(t_command **curent_cmd, t_input *new_input,
+							t_lexer *current);
 
 // execute
 void					execute(t_command *cmd_list, t_data *data);
@@ -203,7 +205,7 @@ int						execute_heredoc(t_command *cmd);
 
 // builtins
 bool					builtin_execute(t_command *cmd, t_data *data);
-//bool					builtin_checker(t_command *cmd);
+// bool					builtin_checker(t_command *cmd);
 void					exit_command(t_command *cmd, t_data *data);
 int						pwd_command(t_data *data);
 int						cd_command(t_command cmd, t_data *data);
