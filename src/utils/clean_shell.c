@@ -6,7 +6,7 @@
 /*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 13:16:56 by ruidos-s          #+#    #+#             */
-/*   Updated: 2025/01/15 19:15:45 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2025/01/16 14:36:33 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,17 @@ void	cleanup_data(t_data *data)
 	int	i;
 
 	i = 0;
+	if (data->env_var_lst)
+		free_env_list(data->env_var_lst);
 	while (data->env[i])
 	{
 		free(data->env[i]);
 		i++;
 	}
 	free(data->env);
+	if(!data->close_shell)
+		ft_printf("exit\n");
+	rl_clear_history();
 	close(0);
 	close(1);
 	close(2);
