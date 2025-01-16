@@ -6,7 +6,7 @@
 /*   By: duamarqu <duamarqu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 17:28:57 by ruidos-s          #+#    #+#             */
-/*   Updated: 2025/01/15 14:09:10 by duamarqu         ###   ########.fr       */
+/*   Updated: 2025/01/16 13:53:27 by duamarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ int	main(int ac, char **av, char **env)
 			free_command_list(data.cmd);
 		input = get_command_input(&data);
 	}
-	if (data.env_var_lst)
+	if (data.env_var_lst)// && *(env) != NULL )
 		free_env_list(data.env_var_lst);
 	cleanup_data(&data);
 	rl_clear_history();
