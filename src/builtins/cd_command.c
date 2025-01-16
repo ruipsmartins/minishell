@@ -6,7 +6,7 @@
 /*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 17:49:57 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/12/21 12:13:29 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2025/01/16 16:16:26 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,15 +18,19 @@ static void	cd_home(t_data *data)
 	char	*oldpwd;
 
 	oldpwd = getcwd(NULL, 0);
-	home = getenv("HOME");
+	home = get_envvar(data->env_var_lst, "HOME");
 	if (home == NULL)
 	{
-		perror("cd");
+		free(oldpwd);
+		ft_printf("Minishell: cd: HOME not set\n");
+		data->return_value = 1;
 		return ;
 	}
 	else if (chdir(home) == -1)
 	{
-		perror("cd");
+		free(oldpwd);
+		data->return_value = 1;
+		perror("chdir: ");
 		return ;
 	}
 	else
