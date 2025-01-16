@@ -7,6 +7,8 @@ duamarqu
 ////////////////////////
 
 
+< a < b < outfile     ----- file DESCRIPTORS abertos
+
 
 ls | cat > a > b > c | wc -l   ----->nao cria o A e o b mas funciona
 

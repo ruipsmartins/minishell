@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fix_token_space.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: duamarqu <duamarqu@student.42.fr>          +#+  +:+       +#+        */
+/*   By: addicted <addicted@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 16:11:43 by addicted          #+#    #+#             */
-/*   Updated: 2025/01/07 14:55:13 by duamarqu         ###   ########.fr       */
+/*   Updated: 2025/01/16 00:13:19 by addicted         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	check_token(char *str)
 	char	c;
 
 	i = 0;
-	while (str[i++])
+	while (str[i])															// estava str[i++]
 	{
 		if (check_if_token(str[i]))
 		{
@@ -39,11 +39,12 @@ int	check_token(char *str)
 				if (check_if_token(str[i + 1]))
 					return (ft_printf("Syntax error near `%c'\n", str[i + 1]));
 				if (str[i + 1] == '\0')
-					return (ft_printf("Syntax error near `%c'\n", c));
+					return (ft_printf("Syntax error near `%c'\n", c));				//no caso de >> ele esta a dar "error near >"
 			}
 			if (str[i + 1] == '|')
 				return (ft_printf("Syntax error near `%c'\n", str[i +1]));
 		}
+		i++;														// i++ resolveu o segfault
 	}
 	return (0);
 }

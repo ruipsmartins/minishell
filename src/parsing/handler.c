@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handler.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: addicted <addicted@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/30 16:32:09 by duamarqu          #+#    #+#             */
-/*   Updated: 2025/01/15 19:47:57 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2025/01/16 00:05:11 by addicted         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,9 @@ t_command **current_cmd, t_command **cmd_list)
 {
 	t_input *new_input;
 	
-	current = current->next;
+	//if(current->next)
+		current = current->next;
+	//current = current->next;
 	if (current && current->word)
 	{
 		if (*current_cmd == NULL)
