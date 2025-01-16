@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: duamarqu <duamarqu@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 17:28:57 by ruidos-s          #+#    #+#             */
-/*   Updated: 2025/01/16 14:22:34 by duamarqu         ###   ########.fr       */
+/*   Updated: 2025/01/16 14:39:22 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,11 +67,6 @@ int	main(int ac, char **av, char **env)
 			free_command_list(data.cmd);
 		input = get_command_input(&data);
 	}
-	if (data.env_var_lst)// && *(env) != NULL )
-		free_env_list(data.env_var_lst);
-	if(!data.close_shell)
-		ft_printf("exit\n");
 	cleanup_data(&data);
-	rl_clear_history();
 	return (data.return_value);
 }
