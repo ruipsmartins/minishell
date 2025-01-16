@@ -6,7 +6,7 @@
 /*   By: duamarqu <duamarqu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/19 12:05:41 by addicted          #+#    #+#             */
-/*   Updated: 2025/01/09 16:40:41 by duamarqu         ###   ########.fr       */
+/*   Updated: 2025/01/16 13:48:54 by duamarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ t_envvar *no_env(t_envvar *head)
 	t_envvar *new_node;
 
 	new_node = (t_envvar *)ft_calloc(1, sizeof(t_envvar));
-	new_node->name = "PWD";
+	new_node->name = ft_strdup("PWD");
 	new_node->value = getcwd(NULL, 0);
 
 	ft_printf("value: %s\n", new_node->name);
@@ -79,13 +79,14 @@ t_envvar *no_env(t_envvar *head)
 	ft_envadd_back(&head, new_node);
 	
 	new_node = (t_envvar *)ft_calloc(1, sizeof(t_envvar));
-	new_node->name = "SHLVL";
-	new_node->value = "1";
+	new_node->name = ft_strdup("SHLVL");
+	new_node->value = ft_strdup("1");
 	ft_envadd_back(&head, new_node);
 
 	new_node = (t_envvar *)ft_calloc(1, sizeof(t_envvar));
-	new_node->name = "_";
-	new_node->value = "/usr/bin/env";
+	new_node->name = ft_strdup("_");
+	new_node->value = ft_strdup("/usr/bin/env");
+	new_node->next = NULL;
 	ft_envadd_back(&head, new_node);
 
 	return(head);
@@ -98,11 +99,12 @@ t_envvar	*ft_create_env_list(char **env)
 	t_envvar	*head;
 
 	head = NULL;
+
 	if (*(env) == NULL )//|| *env == NULL)
 	{
 		head = no_env(head);
 		write(1, "help no env\n", 13);
-		return (NULL);
+		return (head);
 	}
 	current = env;
 	while (*current)

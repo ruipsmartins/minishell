@@ -9,18 +9,6 @@ duamarqu
 
 < a < b < outfile     ----- file DESCRIPTORS abertos
 
-
-ls | cat > a > b > c | wc -l   ----->nao cria o A e o b mas funciona
-
-arranjar maneira de guardar todos os files para depopis serem criados.
-algo como isto -----  cmd->out_files[i]
-
-(resolvido) ls | ls |  cat > a > b > c > d >> e | wc -l -----> esta a dar leak uns comandos dpeois (echo $@ por exemlo)
-
-
-
-
-
 /////////////////////////
 
 cd ~
