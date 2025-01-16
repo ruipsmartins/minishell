@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: duamarqu <duamarqu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 17:28:57 by ruidos-s          #+#    #+#             */
-/*   Updated: 2025/01/16 14:39:22 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2025/01/16 15:05:04 by duamarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,15 @@ void	data_init(t_data *data, char **env)
 	data->executable = NULL;
 }
 
+int input_tester(char *input, t_data *data)
+{
+	if (*input && !only_spaces(input) && !check_4_pipe(input, data)
+		&& !check_here_doc(input, data))
+			return (1);
+	else
+		return (0);
+}
+
 int	main(int ac, char **av, char **env)
 {
 	char	*input;
@@ -58,13 +67,10 @@ int	main(int ac, char **av, char **env)
 	while (input != NULL && !data.close_shell)
 	{
 		g_var = 0;
-		if (*input && !only_spaces(input) && !check_4_pipe(input, &data)
-			&& !check_here_doc(input, &data))
+		if (input_tester(input, &data))
 			handle_input(input, &data);
 		if (data.close_shell)
 			break ;
-		if (!input && !only_spaces(input))
-			free_command_list(data.cmd);
 		input = get_command_input(&data);
 	}
 	cleanup_data(&data);
