@@ -6,7 +6,7 @@
 /*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 14:11:52 by ruidos-s          #+#    #+#             */
-/*   Updated: 2025/01/16 12:21:30 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2025/01/16 13:31:41 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,25 +27,6 @@ int	handle_file_error(char *str1, char *str2, int file, int returnCode)
 		write(STDERR_FILENO, str2, ft_strlen(str2));
 		close(file);
 	}
-	//close(4);
-	//close(STDOUT_FILENO);
-	
-	/* Minishell: <a <c <b cat
-	b: Failed to open input file
-	==16501== 
-	==16501== FILE DESCRIPTORS: 1 open (0 std) at exit.
-	==16501== Open file descriptor 4: /dev/pts/0
-	==16501==    at 0x49DA93B: dup (syscall-template.S:120)
-	==16501==    by 0x10D1A3: handle_input_redirect (redirections.c:70)
-	==16501==    by 0x10D367: handle_redirects (redirections.c:115)
-	==16501==    by 0x10C8CC: execute_child_process (pipes.c:24)
-	==16501==    by 0x10CC00: run_single_command (pipes.c:95)
-	==16501==    by 0x10CC78: execute_piped_commands (pipes.c:113)
-	==16501==    by 0x10C7B6: execute (execute.c:81)
-	==16501==    by 0x10A366: handle_input (parsing.c:137)
-	==16501==    by 0x10967F: main (main.c:63)
-	==16501== 
-	*/
 	return (returnCode);
 }
 
