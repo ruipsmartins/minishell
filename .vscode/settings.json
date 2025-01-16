@@ -2,5 +2,10 @@
 	"files.associations": {
 		"*.c": "c",
 		"minishell.h": "c"
+	},
+
+"terminal.integrated.env.linux": {
+    "PATH": "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
 	}
 }
+

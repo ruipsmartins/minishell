@@ -6,7 +6,7 @@
 /*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 14:11:52 by ruidos-s          #+#    #+#             */
-/*   Updated: 2025/01/15 20:03:56 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2025/01/16 12:21:30 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,7 @@ int	handle_input_redirect(t_command *cmd, int *original_stdin)
 			close(in_fd);
 		}
 		input = input->next;
+		close(*original_stdin);
 	}
 	return (0);
 }
@@ -118,6 +119,7 @@ int	handle_output_redirect(t_command *cmd, int *original_stdout)
 					out_fd, -1));
 		dup2(out_fd, STDOUT_FILENO);
 		close(out_fd);
+		close(*original_stdout);
 		redirect = redirect->next;
 	}
 	return (0);

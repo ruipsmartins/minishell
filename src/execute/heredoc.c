@@ -6,7 +6,7 @@
 /*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 14:01:43 by ruidos-s          #+#    #+#             */
-/*   Updated: 2025/01/14 13:10:06 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2025/01/16 13:19:57 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,27 +44,29 @@ static int	check_g_var(int write_fd)
 	}
 	return (0);
 }
-
+//cat << ok << ko >a >b >c
 static int	read_lines_and_write(t_command *cmd, int write_fd)
 {
 	char	*line;
-
+	t_heredoc *tmp;
+	
+	tmp=cmd->heredoc;
 	while (1)
 	{
 		line = readline("> ");
-		if (!line || ft_strncmp(line, cmd->heredoc->delimiter,
-				ft_strlen(cmd->heredoc->delimiter) + 1) == 0)
+		if (!line || ft_strncmp(line, tmp->delimiter,
+				ft_strlen(tmp->delimiter) + 1) == 0)
 		{
 			free(line);
-			if (cmd->heredoc->next)
+			if (tmp->next)
 			{
-				cmd->heredoc = cmd->heredoc->next;
+				tmp = tmp->next;
 				continue ;
 			}
 			else
 				break ;
 		}
-		if (!cmd->heredoc->next)
+		if (!tmp->next)
 			write_line_to_fd(line, write_fd);
 	}
 	if (check_g_var(write_fd) == -1)
