@@ -6,7 +6,7 @@
 /*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 15:15:24 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/11/17 17:13:58 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2025/01/16 14:08:28 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	exit_command(t_command *cmd, t_data *data)
 {
 	int	exit_status;
 
-	ft_printf("EXIT\n");
+	ft_printf("exit\n");
 	if (cmd->args[1] != NULL && !is_numeric(cmd->args[1]))
 	{
 		ft_printf("minishell: exit: %s: numeric argument required\n",
