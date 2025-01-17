@@ -6,8 +6,7 @@ Minishell: echo "$1USER$USER$PIPIPI"
 duamarqu
 ////////////////////////
 
-
-< a < b < outfile     ----- file DESCRIPTORS abertos
+ echo "<<<<<" >>  ---> segfault
 
 /////////////////////////
 

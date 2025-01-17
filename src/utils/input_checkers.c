@@ -6,7 +6,7 @@
 /*   By: duamarqu <duamarqu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 17:50:34 by addicted          #+#    #+#             */
-/*   Updated: 2025/01/08 16:23:32 by duamarqu         ###   ########.fr       */
+/*   Updated: 2025/01/17 18:11:03 by duamarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,31 +47,32 @@ int	start_pipe(char *input, t_data *data)
 	i = 0;
 	while (input[i])
 	{
-		while (input[i] == ' ' || input[i] == '\t')
+		while (ft_isspace(input[i]))
 			i++;
 		if (input[i] == '|')
 		{
 			data->return_value = 2;
-			ft_printf("Syntax error near unexpected token `|'\n");
-			return (0);
+			return (ft_printf("Syntax error near unexpected token `|'\n"));
 		}
 		else
-			return (1);
+			return (0);
 	}
-	return (1);
+	return (0);
 }
 
 int	check_4_pipe(char *input, t_data *data)
 {
-	int	i;
+	int		i;
+	bool	quotes;
 
 	i = 0;
-	if (!start_pipe(input, data))
-		return (1);
+	quotes = false;
 	while (input[i])
 	{
 		while (input[i] == ' ' || input[i] == '\t')
 			i++;
+		if (input[i] == '\'' || input[i] == '\"')
+			quotes = true;
 		if (input[i] == '|')
 		{
 			i++;
@@ -83,8 +84,7 @@ int	check_4_pipe(char *input, t_data *data)
 				return (ft_printf("Syntax error near unexpected token `|'\n"));
 			}
 		}
-		if (input[i] != '\0')
-			i++;
+		i++;
 	}
 	return (0);
 }

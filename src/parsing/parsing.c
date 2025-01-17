@@ -6,7 +6,7 @@
 /*   By: duamarqu <duamarqu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 08:59:52 by ruidos-s          #+#    #+#             */
-/*   Updated: 2025/01/07 14:59:27 by duamarqu         ###   ########.fr       */
+/*   Updated: 2025/01/17 16:26:23 by duamarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,41 +44,6 @@ int	is_token(const char *str)// Define o que sao tokens
 	}
 	return (0);
 }
-// t_lexer	*devide_input(char *input) //divide a string em tokens e palavras
-// {
-// 	t_lexer *lexer = NULL;
-// 	t_lexer *current = NULL;
-// 	t_lexer *new_node;
-// 	char *token = NULL;
-// 	int i;
-// 	i = 0;
-// 	token = split_string(&input);
-// 	while (token != NULL)
-// 	{
-// 		new_node = (t_lexer *)ft_calloc(1, sizeof(t_lexer)); // novo node
-// 		if (new_node == NULL)
-// 		{
-// 			perror("malloc");
-// 			exit(EXIT_FAILURE);
-// 		}
-// 		if (is_token(token)) // Inicializar node
-// 			new_node->token = ft_strdup(token);
-// 		else
-// 			new_node->word = ft_strdup(token);
-// 		new_node->i = i++;
-// 		new_node->prev = current;
-// 		if (current != NULL) // meter node no fim da lista lista
-// 			current->next = new_node;
-// 		else
-// 			lexer = new_node; // Meter o primeiro na lista
-// 		current = new_node;
-// 		free (token);
-// 		token = split_string(&input);
-// 	}
-// 	free(token);
-// 	return (lexer);
-// }
-//descobre o nome e o valor da variavel de ambiente que queremos criar
 
 int	set_new_envvar(char *input, t_data *data)
 {

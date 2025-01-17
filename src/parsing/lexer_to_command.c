@@ -6,7 +6,7 @@
 /*   By: duamarqu <duamarqu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/12 10:50:11 by addicted          #+#    #+#             */
-/*   Updated: 2025/01/17 11:29:56 by duamarqu         ###   ########.fr       */
+/*   Updated: 2025/01/17 18:04:29 by duamarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,10 @@ t_command **cmd_list, int *arg_count)
 		current = handle_input_redirection(current, current_cmd, cmd_list);
 	else
 		handle_argument(current, current_cmd, cmd_list, arg_count);
-	return (current->next);
+	if (current)
+		return (current->next);
+	else
+		return (NULL);
 }
 
 t_command	*lexer_to_command(t_lexer *lexer)

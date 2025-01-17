@@ -6,7 +6,7 @@
 /*   By: duamarqu <duamarqu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/17 18:57:27 by addicted          #+#    #+#             */
-/*   Updated: 2025/01/08 14:47:29 by duamarqu         ###   ########.fr       */
+/*   Updated: 2025/01/17 18:12:50 by duamarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,35 @@ int	check_quote(const char *input)
 	return ((c == '\'') + (c == '\"') * 2);
 }
 
+int	in_quotes_check(char *str, int pos)
+{
+	char	c;
+	int		i;
+	bool	quotes;
+
+	quotes = false;
+	i = 0;
+	c = '\0';
+	while (str[i] && i <= pos)
+	{
+		if (str[i] == '\'' || str[i] == '\"')
+		{
+			if (c == '\0')
+			{
+				c = str[i];
+				quotes = true;
+			}
+			else if (c == str[i])
+			{
+				c = '\0';
+				quotes = false;
+			}
+		}
+		i++;
+	}
+	return (quotes);
+}
+
 char	*skip_spaces(char *input)
 {
 	while (isspace(*input))
@@ -41,65 +70,36 @@ char	*skip_spaces(char *input)
 // Retorna o próximo token e avança a entrada
 
 void	copy_token(char **start, char **output_ptr,
-int *in_single, int *in_double)
+t_quotes *quotes)
 {
-	while (*(*start) && (!isspace(*(*start)) || *in_single || *in_double))
+	while (*(*start) && (!isspace(*(*start))
+			|| quotes->in_single || quotes->in_double))
 	{
-		if (*(*start) == '\'' && !*in_double)
-			*in_single = !*in_single;
-		else if (*(*start) == '"' && !*in_single)
-			*in_double = !*in_double;
+		if (*(*start) == '\'' && !quotes->in_double)
+			quotes->in_single = !quotes->in_single;
+		else if (*(*start) == '\"' && !quotes->in_single)
+			quotes->in_double = !quotes->in_double;
 		else
 			*(*output_ptr)++ = *(*start);
 		(*start)++;
+		if (quotes->in_double || quotes->in_single)
+			quotes->quotes = 1;
 	}
 }
 
-char	*split_string(char **input)
+char	*split_string(char **input, t_quotes *quotes)
 {
 	char	*start;
 	char	*output;
 	char	*output_ptr;
-	int		in_single;
-	int		in_double;
 
 	if (!*input || **input == '\0' || !input)
 		return (NULL);
 	start = skip_spaces(*input);
 	output = malloc((ft_strlen(start) + 1) * sizeof(char));
 	output_ptr = output;
-	in_single = 0;
-	in_double = 0;
-	copy_token(&start, &output_ptr, &in_single, &in_double);
+	copy_token(&start, &output_ptr, quotes);
 	*output_ptr = '\0';
 	*input = skip_spaces(start);
 	return (output);
 }
-
-// char *split_string(char **input)
-// {
-// 	char *start;
-// 	char *output;
-// 	char *output_ptr;
-
-// 	if (!*input || **input == '\0')
-// 		return NULL;
-// 	start = skip_spaces(*input); // Ignora espaços no início
-// 	output = malloc((ft_strlen(start) + 1) * sizeof(char));
-// 	output_ptr = output;
-// 	int in_single = 0, in_double = 0;
-
-// 	while (*start && (!isspace(*start) || in_single || in_double))
-// 	{
-// 		if (*start == '\'' && !in_double)
-// 			in_single = !in_single; // Alterna estado de aspas simples
-// 		else if (*start == '"' && !in_single)
-// 			in_double = !in_double; // Alterna estado de aspas duplas
-// 		else
-// 			*output_ptr++ = *start; // Copia caractere para o token
-// 		start++;
-// 	}
-// 	*output_ptr = '\0';			 // Finaliza a string do token
-// 	*input = skip_spaces(start); // Atualiza o ponteiro de entrada
-// 	return (output);
-// }
