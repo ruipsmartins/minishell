@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: duamarqu <duamarqu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/30 11:17:42 by duamarqu          #+#    #+#             */
-/*   Updated: 2025/01/15 19:37:32 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2025/01/17 11:35:12 by duamarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,48 +48,6 @@ void	free_redirect(t_command *current)
 				free(current->redirect);
 				current->redirect = NULL;
 			}
-		}
-	}
-}
-
-void	free_heredoc(t_command *current)
-{
-	t_heredoc	*tmp;
-
-	while (current->heredoc)
-	{
-		free(current->heredoc->delimiter);
-		if (current->heredoc->next)
-		{
-			tmp = current->heredoc->next;
-			free(current->heredoc);
-			current->heredoc = tmp;
-		}
-		else
-		{
-			free(current->heredoc);
-			current->heredoc = NULL;
-		}
-	}
-}
-
-void	free_input(t_command *current)
-{
-	t_input	*tmp;
-
-	while (current->input)
-	{
-		free(current->input->file_name);
-		if (current->input->next)
-		{
-			tmp = current->input->next;
-			free(current->input);
-			current->input = tmp;
-		}
-		else
-		{
-			free(current->input);
-			current->input = NULL;
 		}
 	}
 }

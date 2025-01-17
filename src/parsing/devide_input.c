@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   devide_input.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: addicted <addicted@student.42.fr>          +#+  +:+       +#+        */
+/*   By: duamarqu <duamarqu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/30 17:07:57 by duamarqu          #+#    #+#             */
-/*   Updated: 2025/01/16 00:05:02 by addicted         ###   ########.fr       */
+/*   Updated: 2025/01/17 11:24:30 by duamarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ t_lexer	*create_new_node(char *token, int i, t_lexer *current)
 		new_node->word = ft_strdup(token);
 	new_node->i = i;
 	new_node->prev = current;
-	//new_node->next = NULL;
+	new_node->next = NULL;
 	return (new_node);
 }
 

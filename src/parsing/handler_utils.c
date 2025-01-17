@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handler_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: duamarqu <duamarqu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 13:27:08 by duamarqu          #+#    #+#             */
-/*   Updated: 2025/01/15 20:03:11 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2025/01/17 11:35:49 by duamarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,4 +48,46 @@ void	helper_input(t_command **curent_cmd, t_input *new_input,
 		tmp = tmp->next;
 	tmp->next = new_input;
 	tmp->next->file_name = ft_strdup(current->word);
+}
+
+void	free_heredoc(t_command *current)
+{
+	t_heredoc	*tmp;
+
+	while (current->heredoc)
+	{
+		free(current->heredoc->delimiter);
+		if (current->heredoc->next)
+		{
+			tmp = current->heredoc->next;
+			free(current->heredoc);
+			current->heredoc = tmp;
+		}
+		else
+		{
+			free(current->heredoc);
+			current->heredoc = NULL;
+		}
+	}
+}
+
+void	free_input(t_command *current)
+{
+	t_input	*tmp;
+
+	while (current->input)
+	{
+		free(current->input->file_name);
+		if (current->input->next)
+		{
+			tmp = current->input->next;
+			free(current->input);
+			current->input = tmp;
+		}
+		else
+		{
+			free(current->input);
+			current->input = NULL;
+		}
+	}
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   clean_shell.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: duamarqu <duamarqu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 13:16:56 by ruidos-s          #+#    #+#             */
-/*   Updated: 2025/01/16 14:36:33 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2025/01/17 11:30:08 by duamarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	cleanup_data(t_data *data)
 		i++;
 	}
 	free(data->env);
-	if(!data->close_shell)
+	if (!data->close_shell)
 		ft_printf("exit\n");
 	rl_clear_history();
 	close(0);

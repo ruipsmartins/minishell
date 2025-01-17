@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_var.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: duamarqu <duamarqu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/19 12:05:41 by addicted          #+#    #+#             */
-/*   Updated: 2025/01/06 12:39:03 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2025/01/17 11:35:40 by duamarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,4 +78,24 @@ size_t	handle_variable(const char **src, t_data *data)
 	else if (var_name == NULL)
 		len++;
 	return (len);
+}
+
+t_envvar	*no_env(t_envvar *head)
+{
+	t_envvar	*new_node;
+
+	new_node = (t_envvar *)ft_calloc(1, sizeof(t_envvar));
+	new_node->name = ft_strdup("PWD");
+	new_node->value = getcwd(NULL, 0);
+	ft_envadd_back(&head, new_node);
+	new_node = (t_envvar *)ft_calloc(1, sizeof(t_envvar));
+	new_node->name = ft_strdup("SHLVL");
+	new_node->value = ft_strdup("1");
+	ft_envadd_back(&head, new_node);
+	new_node = (t_envvar *)ft_calloc(1, sizeof(t_envvar));
+	new_node->name = ft_strdup("_");
+	new_node->value = ft_strdup("/usr/bin/env");
+	new_node->next = NULL;
+	ft_envadd_back(&head, new_node);
+	return (head);
 }
