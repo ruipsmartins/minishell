@@ -6,7 +6,7 @@
 /*   By: duamarqu <duamarqu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 17:50:34 by addicted          #+#    #+#             */
-/*   Updated: 2025/01/17 18:11:03 by duamarqu         ###   ########.fr       */
+/*   Updated: 2025/01/17 20:10:58 by duamarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int	start_pipe(char *input, t_data *data)
 	int	i;
 
 	i = 0;
-	while (input[i])
+	while (input && input[i])
 	{
 		while (ft_isspace(input[i]))
 			i++;
@@ -67,9 +67,9 @@ int	check_4_pipe(char *input, t_data *data)
 
 	i = 0;
 	quotes = false;
-	while (input[i])
+	while (i < (int)ft_strlen(input) && input[i])
 	{
-		while (input[i] == ' ' || input[i] == '\t')
+		while (ft_isspace(input[i]))
 			i++;
 		if (input[i] == '\'' || input[i] == '\"')
 			quotes = true;
@@ -94,6 +94,8 @@ int	check_here_doc(char *input, t_data *data)
 	int	i;
 
 	i = 0;
+	if(!input)
+		return (0);
 	while (input[i] != '<' && input[i] != '\0')
 		i++;
 	if (input[i] == '<' && input[i + 1] == '<')
