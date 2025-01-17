@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: duamarqu <duamarqu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 17:34:50 by ruidos-s          #+#    #+#             */
-/*   Updated: 2025/01/15 20:03:20 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2025/01/17 12:03:40 by duamarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,6 +154,9 @@ void					cleanup_data(t_data *data);
 void					free_command_list(t_command *cmd_list);
 void					free_lexer(t_lexer *lexer);
 void					free_env_list(t_envvar *env_list);
+t_envvar				*no_env(t_envvar *head);
+void					free_heredoc(t_command *current);
+void					free_input(t_command *current);
 
 // parsing
 void					handle_input(char *input, t_data *data);
