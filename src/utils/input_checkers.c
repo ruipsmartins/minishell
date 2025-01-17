@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input_checkers.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: duamarqu <duamarqu@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 17:50:34 by addicted          #+#    #+#             */
-/*   Updated: 2025/01/17 20:10:58 by duamarqu         ###   ########.fr       */
+/*   Updated: 2025/01/17 22:55:16 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,10 +50,8 @@ int	start_pipe(char *input, t_data *data)
 		while (ft_isspace(input[i]))
 			i++;
 		if (input[i] == '|')
-		{
-			data->return_value = 2;
-			return (ft_printf("Syntax error near unexpected token `|'\n"));
-		}
+			return (print_error("Syntax error near unexpected token `|'\n",
+					data, 2));
 		else
 			return (0);
 	}
@@ -66,6 +64,7 @@ int	check_4_pipe(char *input, t_data *data)
 	bool	quotes;
 
 	i = 0;
+	(void)quotes;
 	quotes = false;
 	while (i < (int)ft_strlen(input) && input[i])
 	{
@@ -79,10 +78,8 @@ int	check_4_pipe(char *input, t_data *data)
 			while (input[i] == ' ')
 				i++;
 			if (input[i] == '\0')
-			{
-				data->return_value = 2;
-				return (ft_printf("Syntax error near unexpected token `|'\n"));
-			}
+				return (print_error("Syntax error near unexpected token `|'\n",
+						data, 2));
 		}
 		i++;
 	}
@@ -94,7 +91,7 @@ int	check_here_doc(char *input, t_data *data)
 	int	i;
 
 	i = 0;
-	if(!input)
+	if (!input)
 		return (0);
 	while (input[i] != '<' && input[i] != '\0')
 		i++;
@@ -104,10 +101,8 @@ int	check_here_doc(char *input, t_data *data)
 		while (input[i] == ' ')
 			i++;
 		if (input[i] == '\0' || input[i] == '|')
-		{
-			data->return_value = 2;
-			return (ft_printf("Syntax error near unexpected token `<<'\n"));
-		}
+			return (print_error("Syntax error near unexpected token `<<'\n",
+					data, 2));
 		else
 			return (0);
 	}

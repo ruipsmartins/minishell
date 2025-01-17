@@ -6,7 +6,7 @@
 /*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 17:49:57 by ruidos-s          #+#    #+#             */
-/*   Updated: 2025/01/17 18:52:26 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2025/01/17 23:18:09 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,7 @@ static void	cd_home(t_data *data)
 	if (home == NULL)
 	{
 		free(oldpwd);
-		ft_printf("Minishell: cd: HOME not set\n");
-		data->return_value = 1;
+		print_error("Minishell: cd: HOME not set\n", data, 1);
 		return ;
 	}
 	else if (chdir(home) == -1)
@@ -49,8 +48,7 @@ static void	cd_oldpwd(t_data *data)
 	oldpwd = get_envvar(data->env_var_lst, "OLDPWD");
 	if (oldpwd == NULL)
 	{
-		ft_putstr_fd("cd: OLDPWD not set\n", STDERR_FILENO);
-		data->return_value = 1;
+		print_error("Minishell: cd: OLDPWD not set\n", data, 1);
 		return ;
 	}
 	current_pwd = getcwd(NULL, 0);
@@ -75,7 +73,7 @@ void	change_directory(t_data *data, char *path)
 	char	*pwd;
 
 	oldpwd = getcwd(NULL, 0);
-	if(!oldpwd)
+	if (!oldpwd)
 		oldpwd = ft_strdup(get_envvar(data->env_var_lst, "PWD"));
 	if (chdir(path) == -1)
 	{
@@ -104,8 +102,7 @@ int	cd_command(t_command cmd, t_data *data)
 		i++;
 	if (i > 2)
 	{
-		ft_putstr_fd("cd: too many arguments\n", STDERR_FILENO);
-		return (data->return_value = 1);
+		return (print_error("cd: too many arguments\n", data, 1));
 	}
 	else if (cmd.args[1] == NULL || (cmd.args[1][0] == '~'
 		&& cmd.args[1][1] == '\0'))

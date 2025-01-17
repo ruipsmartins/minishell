@@ -6,7 +6,7 @@
 /*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 16:59:41 by ruidos-s          #+#    #+#             */
-/*   Updated: 2025/01/17 13:30:16 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2025/01/17 23:16:41 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,4 +75,11 @@ int	check_file_type(char *path)
 	if (!S_ISREG(path_stat.st_mode) || access(path, X_OK) != 0)
 		return (126);
 	return (0);
+}
+
+int	print_error(char *str, t_data *data, int return_value)
+{
+	write(STDERR_FILENO, str, ft_strlen(str));
+	data->return_value = return_value;
+	return (return_value);
 }

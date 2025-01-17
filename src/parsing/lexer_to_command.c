@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_to_command.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: duamarqu <duamarqu@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/12 10:50:11 by addicted          #+#    #+#             */
-/*   Updated: 2025/01/17 18:04:29 by duamarqu         ###   ########.fr       */
+/*   Updated: 2025/01/17 23:14:51 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int	is_null_token(t_lexer *current)
 {
 	if (current->word == NULL && current->token == NULL)
 	{
-		printf("Error: Both word and token are NULL\n");
+		printf("Error: Both word and token are NULL\n"); //ver aqui se é apra dar return
 		return (1);
 	}
 	return (0);

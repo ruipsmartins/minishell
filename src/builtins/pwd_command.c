@@ -6,7 +6,7 @@
 /*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 17:21:15 by ruidos-s          #+#    #+#             */
-/*   Updated: 2025/01/14 15:16:15 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2025/01/17 23:05:32 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,7 @@ int	pwd_command(t_data *data)
 	{
 		cwd = get_envvar(data->env_var_lst, "PWD");
 		if (!cwd)
-		{
-			ft_putstr_fd("pwd: No such file or directory \n", STDERR_FILENO);
-			return (data->return_value = 1);
-		}
+			return (print_error("pwd: No such file or directory \n", data, 1));
 	}
 	ft_printf("%s\n", cwd);
 	if (cwd != get_envvar(data->env_var_lst, "PWD"))

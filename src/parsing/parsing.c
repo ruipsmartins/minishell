@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: duamarqu <duamarqu@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 08:59:52 by ruidos-s          #+#    #+#             */
-/*   Updated: 2025/01/17 16:26:23 by duamarqu         ###   ########.fr       */
+/*   Updated: 2025/01/17 23:15:01 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ int	set_new_envvar(char *input, t_data *data)
 		{
 			if (!isalnum(input[i + 1]) || !isalnum(input[i - 1]))
 			{
-				printf("Invalid variable name\n");
+				printf("Invalid variable name\n"); //ver se é apra dar return
 				return (0);
 			}
 			else
@@ -84,8 +84,7 @@ void	handle_input(char *input, t_data *data)
 	lexer = NULL;
 	if (check_quote(input))
 	{
-		printf("Unmatched quote\n");
-		data->return_value = 2;
+		print_error("Unmatched quote\n", data, 2);
 		return ;
 	}
 	if (ft_strchr(input, '$'))

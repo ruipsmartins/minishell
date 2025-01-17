@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: duamarqu <duamarqu@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 17:34:50 by ruidos-s          #+#    #+#             */
-/*   Updated: 2025/01/17 18:15:23 by duamarqu         ###   ########.fr       */
+/*   Updated: 2025/01/17 22:57:59 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,10 +55,10 @@ typedef struct s_input
 
 typedef struct s_quotes
 {
-	char	*token;
-	int		quotes;
-	int		in_single;
-	int		in_double;
+	char				*token;
+	int					quotes;
+	int					in_single;
+	int					in_double;
 }						t_quotes;
 
 typedef struct s_command
@@ -233,5 +233,6 @@ void					ctrl_c_parent(int signal);
 // utils
 void					cleanup_child_data(t_data *data);
 void					cleanup_data(t_data *data);
+int						print_error(char *str, t_data *data, int return_value);
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fix_token_space.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: duamarqu <duamarqu@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 16:11:43 by addicted          #+#    #+#             */
-/*   Updated: 2025/01/17 18:18:46 by duamarqu         ###   ########.fr       */
+/*   Updated: 2025/01/17 23:14:34 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	check_token_error(char *str, char c, int i)
 			return (ft_printf("Syntax error near `%c'\n", str[i]));
 		}
 		if (str[i + 1] == '\0')
-			return (ft_printf("Syntax error near `%c'\n", c));
+			return (ft_printf("Syntax error near `%c'\n", c)); //ver aqui melhor maneira
 	}
 	if (str[i + 1] == '|' && !in_quotes_check(str, i))
 		return (ft_printf("Syntax error near `%c'\n", str[i + 1]));
