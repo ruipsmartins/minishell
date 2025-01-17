@@ -6,7 +6,7 @@
 /*   By: duamarqu <duamarqu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 17:34:50 by ruidos-s          #+#    #+#             */
-/*   Updated: 2025/01/17 12:03:40 by duamarqu         ###   ########.fr       */
+/*   Updated: 2025/01/17 16:02:52 by duamarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,7 @@ int						only_spaces(char *input);
 
 // quotes
 int						check_quote(const char *input);
-char					*split_string(char **input);
+char					*split_string(char **input, int *was_in_quotes);
 
 // env_var
 void					set_envvar(t_envvar *envvar_list, char *name,
@@ -129,7 +129,6 @@ void					process_envvar(const char **src, char **dst,
 const char				*get_envvar_value(const char *start, const char *end,
 							t_envvar *env_list);
 char					*skip_spaces(char *input);
-char					*split_string(char **input);
 int						check_if_token(char c);
 int						count_token(const char *str);
 t_command				*lexer_to_command(t_lexer *lexer);
