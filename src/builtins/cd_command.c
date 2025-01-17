@@ -6,7 +6,7 @@
 /*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 17:49:57 by ruidos-s          #+#    #+#             */
-/*   Updated: 2025/01/16 16:16:26 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2025/01/17 18:52:26 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,8 @@ void	change_directory(t_data *data, char *path)
 	char	*pwd;
 
 	oldpwd = getcwd(NULL, 0);
+	if(!oldpwd)
+		oldpwd = ft_strdup(get_envvar(data->env_var_lst, "PWD"));
 	if (chdir(path) == -1)
 	{
 		free(oldpwd);
