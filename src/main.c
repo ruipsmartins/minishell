@@ -6,7 +6,7 @@
 /*   By: duamarqu <duamarqu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 17:28:57 by ruidos-s          #+#    #+#             */
-/*   Updated: 2025/01/17 11:30:29 by duamarqu         ###   ########.fr       */
+/*   Updated: 2025/01/17 18:10:26 by duamarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	data_init(t_data *data, char **env)
 int	input_tester(char *input, t_data *data)
 {
 	if (*input && !only_spaces(input) && !check_4_pipe(input, data)
-		&& !check_here_doc(input, data))
+		&& !check_here_doc(input, data) && !start_pipe(input, data))
 		return (1);
 	else
 		return (0);

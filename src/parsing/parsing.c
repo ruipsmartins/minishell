@@ -6,7 +6,7 @@
 /*   By: duamarqu <duamarqu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 08:59:52 by ruidos-s          #+#    #+#             */
-/*   Updated: 2025/01/17 16:24:42 by duamarqu         ###   ########.fr       */
+/*   Updated: 2025/01/17 16:26:23 by duamarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ void	handle_input(char *input, t_data *data)
 		input = replace_envvar(input, data);
 	temp = fix_token_space(input, data);
 	if (temp)
-	lexer = devide_input(temp);
+		lexer = devide_input(temp);
 	if (lexer == NULL)
 		return (free(temp));
 	cmd_list = lexer_to_command(lexer);

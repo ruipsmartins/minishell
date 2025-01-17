@@ -6,7 +6,7 @@
 /*   By: duamarqu <duamarqu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 17:34:50 by ruidos-s          #+#    #+#             */
-/*   Updated: 2025/01/17 16:02:52 by duamarqu         ###   ########.fr       */
+/*   Updated: 2025/01/17 18:15:23 by duamarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,14 @@ typedef struct s_input
 	char				*file_name;
 	struct s_input		*next;
 }						t_input;
+
+typedef struct s_quotes
+{
+	char	*token;
+	int		quotes;
+	int		in_single;
+	int		in_double;
+}						t_quotes;
 
 typedef struct s_command
 {
@@ -113,7 +121,7 @@ int						only_spaces(char *input);
 
 // quotes
 int						check_quote(const char *input);
-char					*split_string(char **input, int *was_in_quotes);
+char					*split_string(char **input, t_quotes *quotes);
 
 // env_var
 void					set_envvar(t_envvar *envvar_list, char *name,
@@ -164,6 +172,7 @@ int						check_if_token(char c);
 int						count_token(const char *str);
 char					*fix_token_space(char *str, t_data *data);
 t_command				*lexer_to_command(t_lexer *lexer);
+int						in_quotes_check(char *str, int pos);
 
 void					helper_output(t_command **current_cmd,
 							t_redirect *new_redirect, t_lexer *current,
@@ -172,7 +181,7 @@ void					helper_heredoc(t_command **current_cmd,
 							t_heredoc *new_heredoc, t_lexer *current);
 void					helper_input(t_command **curent_cmd, t_input *new_input,
 							t_lexer *current);
-
+int						start_pipe(char *input, t_data *data);
 // execute
 void					execute(t_command *cmd_list, t_data *data);
 int						execute_command(char *command, char **args,
