@@ -6,7 +6,7 @@
 /*   By: duamarqu <duamarqu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/30 13:16:33 by duamarqu          #+#    #+#             */
-/*   Updated: 2025/01/07 14:09:49 by duamarqu         ###   ########.fr       */
+/*   Updated: 2025/01/17 11:09:45 by duamarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int in_double_quotes, int *in_single_quotes)
 
 int	check_after_dollar(char c)
 {
-	if (c == ' ' || c == '\0' || c == '\"' || c == '\'' || c == '|')
+	if (ft_isspace(c) || c == '\0' || c == '\"' || c == '\'' || c == '|')
 		return (1);
 	return (0);
 }

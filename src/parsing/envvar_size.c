@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   envvar_size.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: addicted <addicted@student.42.fr>          +#+  +:+       +#+        */
+/*   By: duamarqu <duamarqu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/30 11:15:03 by duamarqu          #+#    #+#             */
-/*   Updated: 2025/01/05 17:16:42 by addicted         ###   ########.fr       */
+/*   Updated: 2025/01/17 11:09:59 by duamarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ char	*get_env_value(char *input)	//descobre o valor da variavel de ambiente
 	while (input[i] != '=' && input[i] != '\0')
 		i++;
 	k = i + 1;
-	while (input[k] && input[k] != ' ')
+	while (input[k] && !ft_isspace(k))
 		k++;
 	return (ft_strndup (input + i + 1, k));
 }

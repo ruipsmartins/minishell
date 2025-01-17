@@ -6,7 +6,7 @@
 /*   By: duamarqu <duamarqu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 16:11:43 by addicted          #+#    #+#             */
-/*   Updated: 2025/01/16 16:37:08 by duamarqu         ###   ########.fr       */
+/*   Updated: 2025/01/17 11:10:44 by duamarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,12 @@ int	check_if_token(char c)
 
 int	check_token_error(char *str, char c, int i)
 {
-	
 	if(c != '|')
 	{
-		if (check_if_token(str[i+ 1] ))
-			return(ft_printf("Syntax error near `%c'\n", str[i] + 1));
-		if (str[i +1]  == '\0')
-			return(ft_printf("Syntax error near `%c'\n"));
+		if (check_if_token(str[i] ))
+			return(ft_printf("Syntax error near `%c'\n", str[i]));
+		if (str[i + 1]  == '\0') 
+			return(ft_printf("Syntax error near `%c'\n", c));
 			
 	}
 	if (str[i+ 1] == '|')
@@ -48,7 +47,7 @@ int	check_token(char *str)
 			c = str[i];
 			if ((str[i] == '>' || str[i] == '<') && str[i + 1] == str[i])
 				i++;
-			while (str[i + 1] == ' ')
+			while (ft_isspace(str[i + 1]))	
 				i++;
 			if(check_token_error(str, c, i))
 				return(1);
@@ -64,15 +63,15 @@ void	token_space(char *str, int i, int k, char *fix_str)
 	{
 		if (check_if_token(str[i]))
 		{
-			fix_str[k++] = ' ';
+			fix_str[k++] = ' ';			
 			fix_str[k] = str[i];
 			if (str[i + 1] == str[i])
 			{
 				fix_str[++k] = str[++i];
-				fix_str[++k] = ' ';
+				fix_str[++k] = ' '; 
 			}
 			else if (str[i + 1] != str[i] && str[i + 1])
-				fix_str[++k] = ' ';
+				fix_str[++k] = ' '; 
 		}
 		else
 			fix_str[k] = str[i];

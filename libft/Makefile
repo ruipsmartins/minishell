@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+         #
+#    By: duamarqu <duamarqu@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/04 14:19:42 by ruidos-s          #+#    #+#              #
-#    Updated: 2025/01/06 13:55:24 by ruidos-s         ###   ########.fr        #
+#    Updated: 2025/01/17 11:05:21 by duamarqu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,7 @@ SRCS = 	ft_atol.c  ft_atoi.c  ft_isalnum.c  ft_isalpha.c  ft_isascii.c  ft_isdig
 		ft_strlcat.c ft_toupper.c ft_tolower.c ft_strchr.c ft_strrchr.c ft_strncmp.c\
 		ft_memchr.c ft_memcmp.c ft_strnstr.c ft_calloc.c ft_strdup.c ft_substr.c\
 		ft_strjoin.c ft_strtrim.c ft_split.c ft_itoa.c ft_strmapi.c ft_striteri.c\
-		ft_putchar_fd.c ft_putstr_fd.c ft_putendl_fd.c ft_putnbr_fd.c\
+		ft_putchar_fd.c ft_putstr_fd.c ft_putendl_fd.c ft_putnbr_fd.c ft_isspace.c\
 		ft_printf.c print_format.c printf_putchar.c printf_putstr.c printf_putnbr.c printf_putptr.c\
 		get_next_line.c get_next_line_utils.c ft_strndup.c ft_strcpy.c ft_realloc.c\
 
