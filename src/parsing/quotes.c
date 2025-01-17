@@ -6,7 +6,7 @@
 /*   By: duamarqu <duamarqu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/17 18:57:27 by addicted          #+#    #+#             */
-/*   Updated: 2025/01/08 14:47:29 by duamarqu         ###   ########.fr       */
+/*   Updated: 2025/01/17 12:34:20 by duamarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,31 +75,3 @@ char	*split_string(char **input)
 	*input = skip_spaces(start);
 	return (output);
 }
-
-// char *split_string(char **input)
-// {
-// 	char *start;
-// 	char *output;
-// 	char *output_ptr;
-
-// 	if (!*input || **input == '\0')
-// 		return NULL;
-// 	start = skip_spaces(*input); // Ignora espaços no início
-// 	output = malloc((ft_strlen(start) + 1) * sizeof(char));
-// 	output_ptr = output;
-// 	int in_single = 0, in_double = 0;
-
-// 	while (*start && (!isspace(*start) || in_single || in_double))
-// 	{
-// 		if (*start == '\'' && !in_double)
-// 			in_single = !in_single; // Alterna estado de aspas simples
-// 		else if (*start == '"' && !in_single)
-// 			in_double = !in_double; // Alterna estado de aspas duplas
-// 		else
-// 			*output_ptr++ = *start; // Copia caractere para o token
-// 		start++;
-// 	}
-// 	*output_ptr = '\0';			 // Finaliza a string do token
-// 	*input = skip_spaces(start); // Atualiza o ponteiro de entrada
-// 	return (output);
-// }
