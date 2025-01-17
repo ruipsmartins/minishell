@@ -6,7 +6,7 @@
 /*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 15:14:53 by ruidos-s          #+#    #+#             */
-/*   Updated: 2025/01/04 11:58:10 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2025/01/17 13:11:45 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,15 +41,28 @@ void	print_exported_vars(t_envvar *env_var_lst)
 	}
 }
 
-int	is_valid_identifier(const char *arg, t_data *data)
+int	is_valid_identifier(char *arg, t_data *data)
 {
+	int	i;
+
 	if (ft_isdigit(arg[0]) || !ft_isalpha(arg[0]))
 	{
-		ft_printf("export: `%s': not a valid identifier\n", arg);
-		data->return_value = 1;
-		return (0);
+		ft_putstr_fd(arg, STDERR_FILENO);
+		ft_putstr_fd(": not a valid identifier\n", STDERR_FILENO);
+		return (data->return_value = 1);
 	}
-	return (1);
+	i = 1;
+	while (arg[i] && arg[i] != '=')
+	{
+		if (!ft_isalnum(arg[i]))
+		{
+			ft_putstr_fd(arg, STDERR_FILENO);
+			ft_putstr_fd(": not a valid identifier\n", STDERR_FILENO);
+			return (data->return_value = 1);
+		}
+		i++;
+	}
+	return (0);
 }
 
 void	update_or_create_env_variable(char *name, char *value, t_data *data)
@@ -113,7 +126,7 @@ void	export_command(t_command *cmd, t_data *data)
 	i = 1;
 	while (cmd->args[i])
 	{
-		if (!is_valid_identifier(cmd->args[i], data))
+		if (is_valid_identifier(cmd->args[i], data))
 		{
 			i++;
 			continue ;

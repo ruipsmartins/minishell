@@ -1,2 +1,4 @@
 *.o
 *.a
+minishell_tester
+minishell
