@@ -6,7 +6,7 @@
 /*   By: duamarqu <duamarqu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 16:11:43 by addicted          #+#    #+#             */
-/*   Updated: 2025/01/17 18:12:40 by duamarqu         ###   ########.fr       */
+/*   Updated: 2025/01/17 18:18:46 by duamarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,13 @@ int	check_token_error(char *str, char c, int i)
 	{
 		if (check_if_token(str[i]) && !in_quotes_check(str, i))
 		{
-			return (ft_printf("1 Syntax error near `%c'\n", str[i]));
+			return (ft_printf("Syntax error near `%c'\n", str[i]));
 		}
 		if (str[i + 1] == '\0')
-			return (ft_printf("2 Syntax error near `%c'\n", c));
+			return (ft_printf("Syntax error near `%c'\n", c));
 	}
 	if (str[i + 1] == '|' && !in_quotes_check(str, i))
-		return (ft_printf("3 Syntax error near `%c'\n", str[i + 1]));
+		return (ft_printf("Syntax error near `%c'\n", str[i + 1]));
 	return (0);
 }
 
