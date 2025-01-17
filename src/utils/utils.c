@@ -6,7 +6,7 @@
 /*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 16:59:41 by ruidos-s          #+#    #+#             */
-/*   Updated: 2024/12/28 16:19:11 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2025/01/17 13:30:16 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,13 +46,13 @@ void	print_command_error(t_data *data, char *command, int error_type)
 	if (error_type == 127)
 	{
 		write(STDERR_FILENO, command, ft_strlen(command));
-		write(STDERR_FILENO, ": Command not found\n", 20);
+		write(STDERR_FILENO, ": command not found\n", 20);
 		data->return_value = 127;
 	}
 	else if (error_type == 1)
 	{
 		write(STDERR_FILENO, command, ft_strlen(command));
-		write(STDERR_FILENO, ": No such file or directory\n", 29);
+		write(STDERR_FILENO, ": no such file or directory\n", 29);
 		data->return_value = 1;
 	}
 	else if (error_type == 126)
