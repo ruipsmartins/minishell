@@ -6,7 +6,7 @@
 /*   By: duamarqu <duamarqu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/12 10:50:11 by addicted          #+#    #+#             */
-/*   Updated: 2025/01/18 18:40:24 by duamarqu         ###   ########.fr       */
+/*   Updated: 2025/01/18 20:38:17 by duamarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,23 +69,20 @@ t_command **cmd_list, int *arg_count)
 		return (NULL);
 }
 
-void add_prev(t_command **cmd_list)
+void	add_prev(t_command **cmd_list)
 {
-    t_command *current;
+	t_command	*current;
 
-    if (!cmd_list || !(*cmd_list)) // Ensure cmd_list and its content are valid
-        return;
-
-    current = *cmd_list;
-    current->prev = NULL; // Head's prev should be NULL
-
-    while (current->next)
-    {
-        current->next->prev = current; // Set the prev pointer for the next node
-        current = current->next;      // Move to the next node
-    }
+	if (!cmd_list || !(*cmd_list)) // Ensure cmd_list and its content are valid
+		return ;
+	current = *cmd_list;
+	current->prev = NULL; // Head's prev should be NULL
+	while (current->next)
+	{
+		current->next->prev = current; // Set the prev pointer for the next node
+		current = current->next;// Move to the next node
+	}
 }
-
 
 t_command	*lexer_to_command(t_lexer *lexer)
 {
@@ -107,7 +104,7 @@ t_command	*lexer_to_command(t_lexer *lexer)
 		}
 		current = handle_token(current, &current_cmd, &cmd_list, &arg_count);
 	}
-		if (cmd_list)
+	if (cmd_list)
 		add_prev(&cmd_list);
 	return (cmd_list);
 }

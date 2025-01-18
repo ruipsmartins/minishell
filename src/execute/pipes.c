@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipes.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: duamarqu <duamarqu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 11:05:58 by ruidos-s          #+#    #+#             */
-/*   Updated: 2025/01/18 19:03:51 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2025/01/18 20:36:55 by duamarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,40 +16,40 @@
 // Função para executar o comando no processo filho.
 void	execute_child_process(int i, int **fds, t_command *cmd, t_data *data)
 {
-   // Redirecionar STDIN
-    if (i > 0 && !cmd->heredoc && !cmd->prev->heredoc)
-    {
-        if (dup2(fds[i - 1][0], STDIN_FILENO) == -1)
-        {
-            perror("dup2 stdin");
-            exit(1);
-        }
-    }
-    else if (i > 0 && cmd->prev->heredoc)
-    {
-        int heredoc_fd = open(".heredoc", O_RDONLY);
-        if (heredoc_fd == -1)
-        {
-            perror("open .heredoc");
-            exit(1);
-        }
-        if (dup2(heredoc_fd, STDIN_FILENO) == -1)
-        {
-            perror("dup2 heredoc");
-            close(heredoc_fd);
-            exit(1);
-        }
-        close(heredoc_fd);
-    }
-    // Redirecionar STDOUT se houver um próximo comando
-    if (cmd->next != NULL)
-    {
-        if (dup2(fds[i][1], STDOUT_FILENO) == -1)
-        {
-            perror("dup2 stdout");
-            exit(1);
-        }
-    }
+// Redirecionar STDIN
+	if (i > 0 && !cmd->heredoc && !cmd->prev->heredoc)
+	{
+		if (dup2(fds[i - 1][0], STDIN_FILENO) == -1)
+		{
+			perror("dup2 stdin");
+			exit(1);
+		}
+	}
+	else if (i > 0 && cmd->prev->heredoc)
+	{
+		int heredoc_fd = open(".heredoc", O_RDONLY);   //nao pode estar na msm linha
+		if (heredoc_fd == -1)
+		{
+			perror("open .heredoc");
+			exit(1);
+		}
+		if (dup2(heredoc_fd, STDIN_FILENO) == -1)
+		{
+			perror("dup2 heredoc");
+			close(heredoc_fd);
+			exit(1);
+		}
+		close(heredoc_fd);
+	}
+	// Redirecionar STDOUT se houver um próximo comando
+	if (cmd->next != NULL)
+	{
+		if (dup2(fds[i][1], STDOUT_FILENO) == -1)
+		{
+			perror("dup2 stdout");
+			exit(1);
+		}
+	}
 	close_all_pipes(fds, data->cmd_count - 1);
 	if (handle_redirects(cmd, data) == -1)
 		exit(data->return_value);
@@ -73,7 +73,7 @@ void	execute_child_process(int i, int **fds, t_command *cmd, t_data *data)
 void	init_pipes_and_pids(t_data *data, int cmd_count)
 {
 	int	i;
-	
+
 	data->fds = malloc(sizeof(int *) * (cmd_count - 1));
 	data->pids = malloc(sizeof(pid_t) * cmd_count);
 	i = 0;

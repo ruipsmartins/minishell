@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: duamarqu <duamarqu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 08:59:57 by ruidos-s          #+#    #+#             */
-/*   Updated: 2025/01/18 19:55:21 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2025/01/18 20:31:29 by duamarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,11 +55,8 @@ void	execute_command_or_path(t_command *cmd, t_data *data)
 {
 	int	file_check;
 
-	if(cmd->heredoc)
-	{
+	if (cmd->heredoc)
 		dup2(open(".heredoc", O_RDONLY), STDIN_FILENO);
-	}
-
 	if (cmd->args[0][0] == '/' || cmd->args[0][0] == '.')
 	{
 		file_check = check_file_type(cmd->args[0]);
@@ -80,25 +77,24 @@ void	execute_command_or_path(t_command *cmd, t_data *data)
 	}
 }
 
-void execute_all_heredocs(t_command *cmd, t_data *data)
+void	execute_all_heredocs(t_command *cmd, t_data *data)
 {
-    t_command *current;
+	t_command	*current;
 
-    current = cmd;
-    while (current)
-    {
-        if (current->heredoc) 
-        {
-            if (execute_heredoc(current) == -1) // Executa o heredoc e verifica erros
-            {
-                data->return_value = 1; // Define o código de retorno em caso de erro
-                return;
-            }
-        }
-        current = current->next; // Avança para o próximo comando na lista
-    }
+	current = cmd;
+	while (current)
+	{
+		if (current->heredoc)
+		{
+			if (execute_heredoc(current) == -1) // Executa o heredoc e verifica erros
+			{
+				data->return_value = 1; // Define o código de retorno em caso de erro
+				return;
+			}
+		}
+		current = current->next; // Avança para o próximo comando na lista
+	}
 }
-
 
 void	execute(t_command *cmd, t_data *data)
 {

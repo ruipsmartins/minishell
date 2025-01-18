@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: duamarqu <duamarqu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 14:01:43 by ruidos-s          #+#    #+#             */
-/*   Updated: 2025/01/18 20:00:57 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2025/01/18 20:33:59 by duamarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,23 +62,23 @@ static int	read_lines_and_write(int write_fd, t_heredoc *tmp)
 	return (0);
 }
 
-int execute_heredoc(t_command *cmd)
+int	execute_heredoc(t_command *cmd)
 {
-    int         heredoc_fd;
-    t_heredoc   *tmp;
+	int			heredoc_fd;
+	t_heredoc	*tmp;
 
-    tmp = cmd->heredoc;
-    heredoc_fd = open(".heredoc", O_WRONLY | O_CREAT | O_TRUNC, 0644);
-    if (heredoc_fd == -1)
-    {
-        perror("open .heredoc");
-        return (-1);
-    }
-    if (read_lines_and_write(heredoc_fd, tmp) == -1)
-    {
-        close(heredoc_fd);
-        return (-1);
-    }
-    close(heredoc_fd);
-    return (0);
+	tmp = cmd->heredoc;
+	heredoc_fd = open(".heredoc", O_WRONLY | O_CREAT | O_TRUNC, 0644);
+	if (heredoc_fd == -1)
+	{
+		perror("open .heredoc");
+		return (-1);
+	}
+	if (read_lines_and_write(heredoc_fd, tmp) == -1)
+	{
+		close(heredoc_fd);
+		return (-1);
+	}
+	close(heredoc_fd);
+	return (0);
 }

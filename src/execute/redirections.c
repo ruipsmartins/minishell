@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirections.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: duamarqu <duamarqu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 14:11:52 by ruidos-s          #+#    #+#             */
-/*   Updated: 2025/01/18 19:50:52 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2025/01/18 20:36:36 by duamarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,6 @@ int	handle_redirects(t_command *cmd, t_data *data)
 	int	ret;
 
 	ret = 0;
-
 	if (handle_input_redirect(cmd, &data->original_stdin) == -1)
 	{
 		cleanup_child_data(data);
