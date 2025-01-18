@@ -6,7 +6,7 @@
 /*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 15:14:53 by ruidos-s          #+#    #+#             */
-/*   Updated: 2025/01/17 13:11:45 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2025/01/18 12:41:33 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,15 +21,14 @@ void	print_exported_vars(t_envvar *env_var_lst)
 	current = env_var_lst;
 	while (current != NULL)
 	{
-		if (current->value)
+		if(current->name[0] == '_')
+			i = 0;
+		else if (current->value)
 		{
 			ft_printf("declare -x %s=\"", current->name);
 			i = 0;
 			while (current->value[i])
 			{
-				if (current->value[i] == '\\' || current->value[i] == '\"'
-					|| current->value[i] == '$')
-					ft_printf("\\");
 				ft_printf("%c", current->value[i]);
 				i++;
 			}

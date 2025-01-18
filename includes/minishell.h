@@ -6,7 +6,7 @@
 /*   By: duamarqu <duamarqu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 17:34:50 by ruidos-s          #+#    #+#             */
-/*   Updated: 2025/01/18 12:26:25 by duamarqu         ###   ########.fr       */
+/*   Updated: 2025/01/18 14:25:27 by duamarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,6 +126,8 @@ int						check_quote(const char *input);
 char					*split_string(char **input, t_quotes *quotes);
 
 // env_var
+void					update_or_create_env_variable(char *name,
+							char *value, t_data *data);
 void					set_envvar(t_envvar *envvar_list, char *name,
 							char *value);
 char					*find_envvar_value(t_envvar *env_var_lst,
