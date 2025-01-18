@@ -6,7 +6,7 @@
 /*   By: duamarqu <duamarqu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/12 10:50:11 by addicted          #+#    #+#             */
-/*   Updated: 2025/01/18 20:38:17 by duamarqu         ###   ########.fr       */
+/*   Updated: 2025/01/18 20:41:01 by duamarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,14 +73,14 @@ void	add_prev(t_command **cmd_list)
 {
 	t_command	*current;
 
-	if (!cmd_list || !(*cmd_list)) // Ensure cmd_list and its content are valid
+	if (!cmd_list || !(*cmd_list))
 		return ;
 	current = *cmd_list;
-	current->prev = NULL; // Head's prev should be NULL
+	current->prev = NULL;
 	while (current->next)
 	{
-		current->next->prev = current; // Set the prev pointer for the next node
-		current = current->next;// Move to the next node
+		current->next->prev = current;
+		current = current->next;
 	}
 }
 
