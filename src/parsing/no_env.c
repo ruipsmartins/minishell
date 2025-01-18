@@ -6,7 +6,7 @@
 /*   By: duamarqu <duamarqu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/18 11:45:26 by duamarqu          #+#    #+#             */
-/*   Updated: 2025/01/18 14:29:17 by duamarqu         ###   ########.fr       */
+/*   Updated: 2025/01/18 14:42:03 by duamarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,6 @@ void	set_shlvl(t_envvar *head)
 		set_envvar(head, "SHLVL", "1");
 	}
 	else
-		set_envvar(head, "SHLVL", ft_itoa(ft_atoi(shlvl->value) + 1));
+		set_envvar(head, "SHLVL",new_value);
 	free(new_value);
 }
