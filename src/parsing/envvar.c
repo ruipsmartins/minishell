@@ -6,7 +6,7 @@
 /*   By: duamarqu <duamarqu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/19 12:05:41 by addicted          #+#    #+#             */
-/*   Updated: 2025/01/17 11:34:07 by duamarqu         ###   ########.fr       */
+/*   Updated: 2025/01/18 13:37:07 by duamarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ t_envvar	*ft_create_env_list(char **env)
 	if (*(env) == NULL )
 	{
 		head = no_env(head);
-		write(1, "help no env\n", 13);
+		printf("no env\n");
 		return (head);
 	}
 	current = env;
@@ -90,5 +90,7 @@ t_envvar	*ft_create_env_list(char **env)
 		ft_envadd_back(&head, new_node);
 		current++;
 	}
+	set_shlvl(head);
+	
 	return (head);
 }
