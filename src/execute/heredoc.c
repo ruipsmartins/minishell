@@ -6,23 +6,11 @@
 /*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 14:01:43 by ruidos-s          #+#    #+#             */
-/*   Updated: 2025/01/18 11:46:31 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2025/01/18 20:00:57 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
-static int	handle_signal_and_pipe(int pipe_fd[2])
-{
-	signal(SIGINT, handle_here_doc_exit);
-	signal(SIGQUIT, SIG_IGN);
-	if (pipe(pipe_fd) == -1)
-	{
-		perror("pipe");
-		return (-1);
-	}
-	return (0);
-}
 
 static int	write_line_to_fd(char *line, int write_fd)
 {
@@ -74,19 +62,23 @@ static int	read_lines_and_write(int write_fd, t_heredoc *tmp)
 	return (0);
 }
 
-int	execute_heredoc(t_command *cmd)
+int execute_heredoc(t_command *cmd)
 {
-	int			pipe_fd[2];
-	t_heredoc	*tmp;
+    int         heredoc_fd;
+    t_heredoc   *tmp;
 
-	tmp = cmd->heredoc;
-	if (handle_signal_and_pipe(pipe_fd) == -1)
-		return (-1);
-	if (read_lines_and_write(pipe_fd[1], tmp) == -1)
-	{
-		close(pipe_fd[0]);
-		return (-1);
-	}
-	close(pipe_fd[1]);
-	return (pipe_fd[0]);
+    tmp = cmd->heredoc;
+    heredoc_fd = open(".heredoc", O_WRONLY | O_CREAT | O_TRUNC, 0644);
+    if (heredoc_fd == -1)
+    {
+        perror("open .heredoc");
+        return (-1);
+    }
+    if (read_lines_and_write(heredoc_fd, tmp) == -1)
+    {
+        close(heredoc_fd);
+        return (-1);
+    }
+    close(heredoc_fd);
+    return (0);
 }

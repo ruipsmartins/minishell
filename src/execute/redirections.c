@@ -6,7 +6,7 @@
 /*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 14:11:52 by ruidos-s          #+#    #+#             */
-/*   Updated: 2025/01/16 13:31:41 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2025/01/18 19:50:52 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int	handle_input_redirect(t_command *cmd, int *original_stdin)
 	t_input	*input;
 
 	if (cmd->heredoc && cmd->heredoc->heredoc == true)
-		return (process_heredoc(cmd, original_stdin));
+		return (0);
 	input = cmd->input;
 	while (input && input->file_name)
 	{
@@ -111,6 +111,7 @@ int	handle_redirects(t_command *cmd, t_data *data)
 	int	ret;
 
 	ret = 0;
+
 	if (handle_input_redirect(cmd, &data->original_stdin) == -1)
 	{
 		cleanup_child_data(data);
