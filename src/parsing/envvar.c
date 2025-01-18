@@ -6,7 +6,7 @@
 /*   By: duamarqu <duamarqu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/19 12:05:41 by addicted          #+#    #+#             */
-/*   Updated: 2025/01/18 13:37:07 by duamarqu         ###   ########.fr       */
+/*   Updated: 2025/01/18 14:29:32 by duamarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,5 @@ t_envvar	*ft_create_env_list(char **env)
 		current++;
 	}
 	set_shlvl(head);
-	
 	return (head);
 }

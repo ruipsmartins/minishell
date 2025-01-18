@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export_command.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: duamarqu <duamarqu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 15:14:53 by ruidos-s          #+#    #+#             */
-/*   Updated: 2025/01/18 12:41:33 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2025/01/18 14:28:28 by duamarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	print_exported_vars(t_envvar *env_var_lst)
 	current = env_var_lst;
 	while (current != NULL)
 	{
-		if(current->name[0] == '_')
+		if (current->name[0] == '_')
 			i = 0;
 		else if (current->value)
 		{
