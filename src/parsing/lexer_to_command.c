@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_to_command.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: duamarqu <duamarqu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/12 10:50:11 by addicted          #+#    #+#             */
-/*   Updated: 2025/01/18 11:03:25 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2025/01/18 16:39:49 by duamarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,20 @@ t_command **cmd_list, int *arg_count)
 		return (NULL);
 }
 
+void	add_prev(t_command **cmd_list)
+{
+	t_command	*prev;
+
+	prev = *cmd_list;
+	prev->prev = NULL;
+	while (prev->next)
+	{
+		prev->next->prev = prev;
+		prev = prev->next;
+	}
+	(*cmd_list)->prev = prev;
+}
+
 t_command	*lexer_to_command(t_lexer *lexer)
 {
 	t_command	*cmd_list;
@@ -89,5 +103,7 @@ t_command	*lexer_to_command(t_lexer *lexer)
 		}
 		current = handle_token(current, &current_cmd, &cmd_list, &arg_count);
 	}
+	if (cmd_list)
+		add_prev(&cmd_list);
 	return (cmd_list);
 }
