@@ -6,7 +6,7 @@
 /*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/02 11:47:59 by addicted          #+#    #+#             */
-/*   Updated: 2025/01/17 23:15:13 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2025/01/18 11:01:15 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ char	*replace_envvar(const char *input, t_data *data)
 	len = calculate_final_len(input, data);
 	if (len == 0)
 	{
-		ft_printf("Error calculating final length\n"); //ver se é para dar return
+		print_error("Error calculating final length\n", data, 2);
 		return (NULL);
 	}
 	result = allocate_result(len);

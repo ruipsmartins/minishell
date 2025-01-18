@@ -6,7 +6,7 @@
 /*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 14:01:43 by ruidos-s          #+#    #+#             */
-/*   Updated: 2025/01/16 13:31:26 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2025/01/18 11:46:31 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,18 +45,18 @@ static int	check_g_var(int write_fd)
 	return (0);
 }
 
-static int	read_lines_and_write(t_command *cmd, int write_fd)
+static int	read_lines_and_write(int write_fd, t_heredoc *tmp)
 {
 	char		*line;
-	t_heredoc	*tmp;
 
-	tmp = cmd->heredoc;
 	while (1)
 	{
 		line = readline("> ");
 		if (!line || ft_strncmp(line, tmp->delimiter,
 				ft_strlen(tmp->delimiter) + 1) == 0)
 		{
+			if (!line)
+				print_error(HD_PRINT, NULL, 0);
 			free(line);
 			if (tmp->next)
 			{
@@ -76,11 +76,13 @@ static int	read_lines_and_write(t_command *cmd, int write_fd)
 
 int	execute_heredoc(t_command *cmd)
 {
-	int	pipe_fd[2];
+	int			pipe_fd[2];
+	t_heredoc	*tmp;
 
+	tmp = cmd->heredoc;
 	if (handle_signal_and_pipe(pipe_fd) == -1)
 		return (-1);
-	if (read_lines_and_write(cmd, pipe_fd[1]) == -1)
+	if (read_lines_and_write(pipe_fd[1], tmp) == -1)
 	{
 		close(pipe_fd[0]);
 		return (-1);

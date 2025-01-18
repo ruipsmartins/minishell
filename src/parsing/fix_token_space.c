@@ -6,7 +6,7 @@
 /*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 16:11:43 by addicted          #+#    #+#             */
-/*   Updated: 2025/01/17 23:14:34 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2025/01/18 11:15:09 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,23 @@ int	check_token_error(char *str, char c, int i)
 	{
 		if (check_if_token(str[i]) && !in_quotes_check(str, i))
 		{
-			return (ft_printf("Syntax error near `%c'\n", str[i]));
+			ft_putstr_fd("Syntax error near ", 2);
+			ft_putchar_fd(str[i], 2);
+			return (write(2, "\n", 1));
 		}
 		if (str[i + 1] == '\0')
-			return (ft_printf("Syntax error near `%c'\n", c)); //ver aqui melhor maneira
+		{
+			ft_putstr_fd("Syntax error near ", 2);
+			ft_putchar_fd(c, 2);
+			return (write(2, "\n", 1));
+		}
 	}
 	if (str[i + 1] == '|' && !in_quotes_check(str, i))
-		return (ft_printf("Syntax error near `%c'\n", str[i + 1]));
+	{
+		ft_putstr_fd("Syntax error near ", 2);
+		ft_putchar_fd(str[i + 1], 2);
+		return (write(2, "\n", 1));
+	}
 	return (0);
 }
 

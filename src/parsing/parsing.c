@@ -6,7 +6,7 @@
 /*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 08:59:52 by ruidos-s          #+#    #+#             */
-/*   Updated: 2025/01/17 23:15:01 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2025/01/18 11:19:15 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,36 +44,6 @@ int	is_token(const char *str)// Define o que sao tokens
 	}
 	return (0);
 }
-
-int	set_new_envvar(char *input, t_data *data)
-{
-	char	*name;
-	char	*value;
-	int		i;
-
-	i = 0;
-	while (input[i] != '\0')
-	{
-		i++;
-		if (input[i] == '=')
-		{
-			if (!isalnum(input[i + 1]) || !isalnum(input[i - 1]))
-			{
-				printf("Invalid variable name\n"); //ver se é apra dar return
-				return (0);
-			}
-			else
-			{
-				name = get_env_name(input);
-				value = get_env_value(input);
-			}
-		}
-	}
-	if (name && value)
-		set_envvar(data->env_var_lst, name, value);
-	return (1);
-}
-//returns duvidosos
 
 void	handle_input(char *input, t_data *data)
 {

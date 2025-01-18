@@ -6,12 +6,14 @@
 /*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 17:34:50 by ruidos-s          #+#    #+#             */
-/*   Updated: 2025/01/17 22:57:59 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2025/01/18 11:45:04 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
+
+# define HD_PRINT "Minishell: warning: here-document delimited by end-of-file\n"
 
 # include "../libft/libft.h"
 # include <errno.h>

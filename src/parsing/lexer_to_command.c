@@ -6,7 +6,7 @@
 /*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/12 10:50:11 by addicted          #+#    #+#             */
-/*   Updated: 2025/01/17 23:14:51 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2025/01/18 11:03:25 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int	is_null_token(t_lexer *current)
 {
 	if (current->word == NULL && current->token == NULL)
 	{
-		printf("Error: Both word and token are NULL\n"); //ver aqui se é apra dar return
+		ft_putstr_fd("Error: null token\n", 2);
 		return (1);
 	}
 	return (0);
