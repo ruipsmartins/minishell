@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: duamarqu <duamarqu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 08:59:57 by ruidos-s          #+#    #+#             */
-/*   Updated: 2025/01/19 11:27:34 by ruidos-s         ###   ########.fr       */
+/*   Updated: 2025/01/19 11:33:28 by duamarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,13 +87,13 @@ void	execute_all_heredocs(t_command *cmd, t_data *data)
 	{
 		if (current->heredoc)
 		{
-			if (execute_heredoc(current) == -1) // Executa o heredoc e verifica erros
+			if (execute_heredoc(current) == -1)
 			{
-				data->return_value = 1; // Define o código de retorno em caso de erro
-				return;
+				data->return_value = 1;
+				return ;
 			}
 		}
-		current = current->next; // Avança para o próximo comando na lista
+		current = current->next;
 	}
 }
 
