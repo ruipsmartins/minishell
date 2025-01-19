@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: duamarqu <duamarqu@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ruidos-s <ruidos-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 08:59:57 by ruidos-s          #+#    #+#             */
-/*   Updated: 2025/01/18 20:31:29 by duamarqu         ###   ########.fr       */
+/*   Updated: 2025/01/19 11:27:34 by ruidos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ char	*find_executable(const char *command, t_data *data)
 // Função para executar o comando
 int	execute_command(char *executable, char **args, t_data *data)
 {
+	unlink(".heredoc");
 	if (execve(executable, args, data->env) == -1)
 	{
 		perror("execve");
